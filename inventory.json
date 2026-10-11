@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "repository": "bryanhon98/dev-workspace",
+  "default_skill_scope": "user",
+  "provenance": "Historical component list from Install GitHub plugins chat; not a live machine inventory. Payloads and reports remain to be imported.",
+  "components": [
+    {
+      "name": "ian-xiaohei-illustrations",
+      "kind": "skill",
+      "source": "https://github.com/helloianneo/ian-xiaohei-illustrations",
+      "version": "4102eb807f03bcb6e538a16e8b31b41db8b5b954",
+      "scope": "user",
+      "audit_status": "pending-import",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "note": "Earlier Mac chat recorded an approved PNG scan exception. Import exact files, hashes and approval evidence before restoration; this is not a clean scan pass."
+    },
+    {
+      "name": "superpowers",
+      "kind": "plugin",
+      "source": "https://github.com/obra/superpowers",
+      "version": "6.4.2",
+      "scope": "user",
+      "audit_status": "pending-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "note": "Version recorded in earlier Mac chat; present device state and exact source mapping require verification."
+    },
+    {
+      "name": "skillspector",
+      "kind": "tool",
+      "source": "https://github.com/NVIDIA/skillspector",
+      "version": "5edc347c320bd516f8ff38df200a63831bf92e80",
+      "scope": "user",
+      "audit_status": "pending-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "note": "Scanner source revision recorded in earlier Mac chat; review bootstrap and dependencies before installing on another device."
+    },
+    {
+      "name": "claude-mem",
+      "kind": "plugin",
+      "source": "https://github.com/thedotmack/claude-mem",
+      "version": "fa8ab09f06aa05f958c5225cf3756ce52a3ebb96",
+      "scope": "user",
+      "audit_status": "blocked-not-installed",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "note": "Earlier Mac chat recorded this as blocked; inventory inclusion does not authorize bypassing the blocker."
+    },
+    {
+      "name": "github",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "designly",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "ai-graphic-design",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "build-3d-game-rooms",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "vercel",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "work-pets",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    },
+    {
+      "name": "vidiq",
+      "kind": "plugin",
+      "source": "Codex curated marketplace",
+      "version": null,
+      "scope": "user-or-account-where-supported",
+      "audit_status": "review-or-reconnect-required",
+      "restorable": false,
+      "restore_method": "supported-marketplace-and-account-login",
+      "note": "Previously listed on the Mac; verify exact version, inspection coverage and availability on the target device. No marketplace cache is backed up."
+    }
+  ]
+}

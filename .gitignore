@@ -8,3 +8,8 @@
 .vscode/
 target/
 build/
+__pycache__/
+*.pyc
+.local/
+.staging/
+*.bak

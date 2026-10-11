@@ -1,20 +1,9 @@
-# Codex Instructions
+# Maintain the personal Codex setup
 
-Read PROFILE.md and preferences/*.md when relevant.
+This repo exists only to sync and restore personal instructions, skills, plugins and MCP setup across devices. Read global/AGENTS.md and follow its installation, skill-authoring and GitHub logging rules. It is the canonical self-contained global policy; do not duplicate it in other documents.
 
-- Inspect project conventions before making changes.
-- Challenge proposed designs: identify the three biggest risks and practical improvements.
-- Explain pros, cons and trade-offs; do not automatically agree.
-- Favor maintainable Java code, simple architecture, and focused changes.
-- Evaluate concurrency, transaction boundaries, failures, idempotency, performance and security.
-- Run available tests; never claim tests passed without executing them.
-- Never commit secrets, production data, employer source code or internal documentation.
+For "set up this laptop", follow setup/SETUP.md. For creating or updating a skill, use the creator workflow in global/AGENTS.md and the official sources in setup/SKILL-CREATION.md. Skills are user-global unless the user explicitly asks otherwise.
 
-These instructions apply when Codex loads this file, not automatically to other repositories.
+After verified setup changes, publish sanitized changes to bryanhon98/dev-workspace under the user's standing authorization. Preserve other devices' work and report any unsynced changes. Do not commit secrets, company data, personal profiles, unrelated coding preferences or application projects.
 
-## Personal setup maintenance
-
-Canonical backup: https://github.com/bryanhon98/dev-workspace.
-Read setup/POLICY.md before adding or changing personal instructions, rules, skills, plugins, tools or MCP configuration. After a verified change made through Codex, update the sanitized backup and relevant inventory and device installation record, and publish through authenticated Git or the GitHub connector. This standing user instruction authorizes routine backup updates; do not ask for permission again for each update. Preserve unrelated changes, inspect the current remote head, and never force-push over another device's work. If publication fails, retain the local change and report that it is not synced.
-
-These instructions become device-wide only when installed in that device's effective Codex user AGENTS.md. A repository file alone does not configure other chats or detect manual changes.
+When changing setup tooling, run python3 -m unittest discover -s tests -v and git diff --check. Keep documentation honest about implemented features and missing restore payloads. Never label inventory-only entries as installed, audited or restorable.
