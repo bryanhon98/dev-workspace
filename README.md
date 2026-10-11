@@ -7,7 +7,7 @@ Open this repo in Codex on the laptop you want to configure and say:
 Codex should:
 1. Show the saved skills, plugins and MCPs, including what needs review, login or manual setup.
 2. Ask which skills you want: choose names, all eligible skills, or none. Wait for your choice.
-3. Restore your global setup rules only (leave communication preferences out), then install/verify SkillSpector first and use it to inspect your chosen skills before installing them globally. "All" never skips a blocked scan.
+3. Restore your global setup rules, then install/verify SkillSpector first and use it to inspect your chosen skills before installing them globally. "All" never skips a blocked scan.
 4. Give you plugin/MCP links and login instructions for manual setup.
 5. Verify successful installs and save their records to this GitHub repo.
 
@@ -15,7 +15,6 @@ Codex should:
 
 - inventory.json — the component catalog, GitHub source links, prerequisites and restore status.
 - global/AGENTS.md — setup, SkillSpector, skill-creation and GitHub-sync rules.
-- global/COMMUNICATION.md — saved communication preferences; inactive and excluded from installation.
 
 AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement and test global instruction setup. Skill files, inspection receipts, MCP templates and device logs get their own folders when real content is added.
 

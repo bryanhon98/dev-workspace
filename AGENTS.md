@@ -1,6 +1,6 @@
 # Maintain this personal Codex setup
 
-Read global/AGENTS.md for setup/inspection/sync rules; leave global/COMMUNICATION.md inactive unless the user explicitly asks to apply it. Keep this repo focused on syncing those instructions, skills, plugins and MCP setup.
+Read global/AGENTS.md for setup/inspection/sync rules. Keep this repo focused on syncing those instructions, skills, plugins and MCP setup.
 
 On "setup my Codex using this repo", follow the short flow in README.md: list the catalog first, ask which skills or all eligible skills, then install only the chosen skills after inspection. Plugins/MCPs are a manual setup checklist. Use scripts/setup.py to display the catalog; --install-rules explicitly restores global/AGENTS.md only into Codex's user instructions. No arguments must not modify the device.
 
