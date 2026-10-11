@@ -104,8 +104,9 @@ def saved_rules():
 def show_catalog():
     catalog = json.loads((ROOT / 'inventory.json').read_text(encoding='utf-8'))
     components = catalog['components']
-    for title, kind in [('Skills', 'skill'), ('Manual setup: plugins', 'plugin'),
-                        ('Manual setup: MCPs', 'mcp'), ('Prerequisite tools', 'tool')]:
+    for title, kind in [('Prerequisite tools — required before skill installation', 'tool'),
+                        ('Skills', 'skill'), ('Manual setup: plugins', 'plugin'),
+                        ('Manual setup: MCPs', 'mcp')]:
         print('\n' + title)
         items = [item for item in components if item['kind'] == kind]
         if not items:

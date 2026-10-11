@@ -15,7 +15,11 @@
       "restore_method": "agent-reviewed-source",
       "note": "Earlier Mac chat recorded an approved PNG scan exception. Import exact files, hashes and approval evidence before restoration; this is not a clean scan pass.",
       "purpose": "Illustration workflow",
-      "setup_requirements": "Resolve prerequisites and review source before activation; do not assume no credentials are needed."
+      "setup_requirements": "Resolve prerequisites and review source before activation; do not assume no credentials are needed.",
+      "github_url": "https://github.com/helloianneo/ian-xiaohei-illustrations",
+      "required_tools": [
+        "skillspector"
+      ]
     },
     {
       "name": "superpowers",
@@ -28,7 +32,8 @@
       "restore_method": "agent-reviewed-source",
       "note": "Version recorded in earlier Mac chat; present device state and exact source mapping require verification.",
       "purpose": "Coding and development workflows",
-      "setup_requirements": "Manual setup; check client support and any account login."
+      "setup_requirements": "Manual setup; check client support and any account login.",
+      "github_url": "https://github.com/obra/superpowers"
     },
     {
       "name": "skillspector",
@@ -40,8 +45,9 @@
       "restorable": false,
       "restore_method": "agent-reviewed-source",
       "note": "Scanner source revision recorded in earlier Mac chat; review bootstrap and dependencies before installing on another device.",
-      "purpose": "Required skill inspection tool",
-      "setup_requirements": "Resolve prerequisites and review source before activation; do not assume no credentials are needed."
+      "purpose": "Must be installed and verified before any skill installation",
+      "setup_requirements": "If missing, review pinned source/bootstrap and dependencies, install the scanner first, and verify its version and a local static scan before proceeding with skills.",
+      "github_url": "https://github.com/NVIDIA/skillspector"
     },
     {
       "name": "claude-mem",
@@ -54,7 +60,8 @@
       "restore_method": "agent-reviewed-source",
       "note": "Earlier Mac chat recorded this as blocked; inventory inclusion does not authorize bypassing the blocker.",
       "purpose": "Memory plugin (previously blocked)",
-      "setup_requirements": "Manual setup; check client support and any account login."
+      "setup_requirements": "Manual setup; check client support and any account login.",
+      "github_url": "https://github.com/thedotmack/claude-mem"
     },
     {
       "name": "github",
@@ -158,7 +165,11 @@
       "restore_method": "agent-reviewed-source",
       "purpose": "Create, test and improve custom skills",
       "setup_requirements": "Review/pin source and scan first; Claude-specific evaluation tools may need adaptation/authentication.",
-      "note": "Requested in this chat; not installed on the laptop or in this cloud environment."
+      "note": "Requested in this chat; not installed on the laptop or in this cloud environment.",
+      "github_url": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+      "required_tools": [
+        "skillspector"
+      ]
     }
   ]
 }
