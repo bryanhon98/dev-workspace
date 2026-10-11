@@ -7,7 +7,7 @@ Open this repo in Codex on the laptop you want to configure and say:
 Codex should:
 1. Show the saved skills, plugins and MCPs, including what needs review, login or manual setup.
 2. Ask which skills you want: choose names, all eligible skills, or none. Wait for your choice.
-3. Restore your global setup rules and communication preferences, then install/verify SkillSpector first and use it to inspect your chosen skills before installing them globally. "All" never skips a blocked scan.
+3. Restore your global setup rules only (leave communication preferences out), then install/verify SkillSpector first and use it to inspect your chosen skills before installing them globally. "All" never skips a blocked scan.
 4. Give you plugin/MCP links and login instructions for manual setup.
 5. Verify successful installs and save their records to this GitHub repo.
 
@@ -15,7 +15,7 @@ Codex should:
 
 - inventory.json — the component catalog, GitHub source links, prerequisites and restore status.
 - global/AGENTS.md — setup, SkillSpector, skill-creation and GitHub-sync rules.
-- global/COMMUNICATION.md — your exact communication preferences.
+- global/COMMUNICATION.md — saved communication preferences; inactive and excluded from installation.
 
 AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement and test global instruction setup. Skill files, inspection receipts, MCP templates and device logs get their own folders when real content is added.
 
@@ -23,7 +23,7 @@ AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement a
 
 ```sh
 python3 scripts/setup.py                  # List choices; changes nothing
-python3 scripts/setup.py --install-rules  # Restore both global instruction files
+python3 scripts/setup.py --install-rules  # Restore setup rules only
 python3 scripts/setup.py --check          # Check the installed instructions
 ```
 
@@ -33,7 +33,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is listed as requested, awaiting inspection; Ponytail needs its exact source confirmed before adding it. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail needs its exact source confirmed before adding it. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 

@@ -97,8 +97,7 @@ def check(home, rules):
 
 
 def saved_rules():
-    return '\n\n'.join((ROOT / 'global' / name).read_text(encoding='utf-8').strip()
-                         for name in ('AGENTS.md', 'COMMUNICATION.md')) + '\n'
+    return (ROOT / 'global' / 'AGENTS.md').read_text(encoding='utf-8').strip() + '\n'
 
 
 def show_catalog():
@@ -127,7 +126,7 @@ def main():
     parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))))
     action = parser.add_mutually_exclusive_group()
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
-    action.add_argument('--install-rules', action='store_true', help='Restore setup rules and communication preferences globally')
+    action.add_argument('--install-rules', action='store_true', help='Restore setup rules globally; exclude communication preferences')
     args = parser.parse_args()
     try:
         if not args.check and not args.install_rules:

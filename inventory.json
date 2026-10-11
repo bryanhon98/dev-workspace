@@ -160,12 +160,12 @@
       "source": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
       "version": null,
       "scope": "user",
-      "audit_status": "requested-pending-review",
+      "audit_status": "deferred-by-user",
       "restorable": false,
       "restore_method": "agent-reviewed-source",
       "purpose": "Create, test and improve custom skills",
       "setup_requirements": "Review/pin source and scan first; Claude-specific evaluation tools may need adaptation/authentication.",
-      "note": "Requested in this chat; not installed on the laptop or in this cloud environment.",
+      "note": "User deferred installation; use Codex's built-in skill-creator for now. Not installed.",
       "github_url": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
       "required_tools": [
         "skillspector"
