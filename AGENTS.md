@@ -1,9 +1,7 @@
-# Maintain the personal Codex setup
+# Maintain this personal Codex setup
 
-This repo exists only to sync and restore personal instructions, skills, plugins and MCP setup across devices. Read global/AGENTS.md and follow its installation, skill-authoring and GitHub logging rules. It is the canonical self-contained global policy; do not duplicate it in other documents.
+Read global/AGENTS.md for setup/inspection/sync rules and global/COMMUNICATION.md for the user's communication preferences. Keep this repo focused on syncing those instructions, skills, plugins and MCP setup.
 
-For "set up this laptop", follow setup/SETUP.md. For creating or updating a skill, use the creator workflow in global/AGENTS.md and the official sources in setup/SKILL-CREATION.md. Skills are user-global unless the user explicitly asks otherwise.
+On "setup my Codex using this repo", follow the short flow in README.md: list the catalog first, ask which skills or all eligible skills, then install only the chosen skills after inspection. Plugins/MCPs are a manual setup checklist. Use scripts/setup.py to display the catalog; --install-rules explicitly restores both global source files into Codex's user instructions. No arguments must not modify the device.
 
-After verified setup changes, publish sanitized changes to bryanhon98/dev-workspace under the user's standing authorization. Preserve other devices' work and report any unsynced changes. Do not commit secrets, company data, personal profiles, unrelated coding preferences or application projects.
-
-When changing setup tooling, run python3 -m unittest discover -s tests -v and git diff --check. Keep documentation honest about implemented features and missing restore payloads. Never label inventory-only entries as installed, audited or restorable.
+Publish verified sanitized setup changes under the user's standing authorization, preserving other devices' work. Do not record unavailable payloads or unchecked installs as ready/successful. Keep explanations short and avoid placeholder documentation. Run python3 -m unittest discover -s tests -v and git diff --check for changes to setup code.

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Install this repo's global instructions. Does not install third-party software."""
+"""Show setup choices; use --install-rules to restore global instructions."""
 import argparse
 import hashlib
+import json
 import os
 from pathlib import Path
 import re
@@ -95,13 +96,43 @@ def check(home, rules):
     return bool(span and data[span[0]:span[1]] == block(rules))
 
 
+def saved_rules():
+    return '\n\n'.join((ROOT / 'global' / name).read_text(encoding='utf-8').strip()
+                         for name in ('AGENTS.md', 'COMMUNICATION.md')) + '\n'
+
+
+def show_catalog():
+    catalog = json.loads((ROOT / 'inventory.json').read_text(encoding='utf-8'))
+    components = catalog['components']
+    for title, kind in [('Skills', 'skill'), ('Manual setup: plugins', 'plugin'),
+                        ('Manual setup: MCPs', 'mcp'), ('Prerequisite tools', 'tool')]:
+        print('\n' + title)
+        items = [item for item in components if item['kind'] == kind]
+        if not items:
+            print('  No MCP entries saved.' if kind == 'mcp' else '  No entries saved.')
+        for item in items:
+            status = 'saved copy; inspect before install' if item.get('restorable') else 'not ready to restore'
+            print('  ' + item['name'] + ' — ' + item.get('purpose', '') + ' [' + status + ']')
+            print('    Source: ' + str(item.get('source') or 'unconfirmed'))
+            print('    Review: ' + item.get('audit_status', 'unknown'))
+            print('    Setup/login: ' + item.get('setup_requirements', 'Check requirements before installation.'))
+    print('\nTell Codex: Which skills do you want — selected names, all eligible skills, or none?')
+    print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
+    print('After choosing, Codex can restore global rules with --install-rules and inspect/install selected skills.')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))))
-    parser.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
+    action.add_argument('--install-rules', action='store_true', help='Restore setup rules and communication preferences globally')
     args = parser.parse_args()
     try:
-        rules = (ROOT / 'global' / 'AGENTS.md').read_text(encoding='utf-8')
+        if not args.check and not args.install_rules:
+            show_catalog()
+            return 0
+        rules = saved_rules()
         if args.check:
             ok = check(args.codex_home, rules)
             print('Global rules match this repo.' if ok else 'Global rules are missing or differ from this repo.')
@@ -109,7 +140,7 @@ def main():
         changed = install(args.codex_home, rules)
         print(('Installed: ' if changed else 'Already current: ') + str(target_for(args.codex_home)))
         print('Start a new Codex session to load the global rules.')
-        print('This command installs instructions only. Continue setup/SETUP.md for SkillSpector, skills, plugins, MCP and GitHub logging.')
+        print('This command installs instructions only. Continue README.md with Codex for selected skills, manual plugin/MCP setup and GitHub logging.')
         return 0
     except (OSError, ValueError) as exc:
         print(str(exc), file=sys.stderr)

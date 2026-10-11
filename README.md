@@ -1,32 +1,38 @@
-# Personal Codex setup
+# My Codex setup
 
-A private backup of my Codex instructions, skills, plugins and MCP configuration for reuse across laptops.
+Open this repo in Codex on the laptop you want to configure and say:
 
-On a new laptop, install Codex, open this repo and say:
+> Setup my Codex using this repo.
 
-> Set up this laptop using this repo.
+Codex should:
+1. Show the saved skills, plugins and MCPs, including what needs review, login or manual setup.
+2. Ask which skills you want: choose names, all eligible skills, or none. Wait for your choice.
+3. Restore your global setup rules and communication preferences, then inspect and install only your chosen skills globally. "All" never skips a blocked scan.
+4. Give you plugin/MCP links and login instructions for manual setup.
+5. Verify successful installs and save their records to this GitHub repo.
 
-Codex follows [setup/SETUP.md](setup/SETUP.md). The working first step is `python3 scripts/setup.py`, which installs the [global rules](global/AGENTS.md) for future sessions on that device. Run `python3 scripts/setup.py --check` to verify them.
+## The files you might edit
 
-The global rules require:
-- User-global scope for custom and downloaded skills unless I ask otherwise.
-- SkillSpector inspection before skill installation, updates and restoration, plus separate review of supporting code.
-- A creator workflow when building/updating skills, using Anthropic's skill-creator or Codex's built-in creator when available: draft, test, improve, inspect, install.
-- Verified installation records and sanitized setup changes published back to this GitHub repo.
+- inventory.json — the component catalog and each item's restore status.
+- global/AGENTS.md — setup, SkillSpector, skill-creation and GitHub-sync rules.
+- global/COMMUNICATION.md — your exact communication preferences.
 
-## Contents
+AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement and test global instruction setup. Skill files, inspection receipts, MCP templates and device logs get their own folders when real content is added.
 
-- global/AGENTS.md: complete global policy, with no dependency on project-relative files.
-- inventory.json: component sources, versions, scope and honest restore status.
-- skills/: reviewed custom/external skill sources and licenses when imported.
-- mcp/: sanitized MCP templates when exported.
-- audits/: version-specific inspection evidence when imported.
-- installations/: per-device verified component history.
-- scripts/setup.py and tests/: global rule installer and its regression tests.
-- setup/: new-device procedure, creator references and remaining work.
+## Commands
 
-## Current limits
+```sh
+python3 scripts/setup.py                  # List choices; changes nothing
+python3 scripts/setup.py --install-rules  # Restore both global instruction files
+python3 scripts/setup.py --check          # Check the installed instructions
+```
 
-Global rule setup works. Actual skills/audit payloads still need importing from the Mac; the component inventory is not proof of installation or review. Skill/plugin/MCP restoration and GitHub synchronization are currently performed by Codex following the rules, not automatically by the Python command. Account connections require separate login. Manual installs and marketplace auto-updates are not intercepted.
+Python 3 is required. The installer uses CODEX_HOME (normally ~/.codex), preserves unrelated instructions and keeps a local backup. It handles an existing global AGENTS.override.md and refuses to overwrite locally edited managed rules. If you cleared the instruction file, --install-rules restores it. If you only edited/deleted part of the managed section, reconcile it first. Start a new Codex session afterward. --codex-home PATH supports a different profile or isolated testing.
 
-This repo intentionally excludes personal profiles, Java preferences, application projects, credentials and company information.
+Codex personal instructions are stored in the selected machine's global AGENTS.md. Personalisation also includes other settings such as memory and personality; this repo restores the instruction text, not those account/app settings. [Official explanation](https://learn.chatgpt.com/docs/personalize).
+
+## Current status
+
+The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is listed as requested, awaiting inspection; Ponytail needs its exact source confirmed before adding it. An inventory entry is not evidence of installation.
+
+Skills from public repositories often need no download login, but some need tools, API keys or private-repo access. Credentials stay on each device. Manual marketplace changes are recorded only after a later sync/verification; this repo is not a background watcher.

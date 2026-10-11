@@ -1,5 +1,7 @@
 import importlib.util
 import pathlib
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -74,6 +76,43 @@ class GlobalSetupTests(unittest.TestCase):
     def test_check_does_not_create_files(self):
         self.assertFalse(self.mod.check(self.home, 'Rules.\n'))
         self.assertEqual(list(self.home.iterdir()), [])
+
+    def run_cli(self, *args):
+        return subprocess.run([sys.executable, str(SCRIPT), '--codex-home', str(self.home), *args], text=True, capture_output=True)
+
+    def test_default_lists_choices_without_installing(self):
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('Which skills', result.stdout)
+        self.assertIn('Manual setup', result.stdout)
+        self.assertIn('No MCP entries saved', result.stdout)
+        self.assertIn('not ready to restore', result.stdout)
+        self.assertEqual(list(self.home.iterdir()), [])
+
+    def test_explicit_rule_install_includes_personalisation(self):
+        result = self.run_cli('--install-rules')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        text = (self.home / 'AGENTS.md').read_text()
+        self.assertIn('Your communication principles:', text)
+        self.assertIn('Never use empty praise', text)
+        self.assertIn('SkillSpector', text)
+        self.assertEqual(self.run_cli('--check').returncode, 0)
+
+    def test_check_catches_changed_communication_rules(self):
+        result = self.run_cli('--install-rules')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        target = self.home / 'AGENTS.md'
+        target.write_text(target.read_text().replace('Your communication principles:', 'Changed locally:'))
+        self.assertEqual(self.run_cli('--check').returncode, 1)
+
+    def test_reinstalls_after_user_clears_instruction_file(self):
+        self.assertEqual(self.run_cli('--install-rules').returncode, 0)
+        target = self.home / 'AGENTS.md'
+        target.write_text('')
+        self.assertEqual(self.run_cli('--check').returncode, 1)
+        self.assertEqual(self.run_cli('--install-rules').returncode, 0)
+        self.assertIn('Your communication principles:', target.read_text())
+        self.assertEqual(self.run_cli('--check').returncode, 0)
 
 if __name__ == '__main__':
     unittest.main()
