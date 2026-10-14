@@ -1,0 +1,2005 @@
+{
+  "schema_version": 1,
+  "reviewed_date": "2026-10-14",
+  "coverage": {
+    "recovered_candidates": 50,
+    "review_records": 50,
+    "shortlisted": 24,
+    "not_selected": 26,
+    "complete_shared_collection": false,
+    "missing_scope": "The shared-chat reader truncated long answers at 20000 characters. The latest answer stops at section II / wshobson entry. Earlier visible answers recovered additional URLs, yielding 50 unique candidate repositories. Remaining later sections, including further MCP/software entries, have not been recovered or reviewed."
+  },
+  "method": "Separate AI reviewers inspected pinned source and sought outside reviews/issues, followed by lead review and challenged selection decisions. Separate runs do not guarantee different models or independent errors. External benchmarks were not reproduced. Not every file or dependency in each repository was inspected; see review_depth.",
+  "installation_policy": "Catalog references only. No candidate code executed, installed, security-approved, or copied into active skill paths. Selected skill activation still requires the existing creator/SkillSpector workflow as applicable, exact version review and target-device verification. Plugins/MCPs remain manual setup choices. No credentials or personal history are included.",
+  "repositories": [
+    {
+      "repo": "0xNyk/council-of-high-intelligence",
+      "sha": "bb42b4b58fd86b9058f2b3385d692937280d901c",
+      "category": "orchestration",
+      "decision": "optional",
+      "purpose": "A structured deliberation skill using expert perspectives, restatement gates, debate, and evidence labels. Optional for ambiguous strategy or architecture decisions where explicit disagreement helps.",
+      "distinctive_value": "Codex-specific instructions actually request live subagents and track live, degraded, and offline seats. Restating the problem before debate can reveal framing errors; explicit evidence and uncertainty labels can make a recommendation easier to inspect. This is more than a purely theatrical council prompt, but the execution mode matters.",
+      "compatibility": "Ships a SKILL.codex.md mirror and a Codex installer option alongside other hosts. Native seat availability depends on the active client; external provider CLIs need their own access. Persona files define viewpoints, and multiple seats do not guarantee distinct model families.",
+      "cost_license": "MIT. Skill text has no inherent service charge, but live subagents/provider calls consume model quota and increase latency. Simulated fallback is cheaper but provides less independence.",
+      "limitations": "The Codex instructions switch failed seats to simulated personas and fall back to fully simulated operation below two live seats. Reports must label this honestly; a simulated panel is not independent corroboration. Substantial overlap with ordinary brainstorming and architectural review in Superpowers. Consider it an occasional decision aid, not a reason to introduce permanent multi-agent fan-out or infer superior accuracy from the number of named experts.",
+      "evidence": [
+        {
+          "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/bb42b4b58fd86b9058f2b3385d692937280d901c/SKILL.codex.md#L117-L137",
+          "kind": "source instructions",
+          "finding": "Spawns live seats, retries failures, and changes to fully simulated mode below two live seats."
+        },
+        {
+          "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/bb42b4b58fd86b9058f2b3385d692937280d901c/SKILL.codex.md#L243-L248",
+          "kind": "source instructions",
+          "finding": "Documents simulation fallback."
+        },
+        {
+          "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/bb42b4b58fd86b9058f2b3385d692937280d901c/README.md",
+          "kind": "documentation",
+          "finding": "Provider discovery, host support, evidence labels and installer options."
+        }
+      ],
+      "review_depth": "Pinned README and Codex skill workflow/fallback sections inspected; no live council run or independence benchmark.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Useful optional debate protocol, but native reviewers cover the present need. Failed live seats can become simulated personas; named seats do not prove independent models or corroboration."
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "category": "engineering / performance skill",
+      "decision": "optional",
+      "purpose": "Measurement-led application performance investigation.",
+      "distinctive_value": "Consider only performance-optimization with its references: baseline/profile/fix/re-measure, keep-or-revert based on noise, and log failed experiments. Useful for mixed database/backend/frontend work beyond React-specific Vercel advice.",
+      "compatibility": "Native Codex plugin metadata documented; narrow Markdown skill usable with available profiling/browser tools. Whole plugin installs broader lifecycle skills and is not recommended here.",
+      "cost_license": "MIT; model/tooling costs; no mandatory paid service in selected skill.",
+      "limitations": "TDD/spec/plan/review/ship duplicate Superpowers. Selected skill is a methodology, not instrumentation or a profiler. Some fixed example budgets require project-specific interpretation. No independent performance improvement study located; external walkthroughs mostly explain the workflow.",
+      "evidence": [
+        {
+          "url": "https://github.com/addyosmani/agent-skills/blob/1be8e34187e34647bb83adc3a1323b26ae6f6abe/skills/performance-optimization/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Provides measurement workflow, Core Web Vitals, SQL plans, pool exhaustion, cache-key/invalidation analysis, controlled remeasurement and regression guards."
+        },
+        {
+          "url": "https://github.com/addyosmani/agent-skills/blob/1be8e34187e34647bb83adc3a1323b26ae6f6abe/README.md",
+          "kind": "pinned_source",
+          "finding": "Native Codex plugin points directly to skills directory; full collection maps entire development lifecycle."
+        }
+      ],
+      "review_depth": "Read full performance SKILL and README integration/lifecycle sections; searched independent reports and issues. Supporting references located but not exhaustively reviewed; no executions.",
+      "sha": "1be8e34187e34647bb83adc3a1323b26ae6f6abe",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/engineering.md",
+      "selection_reason": "Use performance-optimization for profile, change, measure and keep-or-revert work across frontend, backend and databases. Optional. This supplies a method, not a profiler. Skip the overlapping full engineering workflow pack; no independent performance gain was established."
+    },
+    {
+      "repo": "adewaskar/jarvis",
+      "sha": "1c4016afdf86f7043efc6882ceffef84ad0d8783",
+      "category": "runtimes",
+      "decision": "omit",
+      "purpose": "Browser voice assistant and holographic interface backed by a Node bridge running the Claude Agent SDK.",
+      "distinctive_value": "Hands-free wake word, interruption, speech recognition/synthesis and model-authored HUD panels make it a distinct voice-interface demonstration. Browser speech is the default; ElevenLabs can enhance transcription and voice.",
+      "compatibility": "Requires Node 20+, Chrome/Edge microphone/WebGL access, and Claude Code. It imports disk-based Claude MCP configuration; account-side Claude connectors are not imported. This is not a Codex extension and would require a separate backend integration.",
+      "cost_license": "MIT code. Claude usage and optional ElevenLabs/services have their own costs and terms. README claims existing Claude login works, but subscription eligibility was not independently validated. Demo audio rights are explicitly left to downstream users.",
+      "limitations": "Omit from a focused Codex setup catalog; retain a separate inspiration bookmark only if a voice UI is desired. Source documents a default-deny gate for effectful tools, but switching writes on is a broad authorization change. The read-only label still includes generation calls that can incur costs. No microphone, subscription, or tool execution was tested.",
+      "evidence": [
+        {
+          "url": "https://github.com/adewaskar/jarvis/blob/1c4016afdf86f7043efc6882ceffef84ad0d8783/README.md",
+          "kind": "pinned source",
+          "finding": "Claude Agent SDK architecture, requirements, voice path and audio licensing caveat."
+        },
+        {
+          "url": "https://github.com/adewaskar/jarvis/blob/1c4016afdf86f7043efc6882ceffef84ad0d8783/LICENSE",
+          "kind": "pinned source",
+          "finding": "MIT license."
+        },
+        {
+          "url": "https://github.com/adewaskar/jarvis/blob/1c4016afdf86f7043efc6882ceffef84ad0d8783/bridge/server.mjs",
+          "kind": "pinned source",
+          "finding": "Inspected decideTool, ALLOW_WRITES and settings-source permission handling."
+        }
+      ],
+      "review_depth": "Pinned README, license and targeted implementation/documentation inspected; not installed or executed.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Omit from a focused Codex setup catalog; retain a separate inspiration bookmark only if a voice UI is desired. Source documents a default-deny gate for effectful tools, but switching writes on is a broad authorization change. The read-only label still includes generation calls that can incur costs. No microphone, subscription, or tool execution was tested."
+    },
+    {
+      "repo": "affaan-m/ECC",
+      "sha": "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29",
+      "category": "orchestration",
+      "decision": "optional",
+      "purpose": "A comprehensive agent workflow bundle including skills, role agents, rules, hooks, memory, evaluation and security tooling. Optional as a selective reference or an alternative harness approach; the full bundle is a poor default addition to an already established Superpowers workflow.",
+      "distinctive_value": "The pinned ECC 2.2.3 version includes native Codex packaging, an explicit MCP configuration, and a Codex-specific lifecycle-hook projection. This is broader than a Markdown collection and more operationally involved. Guided setup and legacy synchronization are documented as distinct installation routes.",
+      "compatibility": "Codex support is first-class in the current files, while the project still says Claude Code has the most complete experience. The inspected Codex hook projection contains a synchronous SessionStart bootstrap, not all Claude hooks. The manifest references shared skills, MCP configuration, and this hook file; hook trust remains a separate host-controlled step.",
+      "cost_license": "MIT open source. Model/tool usage costs still apply. Optional ECC Pro/GitHub services are commercially separate from the free repository; neither is required to read or reuse the skill files within license terms.",
+      "limitations": "Extensive overlap with Superpowers TDD, planning, verification, and review creates potential competing instruction systems. Installing a plugin can carry runtime hooks and MCP tools in addition to prompts, so adoption needs a concrete reason and scoped configuration. Documentation and manifest skill counts differ, illustrating why catalog size is not a quality measure. No evidence from this inspection establishes that the bundled memory, learning, or security components improve this user’s actual workload.",
+      "evidence": [
+        {
+          "url": "https://github.com/affaan-m/ECC/blob/b92f181b3b748d1abbc2afd94af6aa7d8c8fca29/README.md",
+          "kind": "documentation",
+          "finding": "Scope, native Codex support, support differences, and open-source/commercial distinction."
+        },
+        {
+          "url": "https://github.com/affaan-m/ECC/blob/b92f181b3b748d1abbc2afd94af6aa7d8c8fca29/.codex-plugin/plugin.json",
+          "kind": "manifest",
+          "finding": "Version 2.2.3 references skills, root MCP config and Codex hooks."
+        },
+        {
+          "url": "https://github.com/affaan-m/ECC/blob/b92f181b3b748d1abbc2afd94af6aa7d8c8fca29/.codex-plugin/README.md",
+          "kind": "compatibility documentation",
+          "finding": "Codex lifecycle, separate hook trust, and native versus legacy sync."
+        },
+        {
+          "url": "https://github.com/affaan-m/ECC/blob/b92f181b3b748d1abbc2afd94af6aa7d8c8fca29/hooks/codex-hooks.json",
+          "kind": "source configuration",
+          "finding": "Actual Codex projection currently supplies SessionStart bootstrap."
+        }
+      ],
+      "review_depth": "Pinned README, native Codex plugin documentation/manifest and actual hook projection inspected. No setup, sync, hooks, or candidate code executed.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Real Codex hooks/MCP/configuration support, but adopts another large setup framework alongside Superpowers and this repository. Keep it as an evaluated alternative, not an additional baseline."
+    },
+    {
+      "repo": "AgriciDaniel/claude-seo",
+      "sha": "4b99de2f7de7e7d5247042e5fb5b4ea9368ef734",
+      "category": "domain",
+      "decision": "optional",
+      "purpose": "Deeper technical SEO audits, rendered-page analysis and credential-backed search/analytics reports.",
+      "distinctive_value": "More substantive than generic SEO prompts: Python fetch/render plumbing, URL validation, API/auth handling, report workflows and specialized audit skills. Use if recurring technical SEO audits justify the setup; prefer marketing-skills SEO child for lightweight checks.",
+      "compatibility": "Claude Code plugin/runtime is primary: skills use CLAUDE_PLUGIN_ROOT, named agents, plugin hooks and a private Python environment. No drop-in Codex plugin was verified. A Codex port needs path, tool and orchestration adaptation plus validation on Mac.",
+      "cost_license": "MIT core; FLOW reference material is identified separately as CC BY 4.0. Model usage, Python/browser setup and optional paid DataForSEO/SEO data subscriptions remain. Google APIs require configured keys/OAuth and relevant access/quotas.",
+      "limitations": "35 skill bodies in tree are not all reviewed. Audit scores are heuristics, not proof of rankings. README fully-local wording must not be read as zero network/data transmission: API and hosted-model paths are present. Old raw-SPA and missing-GEO issues cannot fairly be repeated as current unresolved defects.",
+      "evidence": [
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/blob/4b99de2f7de7e7d5247042e5fb5b4ea9368ef734/skills/seo-audit/SKILL.md",
+          "kind": "source",
+          "finding": "Current audit begins rendered homepage collection and orchestrates GEO plus conditional API agents."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/blob/4b99de2f7de7e7d5247042e5fb5b4ea9368ef734/scripts/fetch_page.py",
+          "kind": "source",
+          "finding": "Raw fetch includes --render delegation, Googlebot UA support and URL safety imports."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/blob/4b99de2f7de7e7d5247042e5fb5b4ea9368ef734/scripts/url_safety.py",
+          "kind": "source",
+          "finding": "DNS-pinned request/SSRF checks exist; inspection does not certify they cover every path."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/blob/4b99de2f7de7e7d5247042e5fb5b4ea9368ef734/docs/INSTALLATION.md",
+          "kind": "source",
+          "finding": "Claude-focused installation, isolated Python environment and Playwright dependency."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/issues/11",
+          "kind": "community-historical",
+          "finding": "Detailed user report of SPA false negatives; pin now includes rendering paths, so it is a regression-check scenario rather than an asserted current bug."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/issues/17",
+          "kind": "community-historical",
+          "finding": "Detailed missing-GEO integration report; current audit source includes GEO."
+        },
+        {
+          "url": "https://github.com/AgriciDaniel/claude-seo/blob/4b99de2f7de7e7d5247042e5fb5b4ea9368ef734/LICENSE",
+          "kind": "license",
+          "finding": "MIT core license verified."
+        }
+      ],
+      "review_depth": "Inspected four representative skill bodies, install/runtime paths, requirements, fetch/URL-safety/auth/content scripts and schema hook; searched issues and cross-checked two historical defects against current source. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/marketing-and-writing.md",
+      "selection_reason": "Consider for recurring technical SEO audits that need rendered-page collection, structured reports and optional live SEO data. Conditional: the workflow is Claude-oriented and needs Codex adaptation plus Python/browser dependencies. For a light check, start with the marketing collection. Scores do not prove ranking gains; older SPA/GEO reports must be checked against current fixes."
+    },
+    {
+      "repo": "anthropics/claude-plugins-official",
+      "sha": "f359d43b406057f1a8cdbc4ea93b827642c162e6",
+      "category": "tools",
+      "decision": "omit",
+      "purpose": "Anthropic-maintained marketplace directory containing internal Claude Code plugins and links/bundles from external providers.",
+      "distinctive_value": "Useful discovery reference when choosing a specific Claude plugin. It is not one coherent capability or a uniformly audited install unit, so retaining the entire directory in a Codex shortlist would inflate the catalog and blur the actual component choices.",
+      "compatibility": "Marketplace format and installation instructions target Claude Code. Some individual SKILL.md files or generic MCP services may be portable, but Claude slash commands, hooks and plugin manifests cannot be assumed to work unchanged in Codex. Evaluate named components individually.",
+      "cost_license": "No single repository-wide license/service price promise: README directs users to each plugin’s license. External services can require separate accounts, API keys and subscriptions.",
+      "limitations": "Directory membership is not a runtime compatibility or security guarantee; the README explicitly warns that bundled software/MCP contents may change. Individual external source pins and nested payloads need separate inspection under the existing scanner policy. Prefer the user’s native Codex connector/plugin when available; avoid installing a second copy only because it appears here.",
+      "evidence": [
+        {
+          "url": "https://github.com/anthropics/claude-plugins-official/blob/f359d43b406057f1a8cdbc4ea93b827642c162e6/README.md",
+          "kind": "source",
+          "finding": "Internal versus external directory structure, Claude installation syntax, plugin-specific licensing and trust caveat."
+        },
+        {
+          "url": "https://github.com/anthropics/claude-plugins-official/blob/f359d43b406057f1a8cdbc4ea93b827642c162e6/.claude-plugin/marketplace.json",
+          "kind": "source",
+          "finding": "Marketplace entries select individual plugin sources; the repository itself is a catalog."
+        },
+        {
+          "url": "https://github.com/anthropics/claude-plugins-official/issues/17",
+          "kind": "independent issue",
+          "finding": "Historical Slack OAuth/DCR compatibility report illustrates that listing does not establish service interoperability; current status not verified."
+        },
+        {
+          "url": "https://github.com/anthropics/claude-plugins-official/issues/1272",
+          "kind": "independent issue",
+          "finding": "Submitters report publication/discovery mismatch; directory distribution should be verified separately."
+        }
+      ],
+      "review_depth": "Pinned root README and marketplace structure inspected; independent issue bodies read. No claim to audit every nested plugin, external source or service; no installation.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Directory membership is not a runtime compatibility or security guarantee; the README explicitly warns that bundled software/MCP contents may change. Individual external source pins and nested payloads need separate inspection under the existing scanner policy. Prefer the user’s native Codex connector/plugin when available; avoid installing a second copy only because it appears here."
+    },
+    {
+      "repo": "anthropics/skills",
+      "category": "mixed skill examples / MCP development",
+      "decision": "optional",
+      "purpose": "Reference library; only mcp-builder is a plausible future addition when building an MCP server.",
+      "distinctive_value": "mcp-builder supplies TypeScript/Python patterns, tool schema/annotation guidance, protocol research and evaluation workflow. Skill creator remains deferred per user request.",
+      "compatibility": "Agent Skills Markdown portable with tool-name adaptation; Claude-specific WebFetch/tool terminology and evaluation dependencies require mapping. Do not treat the Claude plugin marketplace as native Codex installation.",
+      "cost_license": "Per-skill licensing. mcp-builder is Apache-2.0. docx/pdf/pptx/xlsx carry separate restrictive source-available LICENSE.txt files; do not label repository wholly Apache or install document pack into Codex without resolving terms.",
+      "limitations": "No present MCP-building task, so conditional reference only. Document licenses are a concrete obstacle to wholesale cross-platform reuse; this conclusion is confined to those files, not other skills. No quality/security guarantee from official authorship.",
+      "evidence": [
+        {
+          "url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/mcp-builder/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Four-phase MCP development guide covers protocol research, TS/Python implementations, input/output schemas, annotations, review and evals."
+        },
+        {
+          "url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/mcp-builder/LICENSE.txt",
+          "kind": "pinned_source",
+          "finding": "Apache-2.0 text."
+        },
+        {
+          "url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/docx/LICENSE.txt",
+          "kind": "pinned_source",
+          "finding": "Exact additional restriction: \"Extract these materials from the Services or retain copies of these materials outside the Services\". Same restrictive license header/terms found in pdf, pptx and xlsx; interpret per skill."
+        },
+        {
+          "url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/README.md",
+          "kind": "pinned_source",
+          "finding": "Distinguishes document skills as source-available, not open source, and says examples are educational."
+        }
+      ],
+      "review_depth": "Read README, MCP builder SKILL, its license and document skill licenses; inventoried other skills. Did not review skill-creator because deferred; no scripts run.",
+      "sha": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/engineering.md",
+      "selection_reason": "Keep mcp-builder as a reference when actually developing an MCP server: schemas, protocol choices, implementation and evaluations. Optional selected skill. Skill Creator stays deferred. Licensing varies by child: the document skills have separate restrictive terms, so do not copy the entire collection into Codex."
+    },
+    {
+      "repo": "arvindrk/extract-design-system",
+      "sha": "1873741ba8dea755e35e6e15134f7918cd58e036",
+      "category": "design / live-site token extraction",
+      "decision": "optional",
+      "purpose": "Use for an actual task extracting a public site's starter design tokens into a local project.",
+      "distinctive_value": "Produces machine-readable JSON and CSS custom properties from rendered websites, with cached normalization and a local audit matching hardcoded values to tokens. This is a concrete data acquisition step that visual direction prompts and inspiration catalogs do not provide.",
+      "compatibility": "Documents Codex skill support, a CLI and optional MCP server. Node 20+ is declared; the package runs dembrandt through execa and needs its browser environment. Chromium installation may be required. Mac and dependency engine compatibility have not been tested.",
+      "cost_license": "MIT. No mandatory model API or paid extraction service established in inspected code; network/browser installation and normal agent usage apply. Extracted websites' fonts, logos and assets retain their terms.",
+      "limitations": "Results depend on exposed DOM/CSS and represent starter tokens, not a complete semantic component system. Static audit cannot establish full runtime style equivalence. Adds a transitive executable/browser dependency chain; installing only SKILL.md does not supply the capability. Independent operational reviews are insufficient.",
+      "evidence": [
+        {
+          "url": "https://github.com/arvindrk/extract-design-system/blob/1873741ba8dea755e35e6e15134f7918cd58e036/package.json",
+          "kind": "pinned_source",
+          "finding": "Version 0.1.11 declares Node >=20, CLI/MCP binaries, dembrandt, execa and SDK dependencies."
+        },
+        {
+          "url": "https://github.com/arvindrk/extract-design-system/blob/1873741ba8dea755e35e6e15134f7918cd58e036/src/adapters/dembrandt.ts",
+          "kind": "pinned_source",
+          "finding": "Invokes a local-preferred dembrandt executable with URL/browser options and parses JSON output."
+        },
+        {
+          "url": "https://github.com/arvindrk/extract-design-system/blob/1873741ba8dea755e35e6e15134f7918cd58e036/src/commands/audit.ts",
+          "kind": "pinned_source",
+          "finding": "Reads extracted token files, scans source content and suggests matches; requires existing extraction."
+        }
+      ],
+      "review_depth": "Read pinned README/license/package/skill/adapter/audit command; sampled staged scanner. No browser extraction, dependency installation, CLI/MCP execution, Mac verification or security clearance.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Extract starter colors, spacing, typography and other exposed design tokens from a website into a local project. Optional for an extraction task. It needs browser/executable dependencies; a copied SKILL.md alone is insufficient. DOM/CSS tokens are not a complete semantic component system. Preserve source asset and font terms."
+    },
+    {
+      "repo": "austinmarchese/buildpartner-plugin",
+      "sha": "cd5bd3f0604ce9133f470b96b3885c5c64549875",
+      "category": "tools",
+      "decision": "omit",
+      "purpose": "Claude Code coaching, expert-framework retrieval, guided builds and personal setup maintenance through a hosted dashboard.",
+      "distinctive_value": "Its differentiator is curated advice plus account-linked session coaching. That may appeal to a paying Claude Code user, but it provides little unique value for this Codex-first setup compared with focused local skills and the existing personal inventory.",
+      "compatibility": "Claude-specific plugin, hook names, MCP naming and ~/.claude/CLAUDE.md integration. Node service registration is not evidence of native Codex compatibility; adapting it would be separate engineering and review.",
+      "cost_license": "Plugin MIT; free initial uses then paid subscription through Stripe. Service behavior/content is not covered merely by the repository license. Manifest pins buildpartner@0.13.3 even though README says latest.",
+      "limitations": "Session hooks modify global CLAUDE.md, flush usage events to the service and check updates. PermissionRequest hook auto-allows a regex-matched family of plugin MCP tools. These are meaningful setup changes requiring their own review, especially alongside the user’s explicit scanner/version gate. This omission is about fit and scope, not a malware finding.",
+      "evidence": [
+        {
+          "url": "https://github.com/austinmarchese/buildpartner-plugin/blob/cd5bd3f0604ce9133f470b96b3885c5c64549875/README.md",
+          "kind": "source",
+          "finding": "Claude Code target, hosted dashboard, free tier and paid continuation."
+        },
+        {
+          "url": "https://github.com/austinmarchese/buildpartner-plugin/blob/cd5bd3f0604ce9133f470b96b3885c5c64549875/plugin/.claude-plugin/plugin.json",
+          "kind": "source",
+          "finding": "Pinned MCP package, startup/end updates, and auto-allow PermissionRequest matcher."
+        },
+        {
+          "url": "https://github.com/austinmarchese/buildpartner-plugin/blob/cd5bd3f0604ce9133f470b96b3885c5c64549875/plugin/hooks/gate.mjs",
+          "kind": "source",
+          "finding": "Synchronizes a block in user-global CLAUDE.md."
+        },
+        {
+          "url": "https://github.com/austinmarchese/buildpartner-plugin/blob/cd5bd3f0604ce9133f470b96b3885c5c64549875/plugin/hooks/flush.mjs",
+          "kind": "source",
+          "finding": "Uploads sanitized spooled usage events to the service."
+        },
+        {
+          "url": "https://github.com/austinmarchese/buildpartner-plugin/issues/1",
+          "kind": "independent issue",
+          "finding": "User reports Windows bash-hook failure; corroborates platform-specific plumbing, not a Mac failure claim."
+        }
+      ],
+      "review_depth": "Pinned manifest, hook source and README inspected; one independent issue read. Hosted service and npm payload not audited or run.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Session hooks modify global CLAUDE.md, flush usage events to the service and check updates. PermissionRequest hook auto-allows a regex-matched family of plugin MCP tools. These are meaningful setup changes requiring their own review, especially alongside the user’s explicit scanner/version gate. This omission is about fit and scope, not a malware finding."
+    },
+    {
+      "repo": "ayghri/i-have-adhd",
+      "category": "productivity / persistent output style",
+      "decision": "omit",
+      "purpose": "Action-first, numbered, state-restating answers aimed at reducing reading friction.",
+      "distinctive_value": "Potential accessibility preference, not an engineering capability. Does not warrant installing on top of existing concise output instructions unless specifically wanted.",
+      "compatibility": "Includes Codex plugin metadata and explicit-invocation skill. Optional always-on Node hook still emits plain stdout in pinned source; hooks/hooks.codex.json absent in staged tree.",
+      "cost_license": "MIT; no required paid service.",
+      "limitations": "Session-persistent rules shape every reply, require concrete time estimates and can add repeated next actions/clarifications. Avoid assuming all ADHD readers share the generalized cognitive claims in prompt. Codex hook issue directly affects advertised always-on path; manual skill path is distinct.",
+      "evidence": [
+        {
+          "url": "https://github.com/ayghri/i-have-adhd/blob/1ecea1993b7fce257ffbd686c070948b5e07eda6/skills/i-have-adhd/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "disable-model-invocation true, but once invoked applies until stopped; ten output rules including restating state and time estimates."
+        },
+        {
+          "url": "https://github.com/ayghri/i-have-adhd/blob/1ecea1993b7fce257ffbd686c070948b5e07eda6/hooks/always-on.mjs",
+          "kind": "pinned_source",
+          "finding": "Opt-in flag controls injection; writes a plain text ruleset to stdout."
+        },
+        {
+          "url": "https://github.com/ayghri/i-have-adhd/issues/156",
+          "kind": "user_bug_report_correlated_with_source",
+          "finding": "macOS Codex 0.154 reporter says v0.3 SessionStart stdout is invalid JSON and rules are dropped; plain-output shape remains visible at reviewed SHA. Not reproduced here."
+        }
+      ],
+      "review_depth": "Read core skill, always-on hook and Codex metadata; checked actual user issue and external search. No installation or Mac test.",
+      "sha": "1ecea1993b7fce257ffbd686c070948b5e07eda6",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Session-persistent rules shape every reply, require concrete time estimates and can add repeated next actions/clarifications. Avoid assuming all ADHD readers share the generalized cognitive claims in prompt. Codex hook issue directly affects advertised always-on path; manual skill path is distinct."
+    },
+    {
+      "repo": "blader/humanizer",
+      "sha": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+      "category": "domain",
+      "decision": "retain",
+      "purpose": "Opt-in editorial revision of AI-like prose while preserving source facts and matching voice.",
+      "distinctive_value": "Concrete pattern examples and a rewrite/check pass are useful for important drafts. Keep as one explicit editing tool, not a global writing style and not a substitute for marketing strategy.",
+      "compatibility": "Standard SKILL.md and agents/openai.yaml with a Codex default prompt are present. No runtime service is necessary for the editing skill.",
+      "cost_license": "MIT; model context/output usage only, no separate tool fee. Large instruction file can cost more than a concise rewrite prompt.",
+      "limitations": "Preserving the supplied draft does not verify whether that draft is true. Pattern preferences can over-shorten or flatten voice; provide a writing sample and review the result. No AI-detector evasion or authorship-verification guarantee.",
+      "evidence": [
+        {
+          "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/SKILL.md",
+          "kind": "source",
+          "finding": "Current source explicitly prohibits adding unsupported facts and checks lost claims; neutral technical/legal writing and voice-sample handling are specified."
+        },
+        {
+          "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/agents/openai.yaml",
+          "kind": "source",
+          "finding": "Codex display metadata and fact-preserving default prompt verified."
+        },
+        {
+          "url": "https://hardnumbers.dev/articles/blader-humanizer-benchmark-it-keeps-what-drafts-invent",
+          "kind": "independent-benchmark",
+          "finding": "Same 225a6f3 pin tested on 24 synthetic drafts in Claude Code; reported modest style gains over one-line control, higher token cost, and most unsupported input claims surviving. Single-run, model-judged, Claude-only results do not establish Codex performance."
+        },
+        {
+          "url": "https://github.com/blader/humanizer/issues/281",
+          "kind": "community",
+          "finding": "Complaint uses an AI detector on example output; not reliable evidence of prose quality or a failure of its actual editorial purpose."
+        },
+        {
+          "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/LICENSE",
+          "kind": "license",
+          "finding": "MIT license verified."
+        }
+      ],
+      "review_depth": "Read current skill, README, OpenAI agent metadata and package-validation source; checked issue reports and a reproducible third-party benchmark report. Historical fact-invention complaints were not treated as proof of current behavior. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/marketing-and-writing.md",
+      "selection_reason": "Use explicitly to edit an important draft for repetitive phrasing and unnatural patterns, preferably with a voice sample. Optional editing tool, never global communication rules. Its source preserves claims, which does not fact-check an inaccurate draft. External evaluation found modest style gains and extra usage, not a guarantee of authorship detection or better writing in every case."
+    },
+    {
+      "repo": "bradautomates/claude-video",
+      "sha": "03ceb42f7fa2c4439aca01752118044baabffb8f",
+      "category": "tools",
+      "decision": "retain",
+      "purpose": "Watch turns a URL or local video into timestamped frames and transcript evidence for an agent.",
+      "distinctive_value": "Adds a concrete media-understanding workflow useful for tutorials, demos, product walkthroughs and visual reference analysis. Native captions, deduplicated frames and range selection can make long video evidence manageable. The current repository is broader than its Claude-branded name suggests.",
+      "compatibility": "Codex is explicitly documented, and a real .codex-plugin/plugin.json exists alongside the portable watch skill. Local route needs Python 3.10+, FFmpeg/ffprobe, yt-dlp and current YouTube runtime support. Managed WhisperX has verified Apple Silicon claims; other architectures need checking.",
+      "cost_license": "MIT. Captions/local frame extraction have no API fee; local WhisperX needs model downloads, disk/RAM. Groq/OpenAI transcription and Gemini usage may incur provider costs.",
+      "limitations": "Auto engine selects Gemini when a key resolves; local videos then upload to Google. Explicit local mode avoids that provider. Captionless local videos need a transcription backend for speech. Issues #80/#99 report historical source deletion and FFmpeg failures, but pinned code now uses mkdtemp child directories and capability-probed fps_mode: do not present these as proven current defects.",
+      "evidence": [
+        {
+          "url": "https://github.com/bradautomates/claude-video/blob/03ceb42f7fa2c4439aca01752118044baabffb8f/README.md",
+          "kind": "source",
+          "finding": "Codex instructions, runtime dependencies, local/Gemini modes and upload behavior."
+        },
+        {
+          "url": "https://github.com/bradautomates/claude-video/blob/03ceb42f7fa2c4439aca01752118044baabffb8f/.codex-plugin/plugin.json",
+          "kind": "source",
+          "finding": "Actual Codex plugin manifest."
+        },
+        {
+          "url": "https://github.com/bradautomates/claude-video/blob/03ceb42f7fa2c4439aca01752118044baabffb8f/skills/watch/scripts/watch.py",
+          "kind": "source",
+          "finding": "Fresh mkdtemp child work directory, including when out-dir is supplied."
+        },
+        {
+          "url": "https://github.com/bradautomates/claude-video/blob/03ceb42f7fa2c4439aca01752118044baabffb8f/skills/watch/scripts/frames.py",
+          "kind": "source",
+          "finding": "FFmpeg fps_mode capability probing with legacy fallback."
+        },
+        {
+          "url": "https://github.com/bradautomates/claude-video/issues/80",
+          "kind": "independent issue",
+          "finding": "Open historical source-deletion report includes a positive slide-dedup result; pinned source has changed."
+        },
+        {
+          "url": "https://github.com/bradautomates/claude-video/issues/99",
+          "kind": "independent issue",
+          "finding": "Open historical modern-FFmpeg failure report; pinned implementation already probes supported flags."
+        }
+      ],
+      "review_depth": "Pinned README, Codex manifest and relevant media/workdir source inspected; both full issue reports read. Retain as a candidate, not an installation approval; no runtime/scanner/Mac test.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "tools/documents-and-video.md",
+      "selection_reason": "Produce timestamped video frames and transcripts from a URL or local video so analysis has inspectable evidence. Actual Codex packaging exists. Choose the engine explicitly: auto can select Gemini and upload video when a key is present. Captionless footage needs speech transcription. Historical deletion/FFmpeg reports have addressing code changes but were not runtime-tested here."
+    },
+    {
+      "repo": "chaseai-yt/claudex-loop",
+      "sha": "8cf5e2c1771c5151d90c12642391d0ba8fa71b0e",
+      "category": "orchestration",
+      "decision": "retain",
+      "purpose": "A bounded cross-provider planning, implementation, and inspection workflow. Retain conditionally for consequential changes when an independent Claude review would add value to the existing Codex and Superpowers setup.",
+      "distinctive_value": "The inspected version is host-symmetric: Codex can coordinate while Claude reviews, or vice versa. Its Python runner validates structured results, binds plan approval to a SHA256, tracks inspected changes, and rejects failed or empty results. This supplies actual cross-provider execution and approval bookkeeping beyond a persona prompt.",
+      "compatibility": "Explicit Codex skills and plugin packaging exist. The full loop needs authenticated Claude and Codex CLIs plus Python 3.10+. macOS installation is documented. Claudex Route is a lighter independent skill and does not inherit the full runner’s approval binding.",
+      "cost_license": "MIT; no additional Python runtime packages or separate API key required by the adapter. Both CLI accounts consume their own quota; repeated review rounds increase time and usage.",
+      "limitations": "Use selectively to avoid duplicating Superpowers planning and review. Hash binding proves what was approved, not correctness. Codex read-only shell execution retains configured MCP integrations, which can have external side effects; Claude review disables MCP/customizations. Do not describe both review paths as equally sandboxed or claim live reliability from mocked tests.",
+      "evidence": [
+        {
+          "url": "https://github.com/chaseai-yt/claudex-loop/blob/8cf5e2c1771c5151d90c12642391d0ba8fa71b0e/README.md",
+          "kind": "documentation",
+          "finding": "Bidirectional workflow, independent route, installation, and explicit cost/dependency shape."
+        },
+        {
+          "url": "https://github.com/chaseai-yt/claudex-loop/blob/8cf5e2c1771c5151d90c12642391d0ba8fa71b0e/skills/claudex-loop/references/runtime.md",
+          "kind": "implementation documentation",
+          "finding": "Codex shell sandbox does not constrain external MCP side effects; Claude review is more restricted."
+        },
+        {
+          "url": "https://github.com/chaseai-yt/claudex-loop/blob/8cf5e2c1771c5151d90c12642391d0ba8fa71b0e/skills/claudex-loop/scripts/runner.py",
+          "kind": "source",
+          "finding": "Real CLI adapter and approval/result handling."
+        },
+        {
+          "url": "https://github.com/chaseai-yt/claudex-loop/issues/28",
+          "kind": "issue",
+          "finding": "Read-only review boundary needs MCP-specific qualification."
+        }
+      ],
+      "review_depth": "Pinned README, runtime reference and runner inspection; prior issue review. No candidate code or live model workflow executed.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "plugins/development.md",
+      "selection_reason": "Use selectively when a consequential plan or implementation benefits from another provider reviewing it. Real Python coordination binds approvals to the reviewed plan. Full loop needs authenticated Claude and Codex CLIs plus Python; both consume quota. Keep native Codex review as the ordinary path. Codex filesystem read-only mode does not remove write-capable MCP tools, so review tool access separately before adoption."
+    },
+    {
+      "repo": "chrys/AgentCraft",
+      "sha": "b4f4e983d4f839185f083472f55b4575e67e1d2a",
+      "category": "tools",
+      "decision": "omit",
+      "purpose": "Centralized dashboard and shell tooling for discovering, synchronizing and copying skill repositories into projects.",
+      "distinctive_value": "A visual existing-versus-available skill catalog and selective provisioning are convenient. However, this workspace already has a deliberate inventory, review record, version tracking and backup flow; a second provisioning layer duplicates the core job without a demonstrated improvement to that gate.",
+      "compatibility": "Documented adapters are Antigravity, GitHub Copilot and OpenCode. The provisioning script likewise exposes those three targets, with no explicit Codex adapter. Antigravity uses .agents/skills, but a shared directory spelling does not establish a supported Codex workflow.",
+      "cost_license": "MIT; local Node dashboard and shell scripts, with no mandatory paid service found in the inspected documentation. Individual downloaded skill licenses and dependencies remain separate.",
+      "limitations": "Pulling a repository or copying SKILL.md is not a SkillSpector scan or dependency audit. Some Antigravity workflows automatically bring sibling skills, broadening a selection. Adopting it would require integrating per-version staged review, scanner results, user-global Codex paths, and installation records. Retain the current focused setup tooling instead.",
+      "evidence": [
+        {
+          "url": "https://github.com/chrys/AgentCraft/blob/b4f4e983d4f839185f083472f55b4575e67e1d2a/README.md",
+          "kind": "source",
+          "finding": "Dashboard, repo synchronization, existing/available classification and three target environments."
+        },
+        {
+          "url": "https://github.com/chrys/AgentCraft/blob/b4f4e983d4f839185f083472f55b4575e67e1d2a/scripts/createagents.sh",
+          "kind": "source",
+          "finding": "CLI target enumeration lacks Codex; provisioning copies selected skill material."
+        },
+        {
+          "url": "https://github.com/chrys/AgentCraft/blob/b4f4e983d4f839185f083472f55b4575e67e1d2a/LICENSE",
+          "kind": "source",
+          "finding": "MIT license for the manager, not blanket approval of fetched skills."
+        }
+      ],
+      "review_depth": "Pinned README, license and provisioning script inspected. Repository issue search returned no results; no independent review or behavioral validation found. Nothing installed.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Pulling a repository or copying SKILL.md is not a SkillSpector scan or dependency audit. Some Antigravity workflows automatically bring sibling skills, broadening a selection. Adopting it would require integrating per-version staged review, scanner results, user-global Codex paths, and installation records. Retain the current focused setup tooling instead."
+    },
+    {
+      "repo": "cloudflare/security-audit-skill",
+      "category": "security / scoped audit methodology",
+      "decision": "retain",
+      "purpose": "Retain in catalog for explicitly requested, bounded security work; not a default/global invocation recommendation.",
+      "distinctive_value": "Complementary security-specific evidence discipline: coverage ledger, independent candidate verification, distinct confirmed/needs_validation/rejected records, schema validators and targeted attack-class references. Prefer guidance mode or scoped quick audit with a stated budget.",
+      "compatibility": "Agent-neutral delegation vocabulary maps to Codex; full workflow requires real subagents, Node validators and strong OS-enforced sandbox for target-controlled execution. On Mac, filesystem approval alone does not establish network/resource/process isolation; where missing, source-only leads stay needs_validation.",
+      "cost_license": "MIT; no required Cloudflare account. Multiple recon/hunter/critic/verifier calls can be costly. User report #20: on one seeded target, three rounds per arm at same model tier/budget class, quick median $29.95 vs plain-agent $2.06; exact model not named in retrieved issue body. Not a pricing forecast.",
+      "limitations": "Not proven better than plain review. Competitor-authored benchmark #20 reports equal median recall (0.467) to plain review, ~90% precision and gaps in dependency advisories and unmapped domain defects. Small sample, one target and competitor conflict limit generalization. Use alongside dependency advisory tooling and human review; do not imply full security clearance.",
+      "evidence": [
+        {
+          "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/skills/security-audit/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Guidance default; full audit explicit; source-first checks, sandbox requirement, separate records, coverage profiles and agent budget reserves."
+        },
+        {
+          "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/skills/security-audit/validate-findings.cjs",
+          "kind": "pinned_source",
+          "finding": "Node core-module validator with input/nesting/diagnostic limits; mechanical output checking is separate from proof of finding correctness."
+        },
+        {
+          "url": "https://github.com/cloudflare/security-audit-skill/issues/20",
+          "kind": "external_benchmark_with_competitor_conflict",
+          "finding": "Reporter explicitly discloses own competing multi-lens tool; one seeded target, n=3 each arm. Quick median precision 90%, recall 0.467 equal to plain control, cost $29.95 vs $2.06. Dependency-CVE and locale-domain gaps observed. Not independently reproduced here."
+        },
+        {
+          "url": "https://andrew.ooo/posts/cloudflare-security-audit-skill-review-agent-vulnerability-hunting/",
+          "kind": "independent_source_review",
+          "finding": "Explains source workflow, sandbox ownership and high token costs; summarizes issues/community rather than providing a new controlled benchmark."
+        },
+        {
+          "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md",
+          "kind": "pinned_source",
+          "finding": "Author says skill seeded a larger internal harness and one pass found roughly half of bugs found over repeated runs. Author experience, not independent proof for this user's projects."
+        }
+      ],
+      "review_depth": "Read main skill and README, inventory of attack-class/reporting companions and schema/validator source excerpts, actual issue #20 and external review. Not an exhaustive security audit; no target execution, install, or tests.",
+      "sha": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/engineering.md",
+      "selection_reason": "Use for a scoped security investigation needing evidence records, coverage accounting and separate verification of proposed findings. Conditional, with a budget. A small competitor-authored comparison found equal median recall to plain review at much higher cost; that is a caution, not a universal verdict. This is not dependency-advisory coverage or a SkillSpector replacement."
+    },
+    {
+      "repo": "coreyhaines31/marketingskills",
+      "sha": "28e4a81a3464475cbccc3c2bbcfe414bcabae32b",
+      "category": "domain",
+      "decision": "retain",
+      "purpose": "Marketing strategy, customer research, copywriting, conversion and growth workflows.",
+      "distinctive_value": "Retain one parent catalog entry with selected children: product-marketing for shared positioning context, customer-research, copywriting/copy-editing and the SEO/CRO child needed for a project. Pin has 50 SKILL.md children, not older counts or 50 independent recommendations.",
+      "compatibility": "Native .codex-plugin/plugin.json points to ./skills/. Product context is .agents/product-marketing.md; readable skills fit Codex. API/CLI integrations are additional capabilities, not prerequisites to plain writing.",
+      "cost_license": "MIT. No license fee; Codex/model use costs remain. Optional marketing services, API calls and ads have their own fees. Verified Partner integrations are disclosed sponsorships.",
+      "limitations": "Large overlap among social, copy and SEO packs; select on demand. Buffer CLI can create/share/destroy updates: reading a writing skill does not authorize publication. Partner placement is not proof of independent tool superiority.",
+      "evidence": [
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/.codex-plugin/plugin.json",
+          "kind": "source",
+          "finding": "Native Codex manifest, MIT and skills directory verified."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/skills/product-marketing/SKILL.md",
+          "kind": "source",
+          "finding": "Shared product/audience context document with version/changelog; grounded customer language."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/skills/copywriting/SKILL.md",
+          "kind": "source",
+          "finding": "Task-specific copy process, connected to product context."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/tools/clis/buffer.js",
+          "kind": "source",
+          "finding": "Real API wrapper includes scheduling/sharing/deletion and dry-run paths; more than a prompt library."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/README.md",
+          "kind": "source",
+          "finding": "Discloses sponsored Verified Partners, broad skill library and separate tool setup."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/issues/781",
+          "kind": "community",
+          "finding": "Partner onboarding issue confirms paid integration placement; not an independent effectiveness review."
+        },
+        {
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/28e4a81a3464475cbccc3c2bbcfe414bcabae32b/LICENSE",
+          "kind": "license",
+          "finding": "MIT license verified."
+        }
+      ],
+      "review_depth": "Inspected tree (50 skills), native manifest, eight representative skill bodies, registry and GA4/Buffer support wrappers; searched reviews/issues. Most outside coverage is directory/editorial material, not benchmark evidence. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/marketing-and-writing.md",
+      "selection_reason": "Choose product-marketing, customer-research, copywriting/copy-editing and the SEO/CRO child needed for your project. One parent entry covers the collection. Native Codex packaging exists. Start with a small subset of the 50 skills. Optional service wrappers can publish or delete content; choosing a writing skill does not authorize those actions. Sponsored integrations are not independent endorsements."
+    },
+    {
+      "repo": "cursor/plugins",
+      "category": "engineering / Cursor orchestration plugin",
+      "decision": "omit",
+      "purpose": "pstack: Lauren Tan's engineering workflow, playbooks, review panels and operating style.",
+      "distinctive_value": "Rich how/why investigation and arena/interrogate patterns, but a broad replacement operating system for agent work rather than a small complementary Codex skill.",
+      "compatibility": "Reviewed only pstack subtree. Native Cursor plugin/agents/mode metadata and setup rules; not a drop-in Codex plugin. Ports are separate projects and outside this review.",
+      "cost_license": "pstack MIT (Lauren Tan); potentially high multi-model/subagent usage. Tool-specific MCP integrations optional by workflow.",
+      "limitations": "Overlaps Superpowers heavily, adds many principles/playbooks and host-specific orchestration. Source tells agent to name principles in replies, loads unslop on prose and architecture exploration at function boundaries; conflicts with user's wish to avoid broad behavior. Independent notes are source commentary rather than benchmarks.",
+      "evidence": [
+        {
+          "url": "https://github.com/cursor/plugins/blob/1dcc2bacde73ddd284803b7af28164d0436198fc/pstack/skills/poteto-mode/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Cursor mode flags, mandatory skill routing, subagent/architecture/review triggers, and per-reply principle naming."
+        },
+        {
+          "url": "https://github.com/cursor/plugins/blob/1dcc2bacde73ddd284803b7af28164d0436198fc/pstack/LICENSE",
+          "kind": "pinned_source",
+          "finding": "MIT applies to pstack subtree."
+        },
+        {
+          "url": "https://leslieli.dev/notes/go-deep-first-pstack/",
+          "kind": "independent_source_commentary",
+          "finding": "Writer explicitly says they have not installed pstack or used Cursor 3 Agent Window; useful explanation of design, not adoption/performance evidence."
+        }
+      ],
+      "review_depth": "Inventoried pstack skills/playbooks; read poteto-mode trigger excerpt, manifest context and license. Did not audit all automation/Bun watcher code. No candidate execution.",
+      "sha": "1dcc2bacde73ddd284803b7af28164d0436198fc",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Overlaps Superpowers heavily, adds many principles/playbooks and host-specific orchestration. Source tells agent to name principles in replies, loads unslop on prose and architecture exploration at function boundaries; conflicts with user's wish to avoid broad behavior. Independent notes are source commentary rather than benchmarks."
+    },
+    {
+      "repo": "diegosouzapw/OmniRoute",
+      "sha": "47688ba5ea28223cf240d4a3a1b542e249ad63b2",
+      "category": "runtimes",
+      "decision": "optional",
+      "purpose": "Broad self-hosted AI gateway for model providers, account quotas, routing and compatible coding clients.",
+      "distinctive_value": "Quota-aware fallback, routing combinations, observability and a shared endpoint can reduce repeated provider setup across tools. Its broad provider and modality catalog is the main difference from a small single-purpose proxy. A current free-tier methodology explicitly separates recurring budgets, shared pools and regional eligibility.",
+      "compatibility": "macOS-capable local gateway with Codex configuration paths and Responses compatibility documented. This changes provider routing, not Codex reasoning instructions. Use an isolated profile and verify tool-call/streaming behavior for the exact chosen models before switching daily work.",
+      "cost_license": "MIT code. Provider accounts, subscriptions, API charges and local/server operation remain separate. The README’s approximately 1.62 billion monthly free-token total is an estimate across eligible third-party pools, not an entitlement or guaranteed usable coding budget.",
+      "limitations": "Optional infrastructure experiment only; avoid simultaneously adopting multiple overlapping gateways. Large feature scope and frequent provider changes increase maintenance. Compression savings, model counts and uptime language are publisher claims, not independently verified performance. Independent user reports show tool translation and high-concurrency reliability problems in earlier configurations; these justify a targeted trial but do not establish defects at this pin. No candidate was installed or connected to credentials.",
+      "evidence": [
+        {
+          "url": "https://github.com/diegosouzapw/OmniRoute/blob/47688ba5ea28223cf240d4a3a1b542e249ad63b2/README.md",
+          "kind": "pinned source",
+          "finding": "Gateway features, Codex compatibility and explicit eligible-provider free-tier disclaimer."
+        },
+        {
+          "url": "https://github.com/diegosouzapw/OmniRoute/blob/47688ba5ea28223cf240d4a3a1b542e249ad63b2/docs/reference/FREE_TIERS.md",
+          "kind": "pinned source",
+          "finding": "Published methodology linked from README; source path exists in pinned checkout."
+        },
+        {
+          "url": "https://github.com/diegosouzapw/OmniRoute/blob/47688ba5ea28223cf240d4a3a1b542e249ad63b2/LICENSE",
+          "kind": "pinned source",
+          "finding": "MIT license."
+        },
+        {
+          "url": "https://github.com/diegosouzapw/OmniRoute/issues/4038",
+          "kind": "upstream user report",
+          "finding": "User report describes credential loss, stream timeouts and concurrency collapse in a multi-agent setup; current pin not reproduced."
+        },
+        {
+          "url": "https://github.com/diegosouzapw/OmniRoute/issues/678",
+          "kind": "upstream user report",
+          "finding": "Historical report of tool-call corruption in Claude-to-Codex translation."
+        }
+      ],
+      "review_depth": "Pinned source and targeted documentation inspected; minimal independent issue search. No installation, execution or live compatibility test.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "A capable alternative gateway, but installing several routers duplicates service and credential management. Claude Code Router is the selected candidate; aggregated free-tier totals are not guaranteed usable quota."
+    },
+    {
+      "repo": "DietrichGebert/ponytail",
+      "category": "engineering / behavior plugin and hooks",
+      "decision": "omit",
+      "purpose": "Minimize overbuilding and produce concise senior-engineer-style responses.",
+      "distinctive_value": "Reuse ladder and separate audit/review commands are more concrete than a brevity prompt, but still mostly duplicate current simplicity/review expectations.",
+      "compatibility": "Includes Codex integration and Node hooks. Session-persistent behavior and automatic broad coding trigger are a poor fit for the user's preference. Mac hook behavior needs validation before any later trial.",
+      "cost_license": "MIT; no required paid service beyond model use. Author v5 benchmark claims are not independent validation.",
+      "limitations": "Current v5 differs from the externally tested v4.8.4. Mac issue #1043 reports truncated JSON at v4.13; current mode/subagent files still contain immediate exits after finish, but this review did not reproduce or prove the current revision affected. Omission is primarily scope/overlap, not a claim the tool has no benefit.",
+      "evidence": [
+        {
+          "url": "https://github.com/DietrichGebert/ponytail/blob/2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5/skills/ponytail/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Triggers on any coding task and persists for session; uses smallest-complete-change/reuse ladder."
+        },
+        {
+          "url": "https://blog.jetbrains.com/ai/2026/07/ponytail-skill-claude-tested/",
+          "kind": "independent_benchmark",
+          "finding": "JetBrains tested v4.8.4 on 80 paired SkillsBench tasks with Claude Code 2.1.201 / Sonnet 5 medium: typical cost -10.3%, code -15.4%, no detectable task-score difference. Not a security/accessibility test; not current v5."
+        },
+        {
+          "url": "https://github.com/DietrichGebert/ponytail/issues/1043",
+          "kind": "user_bug_report",
+          "finding": "macOS arm64 reporter supplied a Codex-shaped process reproduction with incomplete hook JSON on Node 24/26 at v4.13. Historical/version-specific, not reproduced here."
+        },
+        {
+          "url": "https://github.com/DietrichGebert/ponytail/blob/2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5/hooks/ponytail-mode-tracker.js",
+          "kind": "pinned_source",
+          "finding": "Static read confirms mode persistence plumbing and process.exit calls; not a complete dynamic hook audit."
+        }
+      ],
+      "review_depth": "README, main skill, mode/subagent hook excerpts, independent benchmark and user bug report. No runtime tests or installer execution.",
+      "sha": "2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Current v5 differs from the externally tested v4.8.4. Mac issue #1043 reports truncated JSON at v4.13; current mode/subagent files still contain immediate exits after finish, but this review did not reproduce or prove the current revision affected. Omission is primarily scope/overlap, not a claim the tool has no benefit."
+    },
+    {
+      "repo": "emilkowalski/skills",
+      "sha": "2d228630ba1446365f614a108cb8252f1feda202",
+      "category": "design / motion engineering",
+      "decision": "retain",
+      "purpose": "Shortlist selected animation skills as the clearest addition to the existing design stack.",
+      "distinctive_value": "Prefer animate, review-animations and animation-performance for purpose-driven transitions, reduced motion, interruption handling and rendering costs. Their code-level motion specialization complements Designly's art direction and Vercel's broader implementation guidance.",
+      "compatibility": "Agent Skills Markdown is portable to Codex with tool mapping. Actual edits target the project's existing CSS/WAAPI/Motion stack; related recipes and referenced skills must accompany selected workflows. Broad Swift/Expo/UI-library skills are separate scope, not automatically included.",
+      "cost_license": "MIT. Ordinary agent/model usage; no mandatory hosted service demonstrated for the reviewed motion skills. Libraries or platform tooling depend on the target project.",
+      "limitations": "Guidance is opinionated: absolute bans and performance generalizations require context and browser verification. For example, animation work is not universally composited merely because CSS drives it. Creator experience and tutorials are primary evidence, not independent validation of skill outcomes. No quantified gain or Mac test.",
+      "evidence": [
+        {
+          "url": "https://github.com/emilkowalski/skills/blob/2d228630ba1446365f614a108cb8252f1feda202/skills/animate/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Ordered motion decisions, reduced-motion/hover gating, existing token reuse and links to recipes/related skills."
+        },
+        {
+          "url": "https://github.com/emilkowalski/skills/blob/2d228630ba1446365f614a108cb8252f1feda202/skills/review-animations/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Specific review lens for existing animations rather than broad visual redesign."
+        },
+        {
+          "url": "https://github.com/emilkowalski/skills/blob/2d228630ba1446365f614a108cb8252f1feda202/skills/animation-performance/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Performance-focused guidance supports targeted motion debugging."
+        }
+      ],
+      "review_depth": "Read pinned README, license and three motion skills; sampled older staged audit/design material. Independent skill evaluations insufficient. Recommendation only: no installation, execution, full dependency closure or SkillSpector clearance.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Use animate, review-animations and animation-performance for purposeful transitions, interruption handling, reduced motion and rendering costs. A specific addition to the existing design stack. Treat opinions as guidance and verify in the browser; CSS alone does not guarantee compositing or good performance."
+    },
+    {
+      "repo": "firecrawl/anydoc",
+      "sha": "261fc257d17c3eab0f673be31c408fd9fdc2171a",
+      "category": "tools",
+      "decision": "retain",
+      "purpose": "Convert office documents, spreadsheets, presentations, ebooks and text PDFs into Markdown for agent reading.",
+      "distinctive_value": "Strongest practical addition in this group: a small, concrete document-ingestion capability across many formats, with local Rust conversion and Node/Python/WASM bindings. Useful even without installing its skill; large outputs can be saved and searched selectively.",
+      "compatibility": "The standalone Agent Skill explicitly supports Codex. Its default CLI route requires Node 20+ and downloads a platform binary; Mac behavior was not executed here. Pin the actual runtime package as well as the skill revision.",
+      "cost_license": "MIT; local conversion needs no paid API. Optional Firecrawl Parse OCR has service limits and potentially paid usage; API key raises limits.",
+      "limitations": "No local OCR: scanned pages cause NeedsOcr, including mixed PDFs in a reported 0.2.4 case. Hosted OCR sends the entire document, so it must be an explicit data-handling choice. Markdown is not layout-preserving or a substitute for spreadsheet recalculation. Upstream speed claims are not independently benchmarked here.",
+      "evidence": [
+        {
+          "url": "https://github.com/firecrawl/anydoc/blob/261fc257d17c3eab0f673be31c408fd9fdc2171a/skills/convert-documents-to-markdown/SKILL.md",
+          "kind": "source",
+          "finding": "Portable skill, Node requirement, exit codes, and hosted OCR escalation."
+        },
+        {
+          "url": "https://github.com/firecrawl/anydoc/blob/261fc257d17c3eab0f673be31c408fd9fdc2171a/README.md",
+          "kind": "source",
+          "finding": "Local conversion, bindings, supported formats; whole-document upload for hosted OCR."
+        },
+        {
+          "url": "https://github.com/firecrawl/anydoc/issues/144",
+          "kind": "independent issue",
+          "finding": "User reproduction on macOS arm64/0.2.4: one image-only page prevents text-page conversion. Treat as version-specific evidence, not proof against every revision."
+        },
+        {
+          "url": "https://github.com/firecrawl/anydoc/issues/58",
+          "kind": "independent issue",
+          "finding": "Detailed Hebrew/Arabic PDF ordering report; DOCX/XLSX reportedly unaffected. Validate multilingual PDFs on representative fixtures."
+        }
+      ],
+      "review_depth": "Pinned README and complete skill inspected; issue reproductions read. No candidate execution, installation, scanner run, or Mac behavior test.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "tools/documents-and-video.md",
+      "selection_reason": "Convert local office documents, spreadsheets, presentations, ebooks and text PDFs to Markdown for reading and analysis. A concrete local capability, not another prompt. Local conversion has no OCR; scanned or mixed PDFs may need a different path. Optional hosted OCR sends the document outside the device. Markdown does not preserve full layout or recalculate a workbook."
+    },
+    {
+      "repo": "helloianneo/ian-xiaohei-illustrations",
+      "sha": "4102eb807f03bcb6e538a16e8b31b41db8b5b954",
+      "category": "design / Chinese editorial illustration",
+      "decision": "omit",
+      "purpose": "Reconsider only if the user wants this specific Chinese article illustration style.",
+      "distinctive_value": "Turns article reasoning into a shot list and recurring Xiaohei visual metaphors: white backgrounds, black hand-drawn characters and sparse colored Chinese annotations. Useful as a consistent editorial series, not a general graphics capability.",
+      "compatibility": "A Codex-oriented Markdown skill explicitly calls built-in image_gen and writes final images under workspace assets. Requires the matching image tool and all referenced style/character/composition resources; a generic coding-only client cannot perform generation.",
+      "cost_license": "MIT repository license plus NOTICE requesting Ian attribution/name retention when adapting or redistributing. Image generation consumes the user's available service usage; the skill does not provide an image model.",
+      "limitations": "Very narrow visual identity overlaps the user's existing image-generation/design tools. Default article plans contain several illustrations, so generation and correction effort scale with image count. PNG outputs are not editable vector illustrations. Chinese lettering fidelity still needs visual checking. Independent user reviews are insufficient.",
+      "evidence": [
+        {
+          "url": "https://github.com/helloianneo/ian-xiaohei-illustrations/blob/4102eb807f03bcb6e538a16e8b31b41db8b5b954/ian-xiaohei-illustrations/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Defines shot-list-to-image workflow, built-in image_gen requirement, per-image generation, QA and non-overwriting asset output."
+        },
+        {
+          "url": "https://github.com/helloianneo/ian-xiaohei-illustrations/blob/4102eb807f03bcb6e538a16e8b31b41db8b5b954/NOTICE.md",
+          "kind": "pinned_source",
+          "finding": "Identifies examples as creator-generated calibration and requests Ian attribution for adaptation/redistribution."
+        },
+        {
+          "url": "https://github.com/helloianneo/ian-xiaohei-illustrations/blob/4102eb807f03bcb6e538a16e8b31b41db8b5b954/README.md",
+          "kind": "pinned_source",
+          "finding": "Explicitly scopes the style to Chinese explanatory article PNGs and excludes editable vector/source deliverables."
+        }
+      ],
+      "review_depth": "Read pinned README/license/NOTICE/main skill; sampled staged prompt/style/QA references and Codex metadata. No image generation, asset evaluation, complete resource audit, Mac test or installation clearance.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Keep as an optional narrow style: Chinese editorial illustrations with annotations and a consistent visual treatment. Retained as a style option already represented in your inventory, not a general design upgrade. Requires image generation and visual checks of lettering. Prior scan exceptions and missing audit imports remain unresolved; this research does not clear them."
+    },
+    {
+      "repo": "Jakeschincariol/instagram-agent-skill",
+      "sha": "d03c56bb598be770c60b201f94237e5d1a4268a6",
+      "category": "domain",
+      "decision": "optional",
+      "purpose": "Instagram content planning, Reels hooks, captions, profile review and manual posting drafts.",
+      "distinctive_value": "Retain as one optional parent only when Instagram is an active workflow. Distinctive children are ig-reel hook/beat scoring, ig-caption linting and ig-viral account-median normalization; generic humanization overlaps Humanizer and marketing-skills.",
+      "compatibility": "13 SKILL.md children plus Python standard-library helpers. Claude paths/slash commands and ~/.claude/instagram/voice.md need adaptation for Codex; source gives a shared voice template. Does not itself log in or publish.",
+      "cost_license": "MIT; helpers have no API fee or required third-party Python dependencies in inspected imports. Model use costs remain; live research is separate.",
+      "limitations": "Hook metrics are heuristics. Author reports AUC 0.56 for separating hits from misses, on 74 YouTube Shorts hooks rather than Instagram Reels; no reproduction run performed. Regex humanization strips joiners/normalizes punctuation, which can damage multilingual or stylistically intentional text; use only on reviewed copies. No independent growth uplift established.",
+      "evidence": [
+        {
+          "url": "https://github.com/Jakeschincariol/instagram-agent-skill/blob/d03c56bb598be770c60b201f94237e5d1a4268a6/skills/ig-reel/hookscore.py",
+          "kind": "source",
+          "finding": "Scoring code and docstring explicitly distinguish weak-hook screening from predicting viral winners."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/instagram-agent-skill/blob/d03c56bb598be770c60b201f94237e5d1a4268a6/skills/ig-human/humanize.py",
+          "kind": "source",
+          "finding": "Real regex replacement pipeline, Unicode handling and URL protection; not an AI-detector service."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/instagram-agent-skill/blob/d03c56bb598be770c60b201f94237e5d1a4268a6/skills/ig-viral/swipe.py",
+          "kind": "source",
+          "finding": "Ranks supplied examples relative to each account median, helping avoid raw-follower-size bias."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/instagram-agent-skill/blob/d03c56bb598be770c60b201f94237e5d1a4268a6/README.md",
+          "kind": "source",
+          "finding": "13-skill inventory, local helper workflows, disclosed benchmark limits and manual posting boundary."
+        },
+        {
+          "url": "https://aboveyellow.com/blog/claude-instagram-agent-skill",
+          "kind": "independent-editorial",
+          "finding": "Independent how-to confirms draft/copy workflow and five local tools; promotional coverage is not a controlled growth evaluation."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/instagram-agent-skill/blob/d03c56bb598be770c60b201f94237e5d1a4268a6/LICENSE",
+          "kind": "license",
+          "finding": "MIT license verified."
+        }
+      ],
+      "review_depth": "Inspected all 13 skill files available in staging and sampled reel, caption, humanization and swipe support code/templates; queried issues (mostly low-information) and outside how-to coverage. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/marketing-and-writing.md",
+      "selection_reason": "Optional if Instagram becomes a regular workflow: use reel structure, caption checks and account-relative example ranking rather than raw follower counts. One parent entry, not thirteen separate installs. Author hook results are weak screening evidence, not a virality predictor. Generic rewriting overlaps Humanizer; inspect multilingual text after regex edits. Independent growth uplift is unestablished."
+    },
+    {
+      "repo": "Jakeschincariol/replica-skill",
+      "category": "engineering / app-recreation workflow",
+      "decision": "omit",
+      "purpose": "Eleven coordinated skills for functionality reconstruction, branding, testing and launching an app.",
+      "distinctive_value": "Concrete local helpers for screenshot edge maps, weighted feature parity, review-theme tallying, branding sweep and store-listing checks. Only relevant to a specific app-recreation project.",
+      "compatibility": "Claude-oriented Markdown skills can be adapted; six Python standard-library helpers require Python 3.8+. Browser access/screenshots, test runner and hosting/auth/payment integrations are not supplied by skill itself.",
+      "cost_license": "MIT. Local helper code has no mandatory hosted subscription; target model, hosting, stores and payment services add separate costs.",
+      "limitations": "A broad eleven-stage workflow adds overlap and a niche objective rather than improving general Codex work. Weighted self-entered feature parity and image edge scores are not proof of behavioral equivalence. Project is new; external search returned directories/editorials rather than convincing independent usage benchmarks.",
+      "evidence": [
+        {
+          "url": "https://github.com/Jakeschincariol/replica-skill/blob/77c9436fb3d18c3d58169efb8caf4fe906b0dc51/replica-diff/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Features are weighted and combined with screenshot layout evidence; behavioral flows still require manual/agent examination."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/replica-skill/blob/77c9436fb3d18c3d58169efb8caf4fe906b0dc51/replica-diff/parity.py",
+          "kind": "pinned_source",
+          "finding": "Static source defines must/should/could weights 3/2/1 and partial credit 0.5 from supplied CSV."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/replica-skill/blob/77c9436fb3d18c3d58169efb8caf4fe906b0dc51/replica-diff/imgdiff.py",
+          "kind": "pinned_source",
+          "finding": "Local stdlib PNG parser and edge-grid comparison; score is structural, not complete UI or behavioral validation."
+        },
+        {
+          "url": "https://github.com/Jakeschincariol/replica-skill/blob/77c9436fb3d18c3d58169efb8caf4fe906b0dc51/replica-deploy/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Preflight requires explicit user go; source provides service setup checklist, does not bundle platform capabilities."
+        }
+      ],
+      "review_depth": "Read README, diff/deploy skills and helper source excerpts; license verified; external search. No Python helper execution, browser replication, installation or validation.",
+      "sha": "77c9436fb3d18c3d58169efb8caf4fe906b0dc51",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "A broad eleven-stage workflow adds overlap and a niche objective rather than improving general Codex work. Weighted self-entered feature parity and image edge scores are not proof of behavioral equivalence. Project is new; external search returned directories/editorials rather than convincing independent usage benchmarks."
+    },
+    {
+      "repo": "JuliusBrussee/caveman",
+      "category": "engineering / compression skill plus proxy runtime",
+      "decision": "omit",
+      "purpose": "Shorten assistant narration; newer CLI/proxy also compresses agent input and includes browse/MCP/runtime components.",
+      "distinctive_value": "Input compression is a distinct capability, but it introduces a much larger runtime surface than the original short-answer skill. Not justified for this user's concise-output preference alone.",
+      "compatibility": "Codex supported by documented installer/wrapper paths; current recommended setup requires Node 22.13+ and persistent proxy/integration configuration. Plain skill can be isolated, but omit from this curated stack.",
+      "cost_license": "Apache-2.0 from v3.0 onward per LICENSING.md; older MIT notices retained. Caveman Cloud is separate commercial software. No reliable universal billing reduction established.",
+      "limitations": "Do not conflate older prose-output benchmarks with current proxy's author-reported 33.2% input reduction. Broader compression correctness, cache effects and compatibility require workload-specific checks. External issues are user reports rather than verified defects in this review.",
+      "evidence": [
+        {
+          "url": "https://github.com/JuliusBrussee/caveman/blob/2e08b9177c07bb7249a8a2d1a6758e5db281d002/README.md",
+          "kind": "pinned_source",
+          "finding": "Current primary installation is CLI/proxy; separate optional skill; cites 54 Claude Code proxy runs and 18 exact answers."
+        },
+        {
+          "url": "https://github.com/JuliusBrussee/caveman/blob/2e08b9177c07bb7249a8a2d1a6758e5db281d002/LICENSING.md",
+          "kind": "pinned_source",
+          "finding": "Entire current repository Apache-2.0; Cloud separate; pre-3.0 releases keep prior terms."
+        },
+        {
+          "url": "https://blog.jetbrains.com/ai/2026/07/speak-to-ai-agents-like-cavemen-tosave-tokens/",
+          "kind": "independent_benchmark",
+          "finding": "JetBrains paired Claude Code/Sonnet 5 low tests found 8.5% output-token reduction and no detectable task-score difference on 82 full-run pairs. Raw cost inverted due to one long-context outlier. Tests skill, not current proxy."
+        },
+        {
+          "url": "https://github.com/JuliusBrussee/caveman/issues/1093",
+          "kind": "user_methodology_critique",
+          "finding": "Reporter questions quality coverage and tokenizer approximations. Treat tokenizer allegation as a report, not established fact; current headline proxy figures use provider-reported tokens."
+        },
+        {
+          "url": "https://github.com/JuliusBrussee/caveman/issues/1020",
+          "kind": "user_bug_report",
+          "finding": "macOS subscription user reported interactive compression but none for claude -p, despite eligible requests, on earlier CLI/runtime versions. Illustrates host-path sensitivity; not evidence of current Codex breakage."
+        }
+      ],
+      "review_depth": "README, licensing, skill inventory, relevant issue bodies and direct JetBrains benchmark. Did not inspect all Go runtime/proxy code or execute anything.",
+      "sha": "2e08b9177c07bb7249a8a2d1a6758e5db281d002",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Do not conflate older prose-output benchmarks with current proxy's author-reported 33.2% input reduction. Broader compression correctness, cache effects and compatibility require workload-specific checks. External issues are user reports rather than verified defects in this review."
+    },
+    {
+      "repo": "karpathy/llm-council",
+      "sha": "92e1fccb1bdcf1bab7221aa9ed90f9dc72529131",
+      "category": "orchestration",
+      "decision": "omit",
+      "purpose": "A local web app for asking several OpenRouter models a question, comparing answers and peer rankings, and obtaining a chairman synthesis. Omit from a Codex skill shortlist; retain only as a separate research prototype reference.",
+      "distinctive_value": "The three-stage mechanism is real code: parallel initial answers, anonymized peer evaluation, and final synthesis. It is useful for seeing disagreement across providers and illustrates a multi-model council architecture. It is materially different from having one model impersonate several expert personas.",
+      "compatibility": "FastAPI/Python backend and a web frontend, not a native Codex skill or plugin. A Mac can host it with the documented development dependencies, but it is a separate application and does not integrate the existing Superpowers engineering workflow.",
+      "cost_license": "Requires an OpenRouter API key and paid model usage depending on selected models. Each question fans out into answer and ranking calls plus the chairman. No root license file was present in the reviewed snapshot; do not assume permissive reuse merely because source is public.",
+      "limitations": "The author explicitly describes a Saturday experiment and says it will not be supported or improved. Peer ranking is not ground truth, and common model errors can survive synthesis. Its original model defaults, dependency health, privacy, and operational hardening would require separate review before actual use. No evidence here establishes better coding outcomes.",
+      "evidence": [
+        {
+          "url": "https://github.com/karpathy/llm-council/blob/92e1fccb1bdcf1bab7221aa9ed90f9dc72529131/README.md#disclaimer",
+          "kind": "author statement",
+          "finding": "Explicitly unsupported experimental local app."
+        },
+        {
+          "url": "https://github.com/karpathy/llm-council/blob/92e1fccb1bdcf1bab7221aa9ed90f9dc72529131/backend/council.py",
+          "kind": "source",
+          "finding": "Implements collection, anonymized rankings and chairman synthesis."
+        },
+        {
+          "url": "https://github.com/karpathy/llm-council/blob/92e1fccb1bdcf1bab7221aa9ed90f9dc72529131/backend/openrouter.py",
+          "kind": "source",
+          "finding": "External OpenRouter model calls."
+        },
+        {
+          "url": "https://github.com/karpathy/llm-council/blob/92e1fccb1bdcf1bab7221aa9ed90f9dc72529131/README.md",
+          "kind": "documentation",
+          "finding": "Dependencies, API configuration and local web-app architecture."
+        }
+      ],
+      "review_depth": "Pinned README, backend orchestration/OpenRouter architecture, and root license-file check. No server or model calls executed.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "The author explicitly describes a Saturday experiment and says it will not be supported or improved. Peer ranking is not ground truth, and common model errors can survive synthesis. Its original model defaults, dependency health, privacy, and operational hardening would require separate review before actual use. No evidence here establishes better coding outcomes."
+    },
+    {
+      "repo": "kepano/obsidian-skills",
+      "sha": "3ccff5338ea700537839b21900aa5358a0402c98",
+      "category": "domain",
+      "decision": "retain",
+      "purpose": "Obsidian-specific note formats, Bases, JSON Canvas and optional app/CLI operations.",
+      "distinctive_value": "Retain one parent entry conditional on actual Obsidian use. Markdown/Bases/JSON Canvas provide domain syntax precision beyond generic writing. CLI, Defuddle and Knap are optional children rather than six duplicate catalog tools.",
+      "compatibility": "README names Codex; standard skills portable. Format-editing children need no Obsidian process, while obsidian-cli requires a running Obsidian app/CLI on the Mac. Knap requires Node 20+; Defuddle and Knap are external packages, not installed merely by reading these skills.",
+      "cost_license": "MIT skills; no skill license fee. Codex/model usage remains. Optional external app/services retain their own licensing/pricing; Sync/Publish are not required by the format-editing skills.",
+      "limitations": "Vault access includes private notes and CLI can modify files or run app-context JavaScript; scope each task. Current pinned plugin metadata stays at 1.0.1 despite changes; do not rely solely on Claude marketplace version updates. Bare alias wikilinks deserve resolver checks, as issue reports identify missing guidance.",
+      "evidence": [
+        {
+          "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/skills/obsidian-bases/SKILL.md",
+          "kind": "source",
+          "finding": "Concrete YAML schema, filters and Duration-function constraints with validation workflow."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/skills/json-canvas/SKILL.md",
+          "kind": "source",
+          "finding": "Open format instructions for nodes, edges, groups and connections."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/skills/obsidian-cli/SKILL.md",
+          "kind": "source",
+          "finding": "Requires running app, recommends live help, documents read/write, plugin reload and eval commands."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/skills/knap/SKILL.md",
+          "kind": "source",
+          "finding": "Separate Node 20+ CLI, syntax validation, dry-run batch and overwrite behavior."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/issues/146",
+          "kind": "community",
+          "finding": "User reports unchanged marketplace version blocking content refresh; static manifest check confirms version value, not runtime updater behavior."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/issues/144",
+          "kind": "community",
+          "finding": "Mac user reports bare alias links unresolved, recommends actual resolver verification; issue is guidance gap, not proof all generated links fail."
+        },
+        {
+          "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/LICENSE",
+          "kind": "license",
+          "finding": "MIT license verified."
+        }
+      ],
+      "review_depth": "Inspected all six skills and selected Markdown/Bases/Canvas references plus manifests; checked issue reports. No installed Obsidian vault or Mac CLI tested. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/knowledge-and-investigation.md",
+      "selection_reason": "Use if you keep an Obsidian vault. Markdown, Bases and JSON Canvas format guidance adds precise syntax beyond general writing. Choose format skills first. CLI, Defuddle and Knap are separate optional dependencies; the CLI needs a running app and can write files or evaluate code. Your notes remain local and outside the setup backup."
+    },
+    {
+      "repo": "kylezantos/design-motion-principles",
+      "sha": "4a9ca879f24a361f4dca4174fe2da0f67b5ddee3",
+      "category": "design / motion creation and audit",
+      "decision": "omit",
+      "purpose": "An alternate motion review lens; omit alongside the preferred Emil motion skills.",
+      "distinctive_value": "Weights three contrasting interpretations—restraint, production polish and creative play—according to project context. Its audit produces a standalone HTML report with looping demonstrations, useful when communicating motion recommendations visually.",
+      "compatibility": "Portable Markdown workflows for HTML/CSS/React/Motion; Codex needs mappings for named question/browser tools. Reports write local motion-audits files and may open a browser. Referenced workflows, cookbook and accessibility material must be preserved together.",
+      "cost_license": "MIT; normal model usage and any project-specific browser/library costs. No mandatory service fee demonstrated.",
+      "limitations": "Substantial duplication with Emil's first-party skills and existing design direction. The author explicitly says the named designers neither authored nor endorsed these interpreted lenses. Absolute rules such as never animating keyboard actions need judgment. Independent user evaluations are insufficient in the collected material.",
+      "evidence": [
+        {
+          "url": "https://github.com/kylezantos/design-motion-principles/blob/4a9ca879f24a361f4dca4174fe2da0f67b5ddee3/skills/design-motion-principles/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Create/audit router, context weights, reduced-motion requirement and explicit non-endorsement statement."
+        },
+        {
+          "url": "https://github.com/kylezantos/design-motion-principles/blob/4a9ca879f24a361f4dca4174fe2da0f67b5ddee3/skills/design-motion-principles/workflows/audit.md",
+          "kind": "pinned_source",
+          "finding": "Prescribes visual HTML audit output and project inspection workflow."
+        },
+        {
+          "url": "https://github.com/kylezantos/design-motion-principles/blob/4a9ca879f24a361f4dca4174fe2da0f67b5ddee3/README.md",
+          "kind": "pinned_source",
+          "finding": "Explains motion cookbook, reports and supported assistant conventions; these are author claims."
+        }
+      ],
+      "review_depth": "Read pinned README/license/main skill/audit workflow; sampled staged creation workflow and cookbook. No generated report, behavior test, browser test, independent efficacy proof or installation clearance.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Substantial duplication with Emil's first-party skills and existing design direction. The author explicitly says the named designers neither authored nor endorsed these interpreted lenses. Absolute rules such as never animating keyboard actions need judgment. Independent user evaluations are insufficient in the collected material."
+    },
+    {
+      "repo": "Leonxlnx/taste-skill",
+      "sha": "a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9",
+      "category": "design / selected image workflows",
+      "decision": "retain",
+      "purpose": "Retain only the user's selected BrandKit and Image-to-Code children for on-demand use; omit default v2 and other variants.",
+      "distinctive_value": "BrandKit packages one coherent brand world into a sparse multi-panel image, with explicit new-versus-existing identity intake and supplied-logo preservation. Image-to-Code supplies a concrete handoff from generated section references through visual analysis into frontend implementation. These narrower deliverables can complement Designly's direction and AI Graphic Design's canvas even though their visual generation capabilities overlap.",
+      "compatibility": "BrandKit needs image generation and produces a board image, not editable identity assets. Image-to-Code explicitly targets Codex and requires image generation, visual inspection and a coding workspace. Neither reviewed child should inherit default v2's Node/browser requirement without evidence; default v2 is a separate script-based workflow.",
+      "cost_license": "MIT; normal image/model usage and external asset terms apply. Image-to-Code prescribes roughly one generated image per section plus fresh detail images/retries, so usage can grow substantially. The README's 30–45-minute/hundreds-of-thousands-token estimate describes default v2, not these children.",
+      "limitations": "BrandKit overlaps existing branding direction; its benefit is a repeatable board format. Image-to-Code's mandatory generation and broad visual-task trigger need explicit invocation to avoid imposing costly regeneration on routine edits or supplied designs. Independent outcome evidence is insufficient; selected-child preference is not installation clearance.",
+      "evidence": [
+        {
+          "url": "https://github.com/Leonxlnx/taste-skill/blob/a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9/skills/brandkit/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Defaults to one 3×3 overview image; distinguishes new identity from extension and preserves supplied identity assets."
+        },
+        {
+          "url": "https://github.com/Leonxlnx/taste-skill/blob/a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9/skills/image-to-code-skill/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Requires image-first generation, one image per section, fresh detail images instead of crops, analysis, then code."
+        },
+        {
+          "url": "https://github.com/Leonxlnx/taste-skill/blob/a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9/README.md",
+          "kind": "pinned_source",
+          "finding": "Lists separate child install names; default v2 runtime and quoted build costs are distinct from these children."
+        }
+      ],
+      "review_depth": "Read pinned BrandKit and Image-to-Code instructions and README/license; default taste skill inspected separately. No generated board/site, Mac behavior test, SkillSpector scan or dependency-complete installation review.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Preserve your selected children under one parent: BrandKit produces a repeatable identity board; Image-to-Code develops visual section references and then implements them. Explicit use only. Image-to-Code prescribes image generation per section and detail retries, which adds usage. Its workflow can conflict with simply implementing an existing design. The default v2 and other variants are not shortlisted."
+    },
+    {
+      "repo": "mattpocock/skills",
+      "category": "engineering / architecture skills",
+      "decision": "optional",
+      "purpose": "On-demand architecture deepening and domain vocabulary work.",
+      "distinctive_value": "Cherry-pick improve-codebase-architecture with its codebase-design, grilling and domain-modeling dependencies when needed. Hotspot-directed exploration, a deletion test, before/after HTML diagrams, and inline glossary/ADR capture add a more specific design lens than Superpowers. Do not install the whole lifecycle collection.",
+      "compatibility": "Markdown skills have Codex agent metadata. Source invokes a Skill tool and subagents that must map to Codex capabilities; visual reports use browser open and CDN assets. The full architecture workflow pauses for candidate selection and runs a grilling loop, so not an autonomous default.",
+      "cost_license": "MIT; ordinary model/subagent costs, no mandatory external paid service.",
+      "limitations": "Mostly overlaps existing planning/TDD/review skills. Dependencies matter: copying only the top-level architecture file leaves missing vocabulary/grilling resources. Domain skill writes GLOSSARY.md and ADRs. No measured general productivity gain established.",
+      "evidence": [
+        {
+          "url": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/improve-codebase-architecture/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Explicit-invocation frontmatter; git-history scope, subagent exploration, HTML report, candidate gate and linked dependencies."
+        },
+        {
+          "url": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/domain-modeling/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Creates glossary lazily, challenges terminology against source, ADRs only for difficult-to-reverse surprising tradeoffs."
+        },
+        {
+          "url": "https://docs.rhi.zone/skills-mattpocock.html",
+          "kind": "independent_adoption_report",
+          "finding": "Reviewer adopted architecture skill with adaptations, kept deletion-test/deepening vocabulary, dropped ADR ceremony for their context, and skipped TDD. Review is based on April 2026 snapshot, not the pinned October revision."
+        }
+      ],
+      "review_depth": "Read README, architecture/domain/codebase-design SKILL files and Codex metadata; examined independent adoption notes. Selective static review; no install, execution, or security clearance.",
+      "sha": "49dd158d1076134a641b33efb035946536778336",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/engineering.md",
+      "selection_reason": "Use architecture exploration and domain modeling when the structure or terminology of a codebase is the problem. Keep linked dependencies together; Grill Me belongs to this parent repository. Optional. Its broader planning, TDD and review collection overlaps Superpowers. Some selected workflows write glossary and decision documents; choose them deliberately."
+    },
+    {
+      "repo": "mksglu/context-mode",
+      "sha": "1a1bed139906ecc048233583bb2fd29290603b7a",
+      "category": "tools",
+      "decision": "optional",
+      "purpose": "Reduce raw tool-output context through executable filtering, local indexing/search, and session-continuity hooks.",
+      "distinctive_value": "Potentially useful for repeated large logs, test output and browser snapshots. More substantial than a prompt-only brevity skill: local SQLite/FTS retrieval and routing mechanisms. Benchmark a representative Codex workload before accepting claimed savings or adding another always-running service.",
+      "compatibility": "Real Codex adapter and capability detection exist. Source gates PreToolUse updatedInput/additionalContext at codex-cli >=0.141.0, falling back on older builds. README caveats can lag source; the exact Mac Codex build and hook support still need validation. MCP-only usage is a narrower trial.",
+      "cost_license": "Elastic License 2.0, not a permissive MIT-style license; self-hosted use is available, but hosted/managed redistribution restrictions matter. Requires a local runtime and storage.",
+      "limitations": "The advertised 98% reduction is workload-dependent, not a demonstrated universal token, latency, or bill reduction. Retrieval can omit needed evidence; hooks add behavioral coupling. Indexed source/session content remains sensitive local state. Existing Codex tools already support selective command output, so added benefit must exceed maintenance cost.",
+      "evidence": [
+        {
+          "url": "https://github.com/mksglu/context-mode/blob/1a1bed139906ecc048233583bb2fd29290603b7a/hooks/core/codex-caps.mjs",
+          "kind": "source",
+          "finding": "Version detection enables rewrite/context support at 0.141.0 and fails closed on detection errors."
+        },
+        {
+          "url": "https://github.com/mksglu/context-mode/blob/1a1bed139906ecc048233583bb2fd29290603b7a/src/adapters/codex/hooks.ts",
+          "kind": "source",
+          "finding": "Actual Codex hook adapter and matching constraints; newer support supersedes stale blanket incompatibility claims."
+        },
+        {
+          "url": "https://github.com/mksglu/context-mode/blob/1a1bed139906ecc048233583bb2fd29290603b7a/README.md",
+          "kind": "maintainer claims",
+          "finding": "Architecture, platform instructions and reduction examples; examples are not independent benchmarks."
+        },
+        {
+          "url": "https://github.com/mksglu/context-mode/blob/1a1bed139906ecc048233583bb2fd29290603b7a/LICENSE",
+          "kind": "source",
+          "finding": "Elastic License 2.0 terms."
+        }
+      ],
+      "review_depth": "Pinned adapter, capability source and README inspected. Independent issue API returned 410/issues disabled; no third-party savings benchmark verified. Not executed or installed.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "mcp/context-and-images.md",
+      "selection_reason": "Optional for repeated large tool outputs: filter, index and retrieve relevant pieces instead of adding everything to context. Codex behavior is version-dependent; source includes newer hooks beyond stale README wording. Measure benefit against existing selective tools. Advertised 98% savings is not a universal bill reduction, and retrieval can omit evidence. Local indexes are not setup backups."
+    },
+    {
+      "repo": "msitarzewski/agency-agents",
+      "sha": "4bce55aa8b97385a5ad7b37d09b44ab976b96573",
+      "category": "orchestration",
+      "decision": "optional",
+      "purpose": "A large catalog of specialist agent instructions spanning engineering, design, operations, research, and other functions. Optional as a source for one or two role briefs that match recurring work; do not install the entire roster by default.",
+      "distinctive_value": "Its useful contribution is breadth of explicit role objectives, checklists, outputs, and working style. The Codex conversion route is concrete: each Markdown body becomes developer_instructions in a standalone TOML agent, with name and description preserved. Selected role prompts may help specify an otherwise vague task.",
+      "compatibility": "Current repository documents and implements Codex custom-agent output under ~/.codex/agents, alongside many other host adapters. This is a prompt/persona catalog, not a runtime that itself guarantees a staffed team, model diversity, tool isolation, or autonomous cooperation.",
+      "cost_license": "MIT. Text files have no required hosted-service fee, and model calls use the chosen host’s quota. The separately promoted desktop application was not assessed for pricing or behavior.",
+      "limitations": "Generic specialist identities and claimed experience are instructions, not credentials or learned domain expertise. For example, the frontend brief asks for broad framework and performance expertise but also includes opinionated defaults that may not fit every task. Actual results depend on the underlying model, tools, repository context, and verification. Consider selected specialized briefs only after checking overlap with existing skills; bulk installation adds discovery noise and maintenance without evidence that every role improves outcomes.",
+      "evidence": [
+        {
+          "url": "https://github.com/msitarzewski/agency-agents/blob/4bce55aa8b97385a5ad7b37d09b44ab976b96573/integrations/codex/README.md",
+          "kind": "documentation",
+          "finding": "Minimal TOML mapping and Codex installation destination."
+        },
+        {
+          "url": "https://github.com/msitarzewski/agency-agents/blob/4bce55aa8b97385a5ad7b37d09b44ab976b96573/scripts/convert.sh#L216-L234",
+          "kind": "source",
+          "finding": "Codex converter emits name, description and full Markdown developer instructions."
+        },
+        {
+          "url": "https://github.com/msitarzewski/agency-agents/blob/4bce55aa8b97385a5ad7b37d09b44ab976b96573/engineering/engineering-frontend-developer.md",
+          "kind": "sample content",
+          "finding": "Representative role-based prompt and opinionated engineering requirements."
+        },
+        {
+          "url": "https://github.com/msitarzewski/agency-agents/blob/4bce55aa8b97385a5ad7b37d09b44ab976b96573/LICENSE",
+          "kind": "license",
+          "finding": "MIT terms."
+        }
+      ],
+      "review_depth": "Pinned README, Codex integration documentation, converter implementation and representative frontend persona. Catalog not exhaustively evaluated; no installer executed.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Real Codex persona conversion, but no need for a bulk role library alongside existing skills. Personas are instructions, not credentials; revisit a specific missing role."
+    },
+    {
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "category": "engineering / broad behavior prompt",
+      "decision": "omit",
+      "purpose": "Four generic rules: think first, simplify, change narrowly, verify goals.",
+      "distinctive_value": "Compact and understandable, but no distinctive capability beyond existing Codex guidance and Superpowers.",
+      "compatibility": "Portable prompt content; repository primarily documents CLAUDE.md/Claude plugin and Cursor rules. Would need deliberate Codex skill placement rather than blindly appending CLAUDE.md.",
+      "cost_license": "MIT stated in README and skill frontmatter; no standalone LICENSE found in staged tree. Model tokens only.",
+      "limitations": "Broad writing/review/refactoring trigger; cautions to stop and ask can increase permission-like friction. Inspired by Karpathy observations, not authored or endorsed by Karpathy as established by this review. Search found mostly directories and commentary, not reproducible comparative evidence.",
+      "evidence": [
+        {
+          "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Entire capability is four behavioral principles; description covers ordinary coding broadly."
+        },
+        {
+          "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md",
+          "kind": "pinned_source",
+          "finding": "Install paths point to former forrestchang namespace and explicitly bias toward caution over speed."
+        }
+      ],
+      "review_depth": "Read complete skill and README plus searched external reviews. No execution; no quality benchmark verified.",
+      "sha": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "review_group": "engineering",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Broad writing/review/refactoring trigger; cautions to stop and ask can increase permission-like friction. Inspired by Karpathy observations, not authored or endorsed by Karpathy as established by this review. Search found mostly directories and commentary, not reproducible comparative evidence."
+    },
+    {
+      "repo": "musistudio/claude-code-router",
+      "sha": "057abaa1f95519ab8faf999e1ccef2b80ccdeb9e",
+      "category": "runtimes",
+      "decision": "optional",
+      "purpose": "Local model gateway and control plane for multiple coding agents, with desktop and CLI interfaces.",
+      "distinctive_value": "Current v3 provides routing conditions, request rewrites, retries, ordered fallback, credential pools, usage logs and agent profiles. This is now broader than the historical Claude-only proxy; explicit Codex CLI and app support warrants retaining it as an optional gateway candidate.",
+      "compatibility": "Source contains Codex app launch, model-catalog and network-responder modules. macOS Intel/Apple Silicon downloads are documented; npm CLI requires Node 22+. A profile points clients at its local gateway. These paths are implemented but were not live-tested against this user’s Mac.",
+      "cost_license": "MIT code; provider API/subscription charges and eligibility remain separate. Estimated cost displays do not guarantee cheaper or equivalent model behavior.",
+      "limitations": "Choose only for an actual multi-provider/fallback need; overlaps heavily with OmniRoute and FreeLLMAPI. It adds a service, credential management and protocol translation to maintain. User issue #1701 reports Codex desktop HTTP 405 errors after upgrading to 3.0.21; that historical report establishes integration fragility, not a proven defect in pinned v3.1.3. Validate streaming, tool calls and isolated profile rollback before adoption.",
+      "evidence": [
+        {
+          "url": "https://github.com/musistudio/claude-code-router/blob/057abaa1f95519ab8faf999e1ccef2b80ccdeb9e/README.md",
+          "kind": "pinned source",
+          "finding": "v3 multi-agent gateway, routing and Codex CLI/app profiles."
+        },
+        {
+          "url": "https://github.com/musistudio/claude-code-router/blob/057abaa1f95519ab8faf999e1ccef2b80ccdeb9e/packages/core/src/agents/codex/app-launch.ts",
+          "kind": "pinned source",
+          "finding": "Codex-compatible app discovery and launch implementation."
+        },
+        {
+          "url": "https://github.com/musistudio/claude-code-router/blob/057abaa1f95519ab8faf999e1ccef2b80ccdeb9e/package.json",
+          "kind": "pinned source",
+          "finding": "Version 3.1.3, MIT and Node >=22."
+        },
+        {
+          "url": "https://github.com/musistudio/claude-code-router/issues/1701",
+          "kind": "upstream user report",
+          "finding": "User reports Codex desktop 405 errors on v3.0.21; current pin not reproduced."
+        }
+      ],
+      "review_depth": "Pinned source and targeted documentation inspected; minimal independent issue search. No installation, execution or live compatibility test.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "tools/model-routing.md",
+      "selection_reason": "The selected gateway candidate if you need multiple providers, retries, ordered fallback and separate agent profiles. Current v3 includes Codex CLI and app support. Optional service, not a skill and not required for normal Codex. Do not stack it with OmniRoute and FreeLLMAPI. Check streaming, tool calls, credentials and profile rollback on the target device; historical desktop integration issues do not prove current failure."
+    },
+    {
+      "repo": "NandhaKishorM/laya",
+      "sha": "c73908d96ff73c0062c340a11bf7c54ec7d8bc4d",
+      "category": "runtimes",
+      "decision": "optional",
+      "purpose": "Local non-autoregressive classifier for typed choice, boolean and score decisions, including routing, triage and structured decision APIs.",
+      "distinctive_value": "A genuinely different capability from instruction skills: small local models can handle repetitive decisions without spending generative-model tokens. An optional MCP server exposes prediction, batch routing, shortlist and structured decision tools to an existing assistant.",
+      "compatibility": "Python 3.10+, PyTorch and downloaded checkpoints; optional stdio MCP works in principle with Codex MCP configuration. Apple Silicon uses MPS; Intel Mac installs require documented dependency pins. A TypeScript implementation also exists.",
+      "cost_license": "Apache-2.0 code; local compute, memory and model downloads remain costs. README describes about 2.3 GB for the three-checkpoint setup; model license and revision should be checked before deployment.",
+      "limitations": "Optional specialist tool, never a default replacement for Codex reasoning. Publisher benchmarks are workload-specific and not independently reproduced. The README candidly reports weak base-checkpoint typed-decision accuracy, score limitations, truncation and language variability. Validate decisions against a labeled dataset before relying on them. The headline 33 ms figure is hardware/workload dependent; Mac latency must be measured locally.",
+      "evidence": [
+        {
+          "url": "https://github.com/NandhaKishorM/laya/blob/c73908d96ff73c0062c340a11bf7c54ec7d8bc4d/README.md",
+          "kind": "pinned source",
+          "finding": "Optional MCP integration, hardware/dependency notes and honest accuracy limits."
+        },
+        {
+          "url": "https://github.com/NandhaKishorM/laya/blob/c73908d96ff73c0062c340a11bf7c54ec7d8bc4d/pyproject.toml",
+          "kind": "pinned source",
+          "finding": "Python dependencies, beta classifier and optional MCP extra."
+        },
+        {
+          "url": "https://github.com/NandhaKishorM/laya/blob/c73908d96ff73c0062c340a11bf7c54ec7d8bc4d/LICENSE",
+          "kind": "pinned source",
+          "finding": "Apache-2.0 license."
+        }
+      ],
+      "review_depth": "Pinned README, license and targeted implementation/documentation inspected; not installed or executed.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Distinct local classification/MCP capability, but no current typed-decision workload justifies adding model downloads and evaluation duties to a personal Codex setup. Revisit with a labeled target dataset."
+    },
+    {
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sha": "7246805992a42b7bba37d4cac83b01416f0c6c44",
+      "category": "design / searchable UI references",
+      "decision": "optional",
+      "purpose": "Use on demand for searchable style, typography, accessibility and stack recommendations.",
+      "distinctive_value": "Local CSV/BM25 search and persisted project/page design-system suggestions are more concrete than another broad art-director prompt. Useful when choosing a starting palette or comparing UI patterns; largely overlaps Designly for creative direction.",
+      "compatibility": "Claims Codex CLI support; Python 3 is required for local standard-library search, with Node/npm for its installer. Mac installer issue #261 remains unconfirmed. Standalone copies of the Claude plugin skill can contain CLAUDE_PLUGIN_ROOT paths that Codex cannot resolve; use a reviewed Codex-targeted payload.",
+      "cost_license": "MIT. Core local searches need no model API or subscription; the coding agent still consumes model usage. Font/icon assets have their own licenses.",
+      "limitations": "Recommendation datasets are heuristics, not validated user research. Issue #530 says uipro init generates concrete paths and avoids the standalone plugin-path problem; it was closed not_planned, which is not evidence of a fix. No Mac reproduction or independent efficacy evaluation available.",
+      "evidence": [
+        {
+          "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/7246805992a42b7bba37d4cac83b01416f0c6c44/src/ui-ux-pro-max/scripts/core.py",
+          "kind": "pinned_source",
+          "finding": "Inspected local search implementation and accompanying design_system.py."
+        },
+        {
+          "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/7246805992a42b7bba37d4cac83b01416f0c6c44/README.md",
+          "kind": "pinned_source",
+          "finding": "Documents Codex installation, Python-only local searches, persistence and MIT."
+        },
+        {
+          "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/issues/261",
+          "kind": "public_user_report",
+          "finding": "Open Codex-on-Mac installer stall report; tagged needs-info/needs-repro."
+        },
+        {
+          "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/issues/530",
+          "kind": "public_user_report",
+          "finding": "Reports standalone Codex/Claude path failure; distinguishes CLI-generated payload; closed not_planned."
+        }
+      ],
+      "review_depth": "Read pinned README, license, core.py and design_system.py; sampled staged data/skill/installer metadata. Verified two user reports. No installation, candidate execution, scanner clearance or Mac test.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Optional local search across typography, palettes, interface patterns and stack guidance; useful when choosing an initial design system. A searchable reference collection adds more than another general art-director prompt. Recommendations are heuristics. Mac/Codex installation reports require a target-device check; no installation was tested here."
+    },
+    {
+      "repo": "nidhinjs/prompt-master",
+      "sha": "769bf64d8e11f78fee2d183ad8891f9403f365e6",
+      "category": "domain",
+      "decision": "optional",
+      "purpose": "Create or adapt a prompt for a named external AI tool.",
+      "distinctive_value": "Useful as an explicit cross-tool prompt workshop: intent checklist, output contracts, references and bounded clarification. Less distinctive for ordinary Codex work already covered by existing planning/skill-authoring workflows.",
+      "compatibility": "Plain SKILL.md and references are portable reading material; installation docs are Claude-centric, so verify Codex discovery path and frontmatter during any later activation. Trigger is explicitly limited to prompt-writing requests.",
+      "cost_license": "MIT; model usage only. No executable service or paid API is needed to read/use its templates.",
+      "limitations": "Zero wasted tokens and perfect memory are marketing claims, not measured guarantees. Model-specific advice is brittle; source itself asks to verify official provider docs when recency matters. Do not make its formatting and clarification rules global.",
+      "evidence": [
+        {
+          "url": "https://github.com/nidhinjs/prompt-master/blob/769bf64d8e11f78fee2d183ad8891f9403f365e6/SKILL.md",
+          "kind": "source",
+          "finding": "Explicit prompt-only trigger, at-most-three questions, named target-tool requirement and model recency gate; avoids hidden chain-of-thought requests."
+        },
+        {
+          "url": "https://github.com/nidhinjs/prompt-master/blob/769bf64d8e11f78fee2d183ad8891f9403f365e6/references/templates.md",
+          "kind": "source",
+          "finding": "Concrete tool/task prompt architectures rather than a discovery catalog."
+        },
+        {
+          "url": "https://github.com/nidhinjs/prompt-master/blob/769bf64d8e11f78fee2d183ad8891f9403f365e6/README.md",
+          "kind": "source",
+          "finding": "Broad model coverage and zero-waste claim have no controlled performance evidence in inspected material."
+        },
+        {
+          "url": "https://hysenlabs.com/projects/nidhinjs-prompt-master",
+          "kind": "independent-editorial",
+          "finding": "Editorial review highlights routing/recency caveats; its assertion that it is useless outside Claude is not supported by the plain skill format. No execution benchmark supplied."
+        },
+        {
+          "url": "https://github.com/nidhinjs/prompt-master/blob/769bf64d8e11f78fee2d183ad8891f9403f365e6/LICENSE",
+          "kind": "license",
+          "finding": "MIT license verified."
+        }
+      ],
+      "review_depth": "Read skill and both reference files/README, searched issue queue and outside reviews. Outside catalog classifications and platform claims were checked against actual files. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "A usable prompt workshop, but ordinary Codex planning and the existing skill-creation workflow cover the current need. No demonstrated extra benefit justifies another global prompt framework."
+    },
+    {
+      "repo": "NousResearch/hermes-agent",
+      "sha": "8f817911723e3ec13e7f47fc022fdcc9e2149354",
+      "category": "runtimes",
+      "decision": "optional",
+      "purpose": "Full persistent assistant runtime with skills, memory, messaging gateways, scheduled work and multiple execution backends.",
+      "distinctive_value": "Its valuable difference is an assistant that can continue across messaging channels and scheduled tasks. An opt-in Codex app-server runtime lets Hermes host Codex execution and expose selected Hermes tools through an MCP callback; it is not limited to a competing native agent loop.",
+      "compatibility": "macOS supported. Separate runtime, not a drop-in skill bundle. Codex integration registers a Hermes MCP callback in Codex configuration and can migrate installed plugin entries. The runtime guide explicitly excludes Hermes memory, session_search, delegate_task and todo from that stateless callback; Codex built-ins and selected browser/media/skill tools remain available.",
+      "cost_license": "MIT. Model inference, optional tool providers, hosting and messaging infrastructure have separate costs; advertised cheap VPS examples are not an all-inclusive price.",
+      "limitations": "Optional only if persistent messaging or scheduled assistant workflows are a real goal. It duplicates substantial existing Codex orchestration and expands configuration ownership. Critically, do not promise the default Hermes learning/memory feature set when using its Codex runtime. Documentation says cron on this runtime was not specifically tested. Public issues report approval-surface and Mac PATH problems, requiring version-specific verification rather than assuming current breakage.",
+      "evidence": [
+        {
+          "url": "https://github.com/NousResearch/hermes-agent/blob/8f817911723e3ec13e7f47fc022fdcc9e2149354/README.md",
+          "kind": "pinned source",
+          "finding": "Persistent assistant, learning loop, gateways and supported execution backends."
+        },
+        {
+          "url": "https://github.com/NousResearch/hermes-agent/blob/8f817911723e3ec13e7f47fc022fdcc9e2149354/website/docs/user-guide/features/codex-app-server-runtime.md",
+          "kind": "pinned source",
+          "finding": "Opt-in integration, configuration writes, supported tools and missing agent-loop tools."
+        },
+        {
+          "url": "https://github.com/NousResearch/hermes-agent/blob/8f817911723e3ec13e7f47fc022fdcc9e2149354/LICENSE",
+          "kind": "pinned source",
+          "finding": "MIT license."
+        },
+        {
+          "url": "https://github.com/NousResearch/hermes-agent/issues/41385",
+          "kind": "upstream user report",
+          "finding": "Historical user report: macOS desktop cannot find codex through minimal PATH."
+        },
+        {
+          "url": "https://github.com/NousResearch/hermes-agent/issues/26530",
+          "kind": "upstream user report",
+          "finding": "Historical user report: gateway tool approvals fail closed without a surfaced prompt."
+        }
+      ],
+      "review_depth": "Pinned source and targeted documentation inspected; minimal independent issue search. No installation, execution or live compatibility test.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "agents/persistent-assistant.md",
+      "selection_reason": "Optional separate assistant for persistent messaging and scheduled workflows, when those needs extend beyond your Codex sessions. Not part of default Codex setup. Its opt-in Codex runtime lacks some native Hermes memory/delegation callbacks, and cron on that runtime is documented as not specifically tested. A second runtime adds its own state, permissions and upkeep."
+    },
+    {
+      "repo": "nyldn/claude-octopus",
+      "sha": "c812f5eaa81f399b2c770ed031b3c13ae7b32de3",
+      "category": "orchestration",
+      "decision": "optional",
+      "purpose": "A broad multi-provider orchestration framework for research, debate, implementation, and review. Keep as an optional escalation platform rather than another default workflow layer beside Superpowers.",
+      "distinctive_value": "Unlike a collection of personas, it includes an orchestration script, provider integrations, consensus workflows, generated skills, and an MCP server. The pinned v11.13.2 version supports real Codex hosting as well as the Claude-native entry path. Explicit workflow activation is intended to leave routine work with the host.",
+      "compatibility": "Codex plugin manifest, host adaptation instructions, and MCP source are present. The adapter maps host tools to available Codex tools and requires runtime provider checks. Many instructions originate in Claude Code; available subagents, commands, hooks, model credentials, and host features still vary.",
+      "cost_license": "MIT. Existing subscriptions may cover some CLI calls; API-backed providers add usage charges, and local Ollama requires local compute. Multiple providers, debate rounds, and autonomous pipelines increase latency and maintenance.",
+      "limitations": "Heavy overlap with Superpowers planning, TDD, debugging, and review. Consensus thresholds are workflow rules, not demonstrated correctness guarantees. README breadth and provider counts do not establish parity across every host/provider combination. Prefer a narrowly scoped experiment if independent model debate is a recurring need; the simpler Claudex loop better fits occasional cross-provider plan and code review.",
+      "evidence": [
+        {
+          "url": "https://github.com/nyldn/claude-octopus/blob/c812f5eaa81f399b2c770ed031b3c13ae7b32de3/README.md",
+          "kind": "documentation",
+          "finding": "v11.13.2, explicit workflows, broad provider and engineering-method surface."
+        },
+        {
+          "url": "https://github.com/nyldn/claude-octopus/blob/c812f5eaa81f399b2c770ed031b3c13ae7b32de3/.codex-plugin/plugin.json",
+          "kind": "manifest",
+          "finding": "Native Codex packaging exists; Claude-only dismissal would be inaccurate."
+        },
+        {
+          "url": "https://github.com/nyldn/claude-octopus/blob/c812f5eaa81f399b2c770ed031b3c13ae7b32de3/skills/blocks/codex-host-adapter.md",
+          "kind": "source instructions",
+          "finding": "Maps shell, delegation, planning, and command conventions to Codex; provider availability remains runtime dependent."
+        },
+        {
+          "url": "https://github.com/nyldn/claude-octopus/blob/c812f5eaa81f399b2c770ed031b3c13ae7b32de3/mcp-server/src/index.ts",
+          "kind": "source",
+          "finding": "Real MCP integration surface."
+        }
+      ],
+      "review_depth": "Pinned README, Codex manifest/host adapter, and MCP source presence review; no installation or runtime tests.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Real Codex support and broader provider orchestration, but too much overlapping workflow/runtime for this shortlist. Claudex is the narrower selected cross-provider option."
+    },
+    {
+      "repo": "Oldcircle/geo-sleuth",
+      "sha": "f2f1bc2f216ab1d60490c7e44311a93ec79382f9",
+      "category": "domain",
+      "decision": "optional",
+      "purpose": "Tool-assisted photo geolocation and chronolocation with maps, geometry and evidence images; unrelated to SEO/GEO marketing.",
+      "distinctive_value": "Distinct niche capability: candidate evidence board, terrain/skyline constraints, OCR, reverse-image search and ranked satellite/street-view matching. Useful for owned/authorized images and location puzzles when a plain visual guess is insufficient.",
+      "compatibility": "Standard skill explicitly supports Codex, with CLAUDE_SKILL_DIR path substitution instructions. Requires Python 3.10+, uv, curl and Chrome/Playwright for reverse search. Torch helper chooses CUDA then MPS then CPU; Mac support is plausible from source, not runtime-tested.",
+      "cost_license": "MIT code; data/image/model sources have separate terms and attribution. Model calls, compute, dependency/model downloads and optional services cost resources; no flat paid subscription is required by the core workflow.",
+      "limitations": "Many network and model dependencies; reverse-image branches upload images to outside services. Coverage, CAPTCHAs and regional packs limit results. Showcase precision and regression cases are not accuracy on unseen photos. Keep specialized activation, do not load for general marketing or map tasks.",
+      "evidence": [
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/blob/f2f1bc2f216ab1d60490c7e44311a93ec79382f9/skills/geo-sleuth/SKILL.md",
+          "kind": "source",
+          "finding": "Requires evidence artifacts for conclusions, coordinates with justified radius and external-agent path adaptation."
+        },
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/blob/f2f1bc2f216ab1d60490c7e44311a93ec79382f9/skills/geo-sleuth/scripts/_device.py",
+          "kind": "source",
+          "finding": "Actual CUDA/MPS/CPU selection and explicit-device availability checks."
+        },
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/blob/f2f1bc2f216ab1d60490c7e44311a93ec79382f9/skills/geo-sleuth/scripts/revimg.py",
+          "kind": "source",
+          "finding": "Browser-based reverse-image upload/search on Baidu/Yandex with explicit blocking/error handling."
+        },
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/blob/f2f1bc2f216ab1d60490c7e44311a93ec79382f9/README.md",
+          "kind": "source",
+          "finding": "Documents per-script dependencies, terrain matching and labels reused-photo end-to-end cases as regression checks."
+        },
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/issues/22",
+          "kind": "community",
+          "finding": "Region-pack tracking issue documents geographic coverage gaps; not a demonstrated universal-location success rate."
+        },
+        {
+          "url": "https://mrkeyoor.com/repos/geo-sleuth/",
+          "kind": "independent-editorial",
+          "finding": "Reviewer explicitly did not execute older e753bb3; valid caveat about lack of accuracy evidence. Its Chinese-only operational-instruction claim is stale at the English skill pin reviewed here."
+        },
+        {
+          "url": "https://github.com/Oldcircle/geo-sleuth/blob/f2f1bc2f216ab1d60490c7e44311a93ec79382f9/LICENSE",
+          "kind": "license",
+          "finding": "MIT code license; separate data-source terms still apply."
+        }
+      ],
+      "review_depth": "Inspected skill, README, data-source/verification references and selected device/browser/network/terrain/reverse-search/diagnostic/refresh support source; no full end-to-end or dependency audit. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/knowledge-and-investigation.md",
+      "selection_reason": "A specialized option for investigating locations in images using terrain, OCR, reverse-image search and ranked evidence. Not a general research or SEO tool. It brings model/browser/data dependencies; some branches upload images to outside services. Its demonstrations do not establish accuracy on new images. Use only for an actual image-location task."
+    },
+    {
+      "repo": "pbakaus/impeccable",
+      "sha": "2f98774f86bc05563876643db37e6c37c322850f",
+      "category": "design / critique and visual iteration runtime",
+      "decision": "optional",
+      "purpose": "Evaluate as an alternative UI critique/polish workflow for a specific project.",
+      "distinctive_value": "Targeted audit, harden, typeset, layout and polish commands can improve an existing interface. Current release also supplies live visual variants, a detector engine and project design documents, which is materially broader than a prompt collection.",
+      "compatibility": "Documents Codex CLI support and .codex/hooks.json integration, requiring Codex /hooks approval. Launchers run a bundled engine or download a pinned one. Live editing targets local development, not deployed production pages. Desktop Mac behavior is untested.",
+      "cost_license": "Apache-2.0. Model usage and local runtime/browser overhead apply; no required paid subscription established. New design rolls always contact impeccable.style; anonymous roll/choice telemetry is opt-out, and disabling recording does not remove the roll request.",
+      "limitations": "Overlaps Designly critique and Vercel audit guidance. Hooks, engine downloads, network roll behavior and local writes need executable review before use. Older staged prompt content cannot validate this runtime-heavy pin. Independent efficacy evidence is insufficient; the linked showcase is author-owned.",
+      "evidence": [
+        {
+          "url": "https://github.com/pbakaus/impeccable/blob/2f98774f86bc05563876643db37e6c37c322850f/README.md",
+          "kind": "pinned_source",
+          "finding": "Documents command suite, launchers/engine fallback download, Codex hook approval, local-only live editing, roll API and opt-out telemetry."
+        },
+        {
+          "url": "https://github.com/pbakaus/impeccable/blob/2f98774f86bc05563876643db37e6c37c322850f/LICENSE",
+          "kind": "pinned_source",
+          "finding": "Apache-2.0 license text inspected."
+        },
+        {
+          "url": "https://impeccable.style/cases/neo-mirai",
+          "kind": "author_showcase_reference",
+          "finding": "README links an author-hosted transformation case study; it is not an independent comparative review and was not used as efficacy proof."
+        }
+      ],
+      "review_depth": "Current pinned README/license reviewed; older staged skill/package only provide historical context. Attempted current source/skills/impeccable/SKILL.md returned 404. Runtime, hooks and engine not fully inspected or executed; no installation/security clearance.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "A credible alternative design workflow, but overlaps existing Designly/Vercel tools and adds an engine, hooks, downloads and network roll requests. Revisit if those live variations solve a concrete need; not a malware judgment."
+    },
+    {
+      "repo": "rebelytics/one-skill-to-rule-them-all",
+      "sha": "56e890712273ce231b478adc56ee2eb81101c3d6",
+      "category": "domain",
+      "decision": "omit",
+      "purpose": "Task-observer meta-skill that logs workflow corrections and stages improvements to a skill library.",
+      "distinctive_value": "Observation provenance and staged review ideas are useful reference material, but blanket monitoring duplicates existing creator/review governance and adds substantial process/context overhead. Omit stock activation; reconsider only as an explicitly scoped observation source if needed.",
+      "compatibility": "Skill plus shell/Python helpers and large environment-specific references. Current description demands invocation before the first tool call of every session, with session hooks/config for enforcement; this conflicts with the requested selective personal Codex catalog.",
+      "cost_license": "CC BY 4.0, unlike the MIT domain candidates: attribution and modification notices apply. No required vendor service, but repeated monitoring, logging and scheduled reviews consume model/time/storage resources.",
+      "limitations": "Do not infer it silently installs changes: source explicitly stages updates and says nothing is live until the user installs it. Nevertheless, any future candidate it creates or edits must pass the user’s skill-creator plus SkillSpector activation policy; its own staged review cannot replace that gate. Avoid autonomous installation or global first-tool activation.",
+      "evidence": [
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/blob/56e890712273ce231b478adc56ee2eb81101c3d6/SKILL.md",
+          "kind": "source",
+          "finding": "First-tool/session-start activation demand and periodic observation writes verified in current source."
+        },
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/blob/56e890712273ce231b478adc56ee2eb81101c3d6/references/weekly-review.md",
+          "kind": "source",
+          "finding": "Interactive approval and autonomous non-escalated staging policy, explicitly no live installation until user installs."
+        },
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/blob/56e890712273ce231b478adc56ee2eb81101c3d6/scripts/new-observation.sh",
+          "kind": "source",
+          "finding": "Observation-file helper is operational support code; broader process is more than a passive prompt."
+        },
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/issues/299",
+          "kind": "community",
+          "finding": "Concrete per-skill rollback pruning issue at same 56e8907 pin shows operational complexity; report says loss was caught, not that data was lost."
+        },
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/issues/300",
+          "kind": "community",
+          "finding": "Report of truncated scan output hiding review/checkpoint state illustrates protocol dependence; no runtime reproduction performed."
+        },
+        {
+          "url": "https://github.com/rebelytics/one-skill-to-rule-them-all/blob/56e890712273ce231b478adc56ee2eb81101c3d6/LICENSE.txt",
+          "kind": "license",
+          "finding": "CC BY 4.0 attribution license verified."
+        }
+      ],
+      "review_depth": "Inspected current activation/protocol sections, weekly-review approval/staging policy and support helper structure; searched latest issue reports and editorial coverage. Large reference corpus only selectively reviewed. Static source review only; candidate code was not installed or executed; no runtime compatibility or security certification.",
+      "review_group": "domain",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Do not infer it silently installs changes: source explicitly stages updates and says nothing is live until the user installs it. Nevertheless, any future candidate it creates or edits must pass the user’s skill-creator plus SkillSpector activation policy; its own staged review cannot replace that gate. Avoid autonomous installation or global first-tool activation."
+    },
+    {
+      "repo": "ruvnet/ruflo",
+      "sha": "55e2c9011c20d25e347a175427ca8084dacde40c",
+      "category": "orchestration",
+      "decision": "omit",
+      "purpose": "A large agent meta-harness with orchestration, memory, MCP tooling, plugins, and multi-machine federation. Omit from the recommended additions to a personal Codex and Superpowers baseline; reconsider only for a defined orchestration or persistent-memory requirement.",
+      "distinctive_value": "It offers executable infrastructure rather than just specialist prompts. The source tree and package workspaces include Codex, MCP, security, and federation components. Its ambition is managing an agent runtime and shared state, which is a different product category from a small engineering skill.",
+      "compatibility": "The current README explicitly supports Codex through project setup and a local stdio MCP server. Claude Code console/mod integrations have narrower host support, and the README warns that hooks depend on the client. It would be inaccurate to dismiss Ruflo as Claude-only, but MCP connectivity does not imply complete feature parity.",
+      "cost_license": "MIT at the repository level. Node/package dependencies, storage, ongoing runtime maintenance, and underlying model calls create operational cost even when the framework itself is free. Optional hosted services are separate.",
+      "limitations": "Its broad runtime footprint duplicates parts of the current harness and adds configuration, permission, and persistence decisions. Claims about swarm performance, learning, federation security, and scale were not independently validated in this review. The omission is a fit/complexity judgment, not a demonstrated defect or claim that the implementation is fake. A scoped benchmark and package-level audit would be needed before recommending adoption.",
+      "evidence": [
+        {
+          "url": "https://github.com/ruvnet/ruflo/blob/55e2c9011c20d25e347a175427ca8084dacde40c/README.md#start-here",
+          "kind": "documentation",
+          "finding": "Codex uses project setup plus MCP; console/mods are Claude integrations and hooks vary."
+        },
+        {
+          "url": "https://github.com/ruvnet/ruflo/blob/55e2c9011c20d25e347a175427ca8084dacde40c/package.json",
+          "kind": "manifest",
+          "finding": "Concrete Codex, MCP, security and federation workspace components."
+        },
+        {
+          "url": "https://github.com/ruvnet/ruflo/blob/55e2c9011c20d25e347a175427ca8084dacde40c/README.md#license",
+          "kind": "license documentation",
+          "finding": "Repository declares MIT."
+        },
+        {
+          "url": "https://github.com/ruvnet/ruflo/blob/55e2c9011c20d25e347a175427ca8084dacde40c/ruflo/src/mcp-bridge/index.js",
+          "kind": "source",
+          "finding": "Executable MCP bridge source exists."
+        }
+      ],
+      "review_depth": "Pinned README, package/workspace manifest, and MCP bridge source-surface inspection only. Not a full audit or runtime benchmark.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Its broad runtime footprint duplicates parts of the current harness and adds configuration, permission, and persistence decisions. Claims about swarm performance, learning, federation security, and scale were not independently validated in this review. The omission is a fit/complexity judgment, not a demonstrated defect or claim that the implementation is fake. A scoped benchmark and package-level audit would be needed before recommending adoption."
+    },
+    {
+      "repo": "storytold/photocraft",
+      "sha": "2d5a7497fd1e1891c796f1a93741b27a1d904604",
+      "category": "tools",
+      "decision": "optional",
+      "purpose": "Native Rust image editor with layers, masks, PSD support, CLI batching and agent control over MCP.",
+      "distinctive_value": "Distinctive option for deterministic, local, layered image editing: agent commands and the human UI share an engine, allowing automation plus manual refinement. More useful for repeated PSD/layer operations than another generic image-generation prompt collection.",
+      "compatibility": "macOS universal app/CLI downloads are documented, with signing/notarization claims. Generic stdio MCP is plausible for Codex, but integration was not exercised. Headless mode and live-app bridge differ; UI tools require the running app. Set explicit read/write roots.",
+      "cost_license": "MIT OR Apache-2.0 for code; separate asset/brand licenses apply. Core local editing has no mandatory hosted account/API cost. Installation and disk/runtime requirements remain a separate review.",
+      "limitations": "Explicit early alpha. Maintainers say it is not ready to replace Photoshop for daily professional work; command wiring and selected PSD corpus scores do not prove feature parity. MCP batches are not atomic, prior successful steps persist after failure, and file saves can overwrite targets. Use duplicate documents and check rendered/exported output.",
+      "evidence": [
+        {
+          "url": "https://github.com/storytold/photocraft/blob/2d5a7497fd1e1891c796f1a93741b27a1d904604/README.md",
+          "kind": "source",
+          "finding": "Mac binaries, CLI/MCP interface, alpha status and explicit professional-work limitations."
+        },
+        {
+          "url": "https://github.com/storytold/photocraft/blob/2d5a7497fd1e1891c796f1a93741b27a1d904604/docs/mcp.md",
+          "kind": "source",
+          "finding": "Read/write roots, live-app bridge, non-atomic batch behavior and undo/file-write distinctions."
+        },
+        {
+          "url": "https://github.com/storytold/photocraft/blob/2d5a7497fd1e1891c796f1a93741b27a1d904604/docs/target-app-parity.md",
+          "kind": "source",
+          "finding": "Maintainer parity assessment separates implemented commands from behavioral depth."
+        },
+        {
+          "url": "https://github.com/storytold/photocraft/issues/4291",
+          "kind": "independent issue",
+          "finding": "Recent user reports screen-colour-picker crash; not reproduced here and not asserted to affect every platform/build."
+        }
+      ],
+      "review_depth": "Pinned README, MCP conventions and source layout reviewed; recent independent crash report read. No binary downloaded, app launched, MCP connected, or PSD fidelity test run.",
+      "review_group": "tools",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "mcp/context-and-images.md",
+      "selection_reason": "Optional local layer-based image editing, masks, CLI batching and MCP control; useful for actual editable image operations. Early alpha, not established Photoshop parity. Use document copies: batches are not atomic and saves can overwrite. It adds a native editor/runtime; the existing image-generation tool may suffice for simpler work."
+    },
+    {
+      "repo": "tashfeenahmed/freellmapi",
+      "sha": "05f5bc25bb2feadcb7210481ba8330e83840e3a9",
+      "category": "runtimes",
+      "decision": "optional",
+      "purpose": "Self-hosted gateway pooling third-party free-tier providers behind OpenAI-compatible endpoints, with quota tracking and fallback.",
+      "distinctive_value": "Useful for low-cost experiments across provider accounts. Current source includes a Responses API surface, Codex CLI setup/launch helpers, usage tracking and a signed model catalog. The product is infrastructure, not a supply of free tokens granted to the user.",
+      "compatibility": "Node 20+ on macOS/Linux/Windows, desktop or Docker options. Client guide explicitly documents Codex CLI with wire_api=\"responses\" and the local /v1 base URL. Actual model/tool support remains provider-specific; an OpenAI-shaped endpoint does not prove full Codex feature parity.",
+      "cost_license": "MIT router. README prices optional same-day catalog access at $19/year or $49 lifetime; free installs receive delayed monthly catalog entries. Third-party quotas require eligible accounts and may change. Hosting and optional paid providers cost extra.",
+      "limitations": "Optional alternative to the other gateways, not an additional default installation. Billions-of-tokens totals aggregate unrelated limits and do not guarantee frontier model access, throughput or coding quality. README acknowledges variable latency, no SLA and degraded fallback quality as daily quotas exhaust. Issue #553 documents stream interruption and key-checker concerns; maintainer reports a streaming fix, so do not present it as an unresolved current defect.",
+      "evidence": [
+        {
+          "url": "https://github.com/tashfeenahmed/freellmapi/blob/05f5bc25bb2feadcb7210481ba8330e83840e3a9/README.md",
+          "kind": "pinned source",
+          "finding": "Features, premium catalog pricing and explicit free-tier limitations."
+        },
+        {
+          "url": "https://github.com/tashfeenahmed/freellmapi/blob/05f5bc25bb2feadcb7210481ba8330e83840e3a9/docs/en/clients/01-agent-clients.md",
+          "kind": "pinned source",
+          "finding": "Codex CLI Responses wire format setup and launch helpers."
+        },
+        {
+          "url": "https://github.com/tashfeenahmed/freellmapi/blob/05f5bc25bb2feadcb7210481ba8330e83840e3a9/LICENSE",
+          "kind": "pinned source",
+          "finding": "MIT license."
+        },
+        {
+          "url": "https://github.com/tashfeenahmed/freellmapi/issues/553",
+          "kind": "upstream user report",
+          "finding": "User reports interrupted streaming and key-probing issues; maintainer identifies watchdog fix and discusses remaining probing work."
+        }
+      ],
+      "review_depth": "Pinned source and targeted documentation inspected; minimal independent issue search. No installation, execution or live compatibility test.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Useful for free-tier experiments, but duplicates the selected gateway. Aggregated provider allowances and optional paid catalog access do not guarantee reliable free coding capacity."
+    },
+    {
+      "repo": "ultraworkers/claw-code",
+      "sha": "6d7412d958ebc338722e112d08c5e46d7cd458e1",
+      "category": "runtimes",
+      "decision": "omit",
+      "purpose": "Rust CLI coding-agent harness, with a companion Python reference and parity/audit material.",
+      "distinctive_value": "Useful as a harness implementation study. Its own maintainers now describe the repository as an agent-managed museum exhibit and direct production users to LazyCodex or Gajae-Code; this is decisive context missing from older popularity-based recommendations.",
+      "compatibility": "Separate executable, not a Codex skill or plugin. Source build supports macOS/Linux/Windows. The README explicitly says ACP/Zed daemon support is not shipped, and the similarly named crates.io package is a deprecated stub.",
+      "cost_license": "MIT repository license; cloud model API billing applies. README requires an API key and does not support Claude subscription login.",
+      "limitations": "Omit from the practical personal Codex setup catalog. Installing and maintaining a parallel harness adds substantial scope without an established need. Preserve only a research citation if harness internals are relevant. Neither its popularity nor its parity documents establish production suitability; no live runtime, provider connection, or parity test was performed.",
+      "evidence": [
+        {
+          "url": "https://github.com/ultraworkers/claw-code/blob/6d7412d958ebc338722e112d08c5e46d7cd458e1/README.md",
+          "kind": "pinned source",
+          "finding": "Explicit museum-exhibit positioning, source-build requirement, API-key auth and missing ACP entrypoint."
+        },
+        {
+          "url": "https://github.com/ultraworkers/claw-code/blob/6d7412d958ebc338722e112d08c5e46d7cd458e1/LICENSE",
+          "kind": "pinned source",
+          "finding": "MIT license."
+        }
+      ],
+      "review_depth": "Pinned README, license and targeted implementation/documentation inspected; not installed or executed.",
+      "review_group": "runtimes",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Omit from the practical personal Codex setup catalog. Installing and maintaining a parallel harness adds substantial scope without an established need. Preserve only a research citation if harness internals are relevant. Neither its popularity nor its parity documents establish production suitability; no live runtime, provider connection, or parity test was performed."
+    },
+    {
+      "repo": "vercel-labs/agent-skills",
+      "sha": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "category": "design / frontend quality",
+      "decision": "retain",
+      "purpose": "Keep Vercel as the existing React and web-interface quality baseline.",
+      "distinctive_value": "Its code-oriented accessibility, forms, focus and performance checks complement Designly's visual direction and AI Graphic Design's canvas. Use web-design-guidelines and composition-patterns selectively; avoid duplicating the Vercel skills already available.",
+      "compatibility": "Agent Skills Markdown works conceptually in Codex. The web guideline skill requests WebFetch and downloads a live main-branch rules file on every review; map that capability and capture the fetched revision. Deployment scripts have separate upload/network behavior and are outside this recommendation.",
+      "cost_license": "README declares MIT, but the pinned root LICENSE fetch returned 404; license text and copyright attribution remain unresolved. Guideline review has ordinary model/network costs. Vercel service costs depend on use.",
+      "limitations": "An existing Vercel plugin is not proof this repository revision is installed. No measured design improvement or Mac behavior test established. Preserve baseline availability without treating this review as installation clearance.",
+      "evidence": [
+        {
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/web-design-guidelines/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Fetches current external guidelines, reviews selected files and reports file:line findings."
+        },
+        {
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/composition-patterns/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "React composition guidance adds an implementation lens."
+        },
+        {
+          "url": "https://github.com/vercel-labs/agent-skills/issues/334",
+          "kind": "public_user_report",
+          "finding": "Open downstream issue identifies missing LICENSE text at this exact SHA despite README's MIT declaration; confirmed by pinned LICENSE fetch."
+        }
+      ],
+      "review_depth": "Read pinned README and selected UI/composition/transition skills; inspected staged deployment script separately. Public licensing issue verified. Selective static review only; no install, execution, SkillSpector scan or Mac test.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "skills/design.md",
+      "selection_reason": "Use web interface guidelines and relevant React/composition checks alongside your visual design tools. Check what the existing Vercel plugin already provides before adding another copy. README declares MIT but the reviewed root license text is missing. Repository availability does not prove installation on your laptop."
+    },
+    {
+      "repo": "VoltAgent/awesome-claude-design",
+      "sha": "8f746b5bbb69cc7544fa850c126a71f754091951",
+      "category": "design / Claude Design reference catalog",
+      "decision": "omit",
+      "purpose": "Omit the second overlapping inspiration catalog from this Codex-focused shortlist.",
+      "distinctive_value": "Explains how curated DESIGN.md starting points feed Claude Design's design-system workflow. Useful for someone explicitly adopting that separate product, but adds little over awesome-design-md for the present setup.",
+      "compatibility": "Linked Markdown files can be read by Codex. Claude Design workspace behavior and upload instructions are product-specific and do not establish a native Codex integration. It is neither a Codex plugin nor a functional skill installation.",
+      "cost_license": "Repository MIT. Linked design documents, brands, fonts and assets require separate consideration; external product access and pricing were not verified. No catalog purchase requirement established.",
+      "limitations": "Strong overlap with the other VoltAgent catalog and existing visual tools. README's one-drop scaffolding claims are promotional, not measured outcomes. Its disclaimer explicitly identifies the references as unofficial and non-endorsed. Independent evaluations and Mac/Codex workflow tests are insufficient.",
+      "evidence": [
+        {
+          "url": "https://github.com/VoltAgent/awesome-claude-design/blob/8f746b5bbb69cc7544fa850c126a71f754091951/README.md",
+          "kind": "pinned_source",
+          "finding": "Claude Design-specific workflow, externally linked references and explicit unofficial-brand disclaimer."
+        },
+        {
+          "url": "https://github.com/VoltAgent/awesome-claude-design/blob/8f746b5bbb69cc7544fa850c126a71f754091951/LICENSE",
+          "kind": "pinned_source",
+          "finding": "MIT repository license inspected; does not license third-party brands or proprietary typefaces."
+        }
+      ],
+      "review_depth": "Read pinned README/license and compared catalog purpose with awesome-design-md. Did not exercise Claude Design, download every linked document or verify external service claims. No install, runtime or security review was needed for the bookmark-only assessment.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Strong overlap with the other VoltAgent catalog and existing visual tools. README's one-drop scaffolding claims are promotional, not measured outcomes. Its disclaimer explicitly identifies the references as unofficial and non-endorsed. Independent evaluations and Mac/Codex workflow tests are insufficient."
+    },
+    {
+      "repo": "VoltAgent/awesome-design-md",
+      "sha": "c7c1bada4eda972236d124e06ee58df129a9266b",
+      "category": "design / reference documents",
+      "decision": "optional",
+      "purpose": "Keep as a bookmark for selecting one project-specific visual reference.",
+      "distinctive_value": "Readable DESIGN.md documents put tokens, component guidance and design rationale together. They can provide a concrete starting brief for Designly or Codex without adding another active skill or runtime.",
+      "compatibility": "Plain Markdown is usable on Mac/Codex as project context; this is a reference collection, not an executable skill or MCP. Curate a relevant document and adapt it to the project's original identity instead of loading the entire catalog globally.",
+      "cost_license": "Repository is MIT. Named brands, proprietary fonts, logos and external assets retain their own rights; the repository license is not permission to reuse every referenced asset. Model context usage is the main operational cost.",
+      "limitations": "Documents are interpretations, not authoritative brand systems or independently verified extraction results. The sampled Stripe document calls itself an alpha inspired analysis, uses the name 'Stripi', and references proprietary Sohne typography. Exact tokens and completeness need validation. Independent outcome reviews are insufficient.",
+      "evidence": [
+        {
+          "url": "https://github.com/VoltAgent/awesome-design-md/blob/c7c1bada4eda972236d124e06ee58df129a9266b/README.md",
+          "kind": "pinned_source",
+          "finding": "Catalog proposes copying a selected DESIGN.md into project context."
+        },
+        {
+          "url": "https://github.com/VoltAgent/awesome-design-md/blob/c7c1bada4eda972236d124e06ee58df129a9266b/design-md/stripe/DESIGN.md",
+          "kind": "pinned_source",
+          "finding": "Detailed palette, type scale and components; explicitly labeled inspired/alpha rather than official."
+        },
+        {
+          "url": "https://github.com/VoltAgent/awesome-design-md/blob/c7c1bada4eda972236d124e06ee58df129a9266b/LICENSE",
+          "kind": "pinned_source",
+          "finding": "MIT license applies to repository materials."
+        }
+      ],
+      "review_depth": "Read pinned README/license and Stripe example; sampled earlier staged Apple/Vercel documents. Did not validate every catalog item, external asset license or generated UI. Reference-level static review only.",
+      "review_group": "design",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "shortlisted-conditionally",
+      "catalog_page": "references/design.md",
+      "selection_reason": "Bookmark individual DESIGN.md examples for project-specific visual inspiration. Reference only, not a globally installed skill or an authoritative brand specification. Skip the overlapping Awesome Claude Design catalog. Fonts, logos and brand assets keep their separate terms."
+    },
+    {
+      "repo": "wshobson/agents",
+      "sha": "46891e7e60da0e52baf1050b7b6391b64e84c6d9",
+      "category": "orchestration",
+      "decision": "optional",
+      "purpose": "A modular marketplace of development skills, agents, and commands across many coding tools. Optional for targeted domain gaps, such as a particular framework or infrastructure workflow; avoid adding generic planning, debugging, and review layers already supplied by Superpowers.",
+      "distinctive_value": "Task-focused plugins are more selective than a single all-in-one harness. The current repository ships native Codex plugin manifests and a separate generator for TOML agents and command-derived skills. Its documentation explicitly distinguishes transformed artifacts from native source skills and publishes capability limits.",
+      "compatibility": "Codex support is real but route-dependent. Native manifests expose source skills; generated agents and command skills require the adapter path. Documentation notes a skill-body budget and splitting in generated copies, and Claude tool permissions/hooks are not interchangeable with Codex capabilities. Verify the active Codex version before choosing a path.",
+      "cost_license": "MIT for this repository; external plugins have separate terms. Ordinary skills use host quota. Experimental model-based evaluation consumes API or Claude-login quota depending on configuration.",
+      "limitations": "A prior external issue evaluation covered only three diffs with seven repetitions per model; stronger Opus/Sonnet results and Haiku false positives do not prove broad reliability or general flakiness. Repository validation mostly establishes structure, not successful outcomes. Experimental judge/Monte Carlo scores are explicitly unvalidated against human labels. Select individual skills based on a concrete need and verify their outputs in your own project.",
+      "evidence": [
+        {
+          "url": "https://github.com/wshobson/agents/blob/46891e7e60da0e52baf1050b7b6391b64e84c6d9/README.md",
+          "kind": "documentation",
+          "finding": "Current multi-harness plugin architecture and separate Codex installation routes."
+        },
+        {
+          "url": "https://github.com/wshobson/agents/blob/46891e7e60da0e52baf1050b7b6391b64e84c6d9/docs/harnesses.md",
+          "kind": "compatibility documentation",
+          "finding": "Capability differences and native versus generated Codex artifacts."
+        },
+        {
+          "url": "https://github.com/wshobson/agents/blob/46891e7e60da0e52baf1050b7b6391b64e84c6d9/plugins/python-development/skills/python-testing-patterns/SKILL.md",
+          "kind": "sample content",
+          "finding": "Concrete testing guidance suitable for selective domain use."
+        },
+        {
+          "url": "https://github.com/wshobson/agents/issues/632",
+          "kind": "external issue evaluation",
+          "finding": "Small model-specific code-review evaluation; insufficient for blanket quality conclusions."
+        },
+        {
+          "url": "https://github.com/wshobson/agents/blob/46891e7e60da0e52baf1050b7b6391b64e84c6d9/docs/plugin-eval.md",
+          "kind": "evaluation documentation",
+          "finding": "Experimental evaluation limits and usage costs."
+        }
+      ],
+      "review_depth": "Pinned README, capability/install matrix, sample skill and prior issue review. No generator, installer, model evaluation or candidate tests executed.",
+      "review_group": "orchestration",
+      "reviewed_date": "2026-10-14",
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "not-selected",
+      "selection_reason": "Real native and generated Codex routes with specialist material, but a broad additional collection overlaps the chosen baseline. Revisit one child for a concrete unsupported technology."
+    }
+  ]
+}

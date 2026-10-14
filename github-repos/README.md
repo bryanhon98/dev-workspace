@@ -1,0 +1,40 @@
+# Reviewed GitHub options for my Codex setup
+
+Start here. **50 recovered repositories reviewed; 24 conditional options saved; 26 not selected.** Reviewed 14 October 2026 at the linked revisions. This is a curated reference catalog, not a list of installed or security-approved components.
+
+Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil for UI motion, Corey Haines for marketing, and Obsidian Skills if you use an Obsidian vault. Your selected Taste BrandKit/Image-to-Code children are retained together. Keep broader workflows and extra runtimes optional.
+
+| Category | Saved options |
+|---|---|
+| [Engineering and security skills](skills/engineering.md) | Matt Pocock — architecture subset; Addy Osmani — performance subset; Anthropic — MCP Builder only; Cloudflare Security Audit |
+| [Design and motion skills](skills/design.md) | Vercel Agent Skills; UI/UX Pro Max; Taste — BrandKit and Image-to-Code only; Emil Kowalski — motion subset; Extract Design System; Ian Xiaohei Illustrations |
+| [Marketing and writing skills](skills/marketing-and-writing.md) | Corey Haines Marketing Skills; Humanizer; Claude SEO; Instagram Agent Skills |
+| [Knowledge and image investigation skills](skills/knowledge-and-investigation.md) | Geo-Sleuth; Obsidian Skills |
+| [Design references](references/design.md) | Awesome Design MD |
+| [Development plugins](plugins/development.md) | Claudex Loop |
+| [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
+| [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
+| [Model routing software](tools/model-routing.md) | Claude Code Router |
+| [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
+
+## What was left out
+
+[See all 26 decisions](not-selected.md). Main reasons: overlapping global behavior (Ponytail/Karpathy/Caveman), extra orchestration frameworks alongside Superpowers and Claudex, duplicate gateways, Claude-specific provisioning, or a narrow job absent from this setup. These are not plagiarism findings. A derivative project can be useful when it adds substantive capability.
+
+## How this connects to setup
+
+- These files save GitHub links and research, not upstream payloads. Parent collections appear once; the notes name selected children.
+- `inventory.json` remains the actual setup catalog. Research choices are not automatically added to it or installed by selecting all existing inventory skills.
+- After you select a new candidate, inspect the exact source and dependencies, run SkillSpector for its skills, verify the target-device installation, then update the inventory and device log. Research does not satisfy that installation gate.
+- Plugins/MCPs may need manual installation, credentials or another runtime. No authentication state, session index or private vault belongs in this backup.
+- No global communication rules, installed components or existing installation records were changed by this review.
+
+## Evidence and remaining gap
+
+[The evidence register](reviews.json) records every recovered candidate, exact revision, source links, outside reports, reviewer assessment, final selection and review depth. No candidate code was run. Old issue reports were compared with current pinned source; a code change is not proof of a tested fix. Lack of trustworthy independent reviews is recorded rather than filled with promotional claims. Stars were not used as a quality score.
+
+Separate AI reviewers worked by domain, and the lead challenged selection decisions. This used neither hired humans nor a guaranteed mix of model providers; agreement is not a correctness guarantee.
+
+**Coverage is complete for the 50 recovered URLs, not for the entire shared chat.** Its reader truncates long answers at 20,000 characters. The latest list cuts off in section II (plugins), and earlier visible replies recover only part of the later material. The remaining later MCP/software/other sections still need to be supplied. They are pending, not rejected or silently counted as reviewed.
+
+On continuation: compare new URLs against the 50 records, retain your earlier exclusions, review each genuinely new repository, then update these counts and decisions. Do not restart completed reviews unless a source revision or relevant evidence changes.

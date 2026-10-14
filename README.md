@@ -11,6 +11,8 @@ Codex should:
 4. Give you plugin/MCP links and login instructions for manual setup.
 5. Verify successful installs and save their records to this GitHub repo.
 
+Additional options: [reviewed GitHub catalog](github-repos/README.md). It records conditional recommendations and omissions; candidates enter the setup inventory only after you choose them and the required review is completed.
+
 ## The files you might edit
 
 - inventory.json — the component catalog, GitHub source links, prerequisites and restore status.
@@ -32,7 +34,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail needs its exact source confirmed before adding it. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail's source is identified and its review decision is recorded in the GitHub catalog. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 
