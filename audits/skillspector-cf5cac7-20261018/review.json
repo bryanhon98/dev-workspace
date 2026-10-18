@@ -1,0 +1,29 @@
+{
+  "name": "skillspector",
+  "version": "2.12.0",
+  "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+  "source": "https://github.com/NVIDIA/skillspector",
+  "audit_status": "source-reviewed-runtime-verified",
+  "source_review": "Reviewed upstream pyproject build metadata/dependencies, entrypoint, initialization and CLI no-llm path before original temporary install. Persistent install uses same exact source revision and previously tested dependency versions. No optional MCP server or developer extras installed. This is a scoped bootstrap/source review, not full-source security certification.",
+  "installation": "uv tool install from exact Git revision; user tool environment and executable under ~/.local; no /tmp dependency for scanner runtime",
+  "verification": {
+    "version": "2.12.0",
+    "command_discovery": "~/.local/bin/skillspector found on PATH",
+    "installed_source_commit": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "dependency_check": "72 packages compatible",
+    "static_scan": {
+      "target": "codebase-design",
+      "exit_code": 0,
+      "coverage_percent": 100,
+      "complete": true,
+      "findings": 0,
+      "llm_requested": false
+    }
+  },
+  "required_runtime": "Python >=3.12,<3.15; static local scans need no model API credentials. Keep --no-llm; optional dependency vulnerability lookups can query OSV.",
+  "source_hashes": {
+    "pyproject.toml": "f0190e8489d678729378e6da62a135cf5750dbe2446ebfb7c5f8da7aaa319cf5",
+    "src/skillspector/__init__.py": "734622eaa737a4964c27f0d3c0baa45505c645bb121942c7556c984509e473da",
+    "src/skillspector/cli.py": "da8cf5f0be36257c0e76d1a092150cc1f7a4b3050117b7e8cc78bfa2f6a4d988"
+  }
+}

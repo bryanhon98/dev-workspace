@@ -39,15 +39,21 @@
       "name": "skillspector",
       "kind": "tool",
       "source": "https://github.com/NVIDIA/skillspector",
-      "version": "5edc347c320bd516f8ff38df200a63831bf92e80",
+      "version": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
       "scope": "user",
-      "audit_status": "pending-review",
-      "restorable": false,
-      "restore_method": "agent-reviewed-source",
-      "note": "Scanner source revision recorded in earlier Mac chat; review bootstrap and dependencies before installing on another device.",
+      "audit_status": "source-reviewed-runtime-verified",
+      "restorable": true,
+      "restore_method": "pinned-source-tool-install",
+      "note": "Verified persistent user-level scanner in cloud-workspace; see per-device installation logs. Earlier Mac record remains historical, not a verification of that device.",
       "purpose": "Must be installed and verified before any skill installation",
-      "setup_requirements": "If missing, review pinned source/bootstrap and dependencies, install the scanner first, and verify its version and a local static scan before proceeding with skills.",
-      "github_url": "https://github.com/NVIDIA/skillspector"
+      "setup_requirements": "Review pinned source/bootstrap, install with uv tool using recorded dependency constraints, verify package version and source commit, run dependency check and local --no-llm static scan. No model credentials needed for static mode.",
+      "github_url": "https://github.com/NVIDIA/skillspector",
+      "release_version": "2.12.0",
+      "audit_ref": "audits/skillspector-cf5cac7-20261018/review.json",
+      "required_tools": [
+        "Python >=3.12,<3.15",
+        "uv for recorded installation method"
+      ]
     },
     {
       "name": "claude-mem",
