@@ -213,6 +213,101 @@
         "agents/council-rams.md": "9bebe79ca873f4913554f0607b2d09a4626c01d623709b310f4da44f5e3dd7b6",
         "scripts/detect-providers.sh": "462219c0dab94f78222dd485b8e2b8e29f4ea403ecca9258f9a0209ad10e6a37"
       }
+    },
+    {
+      "name": "codebase-design",
+      "kind": "skill",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/codebase-design",
+      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/codebase-design",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "scope": "user",
+      "audit_status": "reviewed-static",
+      "restorable": true,
+      "restore_method": "saved-reviewed-source-with-exception",
+      "bundle": "skills/external/matt-pocock/codebase-design",
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "purpose": "Deep-module architecture vocabulary",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
+    },
+    {
+      "name": "domain-modeling",
+      "kind": "skill",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/domain-modeling",
+      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/domain-modeling",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "scope": "user",
+      "audit_status": "approved-exception",
+      "restorable": true,
+      "restore_method": "saved-reviewed-source-with-exception",
+      "bundle": "skills/external/matt-pocock/domain-modeling",
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "purpose": "Domain glossary and architecture decisions",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
+    },
+    {
+      "name": "grill-me",
+      "kind": "skill",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grill-me",
+      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grill-me",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "scope": "user",
+      "audit_status": "reviewed-static",
+      "restorable": true,
+      "restore_method": "saved-reviewed-source-with-exception",
+      "bundle": "skills/external/matt-pocock/grill-me",
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "purpose": "User-invoked design interview",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
+    },
+    {
+      "name": "grilling",
+      "kind": "skill",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling",
+      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "scope": "user",
+      "audit_status": "approved-exception",
+      "restorable": true,
+      "restore_method": "saved-reviewed-source-with-exception",
+      "bundle": "skills/external/matt-pocock/grilling",
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "purpose": "Decision-tree interview",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "kind": "skill",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/improve-codebase-architecture",
+      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/engineering/improve-codebase-architecture",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "scope": "user",
+      "audit_status": "approved-exception",
+      "restorable": true,
+      "restore_method": "saved-reviewed-source-with-exception",
+      "bundle": "skills/external/matt-pocock/improve-codebase-architecture",
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "purpose": "Architecture exploration and HTML review",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
     }
   ]
 }
