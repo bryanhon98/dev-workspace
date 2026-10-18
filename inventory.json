@@ -339,6 +339,27 @@
         "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
         "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca"
       }
+    },
+    {
+      "name": "archviz",
+      "kind": "skill",
+      "source": "https://github.com/arjun988/blender-skills/tree/8f778d2405a214b508d4c7d80742be8e43acdd52/.claude/skills/archviz",
+      "github_url": "https://github.com/arjun988/blender-skills/tree/8f778d2405a214b508d4c7d80742be8e43acdd52/.claude/skills/archviz",
+      "version": "8f778d2405a214b508d4c7d80742be8e43acdd52",
+      "release_version": "1.0.0",
+      "scope": "user",
+      "purpose": "Architectural visualization workflow with scale checks, cameras, lighting and materials",
+      "audit_status": "reviewed-with-approved-exception",
+      "restorable": true,
+      "restore_method": "agent-reviewed-source",
+      "payload_path": "skills/external/arjun988/archviz",
+      "audit_ref": "audits/archviz-8f778d2-20261018/review.json",
+      "exception_ref": "archviz-8f778d2-20261018-user-approved",
+      "required_tools": [
+        "Blender",
+        "Blender MCP for upstream MCP execution workflow"
+      ],
+      "setup_requirements": "Re-scan restored bytes. Blender 4.3.2 available in cloud-workspace; MCP connection unverified. Related skills not bundled. No credentials required for reading guidance."
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "source": "https://github.com/arjun988/blender-skills/tree/8f778d2405a214b508d4c7d80742be8e43acdd52/.claude/skills/archviz",
+  "version": "8f778d2405a214b508d4c7d80742be8e43acdd52",
+  "release_version": "1.0.0",
+  "scanner": "SkillSpector 2.12.0",
+  "mode": "local static-only --no-llm",
+  "coverage_percent": 100,
+  "issues": 0,
+  "scan_complete": false,
+  "exception_ref": "archviz-8f778d2-20261018-user-approved",
+  "exception": "One reference_missing on SKILL.md line 7 (version metadata). All four bundled files inspected. User explicitly instructed installation after disclosure of unresolved-reference scan limitation. Exception covers only these hashes and this finding.",
+  "approval": "Alright install archviz and tell me your proposal",
+  "sha256": {
+    "LICENSE": "693a17a74eacc8ad849d248356fba7fab357b0bef5c94f783029033ab2d950d7",
+    "SKILL.md": "3b74d2914d7ff31a017d1948fca6c746676f71b4ab80bc87c25c9a7aca1d28b8",
+    "references/archviz-camera.md": "6c3697c0419fe740f653469cf9dd43bd303ae61bcc9f4c02402886fb1d021837",
+    "references/archviz-lighting.md": "96a6f30417469bebb2181fde5ed8bae122164d4a7884219dd8d0b8075f686fcb"
+  },
+  "review": "Markdown-only instructions and MIT license. No scripts, hooks or dependency manifests. Blender installed separately; upstream MCP service and related skills not installed or audited by this action.",
+  "verification": "Staged, installed and backup hashes match; name/description frontmatter and both relative reference files present. Global discovery directory verified; client reload and Blender MCP execution not tested."
+}
