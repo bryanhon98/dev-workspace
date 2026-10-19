@@ -1,0 +1,92 @@
+{
+  "name": "council",
+  "source": "https://github.com/0xNyk/council-of-high-intelligence",
+  "version": "bb42b4b58fd86b9058f2b3385d692937280d901c",
+  "audit_status": "approved-exception",
+  "exception_ref": "council-bb42b4b-20261016-user-approved",
+  "approval": "User approved installation after disclosure of the three Codex payload findings and incomplete analysis.",
+  "scanner": {
+    "name": "SkillSpector",
+    "version": "2.12.0",
+    "mode": "static-only",
+    "llm_executed": false,
+    "gate_exit": 1,
+    "coverage_percent": 100,
+    "scanned_files": 21,
+    "is_complete": false,
+    "findings": [
+      {
+        "severity": "CRITICAL",
+        "id": "P5",
+        "file": "agents/council-socrates.md",
+        "assessment": "Likely false positive: hemlock metaphor for ending recursive questioning."
+      },
+      {
+        "severity": "MEDIUM",
+        "id": "P7",
+        "file": "agents/council-feynman.md",
+        "assessment": "Likely false positive: ordinary explanation prompt."
+      },
+      {
+        "severity": "MEDIUM",
+        "id": "LP3",
+        "file": "SKILL.md",
+        "assessment": "Shell capability without a declared tool scope."
+      }
+    ],
+    "incomplete_reasons": [
+      "Unresolved installation-path reference",
+      "Optional project .council.yaml reference"
+    ],
+    "suppressed": 0,
+    "report": "scan.json"
+  },
+  "source_review": {
+    "upstream_root_scan": "Failed; 95% coverage and incomplete analysis. Additional findings include approval-bypass examples and remote installers in non-Codex files; those files are excluded from installation.",
+    "payload": "SKILL.codex.md renamed to SKILL.md, 18 upstream persona files, detect-providers.sh and MIT LICENSE.",
+    "concerns": [
+      "Provider detector assumes Anthropic is available in Codex; do not trust provider_count without verification.",
+      "Codex tool names/parameters in upstream protocol require mapping to host capabilities.",
+      "External-provider calls require separate authorization; installation does not authorize sending user/company content.",
+      "Live and simulated seats must be labeled honestly."
+    ],
+    "runtime_dependencies": "No package installation required for native Codex use. Optional detector requires Bash/Perl and optionally provider CLIs/curl.",
+    "hooks_mcp_services": "No hooks, MCP service or daemon installed.",
+    "scripts_executed": false
+  },
+  "verification": {
+    "files_verified": 21,
+    "hashes_match_pinned_source": true,
+    "shell_syntax_check": "passed",
+    "live_council_test": "not performed",
+    "global_install": "~/.agents/skills/council",
+    "asset_lookup_alias": "~/.codex/skills/council -> ~/.agents/skills/council",
+    "client_reload": "not tested",
+    "provider_detector_executed": false
+  },
+  "sha256": {
+    "LICENSE": "678df73993b4b6709cd80aed556263ef5cdcffd5e7d6a7d796c828bf36baa4c7",
+    "SKILL.md": "e55c21f434313c0ce169b02a48852b2967021af1224401e6f76ae0de5bb67fd1",
+    "agents/council-watts.md": "57e28fe6d2b607c12029c0667c509d654bb0c25e7a115b5f961105c689b06e8a",
+    "agents/council-taleb.md": "470b6c3370880ef644b2278e8f91af223716503ef48e22affa9ff1d9a32df5ac",
+    "agents/council-musashi.md": "bd8f2c23ab08761f2ee920fab9ea3dfd2bd7867523f2cac826b2ca4a4203c574",
+    "agents/council-aristotle.md": "307a57602e3a3a9a3f55b1a56453386037780f1dcfa41ede250844f588cec1d9",
+    "agents/council-sutskever.md": "31908dcecdeae685402889ef71054c2d398d486bde77f86acc8750b8f31f07f4",
+    "agents/council-karpathy.md": "5b8d161c93cf6d789ed921d3d007eae99702f5c28bf837f03cb4987c854a8e16",
+    "agents/council-torvalds.md": "645c4eeffcf92691f8ba1f56316787381dea2dc6b841310d3fe239bf162cebfc",
+    "agents/council-aurelius.md": "ac8a1556746740441e08125f8ecad73b22a2999208fb8475bb144446f7762c16",
+    "agents/council-kahneman.md": "b8f193494a75db7058e7b68f5bf13193bf5374b8df2cde246e17fc9ebbc76564",
+    "agents/council-feynman.md": "4e4c4d21725f697d1ea8f5c7a9cfcac3fd98eed15c292a1b339c7e5aeb649b2b",
+    "agents/council-sun-tzu.md": "eb6b3fd7bcac307827fd5209de27ab1b72362c2d944e3d416a4208af81c75216",
+    "agents/council-meadows.md": "924c75c0d32e23b84d6ca84ad507cf74b873c9cd7c7baa30984c0c85c1ea75c6",
+    "agents/council-ada.md": "f28d3c4af5b60b0fb14a484c28672ff513ced562dc17c55ce6348884819e5df2",
+    "agents/council-socrates.md": "4e23edd94d56ab4cbd68fc371ffe571f1294592dad40db0ca44d3d6fcb2654d5",
+    "agents/council-lao-tzu.md": "fc49cf4e67489d9416c101114fa3ec6ef48f610a578ef3d7ef11477dca84430e",
+    "agents/council-munger.md": "3f8cbcfab107a9a43c13e3a90b0f3bd62645f687e4a8a0c503bd02010a6a4311",
+    "agents/council-machiavelli.md": "0f3083ba0faa52ea5d793a094a256013a56a20fabe5afd8ffb6b1613e2a55635",
+    "agents/council-rams.md": "9bebe79ca873f4913554f0607b2d09a4626c01d623709b310f4da44f5e3dd7b6",
+    "scripts/detect-providers.sh": "462219c0dab94f78222dd485b8e2b8e29f4ea403ecca9258f9a0209ad10e6a37"
+  },
+  "restore": "Re-scan exact saved bytes. Retain this exception only for the same content/findings; new findings require new approval.",
+  "restored_at": "2026-10-19T12:42:24.240930+08:00"
+}

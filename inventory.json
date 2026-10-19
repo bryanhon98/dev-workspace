@@ -195,7 +195,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Re-scan saved content; preserve documented exceptions. Install into ~/.codex/skills/council because upstream uses that asset path. Native Codex first; external-provider calls require authorization.",
+      "setup_requirements": "Re-scan saved content; preserve documented exceptions. Install globally in ~/.agents/skills/council with ~/.codex/skills/council symlink for upstream asset lookup. Native Codex first; external-provider calls require authorization.",
       "sha256": {
         "LICENSE": "678df73993b4b6709cd80aed556263ef5cdcffd5e7d6a7d796c828bf36baa4c7",
         "SKILL.md": "e55c21f434313c0ce169b02a48852b2967021af1224401e6f76ae0de5bb67fd1",
@@ -218,7 +218,8 @@
         "agents/council-machiavelli.md": "0f3083ba0faa52ea5d793a094a256013a56a20fabe5afd8ffb6b1613e2a55635",
         "agents/council-rams.md": "9bebe79ca873f4913554f0607b2d09a4626c01d623709b310f4da44f5e3dd7b6",
         "scripts/detect-providers.sh": "462219c0dab94f78222dd485b8e2b8e29f4ea403ecca9258f9a0209ad10e6a37"
-      }
+      },
+      "latest_restore_audit_ref": "audits/council-bb42b4b-20261019/review.json"
     },
     {
       "name": "codebase-design",
