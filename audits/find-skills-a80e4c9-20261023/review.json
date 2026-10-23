@@ -1,0 +1,21 @@
+{
+  "source": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
+  "revision": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+  "latest_skill_change": "773fb2c7bbf16781670a3520affc4abd0c6151ae",
+  "status": "installed-with-existing-approved-exception",
+  "scanner_version": "2.12.0",
+  "scanner_source_revision": "5edc347c320bd516f8ff38df200a63831bf92e80",
+  "mode": "local-static-only",
+  "coverage_percent": 100,
+  "findings_count": 12,
+  "new_findings": 0,
+  "sha256": {
+    "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+    "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca"
+  },
+  "review": "Latest main commit resolved via GitHub. Skill and license bytes are identical to previously reviewed saved payload. Markdown-only skill; no bundled scripts, hooks, dependencies or MCP services. Twelve RP1 findings match prior scan by rule, severity, finding, relative file/line and fingerprint. Existing approved exception retained for identical content/findings; no new exception inferred.",
+  "exception_ref": "find-skills-13e4063-20261018-user-approved",
+  "verification": "SkillSpector --version and local --no-llm scan succeeded. Installed in ~/.agents/skills/find-skills; hashes match staged latest upstream files, metadata validated, no preexisting copies overwritten. Runtime discovery by a subsequent Codex turn not yet observed. No live CLI search or candidate code executed.",
+  "usage_constraints": "Use a pinned reviewed CLI for command execution. No API key needed for public discovery. Each future skill installation still requires review and scan.",
+  "behavior_checks": "Static metadata and trigger inspection only: skill discovery questions match description; ordinary unrelated tasks do not require invocation. No model-based evaluation or live CLI call performed."
+}
