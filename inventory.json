@@ -319,9 +319,9 @@
     {
       "name": "find-skills",
       "kind": "skill",
-      "source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills",
-      "github_url": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills",
-      "version": "13e4063a1cf913f5606d57d42ab83a86f5001e04",
+      "source": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
+      "github_url": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
+      "version": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
       "scope": "user",
       "audit_status": "approved-exception",
       "restorable": true,
@@ -339,7 +339,10 @@
       "sha256": {
         "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
         "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca"
-      }
+      },
+      "previous_source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills",
+      "latest_restore_audit_ref": "audits/find-skills-a80e4c9-20261023/review.json",
+      "note": "Latest upstream main checked 2026-10-23. Skill bytes unchanged from prior reviewed payload; local static re-scan has identical findings. Installed and hashes verified on mac-local; existing exception retained for identical content."
     },
     {
       "name": "archviz",
