@@ -1,0 +1,12 @@
+{
+  "source": "https://github.com/morluto/rea",
+  "package": "rea-agents",
+  "version": "6.7.0",
+  "tarball_sha256": "20958a66dba1a011e50a486beb9463a343128ed368c984f94065362c13f51f90",
+  "skill_source": "skills/reverse-engineer-anything",
+  "license": "upstream-LICENSE",
+  "install_options": [
+    "--ignore-scripts",
+    "--omit=optional"
+  ]
+}

@@ -1,0 +1,5 @@
+# Install and verify the reviewed rea-agents@6.7.0 globally first.
+# Merge this section into Codex config; do not replace existing configuration.
+[mcp_servers.rea]
+command = "rea"
+args = ["mcp"]

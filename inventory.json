@@ -373,17 +373,428 @@
       "version": "6.7.0",
       "scope": "user",
       "purpose": "Reverse engineer shipped applications and browser behavior with REA",
-      "audit_status": "pending-specific-exception-approval",
-      "restorable": false,
+      "audit_status": "reviewed-with-user-approved-exceptions",
+      "restorable": true,
       "restore_method": "agent-reviewed-source",
       "required_tools": [
         "REA CLI/MCP",
         "supported Node.js",
         "skillspector"
       ],
-      "setup_requirements": "Accept exact recorded scan exceptions before activation; review and configure REA CLI/MCP for Codex, then reconnect client. Optional analysis engines are separate.",
+      "setup_requirements": "Run SkillSpector before restoration; retain exception only for exact hashes and findings. Install reviewed rea-agents 6.7.0 CLI and configure Codex MCP; reconnect client. Optional engines separate.",
       "audit_ref": "audits/rea-6.7.0-20261024/review.json",
-      "note": "Staged and scanned only; not installed."
+      "note": "Reviewed payload saved under skills/external/reverse-engineer-anything. Cloud installation verified; re-scan exact bytes on restoration.",
+      "exceptions": [
+        "rea-6.7.0-20261024-user-approved"
+      ]
+    },
+    {
+      "name": "rea-agents",
+      "kind": "tool",
+      "source": "npm:rea-agents@6.7.0",
+      "github_url": "https://github.com/morluto/rea",
+      "version": "6.7.0",
+      "scope": "user",
+      "purpose": "REA reverse-engineering CLI",
+      "audit_status": "scoped-review-runtime-verified",
+      "restorable": false,
+      "restore_method": "manual-reviewed-setup",
+      "required_tools": [
+        "Node.js ^22.19.0 || ^24.11.0 || >=26.0.0"
+      ],
+      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client.",
+      "audit_ref": "audits/rea-6.7.0-20261024/review.json"
+    },
+    {
+      "name": "rea",
+      "kind": "mcp",
+      "source": "npm:rea-agents@6.7.0",
+      "github_url": "https://github.com/morluto/rea",
+      "version": "6.7.0",
+      "scope": "user",
+      "purpose": "Local REA tools for shipped-artifact and browser inspection",
+      "audit_status": "scoped-review-runtime-verified",
+      "restorable": false,
+      "restore_method": "manual-reviewed-setup",
+      "required_tools": [
+        "Node.js ^22.19.0 || ^24.11.0 || >=26.0.0"
+      ],
+      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client.",
+      "audit_ref": "audits/rea-6.7.0-20261024/review.json"
+    },
+    {
+      "name": "animation-performance",
+      "kind": "skill",
+      "source": "https://github.com/emilkowalski/skills",
+      "github_url": "https://github.com/emilkowalski/skills",
+      "version": "2d228630ba1446365f614a108cb8252f1feda202",
+      "scope": "user",
+      "purpose": "animation performance",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "apple-design",
+      "kind": "skill",
+      "source": "https://github.com/emilkowalski/skills",
+      "github_url": "https://github.com/emilkowalski/skills",
+      "version": "2d228630ba1446365f614a108cb8252f1feda202",
+      "scope": "user",
+      "purpose": "apple design",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "deploy-to-vercel",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "scope": "user",
+      "purpose": "deploy to vercel",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "design-taste-frontend",
+      "kind": "skill",
+      "source": "https://github.com/Leonxlnx/taste-skill",
+      "github_url": "https://github.com/Leonxlnx/taste-skill",
+      "version": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+      "scope": "user",
+      "purpose": "design taste frontend",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-core",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap core",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-frameworks",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap frameworks",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-performance",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap performance",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-plugins",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap plugins",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-react",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap react",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-scrolltrigger",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap scrolltrigger",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-timeline",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap timeline",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "gsap-utils",
+      "kind": "skill",
+      "source": "https://github.com/greensock/gsap-skills",
+      "github_url": "https://github.com/greensock/gsap-skills",
+      "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "scope": "user",
+      "purpose": "gsap utils",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "impeccable",
+      "kind": "skill",
+      "source": "https://github.com/pbakaus/impeccable",
+      "github_url": "https://github.com/pbakaus/impeccable",
+      "version": "5cb95eea9c96479f57afe0732a45470d30183326",
+      "scope": "user",
+      "purpose": "impeccable",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "kind": "skill",
+      "source": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "github_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "version": "d14efff8ed1faa4187f004f79926f428c8074ec7",
+      "scope": "user",
+      "purpose": "ui ux pro max",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-cli-with-tokens",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "scope": "user",
+      "purpose": "vercel cli with tokens",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "installed-sha256:ba7e5326ad02df08ebd0a8b153eef0ba00e1e661d5af6d6c5eef79bf39f34d00",
+      "scope": "user",
+      "purpose": "vercel composition patterns",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-optimize",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "installed-sha256:6db776532d189b2e87af0b5adb575dac0e4cfe62ca15294b7c1722ed70071c99",
+      "scope": "user",
+      "purpose": "vercel optimize",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "installed-sha256:a5082a46ee8f53c4713e64fda7da5bf390ddc13f8b2b72a99804649ebefe2759",
+      "scope": "user",
+      "purpose": "vercel react best practices",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "installed-sha256:fc22abb62b8fb5c16865d308e88729c4e468fb08d69dca926265bbaeb2fd6604",
+      "scope": "user",
+      "purpose": "vercel react native skills",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "vercel-react-view-transitions",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "installed-sha256:c22b1b7a40e12cd81ad0d6aafac466b18bd56dcc2668b168f3c7571d4fade7df",
+      "scope": "user",
+      "purpose": "vercel react view transitions",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "web-design-guidelines",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "scope": "user",
+      "purpose": "web design guidelines",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+    },
+    {
+      "name": "writing-guidelines",
+      "kind": "skill",
+      "source": "https://github.com/vercel-labs/agent-skills",
+      "github_url": "https://github.com/vercel-labs/agent-skills",
+      "version": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "scope": "user",
+      "purpose": "writing guidelines",
+      "audit_status": "observed-installed-pending-security-review",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "skillspector"
+      ],
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
+      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
     }
   ]
 }
