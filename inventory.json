@@ -364,6 +364,26 @@
         "Blender MCP for upstream MCP execution workflow"
       ],
       "setup_requirements": "Re-scan restored bytes. Blender 4.3.2 available in cloud-workspace; MCP connection unverified. Related skills not bundled. No credentials required for reading guidance."
+    },
+    {
+      "name": "reverse-engineer-anything",
+      "kind": "skill",
+      "source": "npm:rea-agents@6.7.0/skills/reverse-engineer-anything",
+      "github_url": "https://github.com/morluto/rea",
+      "version": "6.7.0",
+      "scope": "user",
+      "purpose": "Reverse engineer shipped applications and browser behavior with REA",
+      "audit_status": "pending-specific-exception-approval",
+      "restorable": false,
+      "restore_method": "agent-reviewed-source",
+      "required_tools": [
+        "REA CLI/MCP",
+        "supported Node.js",
+        "skillspector"
+      ],
+      "setup_requirements": "Accept exact recorded scan exceptions before activation; review and configure REA CLI/MCP for Codex, then reconnect client. Optional analysis engines are separate.",
+      "audit_ref": "audits/rea-6.7.0-20261024/review.json",
+      "note": "Staged and scanned only; not installed."
     }
   ]
 }

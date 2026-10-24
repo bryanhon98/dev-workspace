@@ -1,0 +1,21 @@
+{
+  "component": "reverse-engineer-anything",
+  "github_url": "https://github.com/morluto/rea",
+  "npm_package": "rea-agents",
+  "version": "6.7.0",
+  "skill_metadata_version": "42",
+  "status": "pending-specific-exception-approval",
+  "activated": false,
+  "scanner": "SkillSpector 2.12.0",
+  "scanner_source_revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+  "scan_mode": "local static-only --no-llm",
+  "coverage": "7/7 bundled Markdown files scanned; report partial because mcp.json and raw_result.source were interpreted as missing file references. External documentation not scanned.",
+  "findings_review": {
+    "MP2": "One match on Markdown table padding; appears false positive.",
+    "RA2": "Five matches on plist documentation describing inspection of target applications, not installation of persistence; appear false positives.",
+    "EA2": "One match on no approval for temporary read-only macOS DMG mount; real described behavior, constrained to read-only mounting with cleanup."
+  },
+  "runtime_review": "Package manifest, launcher, prepare hook, registration command and installation documentation inspected. Broad reverse engineering CLI/MCP, with browser/process/filesystem capabilities. No runtime execution or full dependency/service audit yet. Optional Frida dependency. Skill scan does not certify CLI/MCP.",
+  "approval_required": "Specific acceptance of seven findings and two missing-reference completeness exceptions for hashes in sha256.json before skill activation.",
+  "installation": "REA not installed; MCP configuration unchanged."
+}
