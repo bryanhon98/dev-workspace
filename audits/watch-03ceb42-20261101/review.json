@@ -1,12 +1,22 @@
 {
   "revision": "03ceb42f7fa2c4439aca01752118044baabffb8f",
   "source": "https://github.com/bradautomates/claude-video",
-  "status": "blocked-not-installed",
+  "status": "installed-with-user-exception",
   "findings": 25,
   "coverage_percent": 92.9,
   "complete": false,
   "scanner": "2.12.0",
   "llm_requested": false,
   "video_test": "not_run",
-  "notes": "Static findings need manual adjudication and explicit user exception under global/AGENTS.md. Dependency-advisory access blocked. No watch code executed."
+  "notes": "Static findings need manual adjudication and explicit user exception under global/AGENTS.md. Dependency-advisory access blocked. No watch code executed.",
+  "verification": {
+    "source_hashes": "14 matched",
+    "targeted_tests": "101 passed",
+    "local_frame_extraction": "4 frames from 3-second synthetic clip",
+    "instagram_test": "failed: workspace proxy CONNECT 403; zero frames or transcript",
+    "cloud_uploads": "disabled",
+    "speech_fallback": "not installed; disabled",
+    "host_discovery": "standard user-global skill path; new session may be needed for catalog discovery"
+  },
+  "exception_ref": "audits/watch-03ceb42-20261101/exception.json"
 }

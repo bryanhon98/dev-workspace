@@ -1,0 +1,9 @@
+{
+  "revision": "03ceb42f7fa2c4439aca01752118044baabffb8f",
+  "user_approval": "As long as no malware i think ok",
+  "scope": "Standalone skill installation and local-engine one-video test; no cloud uploads or automatic cookie access",
+  "review": "No evidence of malware found in reviewed code paths. Findings include expected config access and argv subprocess execution. Cloud-upload branches are excluded from test. Incomplete dependency advisory coverage remains accepted for this limited test; not a clean scan or safety certification.",
+  "scan_ref": "watch-scan.json",
+  "hashes_ref": "hashes.json",
+  "timestamp": "2026-11-01T06:26:32.966513+00:00"
+}
