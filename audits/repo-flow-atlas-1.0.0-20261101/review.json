@@ -1,0 +1,25 @@
+{
+  "name": "repo-flow-atlas",
+  "version": "1.0.0",
+  "state": "installed-reviewed-with-user-scan-exception",
+  "bundle_sha256": "e32751e498e17d9bfb034d397af673e0d5769373f14c029cfdd962e72a827988",
+  "activation_allowed": true,
+  "content_review": "Reusable viewer, source grouping helpers and fictional parcel-event fixture only. No company datasets, screenshots, schemas, message routes, repository names or business-source excerpts included.",
+  "script_review": {
+    "network": "No network requests in bundled Python scripts or viewer.",
+    "execution": "No project execution, shell subprocess, dependency installation, authentication or publishing in bundled helpers.",
+    "reads": "Only manifest-named source files inside explicit repository roots; traversal and escaping symlinks rejected.",
+    "writes": "Explicit output directory; no overwrite of nonempty output without explicit flag.",
+    "credentials": "Denylist blocks credential/environment/log/database/private-key paths. The scanner matches three of those denial strings as PE3 findings.",
+    "dependencies": "Python >=3.9 standard library for build; Playwright+Chromium optional for browser verification; no credentials needed."
+  },
+  "scanner_interpretation": "100% of bundled files inspected statically, but result remains partial and has three high-severity PE3 matches on denylist literals. The partial reference is Bash in the declared allowed-tools list. No baseline suppression or guard removal was used.",
+  "baseline": {
+    "result": "Baseline artifact provided explanations and arguments but invented a different article/list layout, had no SVG/Excalidraw export and did not run browser checks. Bundled viewer and explicit visual/data contract address that presentation variance.",
+    "behavioral_test_state": "Independent forward evaluation was attempted but could not finish because the evaluator hit an account usage limit. Deterministic runtime and browser checks passed."
+  },
+  "runtime_tests": "6 passed, including multiline grouping, callback structure, source boundaries, export bindings, non-Java source equality and required explanations.",
+  "browser_tests": "Fictional sample navigation, inspectors, statement reader, dark code and lazy function index passed.",
+  "installed_hashes_verified": true,
+  "installed_at": "2026-11-01T21:04:01.508778+08:00"
+}

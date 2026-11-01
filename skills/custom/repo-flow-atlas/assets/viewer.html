@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Repository Flow Atlas</title><style>__STYLE__</style></head><body>
+<header><div><h1 id="atlas-title"></h1><p id="atlas-summary"></p></div><a href="atlas-flows.excalidraw" download>Download all Excalidraw diagrams</a></header>
+<div class="shell"><nav id="nav"></nav><main><div class="toolbar"><button id="fit">Fit to width</button><button id="minus">−</button><span id="zoom">100%</span><button id="plus">+</button><a id="svgLink" download>SVG</a><a id="exLink" download>Excalidraw</a><input id="search" placeholder="Search class, method or business term" aria-label="Search functions"><span id="metrics" class="metrics"></span></div><div id="searchResults"></div><div id="viewport"><div id="canvas"></div><div id="textview"></div></div></main></div><aside id="panel" aria-label="Function details"></aside>
+<script>
+const data=__DATA__,svgs=__SVGS__,functions=__FUNCTIONS__,routes=__ROUTES__;
+const $=id=>document.getElementById(id);let current=data.pages[0],scale=1,mode='graph';
+const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('atlas-title').textContent=data.title;document.title=data.title+' · Flow Atlas';$('atlas-summary').textContent=data.summary||data.scope;
+function zoom(value){scale=Math.min(2,Math.max(.15,value));$('canvas').style.zoom=scale;$('zoom').textContent=Math.round(scale*100)+'%'}
+function fit(){const svg=$('canvas').querySelector('svg');if(svg)zoom(Math.min(($('viewport').clientWidth-45)/+svg.getAttribute('width'),1))}
+function show(page){mode='graph';current=page;$('textview').style.display='none';$('canvas').style.display='block';$('canvas').innerHTML=svgs[page.id];$('svgLink').href=page.id+'.svg';$('exLink').href=page.id+'.excalidraw';$('metrics').textContent=page.nodes.length+' nodes · '+page.edges.length+' edges';$('panel').style.display='none';$('viewport').scrollTop=0;nav();fit();document.querySelectorAll('.node').forEach(el=>{el.onclick=()=>selectNode(el.dataset.node);el.onkeydown=e=>{if(e.key==='Enter')selectNode(el.dataset.node)}});history.replaceState(null,'','#'+page.id)}
+function selectNode(id){}
+function nav(){
+ $('nav').innerHTML=data.pages.map(page=>`<button data-id="${page.id}" class="${mode==='graph'&&current.id===page.id?'active':''}">${escape(page.id)}　${escape(page.title)}</button>`).join('')+'<hr><button data-view="routes">Routing tables</button><button data-view="functions">Full function index</button><button data-view="scope">Scope and evidence</button>';
+ $('nav').querySelectorAll('[data-id]').forEach(button=>button.onclick=()=>show(data.pages.find(p=>p.id===button.dataset.id)));$('nav').querySelectorAll('[data-view]').forEach(button=>button.onclick=()=>textview(button.dataset.view));
+}
+function textview(view){
+ mode=view;nav();$('canvas').style.display='none';$('textview').style.display='block';$('panel').style.display='none';$('viewport').scrollTop=0;
+ if(view==='routes')$('textview').innerHTML='<h2>Configuration and routing evidence</h2><table><tr><th>Router</th><th>Key / condition</th><th>Target</th></tr>'+routes.map(route=>`<tr><td>${escape(route.router||route.bean||route.repo)}</td><td>${escape(route.key||route.condition)}</td><td>${escape(route.target)}</td></tr>`).join('')+'</table>';
+ else $('textview').innerHTML='<h2>Scope and evidence</h2><p>'+escape(data.scope)+'</p><p>'+escape(data.summary)+'</p><h3>Source repositories</h3>'+data.repositories.map(repo=>'<p>'+escape(repo.label||repo.id)+'</p>').join('')+'<p>Source references were read locally. No repository code was executed by the atlas builder. Missing downstream evidence stays an explicit boundary.</p><p><a href="atlas-data.json">Evidence snapshot</a> · <a href="atlas-artifact.json">Build summary</a></p><p>Generated atlases can embed source excerpts and internal details. Removing local file links is not a public-data sanitization step.</p>';
+}
+$('fit').onclick=fit;$('minus').onclick=()=>zoom(scale/1.2);$('plus').onclick=()=>zoom(scale*1.2);
+$('search').oninput=e=>{const query=e.target.value.toLowerCase();const hits=query?data.pages.flatMap(page=>page.nodes.filter(node=>(node.title+' '+node.method+' '+node.detail+' '+(node.reader?.overview||'')).toLowerCase().includes(query)).map(node=>({page,node}))).slice(0,12):[];$('searchResults').style.display=hits.length?'block':'none';$('searchResults').innerHTML=hits.map((hit,i)=>`<div class="result" data-result="${i}">${escape(hit.page.id)} · ${escape(hit.node.title)}${hit.node.method?'.'+escape(hit.node.method)+'()':''}</div>`).join('');$('searchResults').querySelectorAll('[data-result]').forEach(el=>el.onclick=()=>{const hit=hits[+el.dataset.result];show(hit.page);selectNode(hit.node.id);$('searchResults').style.display='none'})};
+show(data.pages.find(page=>page.id===location.hash.slice(1))||data.pages[0]);
+</script><script>__READER_JS__</script></body></html>

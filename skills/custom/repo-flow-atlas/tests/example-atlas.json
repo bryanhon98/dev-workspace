@@ -1,0 +1,95 @@
+{
+  "title": "Parcel Event Flow",
+  "summary": "Fictional sample for testing the reusable atlas.",
+  "scope": "Static inspection of a fictional two-class fixture; no delivery system is executed.",
+  "repositories": [
+    {
+      "id": "parcel-app",
+      "root": "fixtures/parcel-app",
+      "package_prefix": "com/example/parcel/"
+    }
+  ],
+  "functions": [
+    {
+      "id": "router-route",
+      "repo": "parcel-app",
+      "path": "src/main/java/com/example/parcel/ShipmentRouter.java",
+      "class": "ShipmentRouter",
+      "method": "route",
+      "line": 6,
+      "end_line": 14
+    },
+    {
+      "id": "engine-execute",
+      "repo": "parcel-app",
+      "path": "src/main/java/com/example/parcel/RouteEngine.java",
+      "class": "RouteEngine",
+      "method": "execute",
+      "line": 4,
+      "end_line": 6
+    }
+  ],
+  "pages": [
+    {
+      "id": "O1",
+      "title": "Shipment event routing",
+      "summary": "Read the event, choose an action, then hand it to the engine.",
+      "nodes": [
+        {
+          "id": "router",
+          "title": "ShipmentRouter",
+          "method": "route",
+          "function_id": "router-route",
+          "kind": "method",
+          "detail": "Choose the next action for one shipment event.",
+          "col": 0,
+          "row": 0,
+          "reader": {
+            "overview": "Choose the next action for one shipment event.",
+            "inputs": "A shipment event with a kind and payload.",
+            "steps": [
+              "Log the event as diagnostic context.",
+              "Reject a missing event with Error.INVALID_EVENT.",
+              "Use CREATE_LABEL for a created event; use UPDATE_TRACKING otherwise."
+            ],
+            "outcome": "The selected action and original event are passed to RouteEngine."
+          }
+        },
+        {
+          "id": "engine",
+          "title": "RouteEngine",
+          "method": "execute",
+          "function_id": "engine-execute",
+          "kind": "method",
+          "detail": "Accept the event and action selected by the router.",
+          "col": 1,
+          "row": 0,
+          "reader": {
+            "overview": "Accept the event and action selected by the router.",
+            "inputs": "The original shipment event and a DispatchAction enum.",
+            "steps": [
+              "Create the accepted result from the supplied event and action."
+            ],
+            "outcome": "Returns a DispatchResult; downstream delivery internals are not present in this fixture."
+          }
+        }
+      ],
+      "edges": [
+        {
+          "from": "router",
+          "to": "engine",
+          "kind": "call",
+          "label": "Selected DispatchAction",
+          "explanation": "The router passes the same event and either DispatchAction.CREATE_LABEL or DispatchAction.UPDATE_TRACKING into the engine."
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "router": "ShipmentRouter.route",
+      "key": "EventKind.CREATED",
+      "target": "RouteEngine.execute(event, DispatchAction.CREATE_LABEL)"
+    }
+  ]
+}

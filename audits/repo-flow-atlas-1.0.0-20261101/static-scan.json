@@ -1,0 +1,654 @@
+{
+  "risk_assessment": {
+    "score": 39,
+    "severity": "MEDIUM",
+    "recommendation": "CAUTION",
+    "max_issue_severity": "HIGH"
+  },
+  "components": [
+    {
+      "path": "SKILL.md",
+      "type": "markdown",
+      "lines": 41,
+      "executable": false,
+      "size_bytes": 4035,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "agents/openai.yaml",
+      "type": "yaml",
+      "lines": 4,
+      "executable": false,
+      "size_bytes": 285,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "assets/reader.js",
+      "type": "javascript",
+      "lines": 81,
+      "executable": true,
+      "size_bytes": 9569,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "assets/viewer.css",
+      "type": "other",
+      "lines": 35,
+      "executable": false,
+      "size_bytes": 8559,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "assets/viewer.html",
+      "type": "other",
+      "lines": 25,
+      "executable": false,
+      "size_bytes": 4998,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "references/evidence-contract.md",
+      "type": "markdown",
+      "lines": 47,
+      "executable": false,
+      "size_bytes": 6249,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "references/visual-contract.md",
+      "type": "markdown",
+      "lines": 19,
+      "executable": false,
+      "size_bytes": 2678,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "scripts/build_atlas.py",
+      "type": "python",
+      "lines": 118,
+      "executable": true,
+      "size_bytes": 9084,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "scripts/check_browser.py",
+      "type": "python",
+      "lines": 40,
+      "executable": true,
+      "size_bytes": 3321,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "scripts/graphics.py",
+      "type": "python",
+      "lines": 61,
+      "executable": true,
+      "size_bytes": 3497,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "scripts/java_reader.py",
+      "type": "python",
+      "lines": 71,
+      "executable": true,
+      "size_bytes": 3818,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "scripts/render_graphics.py",
+      "type": "python",
+      "lines": 67,
+      "executable": true,
+      "size_bytes": 6305,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "tests/example-atlas.json",
+      "type": "json",
+      "lines": 95,
+      "executable": false,
+      "size_bytes": 3050,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "tests/fixtures/parcel-app/src/main/java/com/example/parcel/RouteEngine.java",
+      "type": "other",
+      "lines": 7,
+      "executable": false,
+      "size_bytes": 199,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "tests/fixtures/parcel-app/src/main/java/com/example/parcel/ShipmentRouter.java",
+      "type": "other",
+      "lines": 15,
+      "executable": false,
+      "size_bytes": 481,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    },
+    {
+      "path": "tests/test_runtime.py",
+      "type": "python",
+      "lines": 75,
+      "executable": true,
+      "size_bytes": 4842,
+      "source_url": null,
+      "source_identity": null,
+      "source_digest": null
+    }
+  ],
+  "issues": [
+    {
+      "id": "PE3",
+      "finding_id": "finding-47268f7e70414a4a8d890d3f078f4fa0",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/build_atlas.py",
+        "start_line": 17,
+        "end_line": null,
+        "start_column": 54
+      },
+      "finding": ".npmrc",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "    path=(root/relative).resolve()\n    try:path.relative_to(root)\n    except ValueError:raise ValueError('Source reference escapes its repository')\n    forbidden={'.git','.ssh','.aws','.azure','.kube','.npmrc','.gitconfig','credentials.json','database.yml'}\n    if any(part in forbidden or part.startswith('.env') for part in relative.parts) or path.suffix in {'.key','.pem','.p12','.db','.sqlite','.log'}:\n        raise ValueError('Credential/log/database material is outside atlas source scope')\n    if not path.is_file():raise ValueError('Missing source evidence: '+str(relative))",
+      "intent": null,
+      "tags": [
+        "Privilege Escalation"
+      ],
+      "evidence": {},
+      "match_fingerprint": "90db6f55d69f559161a2849fde8edffb507139938d60d5919717abb304e0abfe",
+      "occurrences": [
+        {
+          "file": "scripts/build_atlas.py",
+          "start_line": 17,
+          "end_line": null,
+          "start_column": 54
+        }
+      ]
+    },
+    {
+      "id": "PE3",
+      "finding_id": "finding-424cd59dd54a44d38dd21546c75f436f",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.7,
+      "location": {
+        "file": "scripts/build_atlas.py",
+        "start_line": 17,
+        "end_line": null,
+        "start_column": 76
+      },
+      "finding": "credentials.json",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "    path=(root/relative).resolve()\n    try:path.relative_to(root)\n    except ValueError:raise ValueError('Source reference escapes its repository')\n    forbidden={'.git','.ssh','.aws','.azure','.kube','.npmrc','.gitconfig','credentials.json','database.yml'}\n    if any(part in forbidden or part.startswith('.env') for part in relative.parts) or path.suffix in {'.key','.pem','.p12','.db','.sqlite','.log'}:\n        raise ValueError('Credential/log/database material is outside atlas source scope')\n    if not path.is_file():raise ValueError('Missing source evidence: '+str(relative))",
+      "intent": null,
+      "tags": [
+        "Privilege Escalation"
+      ],
+      "evidence": {},
+      "match_fingerprint": "07a0b37ad28a14919446682ad9b1f38223a950eb02c424e48b49fe75c25268c0",
+      "occurrences": [
+        {
+          "file": "scripts/build_atlas.py",
+          "start_line": 17,
+          "end_line": null,
+          "start_column": 76
+        }
+      ]
+    },
+    {
+      "id": "PE3",
+      "finding_id": "finding-6b1358eed8c74f45af128ed675a63216",
+      "category": "Privilege Escalation",
+      "pattern": "Credential Access",
+      "severity": "HIGH",
+      "confidence": 0.6,
+      "location": {
+        "file": "scripts/build_atlas.py",
+        "start_line": 18,
+        "end_line": null,
+        "start_column": 49
+      },
+      "finding": ".env'",
+      "explanation": "Code accesses credential files (SSH keys, AWS credentials, etc.). This could indicate credential theft attempts.",
+      "remediation": "Remove references to credential paths. Use environment variables or secrets managers. For docs, use placeholder paths (e.g., /path/to/config). Never load .env or token files in production code paths.",
+      "code_snippet": "    try:path.relative_to(root)\n    except ValueError:raise ValueError('Source reference escapes its repository')\n    forbidden={'.git','.ssh','.aws','.azure','.kube','.npmrc','.gitconfig','credentials.json','database.yml'}\n    if any(part in forbidden or part.startswith('.env') for part in relative.parts) or path.suffix in {'.key','.pem','.p12','.db','.sqlite','.log'}:\n        raise ValueError('Credential/log/database material is outside atlas source scope')\n    if not path.is_file():raise ValueError('Missing source evidence: '+str(relative))\n    return path",
+      "intent": null,
+      "tags": [
+        "Privilege Escalation"
+      ],
+      "evidence": {},
+      "match_fingerprint": "1d7505be6268307507c320128a1d61ae0b567925073d352885b24399720f99c3",
+      "occurrences": [
+        {
+          "file": "scripts/build_atlas.py",
+          "start_line": 18,
+          "end_line": null,
+          "start_column": 49
+        }
+      ]
+    }
+  ],
+  "analysis_completeness": {
+    "total_components": 16,
+    "scanned_components": 16,
+    "coverage_percent": 100.0,
+    "is_complete": false,
+    "status": "partial",
+    "execution_successful": true,
+    "fully_inspected_files": 16,
+    "partially_inspected_files": 0,
+    "entirely_uninspected_files": 0,
+    "ledger_exceptions": [
+      {
+        "outcome": "partial",
+        "phase": "reference_resolution",
+        "reason_code": "reference_missing",
+        "message": "A local path-like reference does not match any bundled artifact, such as a file the skill writes at runtime.",
+        "path": "SKILL.md",
+        "start_line": 12,
+        "end_line": 12,
+        "fatal": false
+      }
+    ],
+    "scope_exclusions": [],
+    "analyzer_statuses": [
+      {
+        "analyzer_id": "artifact_integrity",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "behavioral_ast",
+        "status": "completed",
+        "planned_work": 6,
+        "completed": 6,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "behavioral_taint_tracking",
+        "status": "completed",
+        "planned_work": 6,
+        "completed": 6,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "bundled_execution_surface",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "mcp_least_privilege",
+        "status": "completed",
+        "planned_work": 8,
+        "completed": 8,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "mcp_rug_pull",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "mcp_tool_poisoning",
+        "status": "completed",
+        "planned_work": 1,
+        "completed": 1,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "meta_analyzer",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_developer_intent",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_quality_policy",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_security_discovery",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "static_patterns_agent_snooping",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_anti_refusal",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_data_exfiltration",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_deserialization",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_excessive_agency",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_harmful_content",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_memory_poisoning",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_output_handling",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_privilege_escalation",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_prompt_injection",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_rogue_agent",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_ssrf",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_supply_chain",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_system_prompt_leakage",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_tool_misuse",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_yara",
+        "status": "completed",
+        "planned_work": 16,
+        "completed": 16,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      }
+    ],
+    "references": [
+      {
+        "source_path": "SKILL.md",
+        "line": 12,
+        "column": 13,
+        "evidence": "version: \"1.0.0\"",
+        "target_path": null,
+        "status": "missing",
+        "disposition": "partial",
+        "reference_kind": "quoted_or_code"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 29,
+        "column": 30,
+        "evidence": "Read [the evidence contract](references/evidence-contract.md) when authoring the manifest. It defines the data shape and source/explanation requirements. The bu",
+        "target_path": "references/evidence-contract.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 29,
+        "column": 188,
+        "evidence": "ata shape and source/explanation requirements. The bundled [fictional manifest](tests/example-atlas.json) demonstrates it.",
+        "target_path": "tests/example-atlas.json",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 33,
+        "column": 24,
+        "evidence": "Use [the build script](scripts/build_atlas.py) with an authored manifest and an explicit output directory. The script reads only files named in that manifest an",
+        "target_path": "scripts/build_atlas.py",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 35,
+        "column": 32,
+        "evidence": "Preserve [the visual contract](references/visual-contract.md): sidebar, zoomable diagrams, search, clickable readable connections, explanatory inspector, short ",
+        "target_path": "references/visual-contract.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 41,
+        "column": 117,
+        "evidence": "s; validate JSON, SVG and Excalidraw bindings. Run the included [runtime tests](tests/test_runtime.py) when changing helpers. If a browser is available, use [th",
+        "target_path": "tests/test_runtime.py",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 41,
+        "column": 216,
+        "evidence": "py) when changing helpers. If a browser is available, use [the browser checker](scripts/check_browser.py), which needs Playwright and Chromium already available",
+        "target_path": "scripts/check_browser.py",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "markdown_link"
+      }
+    ],
+    "limitations": [],
+    "findings_before_filtering": 3,
+    "findings_after_filtering": 3
+  },
+  "scan_mode": "local-static-only",
+  "scanner_version": "2.12.0",
+  "llm_used": false,
+  "source": "skills/custom/repo-flow-atlas",
+  "raw_report_location": "Retained on the authoring device; environment-specific metadata omitted from this backup report."
+}

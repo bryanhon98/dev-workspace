@@ -1,0 +1,29 @@
+{
+  "name": "repo-flow-atlas",
+  "version": "1.0.0",
+  "bundle_sha256": "e32751e498e17d9bfb034d397af673e0d5769373f14c029cfdd962e72a827988",
+  "approved_at": "2026-11-01T21:04:01.508778+08:00",
+  "timezone": "Asia/Kuala_Lumpur",
+  "approval": "Approve this exact scan exception and activate the skill",
+  "scope": "Exact recorded files and findings only; re-scan on restoration",
+  "findings": "Three HIGH PE3 matches on denylist literals .npmrc, credentials.json and .env; partial reference to declared Bash tool",
+  "scan_pass": false,
+  "file_hashes": {
+    "SKILL.md": "ed94668174b07f65add5a220e7f4d52a901042a47f346a8afed5256b73b86cdf",
+    "agents/openai.yaml": "dab0b3c01daef70a20efc4601cc04c0b47433db3a0f1a59308b6c1b879f0e710",
+    "assets/reader.js": "57afd72aaf762eacd08c11de062829431f183d21d8ef0e92f92fb3c14f348b4b",
+    "assets/viewer.css": "2fc83e667db221fea06e25d1901f5c3ebe50b012930290ea0e454244ab43d6a9",
+    "assets/viewer.html": "3c535d2fda4e71c125676428bf49e23c33a7856cd1c108cc426456321692dceb",
+    "references/evidence-contract.md": "8c835b812c9694325ec67621394a44e81cdd3104ca2282c7a70734cc874fcf97",
+    "references/visual-contract.md": "c341a5f1841539ef2f8a99a8efeb6741efce2728074bed2bfe438476918e40c7",
+    "scripts/build_atlas.py": "bc38738de001d9087993fcf0667bd8fb12b81db53d37c207635d2b9d115cd82c",
+    "scripts/check_browser.py": "74b11fe5193d93d7b0e34fa928e0f29bc12b2742f23d02e0461be46505ea254a",
+    "scripts/graphics.py": "90923c16ef87b1bb9a5f9ed3d4089320a2aa503e6cf20b9e3550acdfb79eae89",
+    "scripts/java_reader.py": "84c7f711e883387065257bcfb64e7f0d085c8b69949ca6503b934a9c1c0a29bb",
+    "scripts/render_graphics.py": "b3755323dd11908fd4de3b1c108cb762fd59e4af47820e72192742abada6c5b6",
+    "tests/example-atlas.json": "68711cc2a74d366c10baf742572aa5342484af6f3cc0fce989b5c0001447e951",
+    "tests/fixtures/parcel-app/src/main/java/com/example/parcel/RouteEngine.java": "cc533584ff72552c3f96c406a59fca917c02ac2a811ef724f8d6e1a0d4c69d3a",
+    "tests/fixtures/parcel-app/src/main/java/com/example/parcel/ShipmentRouter.java": "52e98217b4c2f6630bac0a96c94130cd7e1d669a2bd4dfcad2eb32bdd578874a",
+    "tests/test_runtime.py": "0526f359fb6f8c38b5045e33089ad34d8ca8f1eb9d005a9111971c4784059cb0"
+  }
+}

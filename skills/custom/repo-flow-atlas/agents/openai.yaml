@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Flow Atlas"
+  short_description: "Explain repository flows with an interactive atlas"
+  default_prompt: "Use $repo-flow-atlas to explain this repository flow with the established atlas layout, deep English notes and statement-aware code reader."
