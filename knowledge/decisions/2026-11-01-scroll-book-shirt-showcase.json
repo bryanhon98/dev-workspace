@@ -1,0 +1,248 @@
+{
+  "id": "2026-11-01-scroll-book-shirt-showcase",
+  "recorded_at": "2026-11-01T17:21:32.749856+00:00",
+  "task": "Scroll-driven realistic 3D book: page turns reveal a shirt for inspection, then further scrolling reveals the next object.",
+  "constraints": {
+    "explicit": [
+      "Website with realistic 3D and scroll effects",
+      "Starts with an animated book",
+      "Scrolling flips the book pages",
+      "A 3D shirt emerges and can be inspected",
+      "Further scrolling reveals the next object"
+    ],
+    "proposed_not_approved": [
+      "One coordinated timeline for story progress",
+      "Explicit inspect/continue handoff between scroll animation and orbit controls",
+      "React + Three.js/React Three Fiber implementation if no existing stack dictates otherwise",
+      "Bake garment drape offline; live cloth physics is not required for the first version"
+    ],
+    "unknown": [
+      "Target device and framework",
+      "Existing book/shirt assets",
+      "Number of objects",
+      "Mobile performance targets",
+      "Budget and deadline"
+    ]
+  },
+  "device_alias": "unknown-target-device",
+  "device_observation": "Cloud filesystem skill discovery did not expose the GSAP/Blender/Emil installations recorded in inventory. Refero is available through the current session skill catalog. No claim about the user laptop state.",
+  "candidates": [
+    {
+      "identity": "Refero Design",
+      "source_url": "https://refero.design",
+      "skill_paths": [
+        "refero-design"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": null,
+      "checked_at": "2026-11-01T17:21:32.749856+00:00",
+      "review_depth": "Read current connected skill instructions; no visual-reference research or design execution performed.",
+      "fit": "Primary visual direction: editorial book treatment, typography, composition and reference lock.",
+      "decision": "use alongside",
+      "overlap": "Own overall art direction; do not stack broad design directors.",
+      "prerequisites": [
+        "Available skill; live reference tools or supplied references for actual design"
+      ],
+      "costs": "Service and model usage depend on account; not checked.",
+      "uncertainties": [
+        "No commit/version exposed by connected skill; no design references selected yet."
+      ]
+    },
+    {
+      "identity": "Official GSAP skills",
+      "source_url": "https://github.com/greensock/gsap-skills",
+      "skill_paths": [
+        "skills/gsap-scrolltrigger/SKILL.md",
+        "skills/gsap-react/SKILL.md",
+        "skills/gsap-performance/SKILL.md"
+      ],
+      "recorded_revision": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "installed_revision": null,
+      "upstream_revision": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "checked_at": "2026-11-01T17:21:32.749856+00:00",
+      "review_depth": "Read the three skill files, current head and open issues. No code executed.",
+      "fit": "Scroll-linked book turns, object reveal and chapter timing; React lifecycle cleanup.",
+      "decision": "keep recorded candidate; verify device before use",
+      "overlap": "Load specialists for their assigned role; do not let several tools independently animate the same camera/object properties.",
+      "prerequisites": [
+        "GSAP runtime",
+        "@gsap/react if React",
+        "Current official API docs",
+        "SkillSpector before any activation/update"
+      ],
+      "costs": "Skill repository declares MIT; model usage, runtime dependencies and 3D asset/texture licenses remain separate.",
+      "uncertainties": [
+        "Current skill has a Max.max typo and incorrect refreshPriority ordering; cross-check actual GSAP API rather than trusting every example.",
+        "No evidence that replacing the recorded revision improves this task."
+      ]
+    },
+    {
+      "identity": "Community Three.js specialist skills",
+      "source_url": "https://github.com/CloudAI-X/threejs-skills",
+      "skill_paths": [
+        "skills/threejs-animation/SKILL.md",
+        "skills/threejs-interaction/SKILL.md",
+        "skills/threejs-react-three-fiber/SKILL.md",
+        "skills/threejs-materials/SKILL.md",
+        "skills/threejs-lighting/SKILL.md",
+        "skills/threejs-performance/SKILL.md",
+        "skills/threejs-asset-pipeline/SKILL.md"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": "0e181866f095b5f06d005133876e926515390d95",
+      "checked_at": "2026-11-01T17:21:32.749856+00:00",
+      "review_depth": "Read current README and relevant prose sections for listed skill files; inspected tree. Code examples and runtime claims not comprehensively validated.",
+      "fit": "Book clip/morph playback, interactive shirt viewer, PBR materials/light, React integration and asset budgets.",
+      "decision": "trial candidate; not approved for activation",
+      "overlap": "Load specialists for their assigned role; do not let several tools independently animate the same camera/object properties.",
+      "prerequisites": [
+        "Three.js runtime",
+        "React/Fiber/drei for React path",
+        "GLB/glTF assets",
+        "gltf-transform and KTX tooling if using their compression pipeline",
+        "SkillSpector before activation"
+      ],
+      "costs": "Skill repository declares MIT; model usage, runtime dependencies and 3D asset/texture licenses remain separate.",
+      "uncertainties": [
+        "Community collection, not official Three.js guidance.",
+        "README targets Three r186, Fiber 9.8/drei 10.7; choose compatible pinned project dependencies and verify against their official docs.",
+        "Not security-scanned, installed or behavior-tested here."
+      ]
+    },
+    {
+      "identity": "Blender asset-authoring subset",
+      "source_url": "https://github.com/arjun988/blender-skills",
+      "skill_paths": [
+        ".claude/skills/animation/SKILL.md",
+        ".claude/skills/cloth-sim/SKILL.md",
+        ".claude/skills/realistic-style/SKILL.md",
+        ".claude/skills/materials/SKILL.md",
+        ".claude/skills/lighting/SKILL.md",
+        ".claude/skills/asset-optimization/SKILL.md",
+        ".claude/skills/export-pipeline/SKILL.md"
+      ],
+      "recorded_revision": "8f778d2405a214b508d4c7d80742be8e43acdd52",
+      "installed_revision": null,
+      "upstream_revision": "8f778d2405a214b508d4c7d80742be8e43acdd52",
+      "checked_at": "2026-11-01T17:21:32.749856+00:00",
+      "review_depth": "Read current relevant skill files and cloth bake-target reference; current head matches saved archviz repository revision.",
+      "fit": "Author book page motion and realistic garment drape; export optimized assets for the web.",
+      "decision": "add for asset work only, subject to inspection",
+      "overlap": "Load specialists for their assigned role; do not let several tools independently animate the same camera/object properties.",
+      "prerequisites": [
+        "Blender",
+        "Supported Blender execution bridge/MCP if using that workflow",
+        "3D modeling/garment assets or authoring time",
+        "SkillSpector for additional skills"
+      ],
+      "costs": "Skill repository declares MIT; model usage, runtime dependencies and 3D asset/texture licenses remain separate.",
+      "uncertainties": [
+        "Only archviz is saved/reviewed in the existing payload; its review does not cover these additional skills.",
+        "A cinematic Alembic/USD cloth cache is not directly a web GLB animation; choose supported rigs/morphs or static drape and verify export.",
+        "Blender viewport/render appearance must be checked again under browser lighting and material support."
+      ]
+    },
+    {
+      "identity": "Emil motion-review subset",
+      "source_url": "https://github.com/emilkowalski/skills",
+      "skill_paths": [
+        "skills/review-animations/SKILL.md"
+      ],
+      "recorded_revision": "2d228630ba1446365f614a108cb8252f1feda202",
+      "installed_revision": null,
+      "upstream_revision": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+      "checked_at": "2026-11-01T17:21:32.749856+00:00",
+      "review_depth": "Read review-animations and latest compare diff.",
+      "fit": "Optional critique for inspect/close/next controls, interruption handling and reduced motion.",
+      "decision": "use alongside only for UI review",
+      "overlap": "Load specialists for their assigned role; do not let several tools independently animate the same camera/object properties.",
+      "prerequisites": [
+        "Existing UI/motion implementation to review"
+      ],
+      "costs": "Skill repository declares MIT; model usage, runtime dependencies and 3D asset/texture licenses remain separate.",
+      "uncertainties": [
+        "Latest commit adds remove-animations and a cheatsheet; selected review skill unchanged.",
+        "Strict short-UI-animation heuristics should not govern the deliberately cinematic 3D book chapters.",
+        "No runtime/browser test performed."
+      ]
+    }
+  ],
+  "decision": {
+    "status": "proposed recommendation; user has not selected an installation",
+    "selected_roles": {
+      "visual_direction": "Refero",
+      "asset_authoring": "Blender animation + cloth-sim/realistic-style as needed; optimize/export",
+      "web_3d": "CloudAI-X Three.js specialist subset as a trial candidate",
+      "scroll_choreography": "GSAP ScrollTrigger with React cleanup if applicable",
+      "verification": "Existing browser automation plus browser performance checks; optional Emil review for ordinary controls"
+    },
+    "sequence": [
+      "Closed book introduction",
+      "Scroll opens book and turns first page",
+      "Shirt emerges; camera moves to inspection framing",
+      "Explicit inspect mode gives pointer/touch rotation and bounded zoom",
+      "Continue returns camera ownership to scroll timeline",
+      "Next page reveals next object; reverse scrolling restores coherent previous state"
+    ],
+    "deferred": {
+      "Lenis": "Optional smooth-scroll enhancement after native scroll works; avoid another scroll controller initially.",
+      "UI/UX Pro Max, Taste, Impeccable as simultaneous directors": "Potentially useful individually, but overlapping general direction does not solve page deformation or 3D controls.",
+      "archviz": "Useful if subject changes to interiors/buildings; garment and book specialists fit this brief better.",
+      "Remotion/Hyperframes": "Useful for pre-rendered video; cannot alone provide the requested arbitrary interactive model inspection."
+    },
+    "actions_completed": [
+      "Research and decision record only"
+    ],
+    "installs_or_removals": []
+  },
+  "evidence": [
+    {
+      "url": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "finding": "Current default-branch head matches inventory recorded revision."
+    },
+    {
+      "url": "https://github.com/greensock/gsap-skills/issues/20",
+      "finding": "Reported reversed refreshPriority guidance; incorrect lower-first prose also observed in current skill."
+    },
+    {
+      "url": "https://github.com/greensock/gsap-skills/pull/19",
+      "finding": "Open fixes for broken examples; not treated as merged. Max.max typo directly observed."
+    },
+    {
+      "url": "https://github.com/CloudAI-X/threejs-skills/tree/0e181866f095b5f06d005133876e926515390d95",
+      "finding": "Dedicated animation/interaction/materials/lighting and recent R3F/asset-pipeline skill coverage; suitability remains a source-review conclusion."
+    },
+    {
+      "url": "https://github.com/arjun988/blender-skills/blob/8f778d2405a214b508d4c7d80742be8e43acdd52/.claude/skills/cloth-sim/references/bake-targets.md",
+      "finding": "Separates shape keys, cinematic Alembic/USD caches and armature conversion; web delivery needs deliberate format choice."
+    },
+    {
+      "url": "https://github.com/emilkowalski/skills/compare/2d228630ba1446365f614a108cb8252f1feda202...a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+      "finding": "Only README, remove-animations skill and cheatsheet changed; no demonstrated need to update selected review skill."
+    },
+    {
+      "local_ref": "inventory.json",
+      "finding": "Historical GSAP/Emil observations and reviewed archviz payload are not a live laptop inventory."
+    },
+    {
+      "unperformed_checks": [
+        "Full candidate security scans",
+        "Dependency/runtime installation",
+        "Prototype build",
+        "Browser visual/performance tests",
+        "Actual target-device comparison",
+        "Verification of all upstream code examples"
+      ]
+    }
+  ],
+  "feedback": [],
+  "revisit_when": [
+    "User specifies framework/device or supplies assets",
+    "First chapter prototype exposes gesture conflict or poor mobile frame time",
+    "Upstream fixes GSAP guidance or selected runtime version changes",
+    "User requests live cloth deformation or different subjects"
+  ],
+  "supersedes": []
+}
