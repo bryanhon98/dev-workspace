@@ -1,0 +1,309 @@
+{
+  "id": "2026-11-01-skill-advisor-coverage-and-specialists",
+  "recorded_at": "2026-11-01T17:49:05Z",
+  "task": "Find a specialist or retrieval system that reduces omitted skill alternatives and improves evidence-backed combinations without requiring the user to name candidates.",
+  "constraints": {
+    "explicit": [
+      "User expects relevant skills to be considered proactively",
+      "Repo is intended to retain research, compare current versions and installed skills, and improve recommendations"
+    ],
+    "scope": "Research and a targeted advisor-instruction improvement; no candidate installation, new background service or model download.",
+    "prior_preferences": "Keep existing installation gates and prior selections/exclusions; interest in specialist agents does not authorize bulk installation."
+  },
+  "device_alias": "unknown-target-device",
+  "related_decisions": [
+    "2026-11-01-scroll-book-shirt-showcase",
+    "2026-11-01-design-skill-overlap-book-showcase"
+  ],
+  "diagnosis": {
+    "observed": "The first recommendation concentrated on the 3D implementation stack and deferred broad design tools collectively. The user had to name UI/UX Pro Max, Taste, Emil and Apple Design to get a substantive comparison.",
+    "distinction": "This was incomplete coverage/explanation, not proof that all four should have been selected. Relevant catalog entries and routing guidance already existed.",
+    "retrieval_limit": "scripts/knowledge.py search uses token intersections with name bonuses and a result limit. It is not semantic routing, a compatibility engine or a mandatory capability-coverage check.",
+    "system_limit": "A senior-expert persona changes instructions; it does not itself provide persistent memory, fresh upstream discovery or objectively better judgments."
+  },
+  "candidates": [
+    {
+      "identity": "find-skills and Skills CLI",
+      "source_url": "https://github.com/vercel-labs/skills",
+      "skill_paths": [
+        "skills/find-skills/SKILL.md",
+        "src/find.ts"
+      ],
+      "recorded_revision": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "installed_revision": null,
+      "upstream_revision": "92a9a34ac3bf88e695e468b90c7bf32f163d32c8",
+      "checked_at": "2026-11-01T17:49:05Z",
+      "review_depth": "Read saved and current SKILL.md and compared their complete strings (identical); read current src/find.ts and existing audit/inventory. CLI not executed.",
+      "fit": "Useful existing discovery layer for finding candidates through skills.sh. Reuse the saved option subject to device readiness; no new discovery persona is necessary.",
+      "overlap": "Overlaps the repo's research search but reaches an external registry. Does not replace task-specific source evaluation or conflict analysis.",
+      "prerequisites": [
+        "Network access to public skills.sh search",
+        "Node/npm only if using an inspected pinned CLI",
+        "Existing setup/scanner gates before activation"
+      ],
+      "costs": "No API key required for public discovery according to saved review; ordinary model/network usage. CLI implementation sends search requests and invokes telemetry.",
+      "uncertainties": [
+        "Current CLI sorts returned candidates by install count; the SKILL.md relies heavily on installs/stars for quality screening. Popularity is a discovery signal, not proof of fit or quality.",
+        "Noninteractive query prints candidates; interactive selection can enter installation. Do not treat every find invocation as mutation-free.",
+        "Saved payload existence and historical Mac installation do not establish the current laptop state."
+      ]
+    },
+    {
+      "identity": "Tool Evaluator and Agents Orchestrator",
+      "source_url": "https://github.com/msitarzewski/agency-agents",
+      "skill_paths": [
+        "testing/testing-tool-evaluator.md",
+        "specialized/agents-orchestrator.md",
+        "integrations/codex/README.md"
+      ],
+      "recorded_revision": "4bce55aa8b97385a5ad7b37d09b44ab976b96573",
+      "installed_revision": null,
+      "upstream_revision": "b37b5bb33b78f2c1d6567d98e25ca818e3259219",
+      "checked_at": "2026-11-01T17:49:05Z",
+      "review_depth": "Read full current Tool Evaluator, Agents Orchestrator and Codex integration instructions; inspected current tree and recent open-item titles. No converters/installers or embedded code executed.",
+      "fit": "Tool Evaluator is the closest specialist role: requirements, alternatives, realistic trials, cost/integration and documented recommendations. Orchestrator coordinates implementation and QA when that separate job is needed.",
+      "overlap": "Tool Evaluator's methodology overlaps ADVISOR.md; adapt only missing evaluation duties. Full Orchestrator overlaps existing engineering workflows and does not discover current skills by itself.",
+      "prerequisites": [
+        "Underlying capable model and permitted tools",
+        "Actual candidate evidence and representative trials",
+        "Codex host support if using converted custom agents"
+      ],
+      "costs": "MIT according to historical source review; role prompts consume the host's normal model quota. Multi-agent use adds calls/latency. Current full payload licensing/security not re-audited.",
+      "uncertainties": [
+        "Role statements about experience and memory are prompt instructions, not credentials or a storage implementation.",
+        "Embedded scoring example calls undefined test methods and includes generic weights; it is not a ready-made autonomous tool benchmark.",
+        "Enterprise ROI/vendor-negotiation sections are excessive for a small skill comparison.",
+        "Current installer PRs include symlink and Python isolation fixes; titles inspected only, no claim of verified vulnerabilities or fixes."
+      ]
+    },
+    {
+      "identity": "SkillRouter retrieval and reranking",
+      "source_url": "https://github.com/zhengyanzhao1997/SkillRouter",
+      "skill_paths": [
+        "README.md",
+        "src/run_open_model_eval.py",
+        "src/common.py",
+        "evaluation/README.md",
+        "requirements.txt"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": "2f0c69fe6786bfee6312a1ab5d5f69abdc6bd245",
+      "checked_at": "2026-11-01T17:49:05Z",
+      "review_depth": "Read full listed files, current tree, issue #11 and open PR #7. No dependencies/models installed and no evaluation executed.",
+      "fit": "Closest technical research component for retrieving relevant skills from a large overlapping pool, then reranking with instruction-body content.",
+      "overlap": "Potential alternative to lexical candidate retrieval. Still needs a maintained source index, per-capability query planning, exact upstream/device verification, conflict selection and outcome evaluation.",
+      "prerequisites": [
+        "Python, PyTorch, transformers and model weights",
+        "An indexed skill corpus with source/body metadata",
+        "Hardware and latency validation; README assumes CUDA, code has a CPU fallback",
+        "Separate model/data license and remote-code review"
+      ],
+      "costs": "Code README declares MIT; model weights and datasets have separate terms. Local inference consumes memory/compute; no benchmark performed on the user's hardware.",
+      "uncertainties": [
+        "Public default branch is primarily an evaluation release, not a complete drop-in Codex advisor.",
+        "MCP integration is open PR #7, unmerged at the check time. Do not describe it as shipped.",
+        "README reports 74% average Hit@1 on 75 scored tasks; these are maintainer benchmark claims, not this task's measured accuracy. Open issue #11 reports reproduction disparity, unverified here.",
+        "Body-aware does not mean every instruction is read: evaluated retrieval uses body_max=8000 characters, default rerank formatting truncates body to 2000, token maximum defaults to 4096.",
+        "Model loaders use trust_remote_code=True and dependencies are broadly specified; these require review before execution.",
+        "Retrieval relevance does not establish compatibility, safety, superior output or an optimal multi-skill combination."
+      ]
+    },
+    {
+      "identity": "OpenViking context database and optional Codex memory integration",
+      "source_url": "https://github.com/volcengine/OpenViking",
+      "skill_paths": [
+        "README.md",
+        "docs/en/concepts/07-retrieval.md",
+        "examples/codex-memory-plugin/README.md"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": "de6a440390f169be83e29b62d26b647eadd86a53",
+      "checked_at": "2026-11-01T17:49:05Z",
+      "review_depth": "Read core README architecture/prerequisite sections, full retrieval specification and initial Codex integration/hook sections. Did not audit server, plugin hooks or full reference corpus.",
+      "fit": "Potential future storage/retrieval layer for documents, skills and decision memory; supports scoped semantic retrieval and optional session-intent query planning.",
+      "overlap": "Overlaps the repo's persistent knowledge and lookup. Much heavier than a targeted candidate-coverage instruction fix.",
+      "prerequisites": [
+        "Server and storage",
+        "Python/uv and embedding plus language/vision model configuration per README",
+        "Client/plugin support for optional lifecycle integration"
+      ],
+      "costs": "Current README declares AGPLv3; hosting, embeddings and model calls have operational costs. Detailed licensing/deployment review remains separate.",
+      "uncertainties": [
+        "Codex example captures conversation turns into the configured server and recalls context via hooks; it is not simply an index over sanitized repo files. Do not adopt default capture silently.",
+        "Current retrieval documentation describes global vector recall and optional reranking of abstracts, not automatic recursive directory navigation.",
+        "Memory retrieval does not guarantee exhaustive candidate selection or keep upstream repositories current automatically.",
+        "Maintainer benchmark claims were not reproduced; recent issue titles were checked only."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Find plausible tools beyond the immediately recalled names",
+      "examined": [
+        "Existing inventory/reviews/reel index",
+        "vercel-labs/skills"
+      ],
+      "chosen_owner": "Existing advisor using local evidence and public discovery tools",
+      "gap": "Current target-device state unavailable; exact candidate/source checks remain necessary."
+    },
+    {
+      "job": "Ensure every part of the requested outcome is considered",
+      "examined": [
+        "knowledge/ADVISOR.md",
+        "knowledge/ROUTING.md",
+        "scripts/knowledge.py",
+        "Agency Agents Orchestrator"
+      ],
+      "chosen_owner": "Added explicit multi-capability coverage requirement to ADVISOR.md",
+      "deferred_reason": "Full development orchestration is not required to compare skills."
+    },
+    {
+      "job": "Evaluate task fit, alternatives and conflicts",
+      "examined": [
+        "Existing advisor",
+        "Agency Agents Tool Evaluator"
+      ],
+      "chosen_owner": "Existing advisor with Tool Evaluator as an optional role-template candidate",
+      "deferred_reason": "No evidence a new persona outperforms the existing model/process; tool trials remain required for quality claims."
+    },
+    {
+      "job": "Improve semantic candidate retrieval",
+      "examined": [
+        "Current lexical search",
+        "SkillRouter",
+        "OpenViking"
+      ],
+      "chosen_owner": null,
+      "gap": "No semantic router implemented or evaluated.",
+      "deferred_reason": "Benchmark candidate retrieval first; avoid adding a model/server stack solely on a promising README."
+    },
+    {
+      "job": "Retain corrections and outcomes",
+      "examined": [
+        "Repo decisions",
+        "OpenViking memory integration"
+      ],
+      "chosen_owner": "Sanitized dated decision records in this repository",
+      "deferred_reason": "OpenViking adds server/model requirements and capture behavior; current need is served by existing persistent files."
+    }
+  ],
+  "decision": {
+    "status": "Source-based recommendations and a procedural correction; not a proven automated router.",
+    "recommendation": "Keep the repo as the evidence/decision base. Require job decomposition, separate discovery per capability, explicit coverage of credible known alternatives and conflict review. Trial a narrowly adapted Tool Evaluator role only if it adds measurable value; evaluate SkillRouter if semantic retrieval remains a demonstrated bottleneck.",
+    "selected_roles": {
+      "discovery": "Existing local search plus find-skills/public upstream discovery",
+      "evaluation": "Current advisor; optional Tool Evaluator template",
+      "coverage": "Explicit per-capability check in advisor instructions",
+      "memory": "Existing repo decisions",
+      "semantic_retrieval": "Deferred pending benchmark"
+    },
+    "actions_completed": [
+      "Read and compare current shortlisted sources",
+      "Inspect existing discovery and advisor implementation",
+      "Run illustrative local lexical queries",
+      "Add coverage instructions and record contract",
+      "Record user-reported omission and future evaluation case"
+    ],
+    "installs_or_removals": [],
+    "not_implemented": [
+      "Automatic semantic routing",
+      "An enforced software coverage gate",
+      "Autonomous background updates",
+      "Global device rule restore",
+      "Independent multi-agent review"
+    ]
+  },
+  "evidence": [
+    {
+      "local_ref": "skills/external/find-skills/SKILL.md",
+      "finding": "Saved instruction content exactly matches current upstream at 92a9a34. Existing candidate was available in the repo before this question."
+    },
+    {
+      "url": "https://github.com/vercel-labs/skills/blob/92a9a34ac3bf88e695e468b90c7bf32f163d32c8/src/find.ts",
+      "finding": "Public API query, install-count sorting, query telemetry and interactive handoff to runAdd are present."
+    },
+    {
+      "url": "https://github.com/msitarzewski/agency-agents/blob/b37b5bb33b78f2c1d6567d98e25ca818e3259219/testing/testing-tool-evaluator.md",
+      "finding": "Explicit tool assessment, competitive comparison and realistic evaluation role; instructions plus illustrative incomplete scoring code."
+    },
+    {
+      "url": "https://github.com/zhengyanzhao1997/SkillRouter/blob/2f0c69fe6786bfee6312a1ab5d5f69abdc6bd245/src/common.py",
+      "finding": "Body text is included but truncated; loaders allow remote model code; CPU fallback exists."
+    },
+    {
+      "url": "https://github.com/zhengyanzhao1997/SkillRouter/issues/11",
+      "finding": "Open user report of benchmark reproduction disparity; not independently verified."
+    },
+    {
+      "url": "https://github.com/zhengyanzhao1997/SkillRouter/pull/7",
+      "finding": "MCP integration remains open with merged_at null."
+    },
+    {
+      "url": "https://github.com/volcengine/OpenViking/blob/de6a440390f169be83e29b62d26b647eadd86a53/docs/en/concepts/07-retrieval.md",
+      "finding": "Documents typed queries for skills/resources/memory and vector search with optional reranking; relevance retrieval is separate from recommendation validation."
+    },
+    {
+      "kind": "Local retrieval observation",
+      "inputs": [
+        "design 3d animation motion website scroll effects realistic model view",
+        "design typography ui ux",
+        "gesture momentum interaction accessibility"
+      ],
+      "method": "scripts/knowledge.py search, limit 10, unmodified current index",
+      "result": "Broad query returned prior decisions and motion-heavy entries, without standalone UI/UX Pro Max, Taste, Emil or Apple entries. Design query surfaced UI/UX Pro Max; gesture query surfaced Apple and Emil. Current index includes the earlier decisions, so this is not a historical replay or an accuracy benchmark."
+    },
+    {
+      "kind": "Manual instruction walkthrough",
+      "input": "Original book/page-scroll/shirt-inspection brief without skill names",
+      "criteria": "Account for visual direction, assets, rendering, scroll, gesture interaction and verification; address relevant catalog alternatives without selecting them all.",
+      "result": "Amended instructions require the missing discovery/coverage steps. Earlier source comparison supplies concrete reasons for selecting/defering named alternatives. Self-review only; no independent agent outcome test."
+    },
+    {
+      "kind": "Manual scope check",
+      "input": "Explain what Three.js is.",
+      "criteria": "Answer the simple concept question without broad discovery or installing a framework.",
+      "result": "New requirement is scoped to recommendations spanning several capabilities; the concept question does not trigger it. No model benchmark run."
+    },
+    {
+      "unperformed_checks": [
+        "Independent before/after agent evaluation",
+        "External model/candidate execution",
+        "Full dependency/security reviews",
+        "Actual laptop inspection",
+        "Performance/quality benchmark of SkillRouter, OpenViking or specialist personas"
+      ]
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "explicit user correction",
+      "text": "User questions whether relevant alternatives will be missed unless they name them and asks for a specialist/expert agent or GitHub system to address this."
+    },
+    {
+      "kind": "inference",
+      "text": "A recommendation should expose enough candidate coverage to be auditable; user did not ask to activate all candidates or install a multi-agent framework."
+    }
+  ],
+  "future_evaluation": {
+    "positive_case": "Reuse the book/shirt prompt without tool names. Require coverage of all necessary capabilities and explicit treatment of relevant known alternatives, allowing justified deferral.",
+    "edge_case": "A simple conceptual question or isolated nonvisual bug should not cause broad design discovery or bulk skill loading.",
+    "measure": [
+      "Candidate coverage by capability",
+      "Source identity/revision correctness",
+      "Unsupported superiority claims",
+      "Conflicting selected instructions",
+      "Unnecessary skills and retrieval cost"
+    ],
+    "status": "Proposed evaluation; only manual walkthrough and lexical query observations completed."
+  },
+  "revisit_when": [
+    "User requests implementing a custom specialist or semantic router",
+    "Repeated held-out tasks still miss relevant known candidates",
+    "A candidate beats current retrieval on representative tasks with acceptable cost",
+    "SkillRouter MCP integration merges and reproduction concerns are resolved",
+    "Target device is available for actual installed-skill comparison"
+  ],
+  "supersedes": []
+}

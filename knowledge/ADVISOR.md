@@ -18,6 +18,20 @@ Search scores measure word matches, not quality or suitability. Read the complet
 
 Keep four states separate: **discovered in research**, **source reviewed at a revision**, **saved/restorable under the setup rules**, and **observed working on this device**. Account-visible plugins are a fifth observation, not proof of a local installation. Never put all reel entities into `inventory.json` or treat “install all” as including research candidates.
 
+## Check coverage before choosing a combination
+
+For a recommendation spanning several capabilities, complete this check before presenting the shortlist. It is a procedural requirement for the advising agent, not an automated completeness guarantee:
+
+1. Break the requested outcome into its necessary jobs. For the book/shirt website these include visual direction, asset creation, web 3D, scroll choreography, inspection gestures, and usability/performance verification. Do not let the most technical noun consume the whole search.
+2. Read every applicable routing row and its catalog, then search each job separately using relevant synonyms. A single broad query or the first ten lexical results is insufficient evidence of coverage. Search the installed/historical inventory, prior selections and exclusions, decisions, and research; resolve aliases to owner/repository/subskill. Search current upstream sources for unresolved gaps and plausible alternatives.
+3. Account for relevant known alternatives even if the user did not name them. Consideration is not selection: a previously deferred design director may deserve an explicit overlap explanation without being added. Preserve explicit exclusions; record why they still apply or why the changed task merits revisiting them. Do not claim an unexamined candidate was evaluated.
+4. Record each necessary job, the candidates actually examined, the chosen owner, why credible alternatives were deferred, source revisions, and any remaining gap. Use `coverage` in the decision record for substantial comparisons. An unavailable device, failed lookup or unread source remains an explicit unknown.
+5. Make a second pass for omissions and conflicts: did the choice cover design as well as implementation, ignore a relevant existing tool, confuse a skill with its runtime, or give two skills authority over the same decision? This can be a self-review. Use another agent only when authorized, and never label a self-review or simulated persona independent validation.
+
+Keep the user-facing answer short: give the selected roles and a concise explanation for the most relevant deferred alternatives. Do not dump the whole discovery pool or load every skill as instructions. The user's brief and the agreed design/architecture govern specialist advice.
+
+When a user identifies an omission, record the missed role/candidate and the retrieval or decision failure separately from any new preference. Keep the original prompt as a future evaluation case. Check the revised workflow against that case and a simple task that should not trigger broad discovery; label a manual walkthrough honestly. A reliable fix needs repeated outcome evaluation, not just a more elaborate expert persona or a promise to remember.
+
 ## Compare against the actual device
 
 Use available client skill/plugin discovery first. Read relevant installed SKILL.md files and their referenced instructions, scripts, hooks, manifests and dependencies. Resolve applicable project/global scope and precedence. Existing `installations/*.jsonl` entries are history, not proof of today's machine state.

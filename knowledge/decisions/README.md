@@ -12,4 +12,6 @@ Required record fields:
 - `revisit_when`: concrete triggers (changed task, changed upstream revision, regression, cost change, missing capability).
 - `supersedes`: prior record IDs, if any; retain their original files.
 
+For recommendations spanning several capabilities, also include `coverage`: the necessary jobs, candidates actually examined for each, chosen role owner or an explicit gap, and reasons for deferring credible alternatives. Include discovery queries/source scope and unverified areas. This records what was considered; it does not certify exhaustive discovery or turn every considered skill into a recommendation.
+
 A research decision does not change installation status. Record verified installs separately in `installations/` and update inventory/audits under the global rules. Do not record a recommendation as an accepted preference or a successful install.
