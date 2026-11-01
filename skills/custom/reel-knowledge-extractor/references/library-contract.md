@@ -4,7 +4,9 @@ For substantial collections, maintain readable entries, structured entity record
 
 ## Entity record
 
-Give each distinct tool, resource or technique a stable local ID independent of its display name. Capture:
+For a pure website showcase, the user-facing entry is only its verified website URL. A private record may retain source ID, verification evidence and the showcase-only classification; the explanation template below does not apply. Do not populate stack/tool records from case studies or add profile-link leads to enrich a showcase. If its URL cannot be reliably identified, omit it from the library and record a skipped outcome in the ledger.
+
+For substantive tool/resource/technique explanations, give each distinct entity a stable local ID independent of its display name. Capture:
 
 - **Identity:** name, kind, aliases, observed identifiers, official URL/repository/page when verified, match confidence (confirmed/likely/unresolved), reasons, and separate primary-source verification (verified/pending/conflicting, URL/date). A confirmed match to a visible coordinate does not verify product claims or official ownership. Keep plausible candidates with evidence for/against them. Canonical identity may remain unknown.
 - **Explanation:** purpose, problem solved, mechanism, concrete example, when useful, limitations. Explain unfamiliar terms simply.
@@ -24,7 +26,7 @@ A readable entry can use:
 > **Limits and uncertainty:** incomplete evidence, conflicts, costs or unknowns.
 > **Links:** useful official page/repository and supporting reels with times.
 
-For websites, link the useful page and explain its function even without a GitHub repository. An uncertain address stays a candidate instead of becoming an invented clickable link. Different tools on one domain can require separate records.
+For websites introduced as useful services or explained resources, link the useful page and explain its function even without a GitHub repository. Pure showcases follow the link-only exception above. An uncertain address stays in private research, not the user-facing library. Different tools on one domain can require separate records.
 
 ## Media ledger
 
@@ -35,7 +37,7 @@ Each source retains:
 - Review scope: original media or supplied artifacts (evidence-only). Evidence-only extraction may finish within that scope while original-media coverage remains incomplete; expose all missing modalities. A reviewed evidence-only record is not a full audiovisual review.
 - Coverage separately for visuals, speech/transcript and export caption, with evidence locators/local artifacts. Record watched interval, frame sampling limits and transcript provenance.
 - Entity IDs contributed, unique additions, disagreements and explanation clarity notes.
-- Outcome: actionable, showcase/no extracted tool, no useful information, or undetermined. Coverage and outcome are independent: a partial source can contribute a useful entity while speech remains unreviewed.
+- Outcome: actionable, showcase-link-only, skipped-no-supported-extraction, or undetermined. Record a brief skip reason such as unidentified showcase or insufficient identity evidence. Coverage and outcome are independent: a partial source may contribute a verified link, or be skipped for extraction while missing speech stays explicit.
 - Identity research state and unresolved clues, distinguished from download failures.
 
 Promotional captions are context, not substitutes for watched evidence. Screenshot-only review cannot establish that speech contains no additional useful information. A source may be reviewed yet still have an unresolved identity; show the unresolved count separately.
@@ -46,4 +48,4 @@ Load the ledger/entity index before the next batch. Match normalized media ident
 
 When writing a persistent library, save the ledger and corresponding entity updates together after each reel or small batch. For a no-write pilot, include an inline checkpoint. Preserve files on interruption and report unfinished writes. Duplicate export entries can add collection membership without downloading again. New evidence or a requested check can justify revisiting a partial/reviewed source.
 
-Report selected source count; reviewed/partial/blocked/queued counts within scope; separate evidence-only scope count (which may overlap those states); confirmed/likely/unresolved matches; primary-verification status; merged duplicate contributions; new insights; and the next source. Do not hide blocked or unresolved cases in a success total.
+Report selected source count; reviewed/partial/blocked/queued counts within scope; separate evidence-only scope count (which may overlap those states); retained tools/resources and showcase links; skipped outcomes; merged duplicate contributions; and the next source. Candidate identities remain in private research unless the user asks to inspect them. Do not hide blocked or unresolved cases in a success total.

@@ -26,3 +26,16 @@ The final review suggested clearer bookkeeping for evidence-only versus partial 
 ## Limits
 
 This tests reasoning over six synthetic evidence records, not live web search or a full saved-collection run. The earlier real one-reel pilot separately demonstrated link download and visual extraction, with speech missing. No claim is made that 432 reels have been analyzed or that automatic hidden-tool identification always succeeds.
+
+## Version 1.0.1: showcase filtering regression checks
+
+The prior extraction retained researched development tools and a creator-profile lead for a pure website showcase. The user requested link-only output instead. This is the observed behavior motivating this revision.
+
+An independent evaluator applied the updated skill to four synthetic fixtures:
+
+- Pure showcase, verified displayed URL https://showcase.example/, external Three.js/GSAP case study and unrelated profile-builder link: user library retains only the showcased URL; supporting provenance stays private.
+- Unidentified showcase plus comment HOW caption: no library entry; skipped-no-supported-extraction in private ledger.
+- Substantive tutorial of https://contrast.example/ demonstrating a color contrast checker: retain the URL plus supported purpose and use; do not invent standards, pricing or setup.
+- Unnamed tool with two equally plausible candidates and missing speech: no identified-tool entry; private candidates and skipped outcome retained, original-media coverage gap exposed.
+
+All four expected extraction outcomes passed. The evaluator flagged a pre-existing processing-state ambiguity; final wording separates evidence-only completion from missing original-media speech. That narrow clarification received author review. No live services, private export or account data were used in these fixtures.

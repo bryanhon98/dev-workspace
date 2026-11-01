@@ -2,7 +2,7 @@
 name: reel-knowledge-extractor
 description: Use when saved reels or short videos need to become a reusable knowledge library of AI skills, MCP servers, Claude or Codex customizations, optimization techniques, tools, and useful websites, including duplicate explanations and unnamed projects.
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 ---
 
 # Reel Knowledge Extractor
@@ -23,9 +23,11 @@ For original media, use the installed watch skill and its runtime preflight. It 
 
 Read selected frames and the available timestamped transcript. Pin extra frames around names, repository URLs, code, settings and fleeting demos. Increasing frame width cannot restore missing source detail. Keep speech, on-screen text, export captions and external research distinguishable.
 
-If transcription is absent, mark the source partial even when visuals are useful. No captions does not mean no speech. Extract supported visual facts, but do not certify full audiovisual review or conclude that no tool is mentioned in speech. Model downloads, API usage and audio/video uploads need applicable user authorization. Do not silently change providers or spend analysis credits.
+For original-media review, missing required speech transcription leaves the source partial even when visuals are useful. Evidence-only extraction can finish within its supplied-artifact scope while original-media speech coverage remains missing. No captions does not mean no speech. Extract supported visual facts, but do not certify full audiovisual review or conclude that no tool is mentioned in speech. Model downloads, API usage and audio/video uploads need applicable user authorization. Do not silently change providers or spend analysis credits.
 
-Extract each distinct useful item:
+First classify the reel. For a **pure website showcase** with no substantive tool or workflow explanation, save only the verified showcased website URL in the user-facing library. Keep its source and verification evidence in the private ledger. Do not enrich that entry with a technology stack, development tools, speculative workflow, creator-profile links or an agency case-study explanation. A short, focused search may identify the displayed site; stop once the link is verified. If no reliable link or other identifiable useful information emerges, skip the reel.
+
+For a substantive tutorial, tool introduction or useful resource explanation, extract each distinct useful item:
 
 | Kind | Capture |
 |---|---|
@@ -49,9 +51,9 @@ Search precise phrases and GitHub descriptions, then inspect candidates' officia
 - **Likely:** several independent distinctive clues agree, but a decisive link is missing.
 - **Unresolved:** multiple candidates remain plausible or clues are insufficient.
 
-Track primary-source verification separately as verified, pending or conflicting, with its URL/date. A visible name or exact coordinate can be transcribed while official verification remains pending. Keep candidate links, evidence for/against them and the clue needed to decide. Use a few focused searches, broaden when new evidence warrants it, and stop when searches repeat ambiguous candidates. Do not manufacture a repository URL, equate a search snippet with verification or choose the most starred result to fill a blank.
+Track primary-source verification separately as verified, pending or conflicting, with its URL/date. A visible name or exact coordinate can be transcribed while official verification remains pending. Keep candidate links and uncertainty in the private research ledger, not as identified tools in the user-facing library. Use a few focused searches, broaden when new evidence warrants it, and stop when searches repeat ambiguous candidates. If identity cannot be established and no other useful item is supported, skip the reel with a brief ledger reason. Do not manufacture a repository URL, equate a search snippet with verification or choose the most starred result to fill a blank. Never invent a name, link, tool usage, workflow or factual explanation to fill missing evidence.
 
-An unidentified website showcase can contribute observations. If its promised workflow is gated behind comments and tools/steps are not shown, record the workflow unknown instead of inventing a stack.
+A comment-gated promise without actual steps is not a workflow explanation. A pure showcase gets only its verified website link; an unidentified showcase is skipped. A website that genuinely explains a useful service still gets its purpose and use case under the substantive-resource branch.
 
 ## Merge and explain
 
@@ -67,6 +69,6 @@ For example: one creator says a memory skill remembers projects; another explain
 
 Read [references/library-contract.md](references/library-contract.md) when creating/updating a library. Its entity records and media ledger support resumable processing and auditable merges. A pilot can use a compact report; a large collection needs structured records plus a readable topic index.
 
-Report processing states and evidence-only scope counts separately; entities discovered; duplicate contributions merged; and unresolved identities. Scope counts can overlap processing states. An actionable item may come from partial evidence. “No useful information” requires sufficient coverage; an original-media review missing required audio stays partial. Completed extraction of supplied artifacts is reviewed only within its evidence-only scope, with missing original modalities exposed. A reviewed source may still have an unresolved identity. Preserve a checkpoint and the next source; an inline checkpoint is sufficient for a no-write pilot. Do not call the collection complete with required evidence or queued work remaining.
+Report processing states and evidence-only scope counts separately; retained entities and showcase links; duplicate contributions merged; and skipped counts. Scope counts can overlap processing states. A skipped outcome records no supported extraction, not proof the reel contains nothing useful. Keep missing audio or failed downloads marked partial/blocked independently, without inventing content or hiding the gap. Completed extraction of supplied artifacts is reviewed only within its evidence-only scope. Preserve a checkpoint and the next source; an inline checkpoint is sufficient for a no-write pilot. Do not call the collection complete with required evidence or queued work remaining.
 
 Keep private exports, queues, media and the extracted library local unless publication is requested. Routine backup of this skill covers source and sanitized fixtures, not the user's saved collection.

@@ -1,0 +1,29 @@
+{
+  "name": "reel-knowledge-extractor",
+  "version": "1.0.1",
+  "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+  "status": "reviewed-static-and-installed",
+  "scope": "user-global ~/.agents/skills/reel-knowledge-extractor",
+  "change": "Pure website showcases retain only verified website links; unidentified showcases and unsupported identities are skipped. No stack enrichment, unrelated profile leads or invented facts. Useful-service tutorials retain explanations.",
+  "scanner": {
+    "name": "SkillSpector",
+    "version": "2.12.0",
+    "mode": "local static only; no LLM",
+    "execution_successful": true,
+    "complete": true,
+    "coverage_percent": 100,
+    "findings": 0
+  },
+  "verification": {
+    "quick_validate": "Skill is valid",
+    "behavioral_checks": "Independent four-case targeted evaluation passed: showcase link-only, unknown showcase skip, useful-service explanation, ambiguous tool skip; final supplied-evidence coverage wording author-reviewed",
+    "installed_hashes": {
+      "SKILL.md": "ce13c72b4dab77c80b43c8e893e5ddb2b8fbfcce689e4f1305af0c13139656a3",
+      "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
+      "references/library-contract.md": "153cdfcdf4cc685ba374135d920faf2c3a82808f860d0b5d4db723f2b7d39e19"
+    },
+    "local_copy_preservation": "Prior installed version hashes checked before updating; no local edits overwritten",
+    "private_collection_data": "Not published"
+  },
+  "timestamp": "2026-11-01T08:12:15Z"
+}
