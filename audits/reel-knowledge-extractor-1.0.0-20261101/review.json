@@ -1,0 +1,35 @@
+{
+  "name": "reel-knowledge-extractor",
+  "version": "1.0.0",
+  "kind": "custom-skill",
+  "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+  "status": "reviewed-static-and-installed",
+  "created_with": "Codex built-in skill-creator",
+  "scope": "user-global ~/.agents/skills/reel-knowledge-extractor",
+  "scanner": {
+    "name": "SkillSpector",
+    "version": "2.12.0",
+    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "mode": "local static only; no LLM",
+    "execution_successful": true,
+    "complete": true,
+    "coverage_percent": 100,
+    "findings": 0
+  },
+  "verification": {
+    "quick_validate": "Skill is valid",
+    "source_hashes": {
+      "SKILL.md": "226b358dcc12629518e078ef26661c317882ba55b907b487a8ca92a5a8a753dd",
+      "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
+      "references/library-contract.md": "0a5c4422a79a1144521e9422d2098e75aa5a58f5f6ce0ffd6cd278f9874200b4"
+    },
+    "installed_hashes": "All 3 installed files match reviewed source",
+    "behavioral_evaluation": "Independent baseline and six-fixture forward test; merge/verification, evidence-only and no-write gaps revised; successful rerun; final scope-count wording author-reviewed",
+    "executable_scripts": "none",
+    "live_collection_processing": "not performed by skill creation",
+    "discovery": "User-global supported skill path; catalog refresh on a later turn"
+  },
+  "coverage_limits": "Static scan is not a security certification. Behavioral evaluation uses supplied synthetic artifacts; it does not test live identity search or full-collection processing.",
+  "privacy": "Only skill source, sanitized synthetic test fixtures and inspection records included; no private export, queue, reel media or extracted collection library.",
+  "timestamp": "2026-11-01T07:46:12Z"
+}

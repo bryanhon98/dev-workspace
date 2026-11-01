@@ -820,6 +820,31 @@
       "device_audits": {
         "windows-local": "audits/watch-windows-local-20261101/review.json"
       }
+    },
+    {
+      "name": "reel-knowledge-extractor",
+      "kind": "skill",
+      "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+      "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+      "version": "1.0.0",
+      "scope": "user",
+      "purpose": "Evidence-based AI reel knowledge library: tools, skills, MCPs, customizations, optimization, websites, hidden identities and merged explanations",
+      "audit_status": "reviewed-static-and-behavior-tested",
+      "restorable": true,
+      "restore_method": "saved-custom-source",
+      "bundle": "skills/custom/reel-knowledge-extractor",
+      "required_tools": [
+        "watch skill or supplied audiovisual evidence",
+        "Python/ffmpeg/ffprobe/yt-dlp for local watch",
+        "Web/GitHub access for identity verification"
+      ],
+      "setup_requirements": "Re-scan saved source before restore. Speech transcription is separate and must be authorized when absent. Cloud/paid analysis, promoted-tool installation and collection publishing are not implied.",
+      "audit_ref": "audits/reel-knowledge-extractor-1.0.0-20261101/review.json",
+      "sha256": {
+        "SKILL.md": "226b358dcc12629518e078ef26661c317882ba55b907b487a8ca92a5a8a753dd",
+        "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
+        "references/library-contract.md": "0a5c4422a79a1144521e9422d2098e75aa5a58f5f6ce0ffd6cd278f9874200b4"
+      }
     }
   ]
 }
