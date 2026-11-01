@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "imported_on": "2026-11-01",
+  "origin": "User-supplied Meta compilation of reel research",
+  "scope": "supplied-artifacts-only; original media and upstream capabilities not independently verified",
+  "files": [
+    {
+      "original_name": "1-FULL_x5f_REPORT.md",
+      "path": "FULL_REPORT.md",
+      "bytes": 187603,
+      "sha256": "5c801da9bfdb40f8b7754b4bfeda2065fdaca5e5aab4d8d53e1cbc37b99a324c"
+    },
+    {
+      "original_name": "2-index.md",
+      "path": "index.md",
+      "bytes": 20230,
+      "sha256": "0c764a3b2f7d51d05218258ef695b90311468a28fe944a09a08e90d794ef8d95"
+    },
+    {
+      "original_name": "3-entities.json",
+      "path": "entities.json",
+      "bytes": 1587292,
+      "sha256": "9490bdf5af0355a5c83828965985e772e13d95f0d43818348f27e58f541dd201"
+    }
+  ]
+}

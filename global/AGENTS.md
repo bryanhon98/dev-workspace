@@ -2,6 +2,14 @@
 
 Backup repository: https://github.com/bryanhon98/dev-workspace. Keep personal instructions, skills, plugins and MCP setup portable across my devices. These rules are copied into my global Codex instructions and apply across projects.
 
+## Recommend tools and improve the setup
+
+This backup is also my persistent tool/skill knowledge base. When I describe a task or ask what tools to use, compare my relevant installed skills with the repo's research and reviewed alternatives; do not treat this repo as setup-only. Read knowledge/ADVISOR.md from the current repo, search knowledge/reel-library/, knowledge/decisions/, github-repos/ and inventory.json, and load only relevant detail. Research mentions are not verified capabilities or install choices.
+
+Inspect the actual target device's relevant SKILL.md files and supporting code, scope, dependencies and customizations. Check shortlisted official upstream sources at their current exact revisions and read their instructions/updates before claiming they fit or improve my setup. If the device or upstream is inaccessible, say what is unverified. Existing installation logs are historical evidence, not live discovery.
+
+Recommend the smallest complementary combination for my task, explain overlap and tradeoffs, and prefer keeping a working skill unless evidence shows an improvement. Suggest replacements/removals with exact reasons, migration and rollback; do not remove or replace skills automatically. Preserve my earlier selections/exclusions unless a changed need or evidence warrants revisiting them. Follow the installation/SkillSpector rules below for chosen changes. Record sanitized, dated comparisons and outcomes in knowledge/decisions/ so future advice improves; distinguish my explicit preferences from inference. This is agent-driven learning, not automatic background monitoring.
+
 ## Setup starts with my choices
 
 When I say "setup my Codex using this repo" (or similar), read the current inventory and show all saved skills, plugins and MCPs with a short purpose, source, readiness and authentication/manual-setup requirements. Distinguish a listed component from a reviewed, restorable copy. Say when a category is empty. Ask which skills I want: specific names, all eligible skills, or none. Wait for my choice; the setup request alone is not a choice to install everything. Previously stated choices remain valid.

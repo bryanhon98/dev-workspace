@@ -1,0 +1,31 @@
+{
+  "entities": 1083,
+  "report_sources": 475,
+  "outcomes": {
+    "actionable": 407,
+    "showcase-link-only": 60,
+    "skipped": 7,
+    "blocked": 1
+  },
+  "original_index_unique_entities": 181,
+  "uncategorized_entities": 902,
+  "entities_with_incomplete_source_lists": 47,
+  "distinct_latest_insights": 384,
+  "distinct_entity_source_references": 463,
+  "report_sources_without_entity_source_reference": [
+    "reel_DYnPUfru7aw",
+    "reel_DdRa_WDIwlZ",
+    "reel_De78haLIIrT",
+    "reel_De9EKndgQoE",
+    "reel_De9t3OEi0W9",
+    "reel_DeR3K9LAq97",
+    "reel_DeY6hIDRJqN",
+    "reel_DeZa_8yjGbp",
+    "reel_DeuabMGsU6A",
+    "reel_DezCrecDDSm",
+    "reel_DezMJBSiJAq",
+    "reel_DfAPQ06isZ2"
+  ],
+  "upstream_verification": "not-performed-by-import",
+  "original_media_review": "not-performed-by-import"
+}

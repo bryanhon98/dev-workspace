@@ -1,6 +1,6 @@
-# Maintain this personal Codex setup
+# Maintain this tool knowledge and Codex setup repository
 
-Read global/AGENTS.md for setup/inspection/sync rules. Keep this repo focused on syncing those instructions, skills, plugins and MCP setup.
+Read global/AGENTS.md for setup/inspection/sync rules. This repo is also a persistent tool and skill advisor, not only a setup backup. For capability discovery, tool comparisons, skill combinations or setup improvement, read knowledge/ADVISOR.md and follow it. Search knowledge/reel-library/, knowledge/decisions/, github-repos/ and inventory.json; distinguish research from reviewed payloads and current device observations. Read relevant installed skills and verify current upstream revisions before recommending replacements. Preserve original research and append evidence-backed learnings.
 
 On "setup my Codex using this repo", follow the short flow in README.md: list the catalog first, ask which skills or all eligible skills, then install only the chosen skills after inspection. Plugins/MCPs are a manual setup checklist. Use scripts/setup.py to display the catalog; --install-rules explicitly restores global/AGENTS.md only into Codex's user instructions. No arguments must not modify the device.
 

@@ -1,4 +1,7 @@
 import importlib.util
+import contextlib
+import io
+import json
 import pathlib
 import subprocess
 import sys
@@ -85,9 +88,24 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('Which skills', result.stdout)
         self.assertIn('Manual setup', result.stdout)
-        self.assertIn('No MCP entries saved', result.stdout)
+        catalog = json.loads((SCRIPT.parent.parent / 'inventory.json').read_text())
+        mcps = [c for c in catalog['components'] if c['kind'] == 'mcp']
+        if mcps:
+            for component in mcps:
+                self.assertIn(component['name'] + ' — ' + component['purpose'], result.stdout)
+            self.assertNotIn('No MCP entries saved', result.stdout)
+        else:
+            self.assertIn('No MCP entries saved', result.stdout)
         self.assertIn('not ready to restore', result.stdout)
         self.assertEqual(list(self.home.iterdir()), [])
+
+    def test_empty_catalog_explicitly_reports_no_mcps(self):
+        (self.home / 'inventory.json').write_text('{"components": []}')
+        self.mod.ROOT = self.home
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.mod.show_catalog()
+        self.assertIn('No MCP entries saved', output.getvalue())
 
     def test_explicit_rule_install_excludes_personalisation(self):
         result = self.run_cli('--install-rules')

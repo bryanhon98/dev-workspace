@@ -1,0 +1,203 @@
+# Categories Index (Complete)
+
+Library: /mnt/data/reel-knowledge-base
+Generated: 2026-11-01T12:45 MYT
+Total entities: 1083
+
+## Claude Code Core & Mods (32)
+- [Claude Code](../entities/claude-code.md) — 122 reels — https://www.instagram.com/reel/De48CTVsT7o/
+- [Impeccable](../entities/impeccable.md) — 12 reels — https://www.instagram.com/reel/DeKJZ_AS_c_/
+- [Claude Mem](../entities/claude-mem.md) — 11 reels — https://www.instagram.com/reel/DeKv-iWIOOM/
+- [Claude Md](../entities/claude-md.md) — 8 reels — https://www.instagram.com/reel/Dd0gP70olE2/
+- [Ecc](../entities/ecc.md) — 7 reels — https://www.instagram.com/reel/DePGXHGtniA/
+- [Claude Code Setup](../entities/claude-code-setup.md) — 7 reels — https://www.instagram.com/reel/DeKv-iWIOOM/
+- [Everything Claude Code](../entities/everything-claude-code.md) — 3 reels — https://www.instagram.com/reel/DeiNcjgAb7E/
+- [Affaan M Ecc](../entities/affaan-m-ecc.md) — 3 reels — https://www.instagram.com/reel/DeiNcjgAb7E/
+- [Cache Tax](../entities/cache-tax.md) — 2 reels — https://www.instagram.com/reel/DeUDrCLhi3H/
+- [Claude Code Floorplan](../entities/claude-code-floorplan.md) — 1 reels — https://www.instagram.com/reel/DfAtBw1iQj9/
+- [Claude Md Management](../entities/claude-md-management.md) — 1 reels — https://www.instagram.com/reel/DfAUsdwMkCp/
+- [Claude Code Proxy](../entities/claude-code-proxy.md) — 1 reels — https://www.instagram.com/reel/DYfHXdPvBzQ/
+- [Claude Code Best Practices](../entities/claude-code-best-practices.md) — 1 reels — https://www.instagram.com/reel/DezlFWyivmy/
+- [Awesome Claude Code](../entities/awesome-claude-code.md) — 1 reels — https://www.instagram.com/reel/DezlFWyivmy/
+- [Claude Code Skill](../entities/claude-code-skill.md) — 1 reels — https://www.instagram.com/reel/DdolgdJjHMc/
+- [Claude Code Mods](../entities/claude-code-mods.md) — 1 reels — https://www.instagram.com/reel/DemTMB8vi3o/
+- [Claude Code Projects](../entities/claude-code-projects.md) — 1 reels — https://www.instagram.com/reel/DeqCklPlIh-/
+- [Claude Code Code Review](../entities/claude-code-code-review.md) — 1 reels — https://www.instagram.com/reel/DekKa_Jsdjr/
+- [Claude Code Scraper](../entities/claude-code-scraper.md) — 1 reels — https://www.instagram.com/reel/DeUy09IideF/
+- [Claude Code Delete Prompts](../entities/claude-code-delete-prompts.md) — 1 reels — https://www.instagram.com/reel/Deb0R3wt9el/
+- [Claude Code Plugin](../entities/claude-code-plugin.md) — 1 reels — https://www.instagram.com/reel/Degn-o-pGsS/
+- [Behavioral Skills Claude Md](../entities/behavioral-skills-claude-md.md) — 1 reels — https://www.instagram.com/reel/DdoV5mik0DU/
+- [Autocompact](../entities/autocompact.md) — 1 reels — https://www.instagram.com/reel/DeS6FD4gOfm/
+- [Cctop](../entities/cctop.md) — 1 reels — https://www.instagram.com/reel/DeSPqJPJM3j/
+- [Secret Redactor](../entities/secret-redactor.md) — 1 reels — https://www.instagram.com/reel/DeSPqJPJM3j/
+- [Agent Flow](../entities/agent-flow.md) — 1 reels — https://www.instagram.com/reel/DeSPqJPJM3j/
+- [Context Lens](../entities/context-lens.md) — 1 reels — https://www.instagram.com/reel/DeSPqJPJM3j/
+- [Cc Arcade](../entities/cc-arcade.md) — 1 reels — https://www.instagram.com/reel/DeSPqJPJM3j/
+- [Effort Levels](../entities/effort-levels.md) — 1 reels — https://www.instagram.com/reel/DeRd7-iBax3/
+- [Loop System](../entities/loop-system.md) — 1 reels — https://www.instagram.com/reel/DabiEB1vHU0/
+- [Keepwarm](../entities/keepwarm.md) — 1 reels — https://www.instagram.com/reel/DeUDrCLhi3H/
+- [Oh My Claudecode](../entities/oh-my-claudecode.md) — 1 reels — https://www.instagram.com/reel/Dd4LrTSsx0i/
+
+## Skills & Workflows (30)
+- [Omniroute](../entities/omniroute.md) — 15 reels — https://www.instagram.com/reel/DeUl5nWsQIj/
+- [Ponytail](../entities/ponytail.md) — 14 reels — https://www.instagram.com/reel/DeUl5nWsQIj/
+- [Frontend Design](../entities/frontend-design.md) — 13 reels — https://www.instagram.com/reel/DeRmssytHV_/
+- [Graphify](../entities/graphify.md) — 11 reels — https://www.instagram.com/reel/DeUl5nWsQIj/
+- [Superpowers](../entities/superpowers.md) — 11 reels — https://www.instagram.com/reel/DeWcHDLjqna/
+- [Agent Skills](../entities/agent-skills.md) — 10 reels — https://www.instagram.com/reel/DeUl5nWsQIj/
+- [Task Observer](../entities/task-observer.md) — 10 reels — https://www.instagram.com/reel/DXigDEFic2E/
+- [I Have Adhd](../entities/i-have-adhd.md) — 9 reels — https://www.instagram.com/reel/DXigDEFic2E/
+- [Find Skills](../entities/find-skills.md) — 8 reels — https://www.instagram.com/reel/DeWcHDLjqna/
+- [Ui Ux Pro Max](../entities/ui-ux-pro-max.md) — 8 reels — https://www.instagram.com/reel/DeWcHDLjqna/
+- [Business Skills](../entities/business-skills.md) — 6 reels — https://www.instagram.com/reel/DXl8RmoAqX5/
+- [Notfair](../entities/notfair.md) — 6 reels — https://www.instagram.com/p/Cka0Ep_yXq9/
+- [Chrome Devtools Mcp](../entities/chrome-devtools-mcp.md) — 5 reels — https://www.instagram.com/reel/Dd4LrTSsx0i/
+- [Humanizer](../entities/humanizer.md) — 5 reels — https://www.instagram.com/reel/DeSUSgqDJya/
+- [Matt Pocock Skills](../entities/matt-pocock-skills.md) — 4 reels — https://www.instagram.com/reel/DeOWWyHCofX/
+- [Security Guidance](../entities/security-guidance.md) — 4 reels — https://www.instagram.com/reel/DeRmssytHV_/
+- [Scientific Agent Skills](../entities/scientific-agent-skills.md) — 3 reels — https://www.instagram.com/reel/Ddl4bemIeyC/
+- [Claude Seo](../entities/claude-seo.md) — 2 reels — https://www.instagram.com/reel/DcZaWTqjgH2/
+- [Pstack](../entities/pstack.md) — 2 reels — https://www.instagram.com/reel/DeOWWyHCofX/
+- [Brandkit](../entities/brandkit.md) — 2 reels — https://www.instagram.com/reel/DbD5zDoBGXM/
+- [Addyosmani Agent Skills](../entities/addyosmani-agent-skills.md) — 1 reels — https://www.instagram.com/reel/De5zk9lo9NS/
+- [Vercel Agent Skills](../entities/vercel-agent-skills.md) — 1 reels — https://www.instagram.com/reel/De3S2C3P7yb/
+- [Vercel Labs Agent Skills](../entities/vercel-labs-agent-skills.md) — 1 reels — https://www.instagram.com/reel/DeziqhPRtkz/
+- [Frontend Design Plugin](../entities/frontend-design-plugin.md) — 1 reels — https://www.instagram.com/reel/DerzB9YO_Nu/
+- [Superpowers Plugin](../entities/superpowers-plugin.md) — 1 reels — https://www.instagram.com/reel/DerzB9YO_Nu/
+- [Blader Humanizer](../entities/blader-humanizer.md) — 1 reels — https://www.instagram.com/reel/DecQ0rOAtzu/
+- [Personal Task Observer](../entities/personal-task-observer.md) — 1 reels — https://www.instagram.com/reel/DePGXHGtniA/
+- [Ui Ux Pro Max Skill](../entities/ui-ux-pro-max-skill.md) — 1 reels — https://www.instagram.com/reel/DeDZk7oDqYu/
+- [Builder Humanizer](../entities/builder-humanizer.md) — 1 reels — https://www.instagram.com/reel/DeSUSgqDJya/
+- [Rankscale](../entities/rankscale.md) — 1 reels — https://www.instagram.com/reel/DcZaWTqjgH2/
+
+## AI Agents & Orchestration (47)
+- [Codex](../entities/codex.md) — 17 reels — https://www.instagram.com/reel/DeySpppiAM9/
+- [Openmontage](../entities/openmontage.md) — 8 reels — https://www.instagram.com/reel/Dct6Op3n6Zd/
+- [Hermes Agent](../entities/hermes-agent.md) — 8 reels — https://www.instagram.com/reel/DeUoYh4td0V/
+- [Jarvis](../entities/jarvis.md) — 8 reels — https://www.instagram.com/reel/DeR2F2YoRH3/
+- [Agent Reach](../entities/agent-reach.md) — 7 reels — https://www.instagram.com/reel/DeT7pTtvjIX/
+- [Jev](../entities/jev.md) — 7 reels — https://www.instagram.com/reel/DdrNuZNETR2/
+- [Strix](../entities/strix.md) — 6 reels — https://www.instagram.com/reel/DblTPmfPCpB/
+- [Agency Agents](../entities/agency-agents.md) — 5 reels — https://www.instagram.com/reel/Dct6Op3n6Zd/
+- [Rea](../entities/rea.md) — 5 reels — https://www.instagram.com/reel/DeV2n53gLgf/
+- [Openclaw](../entities/openclaw.md) — 5 reels — https://www.instagram.com/reel/DeUoYh4td0V/
+- [React Bits](../entities/react-bits.md) — 3 reels — https://www.instagram.com/reel/DePLcw_Dbwo/
+- [Graft](../entities/graft.md) — 3 reels — https://www.instagram.com/reel/Dct6Op3n6Zd/
+- [Paperclip](../entities/paperclip.md) — 3 reels — https://www.instagram.com/reel/DeySpppiAM9/
+- [Laya](../entities/laya.md) — 3 reels — https://www.instagram.com/reel/DeNNEKkCZfX/
+- [Llm Council](../entities/llm-council.md) — 2 reels — https://www.instagram.com/reel/DZGTgwDlcrF/
+- [Mausbot](../entities/mausbot.md) — 2 reels — https://www.instagram.com/reel/DeUoYh4td0V/
+- [React](../entities/react.md) — 2 reels — https://www.instagram.com/reel/Dbhmn9eOiXN/
+- [Freellmapi](../entities/freellmapi.md) — 2 reels — https://www.instagram.com/reel/DdeVVlpT9zW/
+- [Read Replicas](../entities/read-replicas.md) — 2 reels — https://www.instagram.com/reel/DdrQDsas4Kk/
+- [Openjarvis](../entities/openjarvis.md) — 1 reels — https://www.instagram.com/reel/De7z-exNXI5/
+- [Graftv](../entities/graftv.md) — 1 reels — https://www.instagram.com/reel/DdEHh0UoENe/
+- [Paper Lab](../entities/paper-lab.md) — 1 reels — https://www.instagram.com/reel/De5rNo7A2yl/
+- [Reason Network](../entities/reason-network.md) — 1 reels — https://www.instagram.com/reel/De1s_Rmqmz0/
+- [Seedream](../entities/seedream.md) — 1 reels — https://www.instagram.com/reel/DdolgdJjHMc/
+- [Outreach Mod](../entities/outreach-mod.md) — 1 reels — https://www.instagram.com/reel/DeohAJhNMw1/
+- [Vercel React Best Practices](../entities/vercel-react-best-practices.md) — 1 reels — https://www.instagram.com/reel/DeAQNq_J4_z/
+- [Real Estate Landing](../entities/real-estate-landing.md) — 1 reels — https://www.instagram.com/reel/DeZS-yHife9/
+- [Cache Read](../entities/cache-read.md) — 1 reels — https://www.instagram.com/reel/DdJsVxhCCLM/
+- [Paper Trading](../entities/paper-trading.md) — 1 reels — https://www.instagram.com/reel/DeAYuSDIweJ/
+- [Read](../entities/read.md) — 1 reels — https://www.instagram.com/reel/Dds27dKtVo6/
+- [Adewaskar Jarvis](../entities/adewaskar-jarvis.md) — 1 reels — https://www.instagram.com/reel/DdMCUhWAwjg/
+- [Real Estate Landing Page](../entities/real-estate-landing-page.md) — 1 reels — https://www.instagram.com/reel/DeMaiHZvq3b/
+- [Streamlit](../entities/streamlit.md) — 1 reels — https://www.instagram.com/reel/Dbhmn9eOiXN/
+- [Jev Ultrafast](../entities/jev-ultrafast.md) — 1 reels — https://www.instagram.com/reel/DdmCAkmi7ct/
+- [Codex Plugin](../entities/codex-plugin.md) — 1 reels — https://www.instagram.com/reel/DXGQ6-2t11w/
+- [Skill Creator](../entities/skill-creator.md) — 1 reels — https://www.instagram.com/reel/DXGQ6-2t11w/
+- [Nandhakishorm Laya](../entities/nandhakishorm-laya.md) — 1 reels — https://www.instagram.com/reel/DeNNEKkCZfX/
+- [Api Anything](../entities/api-anything.md) — 1 reels — https://www.instagram.com/reel/DeON0MOB5oi/
+- [Goodnight000 Api Anything](../entities/goodnight000-api-anything.md) — 1 reels — https://www.instagram.com/reel/DeON0MOB5oi/
+- [Paper](../entities/paper.md) — 1 reels — https://www.instagram.com/reel/DeRy5O9IIb6/
+- [Page Agent](../entities/page-agent.md) — 1 reels — https://www.instagram.com/reel/DeT7eDXvFvB/
+- [Meetily](../entities/meetily.md) — 1 reels — https://www.instagram.com/reel/DeT7eDXvFvB/
+- [Usestrix](../entities/usestrix.md) — 1 reels — https://www.instagram.com/reel/DeT7eDXvFvB/
+- [Ruflow](../entities/ruflow.md) — 1 reels — https://www.instagram.com/reel/DXxQS0AO1Km/
+- [Ruffo](../entities/ruffo.md) — 1 reels — https://www.instagram.com/reel/DXxQS0AO1Km/
+- [Ruvnet Ruffo](../entities/ruvnet-ruffo.md) — 1 reels — https://www.instagram.com/reel/DXxQS0AO1Km/
+- [Morluto Rea](../entities/morluto-rea.md) — 1 reels — https://www.instagram.com/reel/DeV2n53gLgf/
+
+## MCP / Integrations / Platforms (43)
+- [Github](../entities/github.md) — 16 reels — https://www.instagram.com/reel/DeT7pTtvjIX/
+- [Mcp](../entities/mcp.md) — 14 reels — https://www.instagram.com/reel/De48CTVsT7o/
+- [Playwright](../entities/playwright.md) — 9 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Notion](../entities/notion.md) — 7 reels — https://www.instagram.com/reel/DeL9rnPhrGU/
+- [Higgsfield](../entities/higgsfield.md) — 6 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Playwright Mcp](../entities/playwright-mcp.md) — 5 reels — https://www.instagram.com/reel/Dclo7W4jjQj/
+- [Playwright Cli](../entities/playwright-cli.md) — 5 reels — https://www.instagram.com/reel/DeKJZ_AS_c_/
+- [Codebase Memory Mcp](../entities/codebase-memory-mcp.md) — 5 reels — https://www.instagram.com/reel/Dct6Op3n6Zd/
+- [Chrome Devtools Mcp](../entities/chrome-devtools-mcp.md) — 5 reels — https://www.instagram.com/reel/Dd4LrTSsx0i/
+- [Firecrawl](../entities/firecrawl.md) — 5 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Slack](../entities/slack.md) — 5 reels — https://www.instagram.com/reel/Dbhmn9eOiXN/
+- [Supabase](../entities/supabase.md) — 3 reels — https://www.instagram.com/reel/Dd4LrTSsx0i/
+- [Vercel](../entities/vercel.md) — 3 reels — https://www.instagram.com/reel/Dd4LrTSsx0i/
+- [Perplexity Mcp](../entities/perplexity-mcp.md) — 2 reels — https://www.instagram.com/reel/Dclo7W4jjQj/
+- [Whatsapp](../entities/whatsapp.md) — 2 reels — https://www.instagram.com/reel/DePELl1spGg/
+- [Mcp Servers](../entities/mcp-servers.md) — 2 reels — https://www.instagram.com/reel/DeKfFcqAJ8Z/
+- [Perplexity](../entities/perplexity.md) — 2 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Model Context Protocol](../entities/model-context-protocol.md) — 2 reels — https://www.instagram.com/reel/De48CTVsT7o/
+- [Telegram](../entities/telegram.md) — 2 reels — https://www.instagram.com/reel/DePELl1spGg/
+- [Whatsapp Api](../entities/whatsapp-api.md) — 1 reels — https://www.instagram.com/reel/De4YmP0Db6O/
+- [Vercel Agent Skills](../entities/vercel-agent-skills.md) — 1 reels — https://www.instagram.com/reel/De3S2C3P7yb/
+- [Chrome Mcp](../entities/chrome-mcp.md) — 1 reels — https://www.instagram.com/reel/De1v-76iLN0/
+- [Vercel Labs Agent Skills](../entities/vercel-labs-agent-skills.md) — 1 reels — https://www.instagram.com/reel/DeziqhPRtkz/
+- [Vercel Labs](../entities/vercel-labs.md) — 1 reels — https://www.instagram.com/reel/DexmErBop6C/
+- [Shadcn Mcp](../entities/shadcn-mcp.md) — 1 reels — https://www.instagram.com/reel/Dd4fm_9tMHH/
+- [Open Higgsfield](../entities/open-higgsfield.md) — 1 reels — https://www.instagram.com/reel/Derv5JKxwPs/
+- [Whatsapp Cloud Api](../entities/whatsapp-cloud-api.md) — 1 reels — https://www.instagram.com/reel/DerkzxhDJVD/
+- [Firecrawl Mcp Server](../entities/firecrawl-mcp-server.md) — 1 reels — https://www.instagram.com/reel/Denor1uu6T6/
+- [N8N Mcp](../entities/n8n-mcp.md) — 1 reels — https://www.instagram.com/reel/DemNWrcvzCI/
+- [Perplexity Connector](../entities/perplexity-connector.md) — 1 reels — https://www.instagram.com/reel/DeISdaGiYkM/
+- [Vercel Labs Skills](../entities/vercel-labs-skills.md) — 1 reels — https://www.instagram.com/reel/DeAQNq_J4_z/
+- [Vercel React Best Practices](../entities/vercel-react-best-practices.md) — 1 reels — https://www.instagram.com/reel/DeAQNq_J4_z/
+- [Awesome Mcp Servers](../entities/awesome-mcp-servers.md) — 1 reels — https://www.instagram.com/reel/DcbxXZnFYRh/
+- [Magic Mcp](../entities/magic-mcp.md) — 1 reels — https://www.instagram.com/reel/DeDZk7oDqYu/
+- [Meta Ads Mcp](../entities/meta-ads-mcp.md) — 1 reels — https://www.instagram.com/reel/DbBPiy4vcz4/
+- [Mcp Server](../entities/mcp-server.md) — 1 reels — https://www.instagram.com/reel/DdMCUhWAwjg/
+- [Meta Mcp](../entities/meta-mcp.md) — 1 reels — https://www.instagram.com/reel/DZ5H6F1Rz1S/
+- [Firecrawl Mcp](../entities/firecrawl-mcp.md) — 1 reels — https://www.instagram.com/reel/Dclo7W4jjQj/
+- [Higgsfield Mcp](../entities/higgsfield-mcp.md) — 1 reels — https://www.instagram.com/reel/Dclo7W4jjQj/
+- [Blotato](../entities/blotato.md) — 1 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Claude Mcp](../entities/claude-mcp.md) — 1 reels — https://www.instagram.com/reel/DcO9N3HsE_U/
+- [Acp](../entities/acp.md) — 1 reels — https://www.instagram.com/reel/De48CTVsT7o/
+- [Github Trending](../entities/github-trending.md) — 1 reels — https://www.instagram.com/reel/DdEoYyrPTbF/
+
+## Backend & System Design (21)
+- [Rag](../entities/rag.md) — 6 reels — https://www.instagram.com/reel/DeWnBdbACDc/
+- [Redis](../entities/redis.md) — 3 reels — https://www.instagram.com/reel/Dc9vMsSMiIy/
+- [N Plus One Query](../entities/n-plus-one-query.md) — 2 reels — https://www.instagram.com/reel/DemflOoDsK-/
+- [Database Scaling](../entities/database-scaling.md) — 2 reels — https://www.instagram.com/reel/DdrQDsas4Kk/
+- [Crypto Arbitrage Bot](../entities/crypto-arbitrage-bot.md) — 1 reels — https://www.instagram.com/reel/DerbR1flH4p/
+- [Rag Pipeline](../entities/rag-pipeline.md) — 1 reels — https://www.instagram.com/reel/DeFlARUDgpo/
+- [Docker](../entities/docker.md) — 1 reels — https://www.instagram.com/reel/Dbhmn9eOiXN/
+- [Kubernetes](../entities/kubernetes.md) — 1 reels — https://www.instagram.com/reel/Dbhmn9eOiXN/
+- [Https](../entities/https.md) — 1 reels — https://www.instagram.com/reel/Del9VDJDxuI/
+- [Cdn](../entities/cdn.md) — 1 reels — https://www.instagram.com/reel/DelJbWhAoEV/
+- [Backend Roadmap](../entities/backend-roadmap.md) — 1 reels — https://www.instagram.com/reel/Dekr4F9s_qa/
+- [Message Queue](../entities/message-queue.md) — 1 reels — https://www.instagram.com/reel/Dekr4F9s_qa/
+- [Credential Stuffing](../entities/credential-stuffing.md) — 1 reels — https://www.instagram.com/reel/DehHBxYCuC5/
+- [Tls Fingerprint](../entities/tls-fingerprint.md) — 1 reels — https://www.instagram.com/reel/DehHBxYCuC5/
+- [Bloom Filter](../entities/bloom-filter.md) — 1 reels — https://www.instagram.com/reel/DeaPeWKBnnn/
+- [Redisbloom](../entities/redisbloom.md) — 1 reels — https://www.instagram.com/reel/DeaPeWKBnnn/
+- [Outbox Pattern](../entities/outbox-pattern.md) — 1 reels — https://www.instagram.com/reel/DeXhY3uja44/
+- [Model Cascade](../entities/model-cascade.md) — 1 reels — https://www.instagram.com/reel/DdjUihCs77b/
+- [Cicd](../entities/cicd.md) — 1 reels — https://www.instagram.com/reel/DeV26lugt21/
+- [Redis Caching](../entities/redis-caching.md) — 1 reels — https://www.instagram.com/reel/DdrQDsas4Kk/
+- [Race Condition](../entities/race-condition.md) — 1 reels — https://www.instagram.com/reel/DeUOuq2x8gY/
+
+## Design, Animation & Media (13)
+- [Photocraft](../entities/photocraft.md) — 4 reels — https://www.instagram.com/reel/DeQB4aDOA0x/
+- [Artcraft](../entities/artcraft.md) — 4 reels — https://www.instagram.com/reel/DeQB4aDOA0x/
+- [Gsap](../entities/gsap.md) — 3 reels — https://www.instagram.com/reel/DePLcw_Dbwo/
+- [React Bits](../entities/react-bits.md) — 3 reels — https://www.instagram.com/reel/DePLcw_Dbwo/
+- [Lenis](../entities/lenis.md) — 2 reels — https://www.instagram.com/reel/DePLcw_Dbwo/
+- [Motionmaxxing](../entities/motionmaxxing.md) — 1 reels — https://www.instagram.com/reel/DfJJGp2j0H-/
+- [Gsap Skills](../entities/gsap-skills.md) — 1 reels — https://www.instagram.com/reel/DenEb8tjHiC/
+- [Getartcraft](../entities/getartcraft.md) — 1 reels — https://www.instagram.com/reel/DeNQ8hfJ-f1/
+- [Graphic Design Styles](../entities/graphic-design-styles.md) — 1 reels — https://www.instagram.com/reel/Dcl9lNHuG5c/
+- [Ux Laws](../entities/ux-laws.md) — 1 reels — https://www.instagram.com/reel/Del7XTgsuwI/
+- [Website Animations](../entities/website-animations.md) — 1 reels — https://www.instagram.com/reel/DdoJhaTzms7/
+- [Web Design 2026](../entities/web-design-2026.md) — 1 reels — https://www.instagram.com/reel/DdnC7VxzwrC/
+- [Thinking Orbs](../entities/thinking-orbs.md) — 1 reels — https://www.instagram.com/reel/DdgPH-poGbJ/

@@ -1,4 +1,23 @@
-# My Codex setup
+# My tool brain and Codex setup
+
+This repo helps an agent choose tools for the task, compare them with your installed skills, verify current upstream versions, and remember what worked. It also backs up and restores your Codex setup.
+
+For advice, open the repo and ask, for example:
+
+> I want to analyze reels and produce original videos. Compare my current skills, check the relevant upstream versions, and recommend the smallest useful combination.
+
+Start with the [advisor workflow](knowledge/ADVISOR.md), [task routes](knowledge/ROUTING.md), [reel research index](knowledge/reel-library/index.md) and [import review](knowledge/reel-library/REVIEW.md). All three original research files are preserved with hashes: 1,083 entity records and 475 report entries. They are research leads, not 1,083 verified tools. The existing reviewed GitHub catalog and setup inventory remain separate.
+
+```sh
+python3 scripts/knowledge.py search "video transcript frames"
+python3 scripts/knowledge.py show graphify
+python3 scripts/knowledge.py inspect --root ~/.agents/skills --root ~/.codex/skills
+python3 scripts/knowledge.py verify
+```
+
+Search retrieves evidence; the agent makes the task-specific comparison after reading relevant installed skills and current source. Inspection is read-only and limited to the machine/paths you run it on. No automatic installation, removal or background refresh is configured. Dated decisions and feedback are saved under `knowledge/decisions/` for reuse.
+
+## Set up a device
 
 Open this repo in Codex on the laptop you want to configure and say:
 
@@ -34,7 +53,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. No MCP definitions are saved yet. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail's source is identified and its review decision is recorded in the GitHub catalog. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail's source is identified and its review decision is recorded in the GitHub catalog. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 

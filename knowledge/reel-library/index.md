@@ -1,0 +1,1115 @@
+# Reel research index
+
+Generated from all 1,083 supplied entity records. These include tools, concepts, people,
+showcases and skipped food content; this is not a list of 1,083 verified tools.
+Categories preserve the supplied index; uncategorized entries remain explicit.
+Read [coverage and limitations](REVIEW.md) and the [advisor workflow](../ADVISOR.md).
+
+## AI Agents & Orchestration (47)
+
+- [Adewaskar Jarvis](entities/a.md#adewaskar-jarvis) — `adewaskar-jarvis` — actionable
+- [Agency Agents](entities/a.md#agency-agents) — `agency-agents` — actionable
+- [Agent Reach](entities/a.md#agent-reach) — `agent-reach` — actionable
+- [Api Anything](entities/a.md#api-anything) — `api-anything` — actionable
+- [Cache Read](entities/c.md#cache-read) — `cache-read` — actionable
+- [Codex](entities/c.md#codex) — `codex` — actionable
+- [Codex Plugin](entities/c.md#codex-plugin) — `codex-plugin` — actionable
+- [Freellmapi](entities/f.md#freellmapi) — `freellmapi` — actionable
+- [Goodnight000 Api Anything](entities/g.md#goodnight000-api-anything) — `goodnight000-api-anything` — actionable
+- [Graft](entities/g.md#graft) — `graft` — actionable
+- [Graftv](entities/g.md#graftv) — `graftv` — actionable
+- [Hermes Agent](entities/h.md#hermes-agent) — `hermes-agent` — actionable
+- [Jarvis](entities/j.md#jarvis) — `jarvis` — actionable
+- [Jev](entities/j.md#jev) — `jev` — actionable
+- [Jev Ultrafast](entities/j.md#jev-ultrafast) — `jev-ultrafast` — showcase-link-only
+- [Laya](entities/l.md#laya) — `laya` — actionable
+- [Llm Council](entities/l.md#llm-council) — `llm-council` — actionable
+- [Mausbot](entities/m.md#mausbot) — `mausbot` — actionable
+- [Meetily](entities/m.md#meetily) — `meetily` — actionable
+- [Morluto Rea](entities/m.md#morluto-rea) — `morluto-rea` — actionable
+- [Nandhakishorm Laya](entities/n.md#nandhakishorm-laya) — `nandhakishorm-laya` — actionable
+- [Openclaw](entities/o.md#openclaw) — `openclaw` — actionable
+- [Openjarvis](entities/o.md#openjarvis) — `openjarvis` — actionable
+- [Openmontage](entities/o.md#openmontage) — `openmontage` — actionable
+- [Outreach Mod](entities/o.md#outreach-mod) — `outreach-mod` — actionable
+- [Page Agent](entities/p.md#page-agent) — `page-agent` — actionable
+- [Paper](entities/p.md#paper) — `paper` — actionable
+- [Paper Lab](entities/p.md#paper-lab) — `paper-lab` — actionable
+- [Paper Trading](entities/p.md#paper-trading) — `paper-trading` — actionable
+- [Paperclip](entities/p.md#paperclip) — `paperclip` — actionable
+- [Rea](entities/r.md#rea) — `rea` — actionable
+- [React](entities/r.md#react) — `react` — showcase-link-only
+- [React Bits](entities/r.md#react-bits) — `react-bits` — actionable
+- [Read](entities/r.md#read) — `read` — actionable
+- [Read Replicas](entities/r.md#read-replicas) — `read-replicas` — actionable
+- [Real Estate Landing](entities/r.md#real-estate-landing) — `real-estate-landing` — actionable
+- [Real Estate Landing Page](entities/r.md#real-estate-landing-page) — `real-estate-landing-page` — actionable
+- [Reason Network](entities/r.md#reason-network) — `reason-network` — actionable
+- [Ruffo](entities/r.md#ruffo) — `ruffo` — actionable
+- [Ruflow](entities/r.md#ruflow) — `ruflow` — actionable
+- [Ruvnet Ruffo](entities/r.md#ruvnet-ruffo) — `ruvnet-ruffo` — actionable
+- [Seedream](entities/s.md#seedream) — `seedream` — actionable
+- [Skill Creator](entities/s.md#skill-creator) — `skill-creator` — actionable
+- [Streamlit](entities/s.md#streamlit) — `streamlit` — showcase-link-only
+- [Strix](entities/s.md#strix) — `strix` — actionable
+- [Usestrix](entities/u.md#usestrix) — `usestrix` — actionable
+- [Vercel React Best Practices](entities/v.md#vercel-react-best-practices) — `vercel-react-best-practices` — actionable
+
+## Backend & System Design (21)
+
+- [Backend Roadmap](entities/b.md#backend-roadmap) — `backend-roadmap` — actionable
+- [Bloom Filter](entities/b.md#bloom-filter) — `bloom-filter` — actionable
+- [Cdn](entities/c.md#cdn) — `cdn` — actionable
+- [Cicd](entities/c.md#cicd) — `cicd` — actionable
+- [Credential Stuffing](entities/c.md#credential-stuffing) — `credential-stuffing` — actionable
+- [Crypto Arbitrage Bot](entities/c.md#crypto-arbitrage-bot) — `crypto-arbitrage-bot` — actionable
+- [Database Scaling](entities/d.md#database-scaling) — `database-scaling` — actionable
+- [Docker](entities/d.md#docker) — `docker` — showcase-link-only
+- [Https](entities/h.md#https) — `https` — actionable
+- [Kubernetes](entities/k.md#kubernetes) — `kubernetes` — showcase-link-only
+- [Message Queue](entities/m.md#message-queue) — `message-queue` — actionable
+- [Model Cascade](entities/m.md#model-cascade) — `model-cascade` — actionable
+- [N Plus One Query](entities/n.md#n-plus-one-query) — `n-plus-one-query` — actionable
+- [Outbox Pattern](entities/o.md#outbox-pattern) — `outbox-pattern` — actionable
+- [Race Condition](entities/r.md#race-condition) — `race-condition` — actionable
+- [Rag](entities/r.md#rag) — `rag` — actionable
+- [Rag Pipeline](entities/r.md#rag-pipeline) — `rag-pipeline` — showcase-link-only
+- [Redis](entities/r.md#redis) — `redis` — actionable
+- [Redis Caching](entities/r.md#redis-caching) — `redis-caching` — actionable
+- [Redisbloom](entities/r.md#redisbloom) — `redisbloom` — actionable
+- [Tls Fingerprint](entities/t.md#tls-fingerprint) — `tls-fingerprint` — actionable
+
+## Claude Code Core & Mods (32)
+
+- [Affaan M Ecc](entities/a.md#affaan-m-ecc) — `affaan-m-ecc` — actionable
+- [Agent Flow](entities/a.md#agent-flow) — `agent-flow` — actionable
+- [Autocompact](entities/a.md#autocompact) — `autocompact` — actionable
+- [Awesome Claude Code](entities/a.md#awesome-claude-code) — `awesome-claude-code` — actionable
+- [Behavioral Skills Claude Md](entities/b.md#behavioral-skills-claude-md) — `behavioral-skills-claude-md` — showcase-link-only
+- [Cache Tax](entities/c.md#cache-tax) — `cache-tax` — actionable
+- [Cc Arcade](entities/c.md#cc-arcade) — `cc-arcade` — actionable
+- [Cctop](entities/c.md#cctop) — `cctop` — actionable
+- [Claude Code](entities/c.md#claude-code) — `claude-code` — actionable
+- [Claude Code Best Practices](entities/c.md#claude-code-best-practices) — `claude-code-best-practices` — actionable
+- [Claude Code Code Review](entities/c.md#claude-code-code-review) — `claude-code-code-review` — actionable
+- [Claude Code Delete Prompts](entities/c.md#claude-code-delete-prompts) — `claude-code-delete-prompts` — actionable
+- [Claude Code Floorplan](entities/c.md#claude-code-floorplan) — `claude-code-floorplan` — actionable
+- [Claude Code Mods](entities/c.md#claude-code-mods) — `claude-code-mods` — actionable
+- [Claude Code Plugin](entities/c.md#claude-code-plugin) — `claude-code-plugin` — actionable
+- [Claude Code Projects](entities/c.md#claude-code-projects) — `claude-code-projects` — actionable
+- [Claude Code Proxy](entities/c.md#claude-code-proxy) — `claude-code-proxy` — actionable
+- [Claude Code Scraper](entities/c.md#claude-code-scraper) — `claude-code-scraper` — actionable
+- [Claude Code Setup](entities/c.md#claude-code-setup) — `claude-code-setup` — actionable
+- [Claude Code Skill](entities/c.md#claude-code-skill) — `claude-code-skill` — actionable
+- [Claude Md](entities/c.md#claude-md) — `claude-md` — actionable
+- [Claude Md Management](entities/c.md#claude-md-management) — `claude-md-management` — actionable
+- [Claude Mem](entities/c.md#claude-mem) — `claude-mem` — actionable
+- [Context Lens](entities/c.md#context-lens) — `context-lens` — actionable
+- [Ecc](entities/e.md#ecc) — `ecc` — actionable
+- [Effort Levels](entities/e.md#effort-levels) — `effort-levels` — actionable
+- [Everything Claude Code](entities/e.md#everything-claude-code) — `everything-claude-code` — actionable
+- [Impeccable](entities/i.md#impeccable) — `impeccable` — actionable
+- [Keepwarm](entities/k.md#keepwarm) — `keepwarm` — actionable
+- [Loop System](entities/l.md#loop-system) — `loop-system` — actionable
+- [Oh My Claudecode](entities/o.md#oh-my-claudecode) — `oh-my-claudecode` — actionable
+- [Secret Redactor](entities/s.md#secret-redactor) — `secret-redactor` — actionable
+
+## Design, Animation & Media (13)
+
+- [Artcraft](entities/a.md#artcraft) — `artcraft` — actionable
+- [Getartcraft](entities/g.md#getartcraft) — `getartcraft` — showcase-link-only
+- [Graphic Design Styles](entities/g.md#graphic-design-styles) — `graphic-design-styles` — showcase-link-only
+- [Gsap](entities/g.md#gsap) — `gsap` — actionable
+- [Gsap Skills](entities/g.md#gsap-skills) — `gsap-skills` — actionable
+- [Lenis](entities/l.md#lenis) — `lenis` — actionable
+- [Motionmaxxing](entities/m.md#motionmaxxing) — `motionmaxxing` — actionable
+- [Photocraft](entities/p.md#photocraft) — `photocraft` — actionable
+- [React Bits](entities/r.md#react-bits) — `react-bits` — actionable
+- [Thinking Orbs](entities/t.md#thinking-orbs) — `thinking-orbs` — actionable
+- [Ux Laws](entities/u.md#ux-laws) — `ux-laws` — actionable
+- [Web Design 2026](entities/w.md#web-design-2026) — `web-design-2026` — showcase-link-only
+- [Website Animations](entities/w.md#website-animations) — `website-animations` — showcase-link-only
+
+## MCP / Integrations / Platforms (43)
+
+- [Acp](entities/a.md#acp) — `acp` — actionable
+- [Awesome Mcp Servers](entities/a.md#awesome-mcp-servers) — `awesome-mcp-servers` — actionable
+- [Blotato](entities/b.md#blotato) — `blotato` — actionable
+- [Chrome Devtools Mcp](entities/c.md#chrome-devtools-mcp) — `chrome-devtools-mcp` — actionable
+- [Chrome Mcp](entities/c.md#chrome-mcp) — `chrome-mcp` — actionable
+- [Claude Mcp](entities/c.md#claude-mcp) — `claude-mcp` — actionable
+- [Codebase Memory Mcp](entities/c.md#codebase-memory-mcp) — `codebase-memory-mcp` — actionable
+- [Firecrawl](entities/f.md#firecrawl) — `firecrawl` — actionable
+- [Firecrawl Mcp](entities/f.md#firecrawl-mcp) — `firecrawl-mcp` — actionable
+- [Firecrawl Mcp Server](entities/f.md#firecrawl-mcp-server) — `firecrawl-mcp-server` — actionable
+- [Github](entities/g.md#github) — `github` — actionable
+- [Github Trending](entities/g.md#github-trending) — `github-trending` — actionable
+- [Higgsfield](entities/h.md#higgsfield) — `higgsfield` — actionable
+- [Higgsfield Mcp](entities/h.md#higgsfield-mcp) — `higgsfield-mcp` — actionable
+- [Magic Mcp](entities/m.md#magic-mcp) — `magic-mcp` — actionable
+- [Mcp](entities/m.md#mcp) — `mcp` — actionable
+- [Mcp Server](entities/m.md#mcp-server) — `mcp-server` — actionable
+- [Mcp Servers](entities/m.md#mcp-servers) — `mcp-servers` — actionable
+- [Meta Ads Mcp](entities/m.md#meta-ads-mcp) — `meta-ads-mcp` — actionable
+- [Meta Mcp](entities/m.md#meta-mcp) — `meta-mcp` — actionable
+- [Model Context Protocol](entities/m.md#model-context-protocol) — `model-context-protocol` — actionable
+- [N8N Mcp](entities/n.md#n8n-mcp) — `n8n-mcp` — actionable
+- [Notion](entities/n.md#notion) — `notion` — actionable
+- [Open Higgsfield](entities/o.md#open-higgsfield) — `open-higgsfield` — actionable
+- [Perplexity](entities/p.md#perplexity) — `perplexity` — actionable
+- [Perplexity Connector](entities/p.md#perplexity-connector) — `perplexity-connector` — actionable
+- [Perplexity Mcp](entities/p.md#perplexity-mcp) — `perplexity-mcp` — actionable
+- [Playwright](entities/p.md#playwright) — `playwright` — actionable
+- [Playwright Cli](entities/p.md#playwright-cli) — `playwright-cli` — actionable
+- [Playwright Mcp](entities/p.md#playwright-mcp) — `playwright-mcp` — actionable
+- [Shadcn Mcp](entities/s.md#shadcn-mcp) — `shadcn-mcp` — actionable
+- [Slack](entities/s.md#slack) — `slack` — showcase-link-only
+- [Supabase](entities/s.md#supabase) — `supabase` — actionable
+- [Telegram](entities/t.md#telegram) — `telegram` — actionable
+- [Vercel](entities/v.md#vercel) — `vercel` — actionable
+- [Vercel Agent Skills](entities/v.md#vercel-agent-skills) — `vercel-agent-skills` — actionable
+- [Vercel Labs](entities/v.md#vercel-labs) — `vercel-labs` — actionable
+- [Vercel Labs Agent Skills](entities/v.md#vercel-labs-agent-skills) — `vercel-labs-agent-skills` — actionable
+- [Vercel Labs Skills](entities/v.md#vercel-labs-skills) — `vercel-labs-skills` — actionable
+- [Vercel React Best Practices](entities/v.md#vercel-react-best-practices) — `vercel-react-best-practices` — actionable
+- [Whatsapp](entities/w.md#whatsapp) — `whatsapp` — actionable
+- [Whatsapp Api](entities/w.md#whatsapp-api) — `whatsapp-api` — actionable
+- [Whatsapp Cloud Api](entities/w.md#whatsapp-cloud-api) — `whatsapp-cloud-api` — actionable
+
+## Skills & Workflows (30)
+
+- [Addyosmani Agent Skills](entities/a.md#addyosmani-agent-skills) — `addyosmani-agent-skills` — actionable
+- [Agent Skills](entities/a.md#agent-skills) — `agent-skills` — actionable
+- [Blader Humanizer](entities/b.md#blader-humanizer) — `blader-humanizer` — actionable
+- [Brandkit](entities/b.md#brandkit) — `brandkit` — actionable
+- [Builder Humanizer](entities/b.md#builder-humanizer) — `builder-humanizer` — actionable
+- [Business Skills](entities/b.md#business-skills) — `business-skills` — actionable
+- [Chrome Devtools Mcp](entities/c.md#chrome-devtools-mcp) — `chrome-devtools-mcp` — actionable
+- [Claude Seo](entities/c.md#claude-seo) — `claude-seo` — actionable
+- [Find Skills](entities/f.md#find-skills) — `find-skills` — actionable
+- [Frontend Design](entities/f.md#frontend-design) — `frontend-design` — actionable
+- [Frontend Design Plugin](entities/f.md#frontend-design-plugin) — `frontend-design-plugin` — actionable
+- [Graphify](entities/g.md#graphify) — `graphify` — actionable
+- [Humanizer](entities/h.md#humanizer) — `humanizer` — actionable
+- [I Have Adhd](entities/i.md#i-have-adhd) — `i-have-adhd` — actionable
+- [Matt Pocock Skills](entities/m.md#matt-pocock-skills) — `matt-pocock-skills` — actionable
+- [Notfair](entities/n.md#notfair) — `notfair` — actionable
+- [Omniroute](entities/o.md#omniroute) — `omniroute` — actionable
+- [Personal Task Observer](entities/p.md#personal-task-observer) — `personal-task-observer` — actionable
+- [Ponytail](entities/p.md#ponytail) — `ponytail` — actionable
+- [Pstack](entities/p.md#pstack) — `pstack` — actionable
+- [Rankscale](entities/r.md#rankscale) — `rankscale` — actionable
+- [Scientific Agent Skills](entities/s.md#scientific-agent-skills) — `scientific-agent-skills` — actionable
+- [Security Guidance](entities/s.md#security-guidance) — `security-guidance` — actionable
+- [Superpowers](entities/s.md#superpowers) — `superpowers` — actionable
+- [Superpowers Plugin](entities/s.md#superpowers-plugin) — `superpowers-plugin` — actionable
+- [Task Observer](entities/t.md#task-observer) — `task-observer` — actionable
+- [Ui Ux Pro Max](entities/u.md#ui-ux-pro-max) — `ui-ux-pro-max` — actionable
+- [Ui Ux Pro Max Skill](entities/u.md#ui-ux-pro-max-skill) — `ui-ux-pro-max-skill` — actionable
+- [Vercel Agent Skills](entities/v.md#vercel-agent-skills) — `vercel-agent-skills` — actionable
+- [Vercel Labs Agent Skills](entities/v.md#vercel-labs-agent-skills) — `vercel-labs-agent-skills` — actionable
+
+## Uncategorized in supplied index (902)
+
+- [10 Stage Scaling Course](entities/1.md#10-stage-scaling-course) — `10-stage-scaling-course` — actionable
+- [10X Workflow](entities/1.md#10x-workflow) — `10x-workflow` — showcase-link-only
+- [12 Playbooks](entities/1.md#12-playbooks) — `12-playbooks` — actionable
+- [193X Cheaper](entities/1.md#193x-cheaper) — `193x-cheaper` — showcase-link-only
+- [2000 Video Library](entities/2.md#2000-video-library) — `2000-video-library` — actionable
+- [21St Dev](entities/2.md#21st-dev) — `21st-dev` — actionable
+- [3D Motion](entities/3.md#3d-motion) — `3d-motion` — showcase-link-only
+- [444X Faster](entities/4.md#444x-faster) — `444x-faster` — showcase-link-only
+- [5 Essential Prompts](entities/5.md#5-essential-prompts) — `5-essential-prompts` — actionable
+- [50 Year History](entities/5.md#50-year-history) — `50-year-history` — skipped
+- [500G Platter](entities/5.md#500g-platter) — `500g-platter` — skipped
+- [70B Llm](entities/7.md#70b-llm) — `70b-llm` — actionable
+- [70B Model](entities/7.md#70b-model) — `70b-model` — actionable
+- [90 Day Business Growth Plan](entities/9.md#90-day-business-growth-plan) — `90-day-business-growth-plan` — actionable
+- [Aapl](entities/a.md#aapl) — `aapl` — actionable
+- [Action First](entities/a.md#action-first) — `action-first` — actionable
+- [Addy Osmani](entities/a.md#addy-osmani) — `addy-osmani` — actionable
+- [Addy Osmani Skills](entities/a.md#addy-osmani-skills) — `addy-osmani-skills` — showcase-link-only
+- [Adhd](entities/a.md#adhd) — `adhd` — actionable
+- [Adhd Productivity](entities/a.md#adhd-productivity) — `adhd-productivity` — actionable
+- [Adobe](entities/a.md#adobe) — `adobe` — showcase-link-only
+- [Ads](entities/a.md#ads) — `ads` — actionable
+- [Advisor](entities/a.md#advisor) — `advisor` — actionable
+- [Agent Client Protocol](entities/a.md#agent-client-protocol) — `agent-client-protocol` — actionable
+- [Agent Memory](entities/a.md#agent-memory) — `agent-memory` — actionable
+- [Agent Os](entities/a.md#agent-os) — `agent-os` — actionable
+- [Agent Standup](entities/a.md#agent-standup) — `agent-standup` — actionable
+- [Agent Teams](entities/a.md#agent-teams) — `agent-teams` — actionable
+- [Agentguard](entities/a.md#agentguard) — `agentguard` — actionable
+- [Agentic Ai](entities/a.md#agentic-ai) — `agentic-ai` — showcase-link-only
+- [Agentic Engineering](entities/a.md#agentic-engineering) — `agentic-engineering` — actionable
+- [Agentic Workflow](entities/a.md#agentic-workflow) — `agentic-workflow` — actionable
+- [Agentica Harness](entities/a.md#agentica-harness) — `agentica-harness` — actionable
+- [Agents](entities/a.md#agents) — `agents` — actionable
+- [Agents Md](entities/a.md#agents-md) — `agents-md` — actionable
+- [Ai Agent](entities/a.md#ai-agent) — `ai-agent` — showcase-link-only
+- [Ai Agents](entities/a.md#ai-agents) — `ai-agents` — actionable
+- [Ai Application Architecture](entities/a.md#ai-application-architecture) — `ai-application-architecture` — showcase-link-only
+- [Ai Company Agents](entities/a.md#ai-company-agents) — `ai-company-agents` — actionable
+- [Ai Customer Personas](entities/a.md#ai-customer-personas) — `ai-customer-personas` — actionable
+- [Ai Delegation Loop](entities/a.md#ai-delegation-loop) — `ai-delegation-loop` — actionable
+- [Ai Fluency](entities/a.md#ai-fluency) — `ai-fluency` — actionable
+- [Ai Harness](entities/a.md#ai-harness) — `ai-harness` — actionable
+- [Ai Hormed Brain](entities/a.md#ai-hormed-brain) — `ai-hormed-brain` — actionable
+- [Ai Hormozi Skills](entities/a.md#ai-hormozi-skills) — `ai-hormozi-skills` — actionable
+- [Ai Levels](entities/a.md#ai-levels) — `ai-levels` — actionable
+- [Ai Marketing Team](entities/a.md#ai-marketing-team) — `ai-marketing-team` — actionable
+- [Ai Native Sdlc Playbook](entities/a.md#ai-native-sdlc-playbook) — `ai-native-sdlc-playbook` — actionable
+- [Ai Office](entities/a.md#ai-office) — `ai-office` — showcase-link-only
+- [Ai Operating System](entities/a.md#ai-operating-system) — `ai-operating-system` — actionable
+- [Ai Orchestration](entities/a.md#ai-orchestration) — `ai-orchestration` — actionable
+- [Ai Search](entities/a.md#ai-search) — `ai-search` — actionable
+- [Ai Search Geo](entities/a.md#ai-search-geo) — `ai-search-geo` — actionable
+- [Ai Search Visibility](entities/a.md#ai-search-visibility) — `ai-search-visibility` — actionable
+- [Ai Second Brain](entities/a.md#ai-second-brain) — `ai-second-brain` — actionable
+- [Ai Security Audit Skill](entities/a.md#ai-security-audit-skill) — `ai-security-audit-skill` — actionable
+- [Ai Ui](entities/a.md#ai-ui) — `ai-ui` — actionable
+- [Airllm](entities/a.md#airllm) — `airllm` — actionable
+- [Alex Hormozi](entities/a.md#alex-hormozi) — `alex-hormozi` — actionable
+- [Alex Hormozi Business Coach](entities/a.md#alex-hormozi-business-coach) — `alex-hormozi-business-coach` — actionable
+- [Alibaba](entities/a.md#alibaba) — `alibaba` — actionable
+- [All Star Burgers](entities/a.md#all-star-burgers) — `all-star-burgers` — showcase-link-only
+- [Alo Yoga](entities/a.md#alo-yoga) — `alo-yoga` — actionable
+- [Alook](entities/a.md#alook) — `alook` — showcase-link-only
+- [Alpaca](entities/a.md#alpaca) — `alpaca` — actionable
+- [Analytics](entities/a.md#analytics) — `analytics` — actionable
+- [Analytics Content](entities/a.md#analytics-content) — `analytics-content` — actionable
+- [Anatomy](entities/a.md#anatomy) — `anatomy` — actionable
+- [Andrej Karpathy](entities/a.md#andrej-karpathy) — `andrej-karpathy` — actionable
+- [Anime Js](entities/a.md#anime-js) — `anime-js` — actionable
+- [Animos](entities/a.md#animos) — `animos` — showcase-link-only
+- [Annotated Illustrations](entities/a.md#annotated-illustrations) — `annotated-illustrations` — actionable
+- [Answer Me With Html](entities/a.md#answer-me-with-html) — `answer-me-with-html` — actionable
+- [Anthropic](entities/a.md#anthropic) — `anthropic` — actionable
+- [Anthropic Claude](entities/a.md#anthropic-claude) — `anthropic-claude` — actionable
+- [Anthropic Cybersecurity Skills](entities/a.md#anthropic-cybersecurity-skills) — `anthropic-cybersecurity-skills` — actionable
+- [Anthropic Skills Repo](entities/a.md#anthropic-skills-repo) — `anthropic-skills-repo` — actionable
+- [Antigravity](entities/a.md#antigravity) — `antigravity` — showcase-link-only
+- [Any Framework](entities/a.md#any-framework) — `any-framework` — actionable
+- [Anydoc](entities/a.md#anydoc) — `anydoc` — actionable
+- [Api](entities/a.md#api) — `api` — actionable
+- [App Flow](entities/a.md#app-flow) — `app-flow` — showcase-link-only
+- [Apple Design](entities/a.md#apple-design) — `apple-design` — actionable
+- [Apple Design Skill](entities/a.md#apple-design-skill) — `apple-design-skill` — actionable
+- [Arbiter Prime](entities/a.md#arbiter-prime) — `arbiter-prime` — actionable
+- [Archify](entities/a.md#archify) — `archify` — showcase-link-only
+- [Architect](entities/a.md#architect) — `architect` — actionable
+- [Architecture Md](entities/a.md#architecture-md) — `architecture-md` — actionable
+- [Arena Skill](entities/a.md#arena-skill) — `arena-skill` — actionable
+- [Astro](entities/a.md#astro) — `astro` — actionable
+- [Asymmetric Cryptography](entities/a.md#asymmetric-cryptography) — `asymmetric-cryptography` — actionable
+- [Atomic Update](entities/a.md#atomic-update) — `atomic-update` — actionable
+- [Auto Handoff](entities/a.md#auto-handoff) — `auto-handoff` — actionable
+- [Auto Improving System](entities/a.md#auto-improving-system) — `auto-improving-system` — actionable
+- [Autoresearch](entities/a.md#autoresearch) — `autoresearch` — actionable
+- [Awesome Claude Design](entities/a.md#awesome-claude-design) — `awesome-claude-design` — actionable
+- [Awesome Design](entities/a.md#awesome-design) — `awesome-design` — actionable
+- [Awesome Design Md](entities/a.md#awesome-design-md) — `awesome-design-md` — actionable
+- [Awesome Free Llm Apis](entities/a.md#awesome-free-llm-apis) — `awesome-free-llm-apis` — actionable
+- [Awesome Harness Engineering](entities/a.md#awesome-harness-engineering) — `awesome-harness-engineering` — actionable
+- [Awesome Opus 5 5 Videos](entities/a.md#awesome-opus-5-5-videos) — `awesome-opus-5-5-videos` — actionable
+- [Backend](entities/b.md#backend) — `backend` — actionable
+- [Backend Engineering](entities/b.md#backend-engineering) — `backend-engineering` — showcase-link-only
+- [Background](entities/b.md#background) — `background` — actionable
+- [Backup Strategy](entities/b.md#backup-strategy) — `backup-strategy` — actionable
+- [Banner Blindness](entities/b.md#banner-blindness) — `banner-blindness` — actionable
+- [Basemode](entities/b.md#basemode) — `basemode` — actionable
+- [Bash](entities/b.md#bash) — `bash` — actionable
+- [Batch](entities/b.md#batch) — `batch` — actionable
+- [Batch Query](entities/b.md#batch-query) — `batch-query` — actionable
+- [Bcrypt](entities/b.md#bcrypt) — `bcrypt` — actionable
+- [Be Ambitious](entities/b.md#be-ambitious) — `be-ambitious` — actionable
+- [Be Of Dao](entities/b.md#be-of-dao) — `be-of-dao` — showcase-link-only
+- [Beard Brothers Bbq](entities/b.md#beard-brothers-bbq) — `beard-brothers-bbq` — skipped
+- [Beautiful Product Design](entities/b.md#beautiful-product-design) — `beautiful-product-design` — actionable
+- [Beef Ramen](entities/b.md#beef-ramen) — `beef-ramen` — skipped
+- [Behemoth Platter](entities/b.md#behemoth-platter) — `behemoth-platter` — skipped
+- [Bestfoodmalaysia](entities/b.md#bestfoodmalaysia) — `bestfoodmalaysia` — skipped
+- [Bfly](entities/b.md#bfly) — `bfly` — skipped
+- [Bilawal Sidhu](entities/b.md#bilawal-sidhu) — `bilawal-sidhu` — actionable
+- [Billing](entities/b.md#billing) — `billing` — showcase-link-only
+- [Billion Context](entities/b.md#billion-context) — `billion-context` — actionable
+- [Binance](entities/b.md#binance) — `binance` — actionable
+- [Bionic](entities/b.md#bionic) — `bionic` — actionable
+- [Bklit Ui](entities/b.md#bklit-ui) — `bklit-ui` — actionable
+- [Blackstone](entities/b.md#blackstone) — `blackstone` — actionable
+- [Blast Radius](entities/b.md#blast-radius) — `blast-radius` — actionable
+- [Blender](entities/b.md#blender) — `blender` — actionable
+- [Bluehost](entities/b.md#bluehost) — `bluehost` — showcase-link-only
+- [Bmad Method](entities/b.md#bmad-method) — `bmad-method` — actionable
+- [Bobby](entities/b.md#bobby) — `bobby` — showcase-link-only
+- [Bolt New](entities/b.md#bolt-new) — `bolt-new` — actionable
+- [Bonsai 27B Mlx 1 Bit](entities/b.md#bonsai-27b-mlx-1-bit) — `bonsai-27b-mlx-1-bit` — actionable
+- [Book To Skill](entities/b.md#book-to-skill) — `book-to-skill` — actionable
+- [Boris Cherny](entities/b.md#boris-cherny) — `boris-cherny` — actionable
+- [Bot Attack](entities/b.md#bot-attack) — `bot-attack` — actionable
+- [Bradautomates](entities/b.md#bradautomates) — `bradautomates` — actionable
+- [Branch](entities/b.md#branch) — `branch` — actionable
+- [Brand](entities/b.md#brand) — `brand` — actionable
+- [Bridgewater](entities/b.md#bridgewater) — `bridgewater` — actionable
+- [Brisket](entities/b.md#brisket) — `brisket` — skipped
+- [Browser Agent](entities/b.md#browser-agent) — `browser-agent` — showcase-link-only
+- [Browser Use](entities/b.md#browser-use) — `browser-use` — actionable
+- [Btw](entities/b.md#btw) — `btw` — actionable
+- [Buffet](entities/b.md#buffet) — `buffet` — skipped
+- [Bughunter](entities/b.md#bughunter) — `bughunter` — actionable
+- [Build](entities/b.md#build) — `build` — actionable
+- [Build Partner](entities/b.md#build-partner) — `build-partner` — actionable
+- [Builder Skills Distill Video](entities/b.md#builder-skills-distill-video) — `builder-skills-distill-video` — actionable
+- [Buildpartner Ai](entities/b.md#buildpartner-ai) — `buildpartner-ai` — actionable
+- [Business Coach](entities/b.md#business-coach) — `business-coach` — actionable
+- [Business Strategy](entities/b.md#business-strategy) — `business-strategy` — actionable
+- [Business Strategy Frameworks](entities/b.md#business-strategy-frameworks) — `business-strategy-frameworks` — actionable
+- [Bytedance](entities/b.md#bytedance) — `bytedance` — actionable
+- [Cache](entities/c.md#cache) — `cache` — actionable
+- [Caching](entities/c.md#caching) — `caching` — actionable
+- [Cag](entities/c.md#cag) — `cag` — actionable
+- [Calendly](entities/c.md#calendly) — `calendly` — showcase-link-only
+- [Calorie Tracker](entities/c.md#calorie-tracker) — `calorie-tracker` — actionable
+- [Canary](entities/c.md#canary) — `canary` — actionable
+- [Canary Pattern](entities/c.md#canary-pattern) — `canary-pattern` — actionable
+- [Canva](entities/c.md#canva) — `canva` — showcase-link-only
+- [Canva Pro](entities/c.md#canva-pro) — `canva-pro` — showcase-link-only
+- [Capcut](entities/c.md#capcut) — `capcut` — actionable
+- [Cast Ai 3D Components](entities/c.md#cast-ai-3d-components) — `cast-ai-3d-components` — actionable
+- [Caveman](entities/c.md#caveman) — `caveman` — showcase-link-only
+- [Caveman Skill](entities/c.md#caveman-skill) — `caveman-skill` — actionable
+- [Chart Scanner](entities/c.md#chart-scanner) — `chart-scanner` — actionable
+- [Chatgpt](entities/c.md#chatgpt) — `chatgpt` — showcase-link-only
+- [Chatgpt 1 5](entities/c.md#chatgpt-1-5) — `chatgpt-1-5` — showcase-link-only
+- [Chatgpt God Mode](entities/c.md#chatgpt-god-mode) — `chatgpt-god-mode` — showcase-link-only
+- [Chief Of Staff](entities/c.md#chief-of-staff) — `chief-of-staff` — actionable
+- [Chunking](entities/c.md#chunking) — `chunking` — actionable
+- [Cinematic Websites](entities/c.md#cinematic-websites) — `cinematic-websites` — showcase-link-only
+- [Citadel](entities/c.md#citadel) — `citadel` — actionable
+- [Claude](entities/c.md#claude) — `claude` — actionable
+- [Claude 101](entities/c.md#claude-101) — `claude-101` — actionable
+- [Claude Academy](entities/c.md#claude-academy) — `claude-academy` — actionable
+- [Claude Agents](entities/c.md#claude-agents) — `claude-agents` — actionable
+- [Claude Ai](entities/c.md#claude-ai) — `claude-ai` — actionable
+- [Claude Artifacts](entities/c.md#claude-artifacts) — `claude-artifacts` — showcase-link-only
+- [Claude Auto Handoff](entities/c.md#claude-auto-handoff) — `claude-auto-handoff` — actionable
+- [Claude Bg](entities/c.md#claude-bg) — `claude-bg` — actionable
+- [Claude Commands](entities/c.md#claude-commands) — `claude-commands` — actionable
+- [Claude Connectors](entities/c.md#claude-connectors) — `claude-connectors` — actionable
+- [Claude Cybersecurity](entities/c.md#claude-cybersecurity) — `claude-cybersecurity` — actionable
+- [Claude Design](entities/c.md#claude-design) — `claude-design` — actionable
+- [Claude Duet](entities/c.md#claude-duet) — `claude-duet` — showcase-link-only
+- [Claude Fable 5](entities/c.md#claude-fable-5) — `claude-fable-5` — actionable
+- [Claude For Financial Services](entities/c.md#claude-for-financial-services) — `claude-for-financial-services` — actionable
+- [Claude Haiku 5 5](entities/c.md#claude-haiku-5-5) — `claude-haiku-5-5` — actionable
+- [Claude Max](entities/c.md#claude-max) — `claude-max` — actionable
+- [Claude Mods](entities/c.md#claude-mods) — `claude-mods` — showcase-link-only
+- [Claude Motion](entities/c.md#claude-motion) — `claude-motion` — actionable
+- [Claude Octopus](entities/c.md#claude-octopus) — `claude-octopus` — actionable
+- [Claude Opus](entities/c.md#claude-opus) — `claude-opus` — actionable
+- [Claude Opus 5 5](entities/c.md#claude-opus-5-5) — `claude-opus-5-5` — actionable
+- [Claude Over Agreement](entities/c.md#claude-over-agreement) — `claude-over-agreement` — actionable
+- [Claude Pro](entities/c.md#claude-pro) — `claude-pro` — actionable
+- [Claude Projects](entities/c.md#claude-projects) — `claude-projects` — actionable
+- [Claude Quota](entities/c.md#claude-quota) — `claude-quota` — actionable
+- [Claude Red](entities/c.md#claude-red) — `claude-red` — actionable
+- [Claude Security](entities/c.md#claude-security) — `claude-security` — actionable
+- [Claude Skill](entities/c.md#claude-skill) — `claude-skill` — actionable
+- [Claude Skill Library](entities/c.md#claude-skill-library) — `claude-skill-library` — actionable
+- [Claude Skills](entities/c.md#claude-skills) — `claude-skills` — actionable
+- [Claude Skins](entities/c.md#claude-skins) — `claude-skins` — actionable
+- [Claude Sonnet](entities/c.md#claude-sonnet) — `claude-sonnet` — actionable
+- [Claude Squad](entities/c.md#claude-squad) — `claude-squad` — actionable
+- [Claude Token Usage](entities/c.md#claude-token-usage) — `claude-token-usage` — actionable
+- [Claude Trades](entities/c.md#claude-trades) — `claude-trades` — actionable
+- [Claude Usage Hack](entities/c.md#claude-usage-hack) — `claude-usage-hack` — actionable
+- [Claude Video](entities/c.md#claude-video) — `claude-video` — showcase-link-only
+- [Claudex Loop](entities/c.md#claudex-loop) — `claudex-loop` — showcase-link-only
+- [Claw Code](entities/c.md#claw-code) — `claw-code` — actionable
+- [Clawhub](entities/c.md#clawhub) — `clawhub` — actionable
+- [Claypot Eel Rice](entities/c.md#claypot-eel-rice) — `claypot-eel-rice` — skipped
+- [Clear](entities/c.md#clear) — `clear` — actionable
+- [Clear Steps](entities/c.md#clear-steps) — `clear-steps` — actionable
+- [Cli Anything](entities/c.md#cli-anything) — `cli-anything` — actionable
+- [Cli Anything Hub](entities/c.md#cli-anything-hub) — `cli-anything-hub` — actionable
+- [Cli Hub](entities/c.md#cli-hub) — `cli-hub` — actionable
+- [Closure Principle](entities/c.md#closure-principle) — `closure-principle` — actionable
+- [Cloud Sessions](entities/c.md#cloud-sessions) — `cloud-sessions` — actionable
+- [Cloudflare](entities/c.md#cloudflare) — `cloudflare` — showcase-link-only
+- [Cloudflare Computer](entities/c.md#cloudflare-computer) — `cloudflare-computer` — actionable
+- [Cloudflare Security Audit Skill](entities/c.md#cloudflare-security-audit-skill) — `cloudflare-security-audit-skill` — actionable
+- [Cloudflare Workflows](entities/c.md#cloudflare-workflows) — `cloudflare-workflows` — actionable
+- [Cloudmem](entities/c.md#cloudmem) — `cloudmem` — actionable
+- [Coconut Ui](entities/c.md#coconut-ui) — `coconut-ui` — actionable
+- [Code Mode](entities/c.md#code-mode) — `code-mode` — actionable
+- [Code Review](entities/c.md#code-review) — `code-review` — actionable
+- [Code Reviewer](entities/c.md#code-reviewer) — `code-reviewer` — actionable
+- [Coffee Brand Showcase](entities/c.md#coffee-brand-showcase) — `coffee-brand-showcase` — showcase-link-only
+- [Comet](entities/c.md#comet) — `comet` — showcase-link-only
+- [Comfyui](entities/c.md#comfyui) — `comfyui` — actionable
+- [Compact](entities/c.md#compact) — `compact` — actionable
+- [Composio](entities/c.md#composio) — `composio` — actionable
+- [Concat](entities/c.md#concat) — `concat` — actionable
+- [Confidence Escalation](entities/c.md#confidence-escalation) — `confidence-escalation` — actionable
+- [Connectedness](entities/c.md#connectedness) — `connectedness` — actionable
+- [Content](entities/c.md#content) — `content` — actionable
+- [Content Delivery Network](entities/c.md#content-delivery-network) — `content-delivery-network` — actionable
+- [Content Os](entities/c.md#content-os) — `content-os` — actionable
+- [Content Plan](entities/c.md#content-plan) — `content-plan` — actionable
+- [Content Principles](entities/c.md#content-principles) — `content-principles` — actionable
+- [Context Mode](entities/c.md#context-mode) — `context-mode` — showcase-link-only
+- [Context Rot](entities/c.md#context-rot) — `context-rot` — actionable
+- [Context Window](entities/c.md#context-window) — `context-window` — showcase-link-only
+- [Context7](entities/c.md#context7) — `context7` — actionable
+- [Continuous Delivery](entities/c.md#continuous-delivery) — `continuous-delivery` — actionable
+- [Continuous Deployment](entities/c.md#continuous-deployment) — `continuous-deployment` — actionable
+- [Continuous Integration](entities/c.md#continuous-integration) — `continuous-integration` — actionable
+- [Copilot](entities/c.md#copilot) — `copilot` — actionable
+- [Cosmos](entities/c.md#cosmos) — `cosmos` — actionable
+- [Crew](entities/c.md#crew) — `crew` — actionable
+- [Crewai](entities/c.md#crewai) — `crewai` — showcase-link-only
+- [Ctx7](entities/c.md#ctx7) — `ctx7` — actionable
+- [Cua](entities/c.md#cua) — `cua` — actionable
+- [Cua Spaces](entities/c.md#cua-spaces) — `cua-spaces` — actionable
+- [Cult Ui](entities/c.md#cult-ui) — `cult-ui` — actionable
+- [Cursor](entities/c.md#cursor) — `cursor` — actionable
+- [Cursor Tracking](entities/c.md#cursor-tracking) — `cursor-tracking` — showcase-link-only
+- [Custom Cli](entities/c.md#custom-cli) — `custom-cli` — actionable
+- [Custom Dashboard](entities/c.md#custom-dashboard) — `custom-dashboard` — showcase-link-only
+- [Cybersecurity Skills](entities/c.md#cybersecurity-skills) — `cybersecurity-skills` — actionable
+- [Cygnet](entities/c.md#cygnet) — `cygnet` — skipped
+- [Dan](entities/d.md#dan) — `dan` — actionable
+- [Dashboard Mod](entities/d.md#dashboard-mod) — `dashboard-mod` — actionable
+- [Database](entities/d.md#database) — `database` — actionable
+- [Database Concurrency](entities/d.md#database-concurrency) — `database-concurrency` — actionable
+- [Database Migration](entities/d.md#database-migration) — `database-migration` — actionable
+- [Database Optimization](entities/d.md#database-optimization) — `database-optimization` — actionable
+- [Database Performance](entities/d.md#database-performance) — `database-performance` — actionable
+- [Database Tests](entities/d.md#database-tests) — `database-tests` — actionable
+- [Databricks](entities/d.md#databricks) — `databricks` — actionable
+- [Datalab](entities/d.md#datalab) — `datalab` — actionable
+- [Davinci Resolve](entities/d.md#davinci-resolve) — `davinci-resolve` — actionable
+- [Daw](entities/d.md#daw) — `daw` — actionable
+- [Day Trader Skill](entities/d.md#day-trader-skill) — `day-trader-skill` — actionable
+- [Dead Code](entities/d.md#dead-code) — `dead-code` — actionable
+- [Deadline Tracking](entities/d.md#deadline-tracking) — `deadline-tracking` — actionable
+- [Decision Maker](entities/d.md#decision-maker) — `decision-maker` — showcase-link-only
+- [Deckcraft](entities/d.md#deckcraft) — `deckcraft` — actionable
+- [Deepseek](entities/d.md#deepseek) — `deepseek` — actionable
+- [Deepseek Harness](entities/d.md#deepseek-harness) — `deepseek-harness` — showcase-link-only
+- [Deepseek R1](entities/d.md#deepseek-r1) — `deepseek-r1` — actionable
+- [Deepseek V4 1 Flash](entities/d.md#deepseek-v4-1-flash) — `deepseek-v4-1-flash` — showcase-link-only
+- [Deerflow](entities/d.md#deerflow) — `deerflow` — actionable
+- [Deploy](entities/d.md#deploy) — `deploy` — actionable
+- [Design](entities/d.md#design) — `design` — actionable
+- [Design Code](entities/d.md#design-code) — `design-code` — actionable
+- [Design Md](entities/d.md#design-md) — `design-md` — actionable
+- [Design Md Chrome](entities/d.md#design-md-chrome) — `design-md-chrome` — actionable
+- [Design Md Chrome Extension](entities/d.md#design-md-chrome-extension) — `design-md-chrome-extension` — actionable
+- [Design Motion Principles](entities/d.md#design-motion-principles) — `design-motion-principles` — actionable
+- [Design System Md](entities/d.md#design-system-md) — `design-system-md` — actionable
+- [Design Tokens](entities/d.md#design-tokens) — `design-tokens` — actionable
+- [Devops](entities/d.md#devops) — `devops` — actionable
+- [Diagram Design](entities/d.md#diagram-design) — `diagram-design` — showcase-link-only
+- [Diff](entities/d.md#diff) — `diff` — actionable
+- [Dify](entities/d.md#dify) — `dify` — actionable
+- [Direct Tool Calling](entities/d.md#direct-tool-calling) — `direct-tool-calling` — actionable
+- [Distributed Systems](entities/d.md#distributed-systems) — `distributed-systems` — showcase-link-only
+- [Distributed Transactions](entities/d.md#distributed-transactions) — `distributed-transactions` — actionable
+- [Dont Tell Mama Pj](entities/d.md#dont-tell-mama-pj) — `dont-tell-mama-pj` — skipped
+- [Dots](entities/d.md#dots) — `dots` — showcase-link-only
+- [Easyspider](entities/e.md#easyspider) — `easyspider` — actionable
+- [Edge Server](entities/e.md#edge-server) — `edge-server` — actionable
+- [Edit](entities/e.md#edit) — `edit` — actionable
+- [Effort](entities/e.md#effort) — `effort` — actionable
+- [Elevenlabs](entities/e.md#elevenlabs) — `elevenlabs` — actionable
+- [Eli5](entities/e.md#eli5) — `eli5` — actionable
+- [Elon Musk](entities/e.md#elon-musk) — `elon-musk` — showcase-link-only
+- [Embedding](entities/e.md#embedding) — `embedding` — actionable
+- [Embeddings](entities/e.md#embeddings) — `embeddings` — showcase-link-only
+- [Emil Kowalski](entities/e.md#emil-kowalski) — `emil-kowalski` — actionable
+- [Emil Kowalski Design Skill](entities/e.md#emil-kowalski-design-skill) — `emil-kowalski-design-skill` — actionable
+- [Emilkowalski Skills](entities/e.md#emilkowalski-skills) — `emilkowalski-skills` — actionable
+- [Entrance Reveal](entities/e.md#entrance-reveal) — `entrance-reveal` — showcase-link-only
+- [Entrepreneur](entities/e.md#entrepreneur) — `entrepreneur` — actionable
+- [Eva](entities/e.md#eva) — `eva` — showcase-link-only
+- [Evals](entities/e.md#evals) — `evals` — actionable
+- [Evaluation](entities/e.md#evaluation) — `evaluation` — showcase-link-only
+- [Evolution Api](entities/e.md#evolution-api) — `evolution-api` — actionable
+- [Expert Advice](entities/e.md#expert-advice) — `expert-advice` — actionable
+- [Expo](entities/e.md#expo) — `expo` — actionable
+- [Expo Go](entities/e.md#expo-go) — `expo-go` — actionable
+- [Extra High](entities/e.md#extra-high) — `extra-high` — actionable
+- [Extract Design System](entities/e.md#extract-design-system) — `extract-design-system` — actionable
+- [Fable](entities/f.md#fable) — `fable` — actionable
+- [Fable 5 1](entities/f.md#fable-5-1) — `fable-5-1` — actionable
+- [Fable Loop](entities/f.md#fable-loop) — `fable-loop` — actionable
+- [Fallow](entities/f.md#fallow) — `fallow` — actionable
+- [Family Restaurant](entities/f.md#family-restaurant) — `family-restaurant` — skipped
+- [Figma](entities/f.md#figma) — `figma` — actionable
+- [Figure Ground](entities/f.md#figure-ground) — `figure-ground` — actionable
+- [File Organizer](entities/f.md#file-organizer) — `file-organizer` — actionable
+- [Filmcraft](entities/f.md#filmcraft) — `filmcraft` — showcase-link-only
+- [Financial Analysis Agent](entities/f.md#financial-analysis-agent) — `financial-analysis-agent` — actionable
+- [Financial Planning Analysis](entities/f.md#financial-planning-analysis) — `financial-planning-analysis` — actionable
+- [Financial Report Summarization](entities/f.md#financial-report-summarization) — `financial-report-summarization` — actionable
+- [Find Skill](entities/f.md#find-skill) — `find-skill` — actionable
+- [Finder](entities/f.md#finder) — `finder` — actionable
+- [Firebase](entities/f.md#firebase) — `firebase` — actionable
+- [Firestore](entities/f.md#firestore) — `firestore` — actionable
+- [First Principles](entities/f.md#first-principles) — `first-principles` — actionable
+- [Floorplan](entities/f.md#floorplan) — `floorplan` — actionable
+- [Flora](entities/f.md#flora) — `flora` — showcase-link-only
+- [Flux](entities/f.md#flux) — `flux` — actionable
+- [Foglamp Dev](entities/f.md#foglamp-dev) — `foglamp-dev` — actionable
+- [Footer Design](entities/f.md#footer-design) — `footer-design` — actionable
+- [Forward Secrecy](entities/f.md#forward-secrecy) — `forward-secrecy` — actionable
+- [Framer](entities/f.md#framer) — `framer` — showcase-link-only
+- [Framer Motion](entities/f.md#framer-motion) — `framer-motion` — actionable
+- [Free For Dev](entities/f.md#free-for-dev) — `free-for-dev` — actionable
+- [Fromzero](entities/f.md#fromzero) — `fromzero` — showcase-link-only
+- [Gather](entities/g.md#gather) — `gather` — showcase-link-only
+- [Gbrain](entities/g.md#gbrain) — `gbrain` — actionable
+- [Gemini](entities/g.md#gemini) — `gemini` — showcase-link-only
+- [Gemini 4 Argon](entities/g.md#gemini-4-argon) — `gemini-4-argon` — showcase-link-only
+- [Gemini Api](entities/g.md#gemini-api) — `gemini-api` — actionable
+- [Generate](entities/g.md#generate) — `generate` — actionable
+- [Genjutsu](entities/g.md#genjutsu) — `genjutsu` — actionable
+- [Geo Seo](entities/g.md#geo-seo) — `geo-seo` — actionable
+- [Geo Sleuth](entities/g.md#geo-sleuth) — `geo-sleuth` — actionable
+- [Geoguessr](entities/g.md#geoguessr) — `geoguessr` — actionable
+- [Geolocation](entities/g.md#geolocation) — `geolocation` — actionable
+- [Geospatial Intelligence](entities/g.md#geospatial-intelligence) — `geospatial-intelligence` — actionable
+- [Getdesign Md](entities/g.md#getdesign-md) — `getdesign-md` — actionable
+- [Getlayers](entities/g.md#getlayers) — `getlayers` — showcase-link-only
+- [Git](entities/g.md#git) — `git` — showcase-link-only
+- [Git Ai](entities/g.md#git-ai) — `git-ai` — showcase-link-only
+- [Glassmorphism](entities/g.md#glassmorphism) — `glassmorphism` — actionable
+- [Glm](entities/g.md#glm) — `glm` — actionable
+- [Glm 5 2](entities/g.md#glm-5-2) — `glm-5-2` — actionable
+- [Gmail](entities/g.md#gmail) — `gmail` — actionable
+- [Goal](entities/g.md#goal) — `goal` — actionable
+- [Goat Router](entities/g.md#goat-router) — `goat-router` — actionable
+- [Gobird](entities/g.md#gobird) — `gobird` — showcase-link-only
+- [Gods Eye View](entities/g.md#gods-eye-view) — `gods-eye-view` — actionable
+- [Googl](entities/g.md#googl) — `googl` — actionable
+- [Google](entities/g.md#google) — `google` — actionable
+- [Google Ads](entities/g.md#google-ads) — `google-ads` — actionable
+- [Google Ai Studio](entities/g.md#google-ai-studio) — `google-ai-studio` — actionable
+- [Google Calendar](entities/g.md#google-calendar) — `google-calendar` — actionable
+- [Google Drive](entities/g.md#google-drive) — `google-drive` — showcase-link-only
+- [Google Flights](entities/g.md#google-flights) — `google-flights` — showcase-link-only
+- [Google Flow](entities/g.md#google-flow) — `google-flow` — showcase-link-only
+- [Google Gemini](entities/g.md#google-gemini) — `google-gemini` — showcase-link-only
+- [Google Opal](entities/g.md#google-opal) — `google-opal` — showcase-link-only
+- [Google Research](entities/g.md#google-research) — `google-research` — actionable
+- [Google Search Console](entities/g.md#google-search-console) — `google-search-console` — actionable
+- [Google Stitch](entities/g.md#google-stitch) — `google-stitch` — actionable
+- [Google Workspace](entities/g.md#google-workspace) — `google-workspace` — actionable
+- [Google Workspace Cli](entities/g.md#google-workspace-cli) — `google-workspace-cli` — actionable
+- [Gotcha Md](entities/g.md#gotcha-md) — `gotcha-md` — actionable
+- [Gpt](entities/g.md#gpt) — `gpt` — showcase-link-only
+- [Grep](entities/g.md#grep) — `grep` — actionable
+- [Gridcraft](entities/g.md#gridcraft) — `gridcraft` — actionable
+- [Grill Me](entities/g.md#grill-me) — `grill-me` — actionable
+- [Grill With Docs](entities/g.md#grill-with-docs) — `grill-with-docs` — actionable
+- [Grok](entities/g.md#grok) — `grok` — actionable
+- [Grok Bot](entities/g.md#grok-bot) — `grok-bot` — actionable
+- [Grok Imagine 2](entities/g.md#grok-imagine-2) — `grok-imagine-2` — showcase-link-only
+- [Grounding](entities/g.md#grounding) — `grounding` — showcase-link-only
+- [Gsd Core](entities/g.md#gsd-core) — `gsd-core` — actionable
+- [Guangdong](entities/g.md#guangdong) — `guangdong` — actionable
+- [Gws](entities/g.md#gws) — `gws` — actionable
+- [Hackproduct](entities/h.md#hackproduct) — `hackproduct` — showcase-link-only
+- [Haiku](entities/h.md#haiku) — `haiku` — actionable
+- [Haiku Scheduling](entities/h.md#haiku-scheduling) — `haiku-scheduling` — actionable
+- [Haiku Takes The Chores](entities/h.md#haiku-takes-the-chores) — `haiku-takes-the-chores` — actionable
+- [Hairline](entities/h.md#hairline) — `hairline` — actionable
+- [Hakka Pork Rib](entities/h.md#hakka-pork-rib) — `hakka-pork-rib` — skipped
+- [Halal](entities/h.md#halal) — `halal` — skipped
+- [Hallmark](entities/h.md#hallmark) — `hallmark` — showcase-link-only
+- [Hallucination](entities/h.md#hallucination) — `hallucination` — showcase-link-only
+- [Handoff Md](entities/h.md#handoff-md) — `handoff-md` — actionable
+- [Handover](entities/h.md#handover) — `handover` — actionable
+- [Handy](entities/h.md#handy) — `handy` — actionable
+- [Harness 2](entities/h.md#harness-2) — `harness-2` — actionable
+- [Harness2](entities/h.md#harness2) — `harness2` — actionable
+- [Harvey](entities/h.md#harvey) — `harvey` — actionable
+- [Hash Functions](entities/h.md#hash-functions) — `hash-functions` — actionable
+- [Headroom](entities/h.md#headroom) — `headroom` — showcase-link-only
+- [Hectora](entities/h.md#hectora) — `hectora` — actionable
+- [Herdr](entities/h.md#herdr) — `herdr` — showcase-link-only
+- [Hermes](entities/h.md#hermes) — `hermes` — actionable
+- [Heygen](entities/h.md#heygen) — `heygen` — actionable
+- [Heyimgustavo](entities/h.md#heyimgustavo) — `heyimgustavo` — actionable
+- [High](entities/h.md#high) — `high` — actionable
+- [Hkuds](entities/h.md#hkuds) — `hkuds` — actionable
+- [Honcho](entities/h.md#honcho) — `honcho` — actionable
+- [Hookify](entities/h.md#hookify) — `hookify` — actionable
+- [Hooks](entities/h.md#hooks) — `hooks` — actionable
+- [Hormozi](entities/h.md#hormozi) — `hormozi` — actionable
+- [Hover Effects](entities/h.md#hover-effects) — `hover-effects` — showcase-link-only
+- [Huashu Motion](entities/h.md#huashu-motion) — `huashu-motion` — actionable
+- [Hugging Face](entities/h.md#hugging-face) — `hugging-face` — actionable
+- [Human In The Loop](entities/h.md#human-in-the-loop) — `human-in-the-loop` — actionable
+- [Hunyuan Video](entities/h.md#hunyuan-video) — `hunyuan-video` — actionable
+- [Hybrid Search](entities/h.md#hybrid-search) — `hybrid-search` — showcase-link-only
+- [Hyperframes](entities/h.md#hyperframes) — `hyperframes` — actionable
+- [Hypit](entities/h.md#hypit) — `hypit` — actionable
+- [Hypit Ai](entities/h.md#hypit-ai) — `hypit-ai` — actionable
+- [Idempotency](entities/i.md#idempotency) — `idempotency` — actionable
+- [Ig Comment](entities/i.md#ig-comment) — `ig-comment` — showcase-link-only
+- [Ig Human](entities/i.md#ig-human) — `ig-human` — showcase-link-only
+- [Ig Plan](entities/i.md#ig-plan) — `ig-plan` — showcase-link-only
+- [Ig Reel](entities/i.md#ig-reel) — `ig-reel` — showcase-link-only
+- [Ig Reply](entities/i.md#ig-reply) — `ig-reply` — showcase-link-only
+- [Ig Viral](entities/i.md#ig-viral) — `ig-viral` — actionable
+- [Illustrator](entities/i.md#illustrator) — `illustrator` — showcase-link-only
+- [Img2Threejs](entities/i.md#img2threejs) — `img2threejs` — actionable
+- [Improve System](entities/i.md#improve-system) — `improve-system` — actionable
+- [Indexing](entities/i.md#indexing) — `indexing` — actionable
+- [Indra Ocr](entities/i.md#indra-ocr) — `indra-ocr` — actionable
+- [Init](entities/i.md#init) — `init` — actionable
+- [Inkwell](entities/i.md#inkwell) — `inkwell` — showcase-link-only
+- [Insomnia](entities/i.md#insomnia) — `insomnia` — actionable
+- [Instagram Agent Skill](entities/i.md#instagram-agent-skill) — `instagram-agent-skill` — showcase-link-only
+- [Instagram Reels](entities/i.md#instagram-reels) — `instagram-reels` — actionable
+- [Interactive Ui Components](entities/i.md#interactive-ui-components) — `interactive-ui-components` — actionable
+- [Iron Man](entities/i.md#iron-man) — `iron-man` — actionable
+- [Jakub Antalik](entities/j.md#jakub-antalik) — `jakub-antalik` — actionable
+- [Jamiepine Voicebox](entities/j.md#jamiepine-voicebox) — `jamiepine-voicebox` — actionable
+- [Jeff Bezos](entities/j.md#jeff-bezos) — `jeff-bezos` — actionable
+- [Jsonl](entities/j.md#jsonl) — `jsonl` — actionable
+- [Julia 1](entities/j.md#julia-1) — `julia-1` — skipped
+- [Kag](entities/k.md#kag) — `kag` — actionable
+- [Kapso](entities/k.md#kapso) — `kapso` — actionable
+- [Karpathy Behavioral Skill](entities/k.md#karpathy-behavioral-skill) — `karpathy-behavioral-skill` — actionable
+- [Karpathy Skills](entities/k.md#karpathy-skills) — `karpathy-skills` — actionable
+- [Kestrel](entities/k.md#kestrel) — `kestrel` — actionable
+- [Kev](entities/k.md#kev) — `kev` — skipped
+- [Keyword Optimization](entities/k.md#keyword-optimization) — `keyword-optimization` — actionable
+- [Kie Ai](entities/k.md#kie-ai) — `kie-ai` — actionable
+- [Kimi](entities/k.md#kimi) — `kimi` — actionable
+- [Kimi K2](entities/k.md#kimi-k2) — `kimi-k2` — actionable
+- [Kimi K3](entities/k.md#kimi-k3) — `kimi-k3` — actionable
+- [Klang](entities/k.md#klang) — `klang` — skipped
+- [Kling](entities/k.md#kling) — `kling` — actionable
+- [Knip](entities/k.md#knip) — `knip` — actionable
+- [Knowledge Graph](entities/k.md#knowledge-graph) — `knowledge-graph` — actionable
+- [Knowledge Md](entities/k.md#knowledge-md) — `knowledge-md` — actionable
+- [Kokoro Tts](entities/k.md#kokoro-tts) — `kokoro-tts` — actionable
+- [Kronos](entities/k.md#kronos) — `kronos` — actionable
+- [Kuala Lumpur](entities/k.md#kuala-lumpur) — `kuala-lumpur` — skipped
+- [Kumo](entities/k.md#kumo) — `kumo` — showcase-link-only
+- [Kv Cache](entities/k.md#kv-cache) — `kv-cache` — actionable
+- [Kyutai Pocket Tts](entities/k.md#kyutai-pocket-tts) — `kyutai-pocket-tts` — showcase-link-only
+- [Langchain](entities/l.md#langchain) — `langchain` — actionable
+- [Langflow](entities/l.md#langflow) — `langflow` — actionable
+- [Langfuse](entities/l.md#langfuse) — `langfuse` — showcase-link-only
+- [Langgraph](entities/l.md#langgraph) — `langgraph` — showcase-link-only
+- [Last 30 Days](entities/l.md#last-30-days) — `last-30-days` — actionable
+- [Last 30 Days Skill](entities/l.md#last-30-days-skill) — `last-30-days-skill` — showcase-link-only
+- [Last30Days Skill](entities/l.md#last30days-skill) — `last30days-skill` — actionable
+- [Launch](entities/l.md#launch) — `launch` — actionable
+- [Lauren Tan](entities/l.md#lauren-tan) — `lauren-tan` — actionable
+- [Lead Generation Md](entities/l.md#lead-generation-md) — `lead-generation-md` — actionable
+- [Less Clutter](entities/l.md#less-clutter) — `less-clutter` — actionable
+- [Lexington Themes](entities/l.md#lexington-themes) — `lexington-themes` — actionable
+- [Lfm2 5 2 6B](entities/l.md#lfm2-5-2-6b) — `lfm2-5-2-6b` — showcase-link-only
+- [Libreoffice](entities/l.md#libreoffice) — `libreoffice` — actionable
+- [Lightcraft](entities/l.md#lightcraft) — `lightcraft` — showcase-link-only
+- [Lightricks](entities/l.md#lightricks) — `lightricks` — actionable
+- [Lightroom](entities/l.md#lightroom) — `lightroom` — showcase-link-only
+- [Linear](entities/l.md#linear) — `linear` — actionable
+- [Linkedin](entities/l.md#linkedin) — `linkedin` — actionable
+- [Lint](entities/l.md#lint) — `lint` — actionable
+- [Liquid](entities/l.md#liquid) — `liquid` — actionable
+- [Liquidai](entities/l.md#liquidai) — `liquidai` — showcase-link-only
+- [Llama](entities/l.md#llama) — `llama` — showcase-link-only
+- [Llama 405B](entities/l.md#llama-405b) — `llama-405b` — actionable
+- [Llm](entities/l.md#llm) — `llm` — actionable
+- [Llm Routing](entities/l.md#llm-routing) — `llm-routing` — actionable
+- [Lm Studio](entities/l.md#lm-studio) — `lm-studio` — actionable
+- [Loading Animations](entities/l.md#loading-animations) — `loading-animations` — actionable
+- [Locally Uncensored](entities/l.md#locally-uncensored) — `locally-uncensored` — showcase-link-only
+- [Login Api](entities/l.md#login-api) — `login-api` — actionable
+- [Longliveai](entities/l.md#longliveai) — `longliveai` — showcase-link-only
+- [Loop](entities/l.md#loop) — `loop` — actionable
+- [Loop Engineering](entities/l.md#loop-engineering) — `loop-engineering` — actionable
+- [Lovable](entities/l.md#lovable) — `lovable` — actionable
+- [Low](entities/l.md#low) — `low` — actionable
+- [Ltx 2](entities/l.md#ltx-2) — `ltx-2` — actionable
+- [Ltx 2 5](entities/l.md#ltx-2-5) — `ltx-2-5` — actionable
+- [Lumea](entities/l.md#lumea) — `lumea` — showcase-link-only
+- [Make Interfaces Feel Better](entities/m.md#make-interfaces-feel-better) — `make-interfaces-feel-better` — actionable
+- [Manus Ai](entities/m.md#manus-ai) — `manus-ai` — actionable
+- [Market Research Agent](entities/m.md#market-research-agent) — `market-research-agent` — actionable
+- [Marketing Growth Report](entities/m.md#marketing-growth-report) — `marketing-growth-report` — actionable
+- [Marketing Psychology](entities/m.md#marketing-psychology) — `marketing-psychology` — actionable
+- [Marketing Sales Guidance](entities/m.md#marketing-sales-guidance) — `marketing-sales-guidance` — actionable
+- [Marketing Skills](entities/m.md#marketing-skills) — `marketing-skills` — actionable
+- [Markitdown](entities/m.md#markitdown) — `markitdown` — actionable
+- [Mastra](entities/m.md#mastra) — `mastra` — showcase-link-only
+- [Matt Pocock](entities/m.md#matt-pocock) — `matt-pocock` — actionable
+- [Mattpocock Skills](entities/m.md#mattpocock-skills) — `mattpocock-skills` — actionable
+- [Max](entities/m.md#max) — `max` — actionable
+- [Maximalism](entities/m.md#maximalism) — `maximalism` — showcase-link-only
+- [Medium](entities/m.md#medium) — `medium` — actionable
+- [Mem Palace](entities/m.md#mem-palace) — `mem-palace` — actionable
+- [Memory](entities/m.md#memory) — `memory` — actionable
+- [Message Broker](entities/m.md#message-broker) — `message-broker` — actionable
+- [Meta Ad Library](entities/m.md#meta-ad-library) — `meta-ad-library` — actionable
+- [Meta Ads](entities/m.md#meta-ads) — `meta-ads` — actionable
+- [Meta Muse Code](entities/m.md#meta-muse-code) — `meta-muse-code` — showcase-link-only
+- [Meta Tags](entities/m.md#meta-tags) — `meta-tags` — actionable
+- [Microsoft](entities/m.md#microsoft) — `microsoft` — actionable
+- [Microsoft 365](entities/m.md#microsoft-365) — `microsoft-365` — actionable
+- [Microsoft Excel](entities/m.md#microsoft-excel) — `microsoft-excel` — actionable
+- [Microsoft Powerpoint](entities/m.md#microsoft-powerpoint) — `microsoft-powerpoint` — actionable
+- [Microsoft Word](entities/m.md#microsoft-word) — `microsoft-word` — actionable
+- [Midjourney](entities/m.md#midjourney) — `midjourney` — actionable
+- [Mini Swe Agent](entities/m.md#mini-swe-agent) — `mini-swe-agent` — showcase-link-only
+- [Minimalism](entities/m.md#minimalism) — `minimalism` — showcase-link-only
+- [Mirofish](entities/m.md#mirofish) — `mirofish` — actionable
+- [Mistral Vibe](entities/m.md#mistral-vibe) — `mistral-vibe` — actionable
+- [Mit License](entities/m.md#mit-license) — `mit-license` — actionable
+- [Mixboard](entities/m.md#mixboard) — `mixboard` — showcase-link-only
+- [Mobbin](entities/m.md#mobbin) — `mobbin` — actionable
+- [Modawallabs](entities/m.md#modawallabs) — `modawallabs` — actionable
+- [Model Building Agent](entities/m.md#model-building-agent) — `model-building-agent` — actionable
+- [Monitor Connected Tools](entities/m.md#monitor-connected-tools) — `monitor-connected-tools` — actionable
+- [Morluto](entities/m.md#morluto) — `morluto` — actionable
+- [Morningstar](entities/m.md#morningstar) — `morningstar` — actionable
+- [Motion](entities/m.md#motion) — `motion` — actionable
+- [Motion Canvas](entities/m.md#motion-canvas) — `motion-canvas` — actionable
+- [Motion Dev](entities/m.md#motion-dev) — `motion-dev` — actionable
+- [Motion Sites](entities/m.md#motion-sites) — `motion-sites` — actionable
+- [Motion So](entities/m.md#motion-so) — `motion-so` — actionable
+- [Motionsites Ai](entities/m.md#motionsites-ai) — `motionsites-ai` — actionable
+- [Mountain Silhouette](entities/m.md#mountain-silhouette) — `mountain-silhouette` — actionable
+- [Mrbeast](entities/m.md#mrbeast) — `mrbeast` — showcase-link-only
+- [Muapi](entities/m.md#muapi) — `muapi` — actionable
+- [Multi Agent](entities/m.md#multi-agent) — `multi-agent` — showcase-link-only
+- [N8N](entities/n.md#n8n) — `n8n` — showcase-link-only
+- [Nano Banana](entities/n.md#nano-banana) — `nano-banana` — actionable
+- [Nano Banana Pro](entities/n.md#nano-banana-pro) — `nano-banana-pro` — showcase-link-only
+- [Narva Ai](entities/n.md#narva-ai) — `narva-ai` — showcase-link-only
+- [Navbar Gallery](entities/n.md#navbar-gallery) — `navbar-gallery` — actionable
+- [Nemotron 3 5 Lightning](entities/n.md#nemotron-3-5-lightning) — `nemotron-3-5-lightning` — actionable
+- [Netflix](entities/n.md#netflix) — `netflix` — actionable
+- [Nextjs](entities/n.md#nextjs) — `nextjs` — showcase-link-only
+- [Nimble](entities/n.md#nimble) — `nimble` — skipped
+- [Nocturno Experience](entities/n.md#nocturno-experience) — `nocturno-experience` — showcase-link-only
+- [Nodejs](entities/n.md#nodejs) — `nodejs` — showcase-link-only
+- [Notebooklm](entities/n.md#notebooklm) — `notebooklm` — actionable
+- [Notebooklm Py](entities/n.md#notebooklm-py) — `notebooklm-py` — actionable
+- [Nous Research](entities/n.md#nous-research) — `nous-research` — actionable
+- [Nous Research Hermes Skills Hub](entities/n.md#nous-research-hermes-skills-hub) — `nous-research-hermes-skills-hub` — showcase-link-only
+- [Nousresearch](entities/n.md#nousresearch) — `nousresearch` — actionable
+- [Npm Test](entities/n.md#npm-test) — `npm-test` — actionable
+- [Nvda](entities/n.md#nvda) — `nvda` — actionable
+- [Nvidia](entities/n.md#nvidia) — `nvidia` — actionable
+- [Obs](entities/o.md#obs) — `obs` — actionable
+- [Obsidian](entities/o.md#obsidian) — `obsidian` — actionable
+- [Obsidian Second Brain](entities/o.md#obsidian-second-brain) — `obsidian-second-brain` — actionable
+- [Obsidian Skills](entities/o.md#obsidian-skills) — `obsidian-skills` — actionable
+- [Obsidian Vault](entities/o.md#obsidian-vault) — `obsidian-vault` — actionable
+- [Oho](entities/o.md#oho) — `oho` — showcase-link-only
+- [Ollama](entities/o.md#ollama) — `ollama` — actionable
+- [Omarchy](entities/o.md#omarchy) — `omarchy` — showcase-link-only
+- [Omni Flash](entities/o.md#omni-flash) — `omni-flash` — actionable
+- [One Agent One Playbook](entities/o.md#one-agent-one-playbook) — `one-agent-one-playbook` — actionable
+- [One Next Action](entities/o.md#one-next-action) — `one-next-action` — actionable
+- [Onetake](entities/o.md#onetake) — `onetake` — actionable
+- [Onyx](entities/o.md#onyx) — `onyx` — showcase-link-only
+- [Opcode](entities/o.md#opcode) — `opcode` — actionable
+- [Open Code Review](entities/o.md#open-code-review) — `open-code-review` — actionable
+- [Open Code Review Ai](entities/o.md#open-code-review-ai) — `open-code-review-ai` — actionable
+- [Open Design](entities/o.md#open-design) — `open-design` — actionable
+- [Open Generative Ai](entities/o.md#open-generative-ai) — `open-generative-ai` — actionable
+- [Open Source](entities/o.md#open-source) — `open-source` — actionable
+- [Open Terminal](entities/o.md#open-terminal) — `open-terminal` — actionable
+- [Openai](entities/o.md#openai) — `openai` — actionable
+- [Openchamber](entities/o.md#openchamber) — `openchamber` — actionable
+- [Opencode](entities/o.md#opencode) — `opencode` — showcase-link-only
+- [Opencut](entities/o.md#opencut) — `opencut` — actionable
+- [Opencut App](entities/o.md#opencut-app) — `opencut-app` — actionable
+- [Openseo](entities/o.md#openseo) — `openseo` — actionable
+- [Openwhispr](entities/o.md#openwhispr) — `openwhispr` — actionable
+- [Operations Productivity Systems](entities/o.md#operations-productivity-systems) — `operations-productivity-systems` — actionable
+- [Opus](entities/o.md#opus) — `opus` — actionable
+- [Opus 4 8](entities/o.md#opus-4-8) — `opus-4-8` — actionable
+- [Opus 5](entities/o.md#opus-5) — `opus-5` — showcase-link-only
+- [Opus 5 5](entities/o.md#opus-5-5) — `opus-5-5` — actionable
+- [Orbit Agents](entities/o.md#orbit-agents) — `orbit-agents` — actionable
+- [Orbitagents](entities/o.md#orbitagents) — `orbitagents` — actionable
+- [Orca](entities/o.md#orca) — `orca` — showcase-link-only
+- [Orchestrator](entities/o.md#orchestrator) — `orchestrator` — showcase-link-only
+- [Originkit](entities/o.md#originkit) — `originkit` — actionable
+- [Osint](entities/o.md#osint) — `osint` — actionable
+- [Outbox Relay](entities/o.md#outbox-relay) — `outbox-relay` — actionable
+- [Output](entities/o.md#output) — `output` — actionable
+- [Owasp Skill](entities/o.md#owasp-skill) — `owasp-skill` — actionable
+- [Paid Ads](entities/p.md#paid-ads) — `paid-ads` — actionable
+- [Parallel Agents](entities/p.md#parallel-agents) — `parallel-agents` — actionable
+- [Parkinsons Law](entities/p.md#parkinsons-law) — `parkinsons-law` — actionable
+- [Parsing](entities/p.md#parsing) — `parsing` — showcase-link-only
+- [Pasqua Wines Showcase](entities/p.md#pasqua-wines-showcase) — `pasqua-wines-showcase` — showcase-link-only
+- [Pear](entities/p.md#pear) — `pear` — showcase-link-only
+- [Penetration Testing](entities/p.md#penetration-testing) — `penetration-testing` — actionable
+- [Peng Heong](entities/p.md#peng-heong) — `peng-heong` — skipped
+- [Pentagi](entities/p.md#pentagi) — `pentagi` — showcase-link-only
+- [Performance Optimization Skill](entities/p.md#performance-optimization-skill) — `performance-optimization-skill` — actionable
+- [Pessimistic Locking](entities/p.md#pessimistic-locking) — `pessimistic-locking` — actionable
+- [Petaling Jaya](entities/p.md#petaling-jaya) — `petaling-jaya` — skipped
+- [Photoshop](entities/p.md#photoshop) — `photoshop` — actionable
+- [Pinokio](entities/p.md#pinokio) — `pinokio` — actionable
+- [Pinterest](entities/p.md#pinterest) — `pinterest` — actionable
+- [Plan](entities/p.md#plan) — `plan` — actionable
+- [Plugin Marketplace](entities/p.md#plugin-marketplace) — `plugin-marketplace` — actionable
+- [Plugins](entities/p.md#plugins) — `plugins` — actionable
+- [Pnpm](entities/p.md#pnpm) — `pnpm` — actionable
+- [Polymarket](entities/p.md#polymarket) — `polymarket` — showcase-link-only
+- [Pomelli](entities/p.md#pomelli) — `pomelli` — showcase-link-only
+- [Portfolio Websites](entities/p.md#portfolio-websites) — `portfolio-websites` — showcase-link-only
+- [Postgres](entities/p.md#postgres) — `postgres` — actionable
+- [Postgresql](entities/p.md#postgresql) — `postgresql` — showcase-link-only
+- [Posthog](entities/p.md#posthog) — `posthog` — actionable
+- [Poteto Mode](entities/p.md#poteto-mode) — `poteto-mode` — actionable
+- [Power Washing Website](entities/p.md#power-washing-website) — `power-washing-website` — showcase-link-only
+- [Ppt Master](entities/p.md#ppt-master) — `ppt-master` — actionable
+- [Prd](entities/p.md#prd) — `prd` — showcase-link-only
+- [Prd Md](entities/p.md#prd-md) — `prd-md` — actionable
+- [Pre Mortem](entities/p.md#pre-mortem) — `pre-mortem` — actionable
+- [Premiere](entities/p.md#premiere) — `premiere` — showcase-link-only
+- [Priority Tracking](entities/p.md#priority-tracking) — `priority-tracking` — actionable
+- [Privacy Risk](entities/p.md#privacy-risk) — `privacy-risk` — actionable
+- [Production Database](entities/p.md#production-database) — `production-database` — actionable
+- [Project Artifact](entities/p.md#project-artifact) — `project-artifact` — actionable
+- [Prompt Cache](entities/p.md#prompt-cache) — `prompt-cache` — actionable
+- [Prompt Master](entities/p.md#prompt-master) — `prompt-master` — actionable
+- [Prompt Md](entities/p.md#prompt-md) — `prompt-md` — actionable
+- [Prompt Motion](entities/p.md#prompt-motion) — `prompt-motion` — showcase-link-only
+- [Prompt Template](entities/p.md#prompt-template) — `prompt-template` — showcase-link-only
+- [Prospector Mod](entities/p.md#prospector-mod) — `prospector-mod` — actionable
+- [Psd](entities/p.md#psd) — `psd` — actionable
+- [Public Apis](entities/p.md#public-apis) — `public-apis` — actionable
+- [Python](entities/p.md#python) — `python` — actionable
+- [Qdrant](entities/q.md#qdrant) — `qdrant` — showcase-link-only
+- [Query Optimization](entities/q.md#query-optimization) — `query-optimization` — actionable
+- [Quiver Quant](entities/q.md#quiver-quant) — `quiver-quant` — actionable
+- [Qwen](entities/q.md#qwen) — `qwen` — skipped
+- [Qwen Image 2 1 Turbo](entities/q.md#qwen-image-2-1-turbo) — `qwen-image-2-1-turbo` — showcase-link-only
+- [Qwen3 8 Max](entities/q.md#qwen3-8-max) — `qwen3-8-max` — showcase-link-only
+- [Qwen3 Tts](entities/q.md#qwen3-tts) — `qwen3-tts` — actionable
+- [Rae](entities/r.md#rae) — `rae` — actionable
+- [Railway Bridge](entities/r.md#railway-bridge) — `railway-bridge` — actionable
+- [Rate Limiting](entities/r.md#rate-limiting) — `rate-limiting` — showcase-link-only
+- [Raw](entities/r.md#raw) — `raw` — actionable
+- [Re Ranking](entities/r.md#re-ranking) — `re-ranking` — showcase-link-only
+- [Recap](entities/r.md#recap) — `recap` — actionable
+- [Receipts Plugin](entities/r.md#receipts-plugin) — `receipts-plugin` — actionable
+- [Recon](entities/r.md#recon) — `recon` — actionable
+- [Recordly](entities/r.md#recordly) — `recordly` — actionable
+- [Red Team](entities/r.md#red-team) — `red-team` — actionable
+- [Reddit](entities/r.md#reddit) — `reddit` — actionable
+- [Reelmimic](entities/r.md#reelmimic) — `reelmimic` — actionable
+- [Reflect](entities/r.md#reflect) — `reflect` — actionable
+- [Reflection Beam](entities/r.md#reflection-beam) — `reflection-beam` — showcase-link-only
+- [Relay](entities/r.md#relay) — `relay` — actionable
+- [Remotion](entities/r.md#remotion) — `remotion` — actionable
+- [Replica](entities/r.md#replica) — `replica` — actionable
+- [Replica Skill](entities/r.md#replica-skill) — `replica-skill` — showcase-link-only
+- [Repo Map](entities/r.md#repo-map) — `repo-map` — actionable
+- [Repomix](entities/r.md#repomix) — `repomix` — actionable
+- [Repose Residence](entities/r.md#repose-residence) — `repose-residence` — showcase-link-only
+- [Retrieval](entities/r.md#retrieval) — `retrieval` — showcase-link-only
+- [Retrieval Augmented Generation](entities/r.md#retrieval-augmented-generation) — `retrieval-augmented-generation` — actionable
+- [Retriever](entities/r.md#retriever) — `retriever` — showcase-link-only
+- [Reusable Components](entities/r.md#reusable-components) — `reusable-components` — actionable
+- [Revenuecat](entities/r.md#revenuecat) — `revenuecat` — actionable
+- [Reverse Api Engineer](entities/r.md#reverse-api-engineer) — `reverse-api-engineer` — actionable
+- [Reverse Engineer Anything](entities/r.md#reverse-engineer-anything) — `reverse-engineer-anything` — actionable
+- [Reverseapi Dev](entities/r.md#reverseapi-dev) — `reverseapi-dev` — actionable
+- [Review](entities/r.md#review) — `review` — actionable
+- [Rewind Menu](entities/r.md#rewind-menu) — `rewind-menu` — actionable
+- [Roast Room](entities/r.md#roast-room) — `roast-room` — actionable
+- [Robinhood](entities/r.md#robinhood) — `robinhood` — actionable
+- [Rollback](entities/r.md#rollback) — `rollback` — actionable
+- [Router Agent](entities/r.md#router-agent) — `router-agent` — actionable
+- [Rtk](entities/r.md#rtk) — `rtk` — actionable
+- [Ruflo](entities/r.md#ruflo) — `ruflo` — actionable
+- [Ruflo Agent Swarm Console](entities/r.md#ruflo-agent-swarm-console) — `ruflo-agent-swarm-console` — actionable
+- [Runable Ai](entities/r.md#runable-ai) — `runable-ai` — actionable
+- [Rust](entities/r.md#rust) — `rust` — actionable
+- [Rust Office Clones](entities/r.md#rust-office-clones) — `rust-office-clones` — showcase-link-only
+- [Saas Landing Page](entities/s.md#saas-landing-page) — `saas-landing-page` — actionable
+- [Safety Layer](entities/s.md#safety-layer) — `safety-layer` — showcase-link-only
+- [Sam Altman](entities/s.md#sam-altman) — `sam-altman` — showcase-link-only
+- [Sana Wm](entities/s.md#sana-wm) — `sana-wm` — showcase-link-only
+- [Sarah](entities/s.md#sarah) — `sarah` — showcase-link-only
+- [Scaling](entities/s.md#scaling) — `scaling` — actionable
+- [Scan](entities/s.md#scan) — `scan` — actionable
+- [Sceneai](entities/s.md#sceneai) — `sceneai` — showcase-link-only
+- [Scion](entities/s.md#scion) — `scion` — showcase-link-only
+- [Scout](entities/s.md#scout) — `scout` — showcase-link-only
+- [Scrapling](entities/s.md#scrapling) — `scrapling` — showcase-link-only
+- [Scroll Craft](entities/s.md#scroll-craft) — `scroll-craft` — actionable
+- [Scrolltide](entities/s.md#scrolltide) — `scrolltide` — actionable
+- [Search Sessions](entities/s.md#search-sessions) — `search-sessions` — actionable
+- [Second Brain](entities/s.md#second-brain) — `second-brain` — actionable
+- [Security Audit](entities/s.md#security-audit) — `security-audit` — actionable
+- [Security Audit Skill](entities/s.md#security-audit-skill) — `security-audit-skill` — actionable
+- [Security Sweep](entities/s.md#security-sweep) — `security-sweep` — showcase-link-only
+- [Self Improvement](entities/s.md#self-improvement) — `self-improvement` — actionable
+- [Senior Design Architect](entities/s.md#senior-design-architect) — `senior-design-architect` — actionable
+- [Seo](entities/s.md#seo) — `seo` — actionable
+- [Seo Audit](entities/s.md#seo-audit) — `seo-audit` — actionable
+- [Seo Keywords](entities/s.md#seo-keywords) — `seo-keywords` — actionable
+- [Sequential Agents](entities/s.md#sequential-agents) — `sequential-agents` — actionable
+- [Server](entities/s.md#server) — `server` — actionable
+- [Server Tests](entities/s.md#server-tests) — `server-tests` — actionable
+- [Sessions Team Up](entities/s.md#sessions-team-up) — `sessions-team-up` — showcase-link-only
+- [Shadcn](entities/s.md#shadcn) — `shadcn` — actionable
+- [Shader Library](entities/s.md#shader-library) — `shader-library` — actionable
+- [Shopify](entities/s.md#shopify) — `shopify` — actionable
+- [Simplify Command](entities/s.md#simplify-command) — `simplify-command` — actionable
+- [Sitemap Xml](entities/s.md#sitemap-xml) — `sitemap-xml` — actionable
+- [Skill Finder](entities/s.md#skill-finder) — `skill-finder` — actionable
+- [Skill Md](entities/s.md#skill-md) — `skill-md` — actionable
+- [Skill Ui](entities/s.md#skill-ui) — `skill-ui` — actionable
+- [Skillopt](entities/s.md#skillopt) — `skillopt` — actionable
+- [Skills](entities/s.md#skills) — `skills` — actionable
+- [Skills Agent](entities/s.md#skills-agent) — `skills-agent` — actionable
+- [Skills Hub](entities/s.md#skills-hub) — `skills-hub` — actionable
+- [Skills Sh](entities/s.md#skills-sh) — `skills-sh` — actionable
+- [Skills Toolkit](entities/s.md#skills-toolkit) — `skills-toolkit` — actionable
+- [Skillspector](entities/s.md#skillspector) — `skillspector` — actionable
+- [Skiper Ui](entities/s.md#skiper-ui) — `skiper-ui` — actionable
+- [Slash Commands](entities/s.md#slash-commands) — `slash-commands` — showcase-link-only
+- [Sleep Mode](entities/s.md#sleep-mode) — `sleep-mode` — actionable
+- [Smooth Loader](entities/s.md#smooth-loader) — `smooth-loader` — showcase-link-only
+- [Snailsploit](entities/s.md#snailsploit) — `snailsploit` — actionable
+- [Snapshot](entities/s.md#snapshot) — `snapshot` — actionable
+- [Snug Wrld](entities/s.md#snug-wrld) — `snug-wrld` — showcase-link-only
+- [Social Platforms](entities/s.md#social-platforms) — `social-platforms` — actionable
+- [Sonarqube](entities/s.md#sonarqube) — `sonarqube` — actionable
+- [Sonnet](entities/s.md#sonnet) — `sonnet` — actionable
+- [Sonnet 4 5](entities/s.md#sonnet-4-5) — `sonnet-4-5` — actionable
+- [Sonnet 5 5](entities/s.md#sonnet-5-5) — `sonnet-5-5` — actionable
+- [Spacex](entities/s.md#spacex) — `spacex` — actionable
+- [Spcx](entities/s.md#spcx) — `spcx` — actionable
+- [Spokeo](entities/s.md#spokeo) — `spokeo` — actionable
+- [Spotify](entities/s.md#spotify) — `spotify` — showcase-link-only
+- [Sql Join](entities/s.md#sql-join) — `sql-join` — actionable
+- [Square](entities/s.md#square) — `square` — actionable
+- [St 248](entities/s.md#st-248) — `st-248` — actionable
+- [Stanford](entities/s.md#stanford) — `stanford` — actionable
+- [Steak](entities/s.md#steak) — `steak` — skipped
+- [Steel Man](entities/s.md#steel-man) — `steel-man` — actionable
+- [Stitch](entities/s.md#stitch) — `stitch` — showcase-link-only
+- [Stock Analysis Agent](entities/s.md#stock-analysis-agent) — `stock-analysis-agent` — actionable
+- [Stocktrader](entities/s.md#stocktrader) — `stocktrader` — actionable
+- [Stripe](entities/s.md#stripe) — `stripe` — actionable
+- [Structured Decisions](entities/s.md#structured-decisions) — `structured-decisions` — showcase-link-only
+- [Studio Room Bookings](entities/s.md#studio-room-bookings) — `studio-room-bookings` — actionable
+- [Styles Refero Design](entities/s.md#styles-refero-design) — `styles-refero-design` — actionable
+- [Subagents](entities/s.md#subagents) — `subagents` — actionable
+- [Superclaude Framework](entities/s.md#superclaude-framework) — `superclaude-framework` — actionable
+- [Superset](entities/s.md#superset) — `superset` — actionable
+- [Supper Spot](entities/s.md#supper-spot) — `supper-spot` — skipped
+- [Swarms](entities/s.md#swarms) — `swarms` — actionable
+- [Swift](entities/s.md#swift) — `swift` — actionable
+- [Swoodsmokehouse](entities/s.md#swoodsmokehouse) — `swoodsmokehouse` — skipped
+- [Swot](entities/s.md#swot) — `swot` — actionable
+- [Symmetric Aead](entities/s.md#symmetric-aead) — `symmetric-aead` — actionable
+- [Tailwind Css](entities/t.md#tailwind-css) — `tailwind-css` — actionable
+- [Task Overview](entities/t.md#task-overview) — `task-overview` — actionable
+- [Taste Skill](entities/t.md#taste-skill) — `taste-skill` — actionable
+- [Tcp Handshake](entities/t.md#tcp-handshake) — `tcp-handshake` — actionable
+- [Teach](entities/t.md#teach) — `teach` — actionable
+- [Tencent Hy Mt2](entities/t.md#tencent-hy-mt2) — `tencent-hy-mt2` — showcase-link-only
+- [Terminal Bench 2 0](entities/t.md#terminal-bench-2-0) — `terminal-bench-2-0` — actionable
+- [Terminal Browser](entities/t.md#terminal-browser) — `terminal-browser` — actionable
+- [Test](entities/t.md#test) — `test` — actionable
+- [Texas Bbq](entities/t.md#texas-bbq) — `texas-bbq` — skipped
+- [Text Observer](entities/t.md#text-observer) — `text-observer` — showcase-link-only
+- [Textura Agency](entities/t.md#textura-agency) — `textura-agency` — showcase-link-only
+- [The Art Of Illusion](entities/t.md#the-art-of-illusion) — `the-art-of-illusion` — actionable
+- [Three Js](entities/t.md#three-js) — `three-js` — actionable
+- [Threejs](entities/t.md#threejs) — `threejs` — actionable
+- [Tls](entities/t.md#tls) — `tls` — actionable
+- [Tokenization](entities/t.md#tokenization) — `tokenization` — showcase-link-only
+- [Tom](entities/t.md#tom) — `tom` — showcase-link-only
+- [Tomahawk Steak](entities/t.md#tomahawk-steak) — `tomahawk-steak` — skipped
+- [Tongshui](entities/t.md#tongshui) — `tongshui` — skipped
+- [Tool Agent](entities/t.md#tool-agent) — `tool-agent` — actionable
+- [Top K](entities/t.md#top-k) — `top-k` — showcase-link-only
+- [Total Typescript](entities/t.md#total-typescript) — `total-typescript` — actionable
+- [Trader Skill Pack](entities/t.md#trader-skill-pack) — `trader-skill-pack` — actionable
+- [Trading Agent](entities/t.md#trading-agent) — `trading-agent` — actionable
+- [Trading Agents](entities/t.md#trading-agents) — `trading-agents` — actionable
+- [Trading Bot](entities/t.md#trading-bot) — `trading-bot` — showcase-link-only
+- [Tradingview](entities/t.md#tradingview) — `tradingview` — actionable
+- [Traffic Light System](entities/t.md#traffic-light-system) — `traffic-light-system` — actionable
+- [Transitions Dev](entities/t.md#transitions-dev) — `transitions-dev` — actionable
+- [Trd](entities/t.md#trd) — `trd` — showcase-link-only
+- [Truepeoplesearch](entities/t.md#truepeoplesearch) — `truepeoplesearch` — actionable
+- [Tsla](entities/t.md#tsla) — `tsla` — actionable
+- [Tweakcn](entities/t.md#tweakcn) — `tweakcn` — actionable
+- [Twitter](entities/t.md#twitter) — `twitter` — actionable
+- [Typecheck](entities/t.md#typecheck) — `typecheck` — actionable
+- [Typesafe Ai](entities/t.md#typesafe-ai) — `typesafe-ai` — showcase-link-only
+- [Typescript](entities/t.md#typescript) — `typescript` — actionable
+- [Ultraworkers](entities/u.md#ultraworkers) — `ultraworkers` — actionable
+- [Understand Anything](entities/u.md#understand-anything) — `understand-anything` — actionable
+- [Uniface](entities/u.md#uniface) — `uniface` — actionable
+- [Unique Constraint](entities/u.md#unique-constraint) — `unique-constraint` — actionable
+- [Username Check](entities/u.md#username-check) — `username-check` — actionable
+- [Ux Pro Max](entities/u.md#ux-pro-max) — `ux-pro-max` — showcase-link-only
+- [Ux Ui Agent](entities/u.md#ux-ui-agent) — `ux-ui-agent` — actionable
+- [Valyu](entities/v.md#valyu) — `valyu` — actionable
+- [Vanta](entities/v.md#vanta) — `vanta` — actionable
+- [Vault](entities/v.md#vault) — `vault` — actionable
+- [Vector Database](entities/v.md#vector-database) — `vector-database` — actionable
+- [Vector Db](entities/v.md#vector-db) — `vector-db` — showcase-link-only
+- [Vectorcraft](entities/v.md#vectorcraft) — `vectorcraft` — showcase-link-only
+- [Vengeance Ui](entities/v.md#vengeance-ui) — `vengeance-ui` — actionable
+- [Veo 3](entities/v.md#veo-3) — `veo-3` — actionable
+- [Vertical Scaling](entities/v.md#vertical-scaling) — `vertical-scaling` — actionable
+- [Vibe Coded Apps](entities/v.md#vibe-coded-apps) — `vibe-coded-apps` — actionable
+- [Vibe Coded Systems](entities/v.md#vibe-coded-systems) — `vibe-coded-systems` — actionable
+- [Vibe Coding](entities/v.md#vibe-coding) — `vibe-coding` — actionable
+- [Vibe Wise](entities/v.md#vibe-wise) — `vibe-wise` — actionable
+- [Vibewise](entities/v.md#vibewise) — `vibewise` — actionable
+- [Virtual Company](entities/v.md#virtual-company) — `virtual-company` — actionable
+- [Visible Progress](entities/v.md#visible-progress) — `visible-progress` — actionable
+- [Voice Studio](entities/v.md#voice-studio) — `voice-studio` — actionable
+- [Voicebox](entities/v.md#voicebox) — `voicebox` — actionable
+- [Voicestudio](entities/v.md#voicestudio) — `voicestudio` — actionable
+- [Watch Skill](entities/w.md#watch-skill) — `watch-skill` — actionable
+- [Watch Video Skill](entities/w.md#watch-video-skill) — `watch-video-skill` — actionable
+- [Wcag 2 2](entities/w.md#wcag-2-2) — `wcag-2-2` — actionable
+- [We Are Brand](entities/w.md#we-are-brand) — `we-are-brand` — showcase-link-only
+- [Web Design Guidelines](entities/w.md#web-design-guidelines) — `web-design-guidelines` — actionable
+- [Web Interface Guidelines](entities/w.md#web-interface-guidelines) — `web-interface-guidelines` — actionable
+- [Websockets](entities/w.md#websockets) — `websockets` — actionable
+- [Weknora](entities/w.md#weknora) — `weknora` — actionable
+- [Whisper](entities/w.md#whisper) — `whisper` — actionable
+- [Whisper Flow](entities/w.md#whisper-flow) — `whisper-flow` — actionable
+- [Whitepages](entities/w.md#whitepages) — `whitepages` — actionable
+- [Wiki](entities/w.md#wiki) — `wiki` — actionable
+- [Wikipedia Signs Of Ai Writing](entities/w.md#wikipedia-signs-of-ai-writing) — `wikipedia-signs-of-ai-writing` — actionable
+- [Winnow 12B](entities/w.md#winnow-12b) — `winnow-12b` — skipped
+- [Wordcraft](entities/w.md#wordcraft) — `wordcraft` — actionable
+- [Workbuddy Bench](entities/w.md#workbuddy-bench) — `workbuddy-bench` — actionable
+- [Wrap Up Skill](entities/w.md#wrap-up-skill) — `wrap-up-skill` — actionable
+- [Wshobson Agents](entities/w.md#wshobson-agents) — `wshobson-agents` — actionable
+- [X](entities/x.md#x) — `x` — actionable
+- [Xcode](entities/x.md#xcode) — `xcode` — actionable
+- [Xiaomi Mimo V2 6 Pro](entities/x.md#xiaomi-mimo-v2-6-pro) — `xiaomi-mimo-v2-6-pro` — showcase-link-only
+- [Xtool](entities/x.md#xtool) — `xtool` — actionable
+- [You Should Know](entities/y.md#you-should-know) — `you-should-know` — actionable
+- [Youtube](entities/y.md#youtube) — `youtube` — showcase-link-only
+- [Youtube To Notebooklm](entities/y.md#youtube-to-notebooklm) — `youtube-to-notebooklm` — actionable
+- [Yt Dlp](entities/y.md#yt-dlp) — `yt-dlp` — actionable
