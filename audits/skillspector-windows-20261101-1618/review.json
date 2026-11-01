@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-11-01T16:18:00+08:00",
+  "timezone": "Asia/Kuala_Lumpur",
+  "device_alias": "windows-local",
+  "component": "skillspector",
+  "version": "2.12.0",
+  "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+  "scope": "user",
+  "source": "https://github.com/NVIDIA/skillspector",
+  "source_review": "Reviewed pinned pyproject dependencies/build backend, initialization, lazy graph bootstrap and CLI static path. Installed module hashes after CRLF normalization match prior reviewed hashes. Scoped bootstrap review, not full security certification.",
+  "installation": {
+    "method": "uv tool install from pinned Git revision with saved dependency constraints",
+    "uv": "0.13.6",
+    "python": "3.13.18",
+    "executable": "~/.local/bin/skillspector.exe",
+    "path": "user PATH updated"
+  },
+  "verification": {
+    "version": "2.12.0",
+    "source_commit_verified": true,
+    "dependency_check": "72 compatible packages",
+    "static_scan": {
+      "target": "codebase-design (three source markdown files, staged only)",
+      "source_revision": "49dd158d1076134a641b33efb035946536778336",
+      "exit_code": 0,
+      "coverage_percent": 100,
+      "complete": true,
+      "findings": 0,
+      "llm_requested": false
+    },
+    "runtime_code_hashes_lf": {
+      "__init__.py": "734622eaa737a4964c27f0d3c0baa45505c645bb121942c7556c984509e473da",
+      "cli.py": "da8cf5f0be36257c0e76d1a092150cc1f7a4b3050117b7e8cc78bfa2f6a4d988"
+    }
+  },
+  "notes": [
+    "Python minor-version shortcut creation initially failed; actual interpreter verified and installation completed using explicit interpreter path.",
+    "Initial test fixture omitted two referenced files; complete three-file fixture passed.",
+    "No custom skills activated."
+  ]
+}
