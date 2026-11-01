@@ -1,0 +1,214 @@
+{
+  "id": "2026-11-01-ecc-advisor-subset",
+  "recorded_at": "2026-11-01T17:59:33Z",
+  "task": "Clarify the website-advice flow and assess ECC as a source for skill discovery, installed-skill audits and learning.",
+  "constraints": {
+    "explicit": [
+      "User asks whether Agency Agents plus Vercel Find Skills generate the initial website idea",
+      "User asks how ECC fits"
+    ],
+    "scope": "Source comparison and recommendation refinement; no installation or website build requested.",
+    "preserve": [
+      "Existing full-ECC not-selected catalog decision",
+      "Existing skill/install/MCP review rules",
+      "Single primary design direction and one development workflow owner"
+    ]
+  },
+  "device_alias": "unknown-target-device",
+  "related_decisions": [
+    "2026-11-01-skill-advisor-coverage-and-specialists",
+    "2026-11-01-design-skill-overlap-book-showcase"
+  ],
+  "candidates": [
+    {
+      "identity": "ECC (Everything Claude Code), selective advisor workflows",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "skills/skill-scout/SKILL.md",
+        "skills/skill-stocktake/SKILL.md",
+        "skills/search-first/SKILL.md",
+        "skills/iterative-retrieval/SKILL.md",
+        "skills/continuous-learning-v2/SKILL.md"
+      ],
+      "recorded_revision": "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29",
+      "installed_revision": null,
+      "upstream_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "manifest_version": "2.2.3",
+      "checked_at": "2026-11-01T17:59:33Z",
+      "review_depth": "Read all five listed SKILL.md files, stocktake scan.sh and quick-diff.sh, continuous-learning-v2 config, full Codex plugin README/manifest, Codex hook projection, root MCP config and issue #3742. Main README introduction/outline only. No scripts/hooks installed or executed; no full bundle audit.",
+      "fit": {
+        "skill-scout": "Directly relevant local/marketplace/GitHub/web discovery before creating or choosing a skill; checks actual instructions before adoption.",
+        "skill-stocktake": "Directly relevant inventory and overlap/currency reviews, with keep/improve/update/retire/merge recommendations and explicit explanations.",
+        "search-first": "Useful when selecting runtime dependencies, packages, MCPs and implementation approaches.",
+        "iterative-retrieval": "Optional query-refinement pattern for missing code context; pseudocode is not a semantic retrieval engine.",
+        "continuous-learning-v2": "Session observation and learned behavior patterns; does not establish current upstream skill knowledge or prove optimal combinations."
+      },
+      "overlap": "Scout overlaps Find Skills discovery; use Find Skills as a search channel rather than running two complete selection processes. Stocktake is more skill-specific than Agency Tool Evaluator's enterprise procurement brief. Full ECC planning/TDD/review overlaps existing Superpowers workflows.",
+      "prerequisites": [
+        "Resolve actual Codex skill roots instead of copying Claude-only paths",
+        "Bash, Node.js and jq for stocktake scripts",
+        "Read supporting scripts and apply existing SkillSpector/install gates before activation",
+        "Host-specific hooks/dependencies for optional automatic learning; separate from skill text"
+      ],
+      "costs": "Current manifest declares MIT. Agent evaluations and any subagents consume model usage. Stocktake's 5–10/20–30 minute figures are upstream estimates, not measured here. Full plugin also bundles runtime hook/MCP integration.",
+      "uncertainties": [
+        "Skill Scout ranks name/description matches and source maintenance; it is keyword-oriented and does not itself prove task fit or complete coverage.",
+        "Stocktake's current default roots are ~/.claude/skills and project .claude/skills. Packaging in the Codex plugin does not automatically adapt each skill's path assumptions.",
+        "scan.sh explicitly does not parse multiline YAML fields. It follows directory symlinks. Its inventory scope/parsing behavior needs reconciliation with this repo's read-only explicit-root inspector before reuse.",
+        "Quick Scan uses new paths and mtimes relative to evaluated_at; it does not detect every supporting-file change or upstream repository update. Full inventory errors fail; quick-diff may warn and continue. Do not interpret unchanged mtimes as current upstream verification.",
+        "Usage counts require an optional observations file. Missing data are correctly marked unmeasured, not zero, and must not justify removal.",
+        "Native Codex hook projection currently provides SessionStart bootstrap only, not continuous-learning-v2's Claude PreToolUse/PostToolUse observation hooks. Observer config defaults to enabled:false; automatic learning cannot be assumed.",
+        "Continuous-learning instructions claim 100% reliable hook capture and increase confidence when users do not correct behavior. Those are not verified guarantees; silence is not approval or correctness evidence.",
+        "Issue #3742 reports a Codex 0.164 cache fingerprint problem after dependency installs; current plugin docs describe an opt-in workaround. No reproduction or fix validation performed.",
+        "The previous-to-current compare reports 390 commits; large compare file listings may be capped, so no claim that an unlisted file was unchanged.",
+        "No comparative outcome evidence establishes that these modules outperform the existing advisor."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Understand the website and account for all required capabilities",
+      "examined": [
+        "Current advisor coverage instructions",
+        "ECC skill-scout intent capture"
+      ],
+      "chosen_owner": "Repo Tool Advisor",
+      "reason": "Task decomposition and source coverage remain the coordinating responsibility."
+    },
+    {
+      "job": "Discover relevant skills",
+      "examined": [
+        "ECC skill-scout",
+        "Previously reviewed Find Skills"
+      ],
+      "chosen_owner": "Proposed ECC-inspired scout workflow with Find Skills as an optional registry channel",
+      "reason": "Local-first discovery plus current-source vetting is more directly relevant than a generic expert persona."
+    },
+    {
+      "job": "Audit actual installed skills",
+      "examined": [
+        "ECC skill-stocktake",
+        "Existing scripts/knowledge.py inspect"
+      ],
+      "chosen_owner": "Existing read-only inspector plus proposed adapted stocktake review method",
+      "gap": "Laptop unavailable; current Codex roots and payloads not inspected.",
+      "reason": "Run a scoped audit when assessing setup changes; a full stocktake is not required before every website."
+    },
+    {
+      "job": "Develop the visual idea",
+      "examined": [
+        "Prior Refero/Taste comparison"
+      ],
+      "chosen_owner": "One selected visual-design specialist",
+      "reason": "Tool discovery selects the specialist; it does not itself supply art direction."
+    },
+    {
+      "job": "Choose implementation and coordinate delivery",
+      "examined": [
+        "ECC search-first",
+        "Historical full-ECC/Superpowers comparison"
+      ],
+      "chosen_owner": "Existing development workflow with task-specific tools",
+      "reason": "Keep full ECC as an alternative rather than an additional baseline; use narrow research methods as needed."
+    },
+    {
+      "job": "Retain outcomes and corrections",
+      "examined": [
+        "Existing repo decision records",
+        "ECC continuous-learning-v2 docs/config/host projection"
+      ],
+      "chosen_owner": "Sanitized decision records",
+      "reason": "Automatic learning needs explicit host-specific setup and demonstrated behavior; it does not refresh upstream knowledge by itself."
+    }
+  ],
+  "decision": {
+    "status": "Proposed selective refinement, not accepted installation choices.",
+    "recommendation": "Prefer ECC's skill-specific scout/stocktake methods as source material for the Tool Advisor, with Find Skills as one discovery channel. Agency Tool Evaluator becomes optional for broader tool/platform comparisons. Retain the repo coverage gate, current-source/device checks and outcome evidence.",
+    "refines_prior_recommendation": "The preceding decision proposed adapting the generic Agency Tool Evaluator approach. Reading ECC's actual skill-specific modules provides a more direct source for the discovery and installed-skill-audit portions; no benchmarked superiority is claimed.",
+    "website_sequence": [
+      "Understand the brief and required capabilities",
+      "Check relevant available/installed skills and prior decisions",
+      "Search additional candidates and read current upstream instructions",
+      "Select a compatible combination and explain deferred alternatives",
+      "Use one design specialist to develop the concept",
+      "Implement using domain specialists and one development workflow",
+      "Verify the result and save outcomes"
+    ],
+    "deferred": [
+      "Full ECC baseline installation",
+      "Agency Orchestrator as a mandatory first step",
+      "Full stocktake on every website request",
+      "Automatic observation/instinct learning",
+      "A second competing design or planning controller"
+    ],
+    "actions_completed": [
+      "Current ECC source/compatibility review",
+      "Persisted recommendation refinement and routing link"
+    ],
+    "installs_or_removals": [],
+    "not_implemented": [
+      "A separately configured Tool Advisor agent",
+      "Adapted Codex stocktake scripts",
+      "Automatic invocation pipeline",
+      "Candidate runtime benchmark"
+    ]
+  },
+  "evidence": [
+    {
+      "url": "https://api.github.com/repos/affaan-m/everything-claude-code/commits?per_page=1",
+      "finding": "Old repository name returns a move; maintained source resolves as affaan-m/ECC."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/skills/skill-scout/SKILL.md",
+      "finding": "Explicit local and remote skill discovery, instruction vetting, keyword/source ranking and use/fork/create choices."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/skills/skill-stocktake/SKILL.md",
+      "finding": "Installed-skill overlap/currency review with actionable verdicts; missing usage data not grounds for retirement; archive/delete requires explicit confirmation."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/skills/skill-stocktake/scripts/quick-diff.sh",
+      "finding": "Quick changes determined from new paths and mtimes; no upstream revision fetch."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/hooks/codex-hooks.json",
+      "finding": "Current native Codex projection contains SessionStart bootstrap only."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/skills/continuous-learning-v2/config.json",
+      "finding": "Background observer defaults to disabled."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/issues/3742",
+      "finding": "Open report of Codex plugin-cache symlink fingerprint rejection; supporting workaround documented but not tested here."
+    },
+    {
+      "local_ref": "github-repos/reviews.json",
+      "finding": "Prior full-ECC review already records not-selected due to overlap with existing setup. Selective workflow research does not change that adoption status."
+    },
+    {
+      "unperformed_checks": [
+        "Full candidate security/runtime audit",
+        "Installation or host-hook activation",
+        "Actual target-device inventory",
+        "Stocktake execution",
+        "Independent advisor benchmark",
+        "Website design/build"
+      ]
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "explicit question",
+      "text": "User asks whether Agency Agents plus Find Skills produce website ideas and asks about ECC. This is not an installation choice."
+    }
+  ],
+  "revisit_when": [
+    "User requests implementing the advisor",
+    "Codex path/host adaptation and candidate scans are completed",
+    "Representative tasks show a measured improvement",
+    "User chooses ECC as the primary development framework",
+    "Automatic learning is explicitly requested and host behavior verified"
+  ],
+  "supersedes": []
+}
