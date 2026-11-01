@@ -1,0 +1,30 @@
+{
+  "name": "reel-knowledge-extractor",
+  "version": "1.0.2",
+  "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+  "status": "reviewed-static-and-installed",
+  "scope": "user-global ~/.agents/skills/reel-knowledge-extractor",
+  "change": "Allow documented exact-project technology credits from reliable primary sources for showcases; keep inferred responsibilities unknown. Specify resumable local library layout with entity pages/database, source ledger and checkpoint.",
+  "scanner": {
+    "name": "SkillSpector",
+    "version": "2.12.0",
+    "mode": "local static only; no LLM",
+    "execution_successful": true,
+    "complete": true,
+    "coverage_percent": 100,
+    "findings": 0
+  },
+  "verification": {
+    "quick_validate": "Skill is valid",
+    "behavioral_checks": "Independent four-case test passed: documented credits retained, visual-style guesses excluded, unidentified showcases skipped, duplicate explanation merged with contradictory claims preserved. Final outcome enum alignment author-reviewed.",
+    "installed_hashes": {
+      "SKILL.md": "fab6535e17891e814ca6c66771ed1d80387480e1512b097e71b600908b12a2e0",
+      "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
+      "references/library-contract.md": "5820a6e9d12f0433231888cbcfbc5d6b8e175903e803b144781ad08c2091a1ef"
+    },
+    "previous_copy": "Compared with prior reviewed version before updating; no local edits overwritten",
+    "executable_scripts": "none",
+    "private_data_published": false
+  },
+  "timestamp": "2026-11-01T08:18:21Z"
+}

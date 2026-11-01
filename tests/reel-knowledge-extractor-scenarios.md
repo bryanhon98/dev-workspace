@@ -39,3 +39,7 @@ An independent evaluator applied the updated skill to four synthetic fixtures:
 - Unnamed tool with two equally plausible candidates and missing speech: no identified-tool entry; private candidates and skipped outcome retained, original-media coverage gap exposed.
 
 All four expected extraction outcomes passed. The evaluator flagged a pre-existing processing-state ambiguity; final wording separates evidence-only completion from missing original-media speech. That narrow clarification received author review. No live services, private export or account data were used in these fixtures.
+
+## Version 1.0.2: researched credits and large-library organization
+
+This supersedes the previous blanket showcase link-only limit. Four independent synthetic cases passed: (A) an exact-project developer portfolio explicitly listing Three.js and GSAP retains those tools as researched credits, with implementation responsibilities unknown and unrelated profile-builder links omitted; (B) a verified showcase without tool credits retains only its link, ignoring stylistic similarity to frameworks; (C) an unidentified showcase is skipped; (D) a second reel for an existing exact repo improves the same entity explanation and page, preserving both sources and conflicting token claims rather than averaging them or duplicating the tool. The existing local index/database/ledger/checkpoint layout is reused and synchronized. Final ledger outcome naming was aligned by author review. No private collection data is part of these fixtures.

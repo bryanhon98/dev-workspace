@@ -2,7 +2,7 @@
 name: reel-knowledge-extractor
 description: Use when saved reels or short videos need to become a reusable knowledge library of AI skills, MCP servers, Claude or Codex customizations, optimization techniques, tools, and useful websites, including duplicate explanations and unnamed projects.
 metadata:
-  version: 1.0.1
+  version: 1.0.2
 ---
 
 # Reel Knowledge Extractor
@@ -25,7 +25,7 @@ Read selected frames and the available timestamped transcript. Pin extra frames 
 
 For original-media review, missing required speech transcription leaves the source partial even when visuals are useful. Evidence-only extraction can finish within its supplied-artifact scope while original-media speech coverage remains missing. No captions does not mean no speech. Extract supported visual facts, but do not certify full audiovisual review or conclude that no tool is mentioned in speech. Model downloads, API usage and audio/video uploads need applicable user authorization. Do not silently change providers or spend analysis credits.
 
-First classify the reel. For a **pure website showcase** with no substantive tool or workflow explanation, save only the verified showcased website URL in the user-facing library. Keep its source and verification evidence in the private ledger. Do not enrich that entry with a technology stack, development tools, speculative workflow, creator-profile links or an agency case-study explanation. A short, focused search may identify the displayed site; stop once the link is verified. If no reliable link or other identifiable useful information emerges, skip the reel.
+First classify the reel. For a **pure website showcase**, save the verified showcased website URL. If reliable primary sources, such as its developer's project portfolio or official case study, explicitly credit tools used for that exact website, retain those tools too with source links and the label researched project credits. Do not infer which tool performed a particular task or how the site was built unless documented. If only the website is verified, keep just its link; if nothing useful can be reliably identified, skip the reel. Unrelated creator-profile links and generic plausible stacks are not evidence of project tool use.
 
 For a substantive tutorial, tool introduction or useful resource explanation, extract each distinct useful item:
 
@@ -53,7 +53,7 @@ Search precise phrases and GitHub descriptions, then inspect candidates' officia
 
 Track primary-source verification separately as verified, pending or conflicting, with its URL/date. A visible name or exact coordinate can be transcribed while official verification remains pending. Keep candidate links and uncertainty in the private research ledger, not as identified tools in the user-facing library. Use a few focused searches, broaden when new evidence warrants it, and stop when searches repeat ambiguous candidates. If identity cannot be established and no other useful item is supported, skip the reel with a brief ledger reason. Do not manufacture a repository URL, equate a search snippet with verification or choose the most starred result to fill a blank. Never invent a name, link, tool usage, workflow or factual explanation to fill missing evidence.
 
-A comment-gated promise without actual steps is not a workflow explanation. A pure showcase gets only its verified website link; an unidentified showcase is skipped. A website that genuinely explains a useful service still gets its purpose and use case under the substantive-resource branch.
+A comment-gated promise without actual steps is not a workflow explanation. A showcase can yield a verified link and explicitly documented project tools, but never an invented hidden workflow. A website that genuinely explains a useful service still gets its purpose and use case under the substantive-resource branch.
 
 ## Merge and explain
 
