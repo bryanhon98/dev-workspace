@@ -814,9 +814,12 @@
         "ffprobe",
         "yt-dlp"
       ],
-      "setup_requirements": "Re-scan on restore; prior exception applies only to recorded hashes/findings. Cloud-workspace local engine configured, no speech backend. Instagram access blocked.",
+      "setup_requirements": "Re-scan on restore; prior exception applies only to recorded hashes/findings. Cloud-workspace Instagram access blocked. Windows-local link download and frame extraction verified; use recorded launcher for tool paths, local engine and captions-only operation.",
       "audit_ref": "audits/watch-03ceb42-20261101/review.json",
-      "exception_ref": "audits/watch-03ceb42-20261101/exception.json"
+      "exception_ref": "audits/watch-03ceb42-20261101/exception.json",
+      "device_audits": {
+        "windows-local": "audits/watch-windows-local-20261101/review.json"
+      }
     }
   ]
 }
