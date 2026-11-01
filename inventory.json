@@ -826,7 +826,7 @@
       "kind": "skill",
       "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "scope": "user",
       "purpose": "Evidence-based AI reel knowledge library: tools, skills, MCPs, customizations, optimization, websites, hidden identities and merged explanations",
       "audit_status": "reviewed-static-and-behavior-tested",
@@ -839,11 +839,11 @@
         "Web/GitHub access for identity verification"
       ],
       "setup_requirements": "Re-scan saved source before restore. Speech transcription is separate and must be authorized when absent. Cloud/paid analysis, promoted-tool installation and collection publishing are not implied.",
-      "audit_ref": "audits/reel-knowledge-extractor-1.0.2-20261101/review.json",
+      "audit_ref": "audits/reel-knowledge-extractor-1.0.3-20261101/review.json",
       "sha256": {
-        "SKILL.md": "fab6535e17891e814ca6c66771ed1d80387480e1512b097e71b600908b12a2e0",
+        "SKILL.md": "86a870edfc4ebcc7f5b66521bed8cb4dee9e3cd9cefde5fb98ebcd50f452bdfc",
         "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
-        "references/library-contract.md": "5820a6e9d12f0433231888cbcfbc5d6b8e175903e803b144781ad08c2091a1ef"
+        "references/library-contract.md": "f4005f8fdf0b484daec29d412ae6a8328f7f99245076ab920045fc6103b3624a"
       }
     }
   ]

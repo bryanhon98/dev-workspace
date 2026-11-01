@@ -1,0 +1,28 @@
+{
+  "name": "reel-knowledge-extractor",
+  "version": "1.0.3",
+  "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/reel-knowledge-extractor",
+  "status": "reviewed-static-and-installed",
+  "scope": "user-global ~/.agents/skills/reel-knowledge-extractor",
+  "change": "Retain high-confidence tool identifications inferred from distinctive visual/spoken clues without creator-supplied links. Label inference, record clues, verify primary sources and preserve per-reel attribution. Generic popularity and ambiguous candidates remain insufficient.",
+  "scanner": {
+    "name": "SkillSpector",
+    "version": "2.12.0",
+    "mode": "local static only; no LLM",
+    "execution_successful": true,
+    "complete": true,
+    "coverage_percent": 100,
+    "findings": 0
+  },
+  "verification": {
+    "quick_validate": "Skill is valid",
+    "behavioral_checks": "Four independent cases passed: strong matched clues included as inferred, generic popularity skipped, competing candidates skipped, existing entity retains per-source confirmed versus inferred association. Final explicit-identifier wording author-reviewed.",
+    "installed_hashes": {
+      "SKILL.md": "86a870edfc4ebcc7f5b66521bed8cb4dee9e3cd9cefde5fb98ebcd50f452bdfc",
+      "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
+      "references/library-contract.md": "f4005f8fdf0b484daec29d412ae6a8328f7f99245076ab920045fc6103b3624a"
+    },
+    "private_data_published": false
+  },
+  "timestamp": "2026-11-01T08:22:11Z"
+}

@@ -8,7 +8,7 @@ For a pure website showcase, keep its verified website URL. Reliable primary sou
 
 For substantive tool/resource/technique explanations, give each distinct entity a stable local ID independent of its display name. Capture:
 
-- **Identity:** name, kind, aliases, observed identifiers, official URL/repository/page when verified, match confidence (confirmed/likely/unresolved), reasons, and separate primary-source verification (verified/pending/conflicting, URL/date). A confirmed match to a visible coordinate does not verify product claims or official ownership. Keep plausible candidates with evidence for/against them. Canonical identity may remain unknown.
+- **Identity:** name, kind, aliases, observed identifiers, official URL/repository/page when verified, match confidence per source (confirmed/high-confidence-inferred/unresolved), supporting visual/spoken clues, contradictions and alternative candidates considered. Track primary-source verification separately (verified/pending/conflicting, URL/date). High-confidence inferred matches may appear in the library with a clear label and rationale even without a creator-supplied link. Lower-confidence candidates stay private. A confirmed match or verified tool website does not verify every product claim.
 - **Explanation:** purpose, problem solved, mechanism, concrete example, when useful, limitations. Explain unfamiliar terms simply.
 - **Use:** demonstrated steps, required software/client, authentication, pricing/access and version when established. Label externally researched steps as researched rather than shown in the reel. Extraction does not imply installation or safety certification.
 - **Creator assessments:** creator, source ID, timestamp/locator, positive/negative/mixed stance, specific opinion and evidence status. An absence of criticism is not a positive review.
@@ -25,6 +25,8 @@ A readable entry can use:
 > **Practical details:** prerequisites and steps actually established.
 > **Limits and uncertainty:** incomplete evidence, conflicts, costs or unknowns.
 > **Links:** useful official page/repository and supporting reels with times.
+
+For an inferred association, show: **Match: high confidence, inferred from visuals/speech; creator supplied no link.** List the distinctive matching clues and attach their timestamps or other evidence locators. Link the official source found during research. Explain uncertainty without implying that the creator explicitly named, linked, endorsed or used the tool. Keep the tool's documented capabilities separate from the inferred reel association. A later confirmed source can strengthen the entity record without rewriting the earlier reel's evidence history.
 
 For websites introduced as useful services or explained resources, link the useful page and explain its function even without a GitHub repository. Pure showcases follow the verified-link and documented-project-credits rule above. An uncertain address stays in private research, not the user-facing library. Different tools on one domain can require separate records.
 
@@ -52,4 +54,4 @@ Load the ledger/entity index before the next batch. Match normalized media ident
 
 When writing a persistent library, save the ledger and corresponding entity updates together after each reel or small batch. For a no-write pilot, include an inline checkpoint. Preserve files on interruption and report unfinished writes. Duplicate export entries can add collection membership without downloading again. New evidence or a requested check can justify revisiting a partial/reviewed source.
 
-Report selected source count; reviewed/partial/blocked/queued counts within scope; separate evidence-only scope count (which may overlap those states); retained tools/resources and showcase links; skipped outcomes; merged duplicate contributions; and the next source. Candidate identities remain in private research unless the user asks to inspect them. Do not hide blocked or unresolved cases in a success total.
+Report selected source count; reviewed/partial/blocked/queued counts within scope; separate evidence-only scope count (which may overlap those states); retained tools/resources with confirmed versus high-confidence inferred associations; showcase links; skipped outcomes; merged duplicate contributions; and the next source. Lower-confidence candidates remain private unless the user asks to inspect them. Do not hide blocked or unresolved cases in a success total.

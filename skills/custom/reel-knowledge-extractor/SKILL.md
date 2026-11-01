@@ -2,7 +2,7 @@
 name: reel-knowledge-extractor
 description: Use when saved reels or short videos need to become a reusable knowledge library of AI skills, MCP servers, Claude or Codex customizations, optimization techniques, tools, and useful websites, including duplicate explanations and unnamed projects.
 metadata:
-  version: 1.0.2
+  version: 1.0.3
 ---
 
 # Reel Knowledge Extractor
@@ -47,11 +47,13 @@ Build a fingerprint from legible repository owner/name, domains, logos, headings
 
 Search precise phrases and GitHub descriptions, then inspect candidates' official repositories, documentation or websites. GitHub popularity and trending status prioritize searches; they never prove a match or exclude a smaller project. Do not call a project trending without current evidence.
 
-- **Confirmed match:** an exact page URL, repository coordinate or comparably distinctive identifier ties the reel to a specific entity. This confirms the source-to-entity match, not its capabilities or official status.
-- **Likely:** several independent distinctive clues agree, but a decisive link is missing.
+- **Confirmed match:** the reel directly presents an exact page URL, repository coordinate or other explicit unique product identifier. This confirms the source-to-entity match, not its capabilities or official status. Identification assembled by comparing features remains inferred, even when confidence is high.
+- **High-confidence inferred:** the creator provides no decisive link, but distinctive visual or spoken clues strongly match a specific tool and agree with its primary sources. A uniquely identifying clue or several independent specific clues can support this. Check plausible alternatives and contradictions; retain the item with the visible label high confidence, inferred from visuals/speech and explain the matching clues. No source link in the reel is not a reason to omit an otherwise well-supported identification.
 - **Unresolved:** multiple candidates remain plausible or clues are insufficient.
 
-Track primary-source verification separately as verified, pending or conflicting, with its URL/date. A visible name or exact coordinate can be transcribed while official verification remains pending. Keep candidate links and uncertainty in the private research ledger, not as identified tools in the user-facing library. Use a few focused searches, broaden when new evidence warrants it, and stop when searches repeat ambiguous candidates. If identity cannot be established and no other useful item is supported, skip the reel with a brief ledger reason. Do not manufacture a repository URL, equate a search snippet with verification or choose the most starred result to fill a blank. Never invent a name, link, tool usage, workflow or factual explanation to fill missing evidence.
+Track primary-source verification separately as verified, pending or conflicting, with its URL/date. A visible name or exact coordinate can be transcribed while official verification remains pending. Retain confirmed and high-confidence inferred matches in the user-facing library; keep lower-confidence or competing candidates in private research. For inferred matches, link the actual official source found through research, identify which visual/spoken clues support the association, and state that the creator did not supply that link. Verifying a tool exists does not itself verify the reel-to-tool association or every creator claim.
+
+Use a few focused searches, broaden when new evidence warrants it, and stop when searches repeat ambiguous candidates. Popular or trending GitHub projects are useful search leads; popularity alone, a generic capability, or a visual resemblance is insufficient. If confidence remains low or alternatives are equally plausible and no other useful item is supported, skip the reel with a brief ledger reason. Do not manufacture a repository URL, equate a search snippet with verification or choose the most starred result to fill a blank. Never invent names, tool usage, workflows or facts; an explicitly labelled, evidence-backed identity inference is allowed.
 
 A comment-gated promise without actual steps is not a workflow explanation. A showcase can yield a verified link and explicitly documented project tools, but never an invented hidden workflow. A website that genuinely explains a useful service still gets its purpose and use case under the substantive-resource branch.
 
@@ -59,7 +61,7 @@ A comment-gated promise without actual steps is not a workflow explanation. A sh
 
 Deduplicate entities as well as source URLs. Identical exact repository coordinates can group sources into one evidence record while external verification stays pending. Otherwise merge on verified product/page identity or an evidenced rename. Different tutorials for one tool contribute to the same record. Keep forks, same-name projects, incompatible versions and distinct products on one domain separate. A multi-tool workflow links its components rather than merging their identities.
 
-Compare explanations for mechanism, examples, setup, limitations and contradictions. Preserve each contributing reel. Record which creator explains it most clearly and why, then write an improved synthesis: problem -> how it works -> example -> when useful -> limitations. Prefer clarity and evidence over creator popularity. Attribute unique details; repeated claims are not independent proof. Keep likely/unresolved candidates distinct from confirmed entities.
+Compare explanations for mechanism, examples, setup, limitations and contradictions. Preserve each contributing reel. Record which creator explains it most clearly and why, then write an improved synthesis: problem -> how it works -> example -> when useful -> limitations. Prefer clarity and evidence over creator popularity. Attribute unique details; repeated claims are not independent proof. Store identity-match confidence per contributing reel: the same known tool can have a confirmed link from one reel and a high-confidence inferred association from another. Do not promote that inference to a directly named endorsement or merge ambiguous competing identities.
 
 Keep conflicting claims visible. Resolve current behavior with dated primary sources when possible; retain older creator statements as historical claims rather than mixing incompatible versions. Write summaries in original wording and keep quotations short.
 
