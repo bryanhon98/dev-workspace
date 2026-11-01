@@ -1,0 +1,237 @@
+{
+  "id": "2026-11-01-design-skill-overlap-book-showcase",
+  "recorded_at": "2026-11-01T17:31:56Z",
+  "task": "Compare UI/UX Pro Max, Taste, Emil Kowalski and Apple Design for the scroll-driven book that reveals an inspectable 3D shirt and subsequent objects.",
+  "constraints": {
+    "explicit": [
+      "Realistic 3D website with scroll-driven page turns and inspectable products",
+      "User asks how the four named skill families fit the previous recommendation"
+    ],
+    "inferred": [
+      "Keep a single visual direction and assign specialists distinct responsibilities"
+    ],
+    "scope": "Research and recommendations; no website build or installation requested."
+  },
+  "device_alias": "unknown-target-device",
+  "related_decisions": [
+    "2026-11-01-scroll-book-shirt-showcase"
+  ],
+  "device_observation": "Current session reaches a cloud workspace, not the user's laptop. Inventory revisions are historical observations with pending review, not proof of current device installation.",
+  "candidates": [
+    {
+      "identity": "UI/UX Pro Max",
+      "source_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "skill_paths": [
+        ".claude/skills/ui-ux-pro-max/SKILL.md"
+      ],
+      "recorded_revision": "d14efff8ed1faa4187f004f79926f428c8074ec7",
+      "installed_revision": null,
+      "upstream_revision": "3a13158ff1f32156cbe144108de48eda2ecaed9a",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Read full current SKILL.md, accessibility excerpt and headings of quick-reference.md; inspected tree and upstream comparison. Search scripts were not executed or fully audited.",
+      "fit": "Targeted lookup for readable controls, touch targets, keyboard alternatives, loading feedback, reduced motion and responsive UI surrounding the 3D scene.",
+      "overlap": "Broad design-system generation overlaps with Refero/Taste. Current skill also lists a Three.js stack and 17 GSAP presets; that coverage does not establish a complete book/garment pipeline.",
+      "prerequisites": [
+        "Python 3 for local search",
+        "Client-appropriate path resolution; CLAUDE_PLUGIN_ROOT example is not automatically a Codex path"
+      ],
+      "costs": "Local search requires no model API per instructions; normal agent usage and separate asset licenses apply.",
+      "uncertainties": [
+        "Five commits ahead of recorded observation; compare includes fix for interpreting '3d' after a stack name as a version. Fix not behavior-tested.",
+        "No measured design-quality or performance comparison."
+      ]
+    },
+    {
+      "identity": "Taste v2 / design-taste-frontend",
+      "source_url": "https://github.com/Leonxlnx/taste-skill",
+      "skill_paths": [
+        "skills/taste-skill/SKILL.md"
+      ],
+      "recorded_revision": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+      "installed_revision": null,
+      "upstream_revision": "12af471f627f866411b4bd785b19646d3672784c",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Read full SKILL.md and scenes.md, relevant README sections, tree and comparison against historical catalog snapshot a60a36d. No scripts executed; no full script/security audit.",
+      "fit": "Alternative primary art-direction workflow with researched directions, browser inspection and screenshot iteration.",
+      "overlap": "Conflicts with running another primary visual director. House rules ban glass and impose minimum image/moving-element counts; those are style choices, not universal usability requirements.",
+      "prerequisites": [
+        "Node 22+",
+        "Chrome/Edge/Chromium for inspector",
+        "Network for open-collection asset search"
+      ],
+      "costs": "README estimates 30–45 minutes and a few hundred thousand tokens for a build; maintainer estimate, not measured here. No mandatory API keys for core scripts.",
+      "uncertainties": [
+        "Scene reference explicitly says library/scenes.json has not shipped and the draw deals no scenes yet; current tree has stage.js/stage.css but no scene catalogue. Do not promise ready-made 3D book scenes.",
+        "Browser gates primarily inspect DOM/CSS; no evidence they validate rendered garment material quality or WebGL performance.",
+        "Default v2 remains outside prior selected children; this question does not authorize changing that preference."
+      ]
+    },
+    {
+      "identity": "Taste family: BrandKit and Image-to-Code",
+      "source_url": "https://github.com/Leonxlnx/imagegen-skills",
+      "skill_paths": [
+        "skills/brandkit/SKILL.md",
+        "skills/image-to-code/SKILL.md"
+      ],
+      "recorded_revision": "a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9 (former Leonxlnx/taste-skill source)",
+      "installed_revision": null,
+      "upstream_revision": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Verified migration through old repository README and new tree. Read frontmatter and task-relevant intake/image-first/workflow sections. Compared full fetched instruction strings with former source: both identical.",
+      "fit": "Optional BrandKit for missing identity; optional Image-to-Code for generated section/key-frame visual references before implementation.",
+      "overlap": "Choose this image-first direction or Refero's primary direction, or explicitly bound it to storyboard references. Generated stills do not create rigged models or validate interaction.",
+      "prerequisites": [
+        "Image generation capability",
+        "Visual inspection",
+        "Normal frontend tooling for implementation"
+      ],
+      "costs": "Image-to-Code requests per-section images and detail regenerations, so image/model usage can increase. No usage benchmark performed.",
+      "uncertainties": [
+        "Migration preserves SKILL.md contents, not a certification of complete payload equivalence.",
+        "Old image-to-code path was skills/image-to-code-skill/SKILL.md; new path is skills/image-to-code/SKILL.md.",
+        "No evidence this produces better output for the user's project than the available Refero workflow."
+      ]
+    },
+    {
+      "identity": "Emil Kowalski motion and design-engineering skills",
+      "source_url": "https://github.com/emilkowalski/skills",
+      "skill_paths": [
+        "skills/emil-design-eng/SKILL.md",
+        "skills/animation-performance/SKILL.md",
+        "skills/review-animations/SKILL.md"
+      ],
+      "recorded_revision": "2d228630ba1446365f614a108cb8252f1feda202",
+      "installed_revision": null,
+      "upstream_revision": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Read design-engineering frontmatter, outline and full animation decision/spring sections; full animation-performance. review-animations and old-to-current diff were read in preceding decision.",
+      "fit": "Scoped motion review for inspect/continue controls, interruptions, responsive feedback and DOM animation frame cost.",
+      "overlap": "Overlaps with apple-design on springs, gestures, accessibility and restraint; load the relevant specialist per task, not the whole repository.",
+      "prerequisites": [
+        "An implementation for runtime review",
+        "Browser profiling and representative real device for performance conclusions"
+      ],
+      "costs": "Ordinary agent usage; no mandatory hosted service shown in selected instructions.",
+      "uncertainties": [
+        "CSS and hardware acceleration claims require browser/version checks; DOM optimization advice is not a WebGL rendering budget.",
+        "Short UI timing heuristics should not dictate scroll-linked story length; the general skill explicitly allows longer marketing/explanatory motion.",
+        "Latest head adds remove-animations; prior compare shows selected existing skills unchanged, so newer head alone is not an upgrade reason."
+      ]
+    },
+    {
+      "identity": "Apple Design from Emil Kowalski",
+      "source_url": "https://github.com/emilkowalski/skills",
+      "skill_paths": [
+        "skills/apple-design/SKILL.md"
+      ],
+      "recorded_revision": "2d228630ba1446365f614a108cb8252f1feda202",
+      "installed_revision": null,
+      "upstream_revision": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Read full current SKILL.md. Source attributes principles to Apple WWDC; underlying talks/API examples were not independently revalidated.",
+      "fit": "Strong optional interaction specialist for direct manipulation, current-position interruption, momentum, spatial continuity and accessible inspect/continue handoff.",
+      "overlap": "Already belongs to the Emil family; do not treat it as an unrelated fourth mandatory bundle. Broad typography/material prescriptions must respect the selected visual direction.",
+      "prerequisites": [
+        "Pointer/touch interaction implementation",
+        "Existing orbit/control system; add a spring library only if a concrete need justifies it"
+      ],
+      "costs": "Ordinary agent usage; no mandatory hosted service shown.",
+      "uncertainties": [
+        "Community-authored Apple-inspired guidance, not an official Apple skill.",
+        "Its DOM examples do not implement Three.js object inspection; controls and timeline must have explicit ownership.",
+        "Do not let spring advice add lag to direct dragging or introduce a second controller for the same camera."
+      ]
+    },
+    {
+      "identity": "Apple Design Skill from dickwu",
+      "source_url": "https://github.com/dickwu/apple-design-skill",
+      "skill_paths": [
+        "SKILL.md"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": "ff4ebddf0488598723a82bfdce1afb04de0b1c44",
+      "checked_at": "2026-11-01T17:31:56Z",
+      "review_depth": "Read frontmatter, scope and review-process portions of current SKILL.md; inspected tree. Full HIG reference corpus not read or independently checked.",
+      "fit": "Alternative reviewer when native Apple platform conventions or an app/HIG audit are the actual job.",
+      "overlap": "Same apple-design name as Emil's skill, different source and workflow. Web-app scope in its own instructions limits platform conventions to applicable foundations.",
+      "prerequisites": [
+        "Relevant references and screenshots/code when performing an audit"
+      ],
+      "costs": "Model usage; full license/dependency review not completed.",
+      "uncertainties": [
+        "Not the apple-design identity recorded in inventory.",
+        "Native tab bars, menus and app conventions are not the main need of this cinematic website.",
+        "No basis to replace the recorded Emil skill with this candidate."
+      ]
+    }
+  ],
+  "decision": {
+    "status": "Proposed task-specific refinement, not accepted installation choices.",
+    "selected_roles": {
+      "visual_direction": "Keep Refero as proposed; Image-to-Code is an optional alternate when generated key-frame references are wanted. BrandKit only if identity work is needed.",
+      "core_3d": "Retain prior Blender asset-authoring + Three.js/R3F + GSAP proposal; these four design families do not replace that implementation work.",
+      "inspection_interaction": "Use Emil's apple-design as a scoped specialist for direct manipulation and interruption.",
+      "usability_reference": "UI/UX Pro Max targeted searches/checks as needed; do not regenerate an already chosen design system.",
+      "motion_review": "Emil review-animations/animation-performance only for relevant controls and diagnosed performance concerns."
+    },
+    "deferred": [
+      "Taste v2 as an additional simultaneous director",
+      "dickwu Apple HIG reviewer for this web brief",
+      "Wholesale installation of any named repository"
+    ],
+    "actions_completed": [
+      "Compared current source instructions and identities",
+      "Confirmed Taste child-skill migration",
+      "Saved dated recommendation and catalog correction"
+    ],
+    "installs_or_removals": []
+  },
+  "evidence": [
+    {
+      "url": "https://github.com/Leonxlnx/taste-skill/blob/12af471f627f866411b4bd785b19646d3672784c/README.md#moved-skills",
+      "finding": "Maintainer explicitly moves BrandKit and Image-to-Code to imagegen-skills, retaining install names."
+    },
+    {
+      "url": "https://github.com/Leonxlnx/imagegen-skills/tree/beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "finding": "Both named SKILL.md files exist; their fetched text equals the former catalog snapshot (BrandKit unchanged path; Image-to-Code renamed directory)."
+    },
+    {
+      "url": "https://github.com/Leonxlnx/taste-skill/blob/12af471f627f866411b4bd785b19646d3672784c/skills/taste-skill/references/scenes.md",
+      "finding": "Shared scroll stage exists; scene catalogue explicitly has not shipped. Lenis smoothing is optional."
+    },
+    {
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/compare/d14efff8ed1faa4187f004f79926f428c8074ec7...3a13158ff1f32156cbe144108de48eda2ecaed9a",
+      "finding": "Five commits ahead of historical inventory; search parsing and compatibility changes do not establish a better design outcome."
+    },
+    {
+      "local_ref": "inventory.json",
+      "finding": "Recorded apple-design points to emilkowalski/skills, not dickwu/apple-design-skill. Existing statuses remain untouched."
+    },
+    {
+      "unperformed_checks": [
+        "Popularity/trend measurement",
+        "Comparative prototype or output benchmark",
+        "Full source/dependency/security audits",
+        "Candidate script execution",
+        "Installation",
+        "Laptop inventory inspection",
+        "Runtime/browser/device tests"
+      ]
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "explicit user interest",
+      "text": "User asks about UI/UX Pro Max, Taste, Emil Kowalski and Apple Design. Interest is not a selection, global preference change or installation approval."
+    }
+  ],
+  "revisit_when": [
+    "User chooses generated visual storyboards or requests brand identity",
+    "A prototype exposes gesture conflict, illegible controls or poor phone performance",
+    "Taste ships its scene catalogue or changes relevant house rules",
+    "Task changes to a native Apple application",
+    "Target device becomes accessible"
+  ],
+  "supersedes": []
+}
