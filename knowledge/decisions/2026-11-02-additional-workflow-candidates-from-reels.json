@@ -1,0 +1,265 @@
+{
+  "id": "2026-11-02-additional-workflow-candidates-from-reels",
+  "recorded_at": "2026-11-02T16:51:45Z",
+  "task": "Find further complementary workflow capabilities from extracted reels beyond reviewer collections.",
+  "constraints": {
+    "scope": "Research and saved recommendations only; no installation, worker dispatch or candidate runtime execution.",
+    "preserve": [
+      "Superpowers preferred software execution direction",
+      "Existing grilling/find-skills advisor core",
+      "Existing exclusions and source/activation gates"
+    ]
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "identity": "affaan-m/ECC/skill-scout",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "skills/skill-scout/SKILL.md"
+      ],
+      "recorded_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "upstream_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete current skill; prior script/host review retained.",
+      "fit": "Skill discovery before creating another custom skill.",
+      "overlap": "Overlaps find-skills and advisor discovery; use as a method within one discovery stage.",
+      "prerequisites": "Host search/read tools; adapt Claude-only example paths to actual Codex roots.",
+      "costs": "Normal model/search usage.",
+      "uncertainties": [
+        "Keyword ranking is not best-fit proof; no superiority benchmark."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/DeiNcjgAb7E/"
+    },
+    {
+      "identity": "affaan-m/ECC/skill-stocktake",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "skills/skill-stocktake/SKILL.md"
+      ],
+      "recorded_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "upstream_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete current skill; previous same-revision script findings retained.",
+      "fit": "Periodic installed-skill health, overlap and currency review.",
+      "overlap": "Existing explicit-root inspector supplies inventory; avoid full stocktake on each request.",
+      "prerequisites": "Bash/Node/jq and scripts; Claude paths require adaptation and exact payload review.",
+      "costs": "Model evaluations can be lengthy; upstream duration estimates unmeasured.",
+      "uncertainties": [
+        "Quick mode relies on paths/mtimes, not all upstream changes. Missing usage observations are not zero usage."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/DeheVnTD9Fd/"
+    },
+    {
+      "identity": "affaan-m/ECC/eval-harness",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "skills/eval-harness/SKILL.md"
+      ],
+      "recorded_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "upstream_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete current main skill; utilities and supporting architecture not audited.",
+      "fit": "Evaluation method for the advisor: fixed tasks, expected coverage, omissions, false activations, correctness, latency and cost.",
+      "overlap": "Complements saved decision records; do not replace project tests or add another execution coordinator.",
+      "prerequisites": "Define real acceptance checks and controlled trials; commands require separate supporting runtime review.",
+      "costs": "Repeated trials use model time; model judges add usage and are not independent ground truth.",
+      "uncertainties": [
+        "Main skill explicitly says candidate execution is disabled on every OS pending verified containment. Utilities are not an operational self-improvement gate. Illustrative pattern checks do not prove behavior."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/DenJITWMbi2/"
+    },
+    {
+      "identity": "upstash/context7/context7-mcp",
+      "source_url": "https://github.com/upstash/context7",
+      "skill_paths": [
+        "skills/context7-mcp/SKILL.md"
+      ],
+      "recorded_revision": "ceaf5f91f48949eaa6e4da5e66f3f59d1b44556d",
+      "upstream_revision": "ceaf5f91f48949eaa6e4da5e66f3f59d1b44556d",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete MCP skill; README setup/tools/disclaimer sections reviewed.",
+      "fit": "Fetch library-version-specific documentation while implementing.",
+      "overlap": "Use existing official docs access when sufficient; not a skill-marketplace or universal update scanner.",
+      "prerequisites": "Configured MCP service or separate CLI+skill route; CLI README says Node >=22.13; API key recommended for higher limits.",
+      "costs": "Network/query quota plus model usage; actual account plan not checked.",
+      "uncertainties": [
+        "Index freshness and version coverage must be checked; documentation accuracy not guaranteed. Backend/crawler not in public repository."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/DbyJNRdPyCj/"
+    },
+    {
+      "identity": "microsoft/playwright-cli/playwright-cli",
+      "source_url": "https://github.com/microsoft/playwright-cli",
+      "skill_paths": [
+        "skills/playwright-cli/SKILL.md"
+      ],
+      "recorded_revision": "c2d8d199459d1480491bebf0a6b3587136b673fa",
+      "upstream_revision": "c2d8d199459d1480491bebf0a6b3587136b673fa",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete main skill; README requirements/setup/session sections reviewed. Browser runtime and linked references not audited.",
+      "fit": "Test actual web interactions, screenshots, viewport behavior and reduced motion.",
+      "overlap": "Prefer a working equivalent browser capability; no need to duplicate CLI and MCP automatically.",
+      "prerequisites": "Node >=18, compatible CLI and browser runtime; host/OS setup verification.",
+      "costs": "Local browser resources and agent usage; advertised token savings unmeasured here.",
+      "uncertainties": [
+        "DOM snapshots alone cannot validate WebGL/3D appearance. Use actual visual evidence and representative device/performance checks; page tool shortcuts do not replace UI tests."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/DeKJZ_AS_c_/"
+    },
+    {
+      "identity": "addyosmani/agent-skills/performance-optimization",
+      "source_url": "https://github.com/addyosmani/agent-skills",
+      "skill_paths": [
+        "skills/performance-optimization/SKILL.md"
+      ],
+      "recorded_revision": "301b02b12bff98e4688e6984af6556802322bbde",
+      "upstream_revision": "301b02b12bff98e4688e6984af6556802322bbde",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Complete current main skill; referenced optimization patterns/checklist not freshly reviewed.",
+      "fit": "Measure bottleneck, change one thing, re-measure and keep or revert; useful for scroll/3D performance.",
+      "overlap": "Specialist within Superpowers execution, not full additional engineering pack.",
+      "prerequisites": "Actual profiler/browser/test environment; representative hardware and meaningful budgets.",
+      "costs": "Profiling runs and model usage; monitoring costs depend on chosen tooling.",
+      "uncertainties": [
+        "Generic Web Vitals and example budgets do not prove 3D frame pacing or realistic rendering quality. No measured improvement yet."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/De5zk9lo9NS/"
+    },
+    {
+      "identity": "mvanhorn/last30days-skill/last30days",
+      "source_url": "https://github.com/mvanhorn/last30days-skill",
+      "skill_paths": [
+        "skills/last30days/SKILL.md"
+      ],
+      "recorded_revision": "6894d44e088c449ecdd7246a18763fddba1ff805",
+      "upstream_revision": "6894d44e088c449ecdd7246a18763fddba1ff805",
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Preliminary frontmatter/bootstrap/reference routing/dispatch review only (first 14500 characters); remaining skill, references and engine not reviewed.",
+      "fit": "Optional discovery of recent community experiences and emerging candidates.",
+      "overlap": "Extra research channel; official source verification still required.",
+      "prerequisites": "Python >=3.12 per bootstrap, Node and installed research engine; sources depend on optional credentials/services.",
+      "costs": "Potential provider/source charges and multiple network queries; no costs measured.",
+      "uncertainties": [
+        "Not ready for adoption from this partial review. Trend/engagement is not quality evidence; no background refresh implied."
+      ],
+      "reel_lead": "https://www.instagram.com/reel/De2XyLCDWEh/"
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Clarify requirements",
+      "examined": [
+        "Existing advisor and prior Matt interview decision"
+      ],
+      "owner": "Existing grilling/core flow",
+      "reason": "No extra interviewer justified; not freshly re-audited."
+    },
+    {
+      "job": "Find relevant skills",
+      "examined": [
+        "ECC skill-scout",
+        "Prior find-skills integration"
+      ],
+      "owner": "Existing advisor with scout as optional method",
+      "reason": "One selection process; collections do not guarantee complete discovery."
+    },
+    {
+      "job": "Audit installed skills",
+      "examined": [
+        "ECC skill-stocktake",
+        "scripts/knowledge.py inspect"
+      ],
+      "owner": "Existing inspector plus optional adapted stocktake",
+      "reason": "Periodic/triggered review; target laptop inaccessible."
+    },
+    {
+      "job": "Improve advisor from evidence",
+      "examined": [
+        "ECC eval-harness",
+        "Extracted evals practice",
+        "Existing decision records"
+      ],
+      "owner": "Proposed controlled evaluation method",
+      "reason": "Measure outcomes and retain corrections; do not claim automated candidate execution."
+    },
+    {
+      "job": "Current implementation documentation",
+      "examined": [
+        "Context7 MCP skill and README"
+      ],
+      "owner": "Existing docs tools or conditional Context7",
+      "reason": "Library APIs, distinct from skill discovery."
+    },
+    {
+      "job": "Website verification and performance",
+      "examined": [
+        "Playwright CLI",
+        "Addy performance-optimization"
+      ],
+      "owner": "Conditional browser and profiling specialists",
+      "reason": "Actual rendered/interaction evidence and measurements complement code review."
+    },
+    {
+      "job": "Recent community research",
+      "examined": [
+        "Last30Days partial skill"
+      ],
+      "owner": null,
+      "reason": "Optional preliminary candidate; incomplete source review."
+    },
+    {
+      "job": "Task tracking and memory",
+      "examined": [
+        "Existing advisor ledger and decision records",
+        "Prior automatic-learning review"
+      ],
+      "owner": "Existing records and ledger",
+      "reason": "No demonstrated gap requiring another memory/task runtime; not claiming external memory candidates newly reviewed."
+    }
+  ],
+  "decision": {
+    "status": "Proposed shortlist; source research complete at stated depths, adoption unperformed",
+    "priority": [
+      "Periodic skill stocktake method",
+      "Measured advisor evaluation cases",
+      "Browser verification for web projects"
+    ],
+    "conditional": [
+      "ECC scout within current discovery stage",
+      "Context7 for needed library documentation",
+      "Addy performance method for measured bottlenecks"
+    ],
+    "defer": [
+      "Last30Days activation pending full review and demonstrated need",
+      "Full ECC installation alongside Superpowers",
+      "New memory/coordination runtime without a concrete gap"
+    ],
+    "example_evaluation": "Book/shirt task must cover assets, 3D rendering, scroll choreography, inspect gestures, visual direction and verification; a simple typo fix must avoid full interview, broad search and worker orchestration. Run comparable baseline and candidate trials before claiming improvement."
+  },
+  "evidence": {
+    "source_scope": "Complete targeted entity entries for ECC, evals/evaluation, Context7, Playwright CLI, performance optimization, Last30Days and Superpowers; prior decisions and catalog exclusions; exact current heads for five repositories.",
+    "claim_attribution": "ECC reels mention the collection; scout/stocktake/eval-harness are specific upstream selections. The evals reel describes a practice, not a uniquely identified executable skill. Shared summaries and promotional counts are not independent validation.",
+    "device_observation": "Explicit cloud skill-root metadata inspection found none of these shortlisted skill names. One requested root unavailable, no inspection errors. No native Context7/Playwright tool names found in current tool list; other browser capabilities may exist. This is not laptop inspection or a complete plugin/runtime inventory.",
+    "unperformed": [
+      "No new candidate scripts/hooks/engine or installers run.",
+      "No SkillSpector audit or target-device compatibility validation.",
+      "No controlled advisor or browser/performance benchmark.",
+      "No new reviewer invocation or website build."
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit request",
+      "text": "User asks for more relevant skills from extracted reels; this is not a selection to install the shortlist."
+    }
+  ],
+  "revisit_when": [
+    "Actual target host/device becomes available",
+    "User selects a particular addition",
+    "Repeated evaluation demonstrates omissions or improvement",
+    "Need for specific framework docs, browser testing, measurable performance or community research",
+    "Source revision changes"
+  ],
+  "supersedes": []
+}
