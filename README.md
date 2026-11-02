@@ -2,6 +2,10 @@
 
 This repo helps an agent choose tools for the task, compare them with your installed skills, verify current upstream versions, and remember what worked. It also backs up and restores your Codex setup.
 
+For a substantial build request, the [build flow](knowledge/BUILD-FLOW.md) tells the current assistant to clarify missing essentials, map the jobs, inspect available skills and current alternatives, select a small compatible combination, build and verify within your request, then save what worked. You do not need to name the skills first. The assistant is the advisor; Agency, ECC and Find Skills are optional sources of roles or discovery methods.
+
+This routing depends on the host loading the repo or global instructions. The repo update alone does not change another device's global rules or install an always-running agent. Simple fixes and explanation questions keep a shorter path.
+
 For advice, open the repo and ask, for example:
 
 > I want to analyze reels and produce original videos. Compare my current skills, check the relevant upstream versions, and recommend the smallest useful combination.

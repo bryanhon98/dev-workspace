@@ -1,0 +1,21 @@
+# Advisor routing scenarios
+
+Reviewed 2026-11-02 against AGENTS.md, global/AGENTS.md, knowledge/BUILD-FLOW.md and knowledge/ADVISOR.md. These are **manual instruction walkthroughs**, not executed fresh-session agent tests, measured quality improvements or proof that every host loads the rules. The existing Python suite tests repository tooling separately.
+
+| Input / condition | Expected behavior | Manual walkthrough |
+|---|---|---|
+| “Build a realistic 3D website: scrolling flips a book and reveals a shirt to inspect, then another object.” No skills named. | Start the flow. Preserve the supplied concept. Map design, asset creation, 3D, scroll, gestures, accessibility and performance before searching. Ask only missing essentials such as asset availability and target devices. | Covered by root/global triggers and build steps 1–3. |
+| Same brief, user has not named Taste, UI/UX Pro Max, Emil or Apple design. | Consult every matching routing row and design catalog; account for credible design/motion alternatives and identity ambiguity. Do not blindly stack them. | Covered by the advisor coverage requirement and step 4. Historical decisions remain accessible; recall has not been benchmarked. |
+| “Build me a website.” | Inspect context; ask a few questions about its purpose, users and essential experience. Continue independent project discovery while waiting. | Covered by step 1; unknown required answers block only dependent work. |
+| A complete brief with assets, stack, constraints and acceptance criteria. | Avoid repeating an interview. State material assumptions and proceed within authorization. | Covered by steps 1 and 5. |
+| “Use Matt's Grill Me and interview me deeply before building.” | Resolve and read the current skill and its dependency; use the requested interview depth if available. Do not describe the repo's short interview as the unmodified upstream skill. | Covered by the source-fit table; no skill invoked in this walkthrough. |
+| “What skills would fit this website?” | Compare and recommend; do not infer authorization to install skills or build the site. | Covered by trigger boundary and step 5. |
+| “Fix this misspelled button label.” | Make the narrow edit using project context; no broad discovery/interview or new framework. | Covered by non-trigger rule. |
+| “Explain what a shader is.” | Answer the question directly; no device audit or build workflow. | Covered by non-trigger rule. |
+| “Replace my outdated skills,” but only a cloud workspace is accessible. | Separate upstream research from the unknown laptop state; inspect only the accessible relevant roots. No claim of laptop inspection or completed replacement. | Covered by advisor device rules and step 3. |
+| “Use all 71 ECC agents, Taste and UI/UX Pro Max.” | Explain competing roles and propose the relevant subset. Explicit delegation/installation requests still follow applicable host instructions and review gates; a role label proves no capability. | Covered by step 4 and existing installation rules. |
+| An installed skill has no usage history; an upstream repo has more stars. | Do not label the skill obsolete or remove it on that evidence. Compare complete relevant payloads and concrete task fit. | Covered by advisor selection rules and dated ECC stocktake review. |
+| User asks whether creator comments are included in the three files. | Distinguish summarized opinions from verbatim speech and comment threads; cite original fields and truncation gaps. | Covered by reel-library REVIEW.md; no reconstructed quotation. |
+| Another project has loaded the global rule, but this checkout/GitHub is inaccessible. | State the playbook gap, use available context, continue useful authorized work. Do not pretend local relative paths resolve or all saved decisions were searched. | Covered by global rule and build-flow host boundary. |
+
+To test behavior later, run the same prompts in clean sessions with the same model, tools and project fixtures before and after the rule change. Record capability coverage, unnecessary questions/tools, conflicting selections, unauthorized actions and actual output quality. Include the simple-fix and explanation cases. No such comparative run is reported here. Git history provides the prior instruction version for rollback.

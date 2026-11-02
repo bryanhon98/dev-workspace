@@ -1,0 +1,321 @@
+{
+  "id": "2026-11-02-matt-ecc-karpathy-build-advisor",
+  "recorded_at": "2026-11-02T01:46:14Z",
+  "task": "Implement the accepted repo build-advisor flow; assess Matt Pocock, ECC's specialist roster and Karpathy-inspired guidelines, and clarify whether the three reel documents preserve creator commentary.",
+  "constraints": {
+    "explicit": [
+      "User authorized updating the repo with the advisor/interview/discovery flow",
+      "User asks whether Matt Pocock skills improve thinking, who ECC's claimed 63 specialists are, whether ECC/Matt/Karpathy fit, and whether the uploaded documents include creators' comments"
+    ],
+    "scope": "Repo instruction/research updates and source comparison. No new third-party installation, laptop rule restoration, website implementation or external issue publication.",
+    "preserve": [
+      "Existing primary development workflow and prior tool selections/exclusions",
+      "SkillSpector and device inspection requirements",
+      "One owner per overlapping workflow/design decision",
+      "Original imported bytes and historical decisions"
+    ]
+  },
+  "device_alias": "unknown-target-device",
+  "related_decisions": [
+    "2026-11-01-ecc-advisor-subset",
+    "2026-11-01-skill-advisor-coverage-and-specialists",
+    "2026-11-01-design-skill-overlap-book-showcase",
+    "2026-11-01-scroll-book-shirt-showcase"
+  ],
+  "candidates": [
+    {
+      "identity": "ECC (Everything Claude Code), agent definitions",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "agents/*.md"
+      ],
+      "recorded_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "installed_revision": null,
+      "upstream_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "checked_at": "2026-11-02T01:42:44Z",
+      "review_depth": "Counted all 71 top-level agents/*.md paths from a complete recursive Git tree; read all 71 frontmatters. Full bodies read for planner, harness-optimizer, agent-evaluator, e2e-runner, a11y-architect, react-reviewer and performance-optimizer. Other bodies fetched but not substantively reviewed. No role invoked, executable run, full bundle security audit or comparative benchmark.",
+      "fit": "Targeted planning, React review, accessibility, end-to-end journey testing and measured performance are plausible website roles. Harness-optimizer and agent-evaluator offer advisor-evaluation ideas, not a universal skill selector. Prior scout/stocktake/search-first review remains the more direct discovery/audit source.",
+      "overlap": "Planning, code review, TDD and orchestration overlap the existing development workflow. Browser/React/accessibility specialists may duplicate available capabilities. Generic web roles do not replace Blender, Three.js or GSAP expertise.",
+      "prerequisites": [
+        "Map role/tool/model declarations to the actual host",
+        "Read remaining complete instructions and supporting skills before selecting a metadata-only role",
+        "Harness optimizer requires ECC eval-harness and audit tooling; agent-evaluator references agent-self-evaluation",
+        "Usual review/install gates for any adopted payload"
+      ],
+      "costs": "MIT declared in the reviewed plugin manifest. Roles use the host model and tools; more independent runs/subagents consume usage. No measured cost comparison.",
+      "uncertainties": [
+        "71 describes the source tree at this revision, not 71 working Codex agents or trained models. No verified source for the user's older 63 count.",
+        "Chief-of-staff's declared role is communication triage, not skill advising.",
+        "Full-read specialists still contain broad or incorrect guidance: performance memoization advice needs measurement; a11y-architect conflates SC 2.4.11 focus-not-obscured with focus contrast; browser examples need current API checks.",
+        "Evaluation self-scores and pass-rate methods need objective fixtures and actual execution before showing improved advisor reliability.",
+        "Current device payloads and end-to-end host behavior are unknown."
+      ],
+      "roster_ref": "knowledge/research/2026-11-02-ecc-agent-roster.md",
+      "agent_count": 71
+    },
+    {
+      "identity": "Matt Pocock skills, interview/spec subset",
+      "source_url": "https://github.com/mattpocock/skills",
+      "skill_paths": [
+        "skills/productivity/grill-me/SKILL.md",
+        "skills/productivity/grilling/SKILL.md",
+        "skills/engineering/grill-with-docs/SKILL.md",
+        "skills/engineering/to-spec/SKILL.md"
+      ],
+      "recorded_revision": "49dd158d1076134a641b33efb035946536778336",
+      "installed_revision": null,
+      "upstream_revision": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "checked_at": "2026-11-02T01:42:44Z",
+      "review_depth": "Read the complete four listed current SKILL.md files and compare saved grilling instructions. Current domain-modeling dependency and the entire collection were not re-reviewed. Saved payloads remain unchanged at their recorded revision.",
+      "fit": "Useful for deliberately deep scope clarification and formalizing decisions. Structure can expose assumptions and reduce premature implementation; not evidence of increased model intelligence. Existing architecture/domain subset remains relevant when those problems arise.",
+      "overlap": "Exhaustive upstream interview, approval-to-proceed and broader development workflows overlap existing brief/planning processes. Default to this repo's bounded original interview; use the complete upstream workflow only when its depth fits.",
+      "prerequisites": [
+        "grill-me calls grilling rather than containing the interview itself",
+        "grill-with-docs calls grilling and domain-modeling",
+        "Host Skill/delegation support or explicit adaptation",
+        "to-spec expects project issue-tracker/triage setup and publishes a ready-for-agent issue"
+      ],
+      "costs": "MIT recorded in existing catalog; ordinary model/tool usage. Exhaustive rounds and any authorized subagents increase latency/usage; no measured comparison.",
+      "uncertainties": [
+        "grilling requires questioning until all decision branches are resolved and the user confirms shared understanding; not appropriate as a mandatory gate on every simple task.",
+        "Current grilling asks for factual research via a fresh-context subagent. Reading that instruction as candidate data did not authorize spawning one here.",
+        "Current to-spec publishes to an issue tracker; a request to build or create a local brief alone does not authorize that publication.",
+        "One supporting wording change from saved grilling adds 'with a fresh context window'; this does not establish that the new revision produces better results.",
+        "No new security review, installation, host invocation or task-outcome benchmark."
+      ]
+    },
+    {
+      "identity": "Karpathy-inspired coding guidelines (third-party collection)",
+      "source_url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "aliases": [
+        "https://github.com/forrestchang/andrej-karpathy-skills"
+      ],
+      "skill_paths": [
+        "skills/karpathy-guidelines/SKILL.md"
+      ],
+      "recorded_revision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "installed_revision": null,
+      "upstream_revision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "checked_at": "2026-11-02T01:42:44Z",
+      "review_depth": "Read complete current README and SKILL.md; confirmed repository-name redirect. Instructions only, no runtime or behavioral trial.",
+      "fit": "Useful principles: state assumptions before coding, prefer simplicity, make focused changes and define verifiable goals.",
+      "overlap": "Substantial overlap with existing Codex/global instructions and the selected development workflow; retain prior not-selected status for an extra global skill.",
+      "prerequisites": [
+        "A host that reads skill instructions; usual inspection gates if later selected"
+      ],
+      "costs": "README/frontmatter declare MIT; no mandatory external paid service for the instruction text. Ordinary model usage.",
+      "uncertainties": [
+        "README explicitly describes inspiration from Karpathy's observations, not authorship or endorsement by him",
+        "No general reasoning-quality improvement demonstrated",
+        "Distinct from karpathy/llm-council and other projects actually authored by Karpathy",
+        "Current installed copies on the user's device are unknown"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Trigger on substantial build requests and understand scope",
+      "examined": [
+        "Existing root/global instructions",
+        "Matt grill-me/grilling/grill-with-docs/to-spec"
+      ],
+      "chosen_owner": "Current assistant following knowledge/BUILD-FLOW.md",
+      "reason": "Short questions for missing essentials; optional deep interview. A named external senior agent is not required.",
+      "gap": "Host must load the rules; no guaranteed prompt hook or remote laptop deployment."
+    },
+    {
+      "job": "Search and select skills without relying on user-supplied names",
+      "examined": [
+        "Existing advisor coverage rules and routes",
+        "Prior ECC scout/stocktake/search-first source review",
+        "Prior Find Skills and Agency comparison"
+      ],
+      "chosen_owner": "Repo advisor, with optional discovery channels",
+      "reason": "Search by every necessary job, inspect actual instructions and exact revisions, explicitly account for overlap. No new claim that Find Skills/Agency upstream was refreshed in this review."
+    },
+    {
+      "job": "Choose specialist support for the book/shirt website",
+      "examined": [
+        "All 71 ECC role descriptions",
+        "Seven full ECC role bodies",
+        "Prior book/design decisions"
+      ],
+      "chosen_owner": "Existing selected design/3D/motion capabilities; ECC specialist candidates only where needed",
+      "reason": "Five relevant ECC roles considered: planner, react-reviewer, a11y-architect, e2e-runner, performance-optimizer. Existing equivalent capabilities may cover them; no bulk activation."
+    },
+    {
+      "job": "Improve reasoning discipline and evaluate advisor results",
+      "examined": [
+        "Matt interview instructions",
+        "Karpathy-inspired guidelines",
+        "ECC harness-optimizer and agent-evaluator"
+      ],
+      "chosen_owner": "Existing concise brief, evidence and verification rules",
+      "reason": "Use concrete methods, avoid competing global controllers, and require observed outcomes before claiming improvement."
+    },
+    {
+      "job": "Preserve creator commentary accurately",
+      "examined": [
+        "Complete prior three-file review",
+        "Current original report/index and complete JSON field schema",
+        "Matt/ECC/Karpathy entity and source records"
+      ],
+      "chosen_owner": "Original archive plus separate review/correction notes",
+      "reason": "Compiler summaries preserve opinions/claims, not complete transcripts or structured comment threads."
+    }
+  ],
+  "discovery": {
+    "method": "Followed existing catalog identities, confirmed renamed upstream repositories, checked current default-branch heads, enumerated ECC agents from the full recursive tree, read all role frontmatters and relevant complete bodies; searched original entity records for Matt Pocock/ECC/Karpathy aliases.",
+    "scope": "These three collections and their relationship to the already reviewed advisor/design workflow.",
+    "limits": [
+      "No exhaustive web-wide search or benchmark",
+      "No current target-device audit",
+      "No refresh of unrelated design candidates",
+      "64 ECC bodies remain metadata-only review"
+    ]
+  },
+  "decision": {
+    "status": "Repo playbook and research updated under the user's accepted request; external skill additions remain recommendations only.",
+    "selected_roles": [
+      {
+        "role": "Advisor/coordinator",
+        "choice": "Current assistant with repo build flow",
+        "verdict": "keep and clarify trigger"
+      },
+      {
+        "role": "Brief interview",
+        "choice": "Short repo procedure by default; Matt grilling for deliberate deep interview",
+        "verdict": "use alongside when needed"
+      },
+      {
+        "role": "Discovery and inventory comparison",
+        "choice": "Existing advisor coverage/inspector; ECC-derived methods and Find Skills channel as previously reviewed",
+        "verdict": "keep"
+      },
+      {
+        "role": "Website verification",
+        "choice": "Task-relevant existing specialists; consider narrow ECC roles if they fill a gap",
+        "verdict": "trial candidates, not installation selections"
+      },
+      {
+        "role": "General coding discipline",
+        "choice": "Existing rules covering Karpathy-inspired principles",
+        "verdict": "keep; defer redundant extra global skill"
+      }
+    ],
+    "actions_completed": [
+      "Added build-flow documentation and root/global instruction triggers",
+      "Added linked complete 71-role roster with explicit review depth",
+      "Recorded source comparison and creator-comment limitations",
+      "Added manual routing scenarios"
+    ],
+    "not_implemented": [
+      "Third-party skill installation or saved payload update",
+      "Global instruction restoration on the user's laptop",
+      "Automatic background observation or model training",
+      "Runtime trigger enforcing behavior across every client",
+      "Independent or repeated comparative advisor evaluation",
+      "Website design/build"
+    ],
+    "installs_or_removals": []
+  },
+  "evidence": [
+    {
+      "url": "https://api.github.com/repos/affaan-m/ECC/git/trees/b38be6a7f6350964d59328b52f0624e1d1d552d1?recursive=1",
+      "finding": "Complete tree; direct agents/*.md filter yields 71 unique definitions."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/planner.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/harness-optimizer.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/agent-evaluator.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/e2e-runner.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/a11y-architect.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/react-reviewer.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/agents/performance-optimizer.md",
+      "finding": "Full instruction body read; task-fit and limits recorded above and in the roster."
+    },
+    {
+      "url": "https://github.com/mattpocock/skills/blob/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grill-me/SKILL.md",
+      "finding": "Full current instruction text read; dependencies and scope implications recorded above."
+    },
+    {
+      "url": "https://github.com/mattpocock/skills/blob/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling/SKILL.md",
+      "finding": "Full current instruction text read; dependencies and scope implications recorded above."
+    },
+    {
+      "url": "https://github.com/mattpocock/skills/blob/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/engineering/grill-with-docs/SKILL.md",
+      "finding": "Full current instruction text read; dependencies and scope implications recorded above."
+    },
+    {
+      "url": "https://github.com/mattpocock/skills/blob/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/engineering/to-spec/SKILL.md",
+      "finding": "Full current instruction text read; dependencies and scope implications recorded above."
+    },
+    {
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md",
+      "finding": "Describes Karpathy-inspired principles; third-party source identity rather than official authorship."
+    },
+    {
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines/SKILL.md",
+      "finding": "Four coding-discipline principles overlap current rules; no model upgrade."
+    },
+    {
+      "local_ref": "knowledge/reel-library/imports/2026-11-01-meta/entities.json",
+      "finding": "Every entity uses all_urls, display_name, id, latest_insight, mention_count, outcome, primary_source_id, primary_url, slug, sources. Source objects use insight_snippet, outcome, source_id, url. No dedicated comment-thread/author/reply or full transcript fields."
+    },
+    {
+      "local_ref": "knowledge/reel-library/REVIEW.md",
+      "finding": "All three originals preserved; creator opinions occur as compiler summaries. Source IDs reel_DdFQ-K0AJ0b, reel_DenUlUKoQHt and reel_DeWcHDLjqna illustrate interview/minimal-edit claims. Truncation prevents faithful reconstruction of exact speech."
+    },
+    {
+      "local_ref": "tests/tool-advisor-scenarios.md",
+      "finding": "Manual instruction walkthrough of substantial builds, unknown briefs, complete briefs, explicit deep interview, no-build recommendation requests, simple edits, explanation questions, missing devices/playbook and creator claims. Not executed fresh-session agent trials."
+    }
+  ],
+  "validation": {
+    "python_unittest": "21 tests passed: existing setup and knowledge tooling",
+    "archive_verification": "Original hashes and deterministic derived files match; 1083 entities and 475 report sources retained",
+    "roster_check": "All 71 names match the fetched upstream roster; 7 full-body and 64 metadata-only review labels",
+    "local_links": "38 local Markdown targets in changed/new documentation resolve",
+    "routing_behavior": "Manual instruction walkthrough only; no fresh-session behavioral benchmark or laptop activation"
+  },
+  "feedback": [
+    {
+      "kind": "explicit authorization",
+      "text": "User accepted updating the repository with the advisor/interview/discovery flow."
+    },
+    {
+      "kind": "explicit concern",
+      "text": "User asks whether skills omitted until named could be accounted for systematically, and whether combining overlapping skills causes conflicts."
+    },
+    {
+      "kind": "explicit question",
+      "text": "User asks whether Matt/Karpathy improve thinking and whether ECC's claimed 63 specialists are useful."
+    }
+  ],
+  "revisit_when": [
+    "Relevant upstream files or agent roster change",
+    "User chooses a deep Matt interview or actual candidate trial",
+    "Actual target-device payloads become accessible",
+    "Representative tasks reveal omissions or excessive interviewing",
+    "User selects ECC instead of the current development workflow"
+  ],
+  "supersedes": []
+}

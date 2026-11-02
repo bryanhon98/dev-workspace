@@ -19,6 +19,12 @@ The review processed all three files: all 475 report rows, all 1,083 JSON entiti
 
 Descriptions cover software workflows, design, animation, video/audio production, marketing, agent orchestration, memory, model routing, backend concepts and unrelated skipped content. Identity ambiguities and comparison routes are captured in [ROUTING.md](../ROUTING.md). Old reviewed recommendations and installation blockers remain intact. No candidate has been installed, promoted to restorable, or certified by this import.
 
+## Creators' opinions and comments — checked 2026-11-02
+
+The files preserve **compiler summaries of creators' opinions and claims** in report insights, `latest_insight` and `sources[].insight_snippet`. They do not provide a structured export of comment threads, author/reply metadata, or complete verbatim transcripts. An opinion summarized from a reel is not an exact quotation or proof that a tool delivers the claimed result.
+
+Examples include Matt Pocock's interview-to-spec workflow (`reel_DdFQ-K0AJ0b`), claims that Grill Me avoids guessing (`reel_DenUlUKoQHt`), and claims that Karpathy-inspired rules encourage minimal edits (`reel_DeWcHDLjqna`). Popularity and effectiveness claims remain unverified. ECC summaries mention older agent counts, including 68; the [current pinned source review](../research/2026-11-02-ecc-agent-roster.md) counts 71 top-level agent files. Keep that correction beside the original import rather than changing its bytes.
+
 ## Verification and future use
 
 `python3 scripts/knowledge.py verify` checks archive hashes, counts, duplicate IDs, index/entity references, entity/report source references and deterministic generated views. `build` regenerates the readable index, full entity detail pages grouped alphabetically and coverage summary. `show ID` returns the complete original entity plus related report rows. Search includes historical inventory/reviews, full entity text and report rows; skipped content is retained but excluded from default discovery results.

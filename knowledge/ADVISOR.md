@@ -4,6 +4,8 @@ This repository is a persistent research and decision base for an agent. Its job
 
 ## Start from the job
 
+For substantial build/redesign/feature requests, enter through [BUILD-FLOW.md](BUILD-FLOW.md) even when the user names no skills. It defines the short scope interview, who coordinates, how specialists are selected, and when broad discovery is unnecessary. Follow the detailed evidence and device checks below for the comparison itself.
+
 Infer the intended outcome, input/output formats, current project stack, client, device, budget, privacy requirements and existing subscriptions from the conversation and project. Ask only for missing details that change the choice. Use [routing examples](ROUTING.md) to start, not as a fixed ranking. A task may need no additional skill.
 
 Search across the reel research, existing inventory and historical source reviews:

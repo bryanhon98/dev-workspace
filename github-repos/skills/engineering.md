@@ -10,6 +10,8 @@ Use architecture exploration and domain modeling when the structure or terminolo
 
 Optional. Its broader planning, TDD and review collection overlaps Superpowers. Some selected workflows write glossary and decision documents; choose them deliberately.
 
+[2026-11-02 interview review](../../knowledge/decisions/2026-11-02-matt-ecc-karpathy-build-advisor.json): current `grill-me` delegates to `grilling`; useful for an explicitly deep scope interview, while this repo defaults to a short interview. Current `to-spec` includes issue-tracker publication. Reading these files does not activate them or update the saved payloads. Better structure can reduce guessing; improved model intelligence or benchmarked superiority was not established.
+
 **Cost and license:** MIT; ordinary model/subagent costs, no mandatory external paid service.
 
 [Reviewed snapshot](https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336) · [Source](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/improve-codebase-architecture/SKILL.md) · [Additional evidence](https://docs.rhi.zone/skills-mattpocock.html)
