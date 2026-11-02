@@ -23,7 +23,11 @@
       },
       "extra_files": [],
       "audit_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
-      "exception": null
+      "exception": {
+        "review": "audits/tool-advisor-1.0.0-20261102/exception.json",
+        "report": "audits/tool-advisor-1.0.0-20261102/scan.json",
+        "ref": "tool-advisor-1.0.0-20261102-LP3-user-approved"
+      }
     },
     {
       "name": "grilling",

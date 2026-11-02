@@ -10,9 +10,9 @@
   },
   "full_test_suite": {
     "command": "python3 -m unittest discover -s tests -v",
-    "tests": 84,
+    "tests": 89,
     "failures": 0,
-    "duration_seconds": 13.897
+    "duration_seconds": 12.759
   },
   "archive_integrity": {
     "command": "python3 scripts/knowledge.py verify",
@@ -22,5 +22,99 @@
     "report_sources": 475
   },
   "hash_verification": "All complete payload hashes, implementation hashes and sanitized report hashes match the final manifest/review. No bytecode cache is included in a skill payload.",
-  "whitespace_check": "git diff --check passed"
+  "whitespace_check": "git diff --check passed",
+  "approved_installation": {
+    "recorded_at": "2026-11-02T15:03:19.099814+00:00",
+    "profile": "isolated cloud test profile",
+    "install_exit_code": 0,
+    "check_ready": true,
+    "managed_instructions_verified": true,
+    "components": [
+      "tool-advisor",
+      "grilling",
+      "find-skills"
+    ],
+    "reports": [
+      {
+        "component": "tool-advisor",
+        "report_ref": "audits/tool-advisor-1.0.0-20261102/approved-tool-advisor-scan.json",
+        "report_sha256": "41316ee7548fa4311c4d9a66cbdd47482b2e2f2fd30727f320b741a0e24609f2",
+        "coverage_percent": 100,
+        "finding_ids": [
+          "LP3"
+        ],
+        "exception_ref": "tool-advisor-1.0.0-20261102-LP3-user-approved",
+        "installed_hashes": {
+          "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+          "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
+          "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
+          "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+          "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
+          "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+        }
+      },
+      {
+        "component": "grilling",
+        "report_ref": "audits/tool-advisor-1.0.0-20261102/approved-grilling-scan.json",
+        "report_sha256": "9da43a5d4dd76054ab73cbf5dddd139b99b762c23690dc8d6508038bfab53d79",
+        "coverage_percent": 100,
+        "finding_ids": [
+          "EA2"
+        ],
+        "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+        "installed_hashes": {
+          "SKILL.md": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15",
+          "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+          "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+        }
+      },
+      {
+        "component": "find-skills",
+        "report_ref": "audits/tool-advisor-1.0.0-20261102/approved-find-skills-scan.json",
+        "report_sha256": "2337c3d31b5c07e3e02a9fc92b91eb3552f82bd234256c400980caceff95406f",
+        "coverage_percent": 100,
+        "finding_ids": [
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1",
+          "RP1"
+        ],
+        "exception_ref": "find-skills-13e4063-20261018-user-approved",
+        "installed_hashes": {
+          "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+          "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+        }
+      }
+    ],
+    "native_invocation_verified": false,
+    "laptop_installed": false
+  },
+  "native_discovery_ref": "audits/tool-advisor-1.0.0-20261102/native-discovery.json",
+  "installed_ledger_smoke_test": {
+    "result": "passed",
+    "checks": [
+      "Installed script initializes state and reads it back in a separate process",
+      "Only the requested project .tool-advisor directory was created",
+      "Private-state ignore rule is present"
+    ],
+    "profile": "isolated temporary project"
+  },
+  "native_project_installation_check": {
+    "ready": true,
+    "errors": [],
+    "components": [
+      "tool-advisor",
+      "grilling",
+      "find-skills"
+    ],
+    "scope": "Isolated project profile; second actual --check-advisor invocation passed."
+  }
 }

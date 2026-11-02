@@ -380,6 +380,74 @@ class AdvisorInstallTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'exception|approval'):
             self.install()
 
+    def approve_advisor_fixture(self):
+        component = self.manifest['components'][0]
+        issue = json.loads((ROOT / 'audits/tool-advisor-1.0.0-20261102/scan.json').read_text())['issues'][0]
+        exception_ref = 'tool-advisor-1.0.0-20261102-LP3-user-approved'
+        report = self.write('audits/advisor-scan.json', {'issues': [issue]})
+        approval = {'revision': component['version'], 'exception_ref': exception_ref,
+                    'approval': {'response': 'Approve', 'context': 'Fixture approval of this exact LP3 finding'},
+                    'sha256': copy.deepcopy(component['hashes']),
+                    'report_ref': 'audits/advisor-scan.json', 'report_sha256': digest(report)}
+        self.write('audits/advisor-exception.json', approval)
+        audit = json.loads((self.repo / component['audit_ref']).read_text())
+        audit.update(status='reviewed-with-user-exception', exception_ref=exception_ref)
+        self.write(component['audit_ref'], audit)
+        component['exception'] = {'ref': exception_ref, 'review': 'audits/advisor-exception.json',
+                                  'report': 'audits/advisor-scan.json'}
+        self.save_manifest()
+        self.report_mutation = lambda r: r.update(issues=[copy.deepcopy(issue)])
+        return component, issue
+
+    def test_approved_advisor_exception_installs_only_exact_reviewed_payload(self):
+        self.approve_advisor_fixture()
+        self.assertTrue(self.install()['ready'])
+        self.assertTrue(self.check()['ready'])
+
+    def test_advisor_exception_does_not_cover_changed_payload(self):
+        component, _ = self.approve_advisor_fixture()
+        source = self.repo / component['path'] / 'SKILL.md'
+        source.write_text(source.read_text() + 'Changed instructions.\n')
+        component['hashes']['SKILL.md'] = digest(source)
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'hash|payload'):
+            self.install()
+        self.assertFalse(self.skills.exists())
+
+    def test_advisor_exception_does_not_cover_new_findings(self):
+        _, issue = self.approve_advisor_fixture()
+        extra = {**issue, 'id': 'NEW', 'finding': 'Additional unapproved capability'}
+        self.report_mutation = lambda r: r.update(issues=[issue, extra])
+        with self.assertRaisesRegex(ValueError, 'finding'):
+            self.install()
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+
+    def test_advisor_approval_binds_the_exact_historical_report(self):
+        self.approve_advisor_fixture()
+        report = self.repo / 'audits/advisor-scan.json'
+        data = json.loads(report.read_text())
+        data['issues'][0]['id'] = 'OTHER'
+        report.write_text(json.dumps(data))
+        self.report_mutation = lambda r: r.update(issues=copy.deepcopy(data['issues']))
+        with self.assertRaisesRegex(ValueError, '(?i)report|hash'):
+            self.install()
+        self.assertEqual(self.scan_count, 0)
+
+    def test_advisor_exception_requires_source_review_and_explicit_approval(self):
+        component, _ = self.approve_advisor_fixture()
+        for path, field, value in [(component['audit_ref'], 'status', 'draft'),
+                                  ('audits/advisor-exception.json', 'approval', None),
+                                  ('audits/advisor-exception.json', 'revision', 'future-version')]:
+            with self.subTest(field=field):
+                original = (self.repo / path).read_text()
+                data = json.loads(original)
+                data[field] = value
+                self.write(path, data)
+                with self.assertRaises(ValueError):
+                    self.install()
+                self.write(path, original)
+        self.assertEqual(self.scan_count, 0)
+
     def test_find_skills_restoration_requires_original_approval_and_identical_hashes(self):
         destination = self.repo / 'skills/find-skills'
         shutil.copytree(ROOT / 'skills/external/find-skills', destination)

@@ -31,7 +31,7 @@
       "upstream_revision": null,
       "version": "1.0.0",
       "checked_at": "2026-11-02T09:58:36Z",
-      "review_depth": "Authored skill and stdlib Python ledger with response trials, CLI tests and independent code review. Final exact source hashes and static scan live in the audit directory; no global activation approval.",
+      "review_depth": "Authored skill and stdlib ledger reviewed with response trials, CLI tests and independent ledger code review. Exact source hashes, specific user LP3 approval, actual isolated installation and native Codex discovery are recorded in the audit directory.",
       "fit": "General task coordination, source/availability distinctions, explicit proposal confirmation, dependency-aware tracking and evidence-required completion.",
       "overlap": "Keeps the main host assistant as coordinator; avoids requiring another full agent platform or task-management runtime.",
       "prerequisites": [
@@ -43,7 +43,7 @@
       ],
       "costs": "No additional model service or paid API built into the core. The host's ordinary usage applies.",
       "uncertainties": [
-        "SkillSpector LP3 flags absent tool-scope preapproval for file-writing helper; new finding blocks activation pending specific approval",
+        "The user explicitly approved the exact LP3 exception; changed payloads or findings still need review.",
         "Host permissions are not a skill sandbox; no broad preapproval added to silence the warning",
         "Response tests are not live native host invocation or independent general-quality benchmarks",
         "Current target laptop is inaccessible"
@@ -127,7 +127,7 @@
         "Saved grilling/find-skills payloads and scanner audits"
       ],
       "chosen_owner": "Explicit --install-advisor bundle installer",
-      "gap": "New custom LP3 exception not approved; actual bundle activation stays blocked."
+      "gap": "Actual user-device setup and model-driven workflow invocation remain unperformed; isolated installation and native discovery passed."
     },
     {
       "job": "Interview to resolve scope",
@@ -178,11 +178,11 @@
         "Existing decision contracts"
       ],
       "chosen_owner": "Coordinator verification and sanitized repo decisions",
-      "gap": "No fresh-session native discovery trial or measured improvement on completed user projects."
+      "gap": "No model-driven end-to-end workflow or measured improvement on completed user projects; isolated installation, native discovery and installed-ledger smoke checks passed."
     }
   ],
   "decision": {
-    "status": "Implemented source and tests; activation blocked by a new medium-severity LP3 finding pending specific user approval.",
+    "status": "LP3 exception explicitly approved; exact source bundle installed and checked in isolated cloud profiles. Native Codex discovery passed; laptop installation and model workflow invocation unperformed.",
     "selected_roles": [
       "tool-advisor coordinator",
       "grilling interviewer",
@@ -197,16 +197,28 @@
       "Universal prompt interception",
       "Model training",
       "Full ECC/Agency installation",
-      "Actual target-device installation",
-      "New scanner exception approval"
+      "Actual target-device installation"
     ],
-    "installs_or_removals": [],
-    "activation_blocker": {
+    "installs_or_removals": [
+      {
+        "action": "installed-for-validation",
+        "scope": "isolated cloud profiles",
+        "components": [
+          "tool-advisor",
+          "grilling",
+          "find-skills"
+        ],
+        "user_global_installation": false,
+        "laptop_installation": false
+      }
+    ],
+    "approved_exception": {
       "rule": "LP3",
       "severity": "MEDIUM",
       "reason": "New skill contains file-writing local ledger but no declared tool preapproval.",
-      "approval": null,
-      "scope": "Only this new skill's exact reviewed final hashes and finding; no general scanner bypass."
+      "approval": "audits/tool-advisor-1.0.0-20261102/exception.json",
+      "scope": "Only this new skill's exact reviewed final hashes and finding; no general scanner bypass.",
+      "status": "approved-for-exact-recorded-hashes-and-finding"
     }
   },
   "evidence": [
@@ -241,21 +253,34 @@
     {
       "url": "https://learn.chatgpt.com/docs/build-skills",
       "finding": "Official local Codex discovery uses ~/.agents/skills; full live discovery still needs verification on the target host."
+    },
+    {
+      "local_ref": "audits/tool-advisor-1.0.0-20261102/exception.json",
+      "finding": "Explicit user approval of LP3 for the exact six source files and historical report."
+    },
+    {
+      "local_ref": "audits/tool-advisor-1.0.0-20261102/native-discovery.json",
+      "finding": "Fresh Codex native loader lists all three installed project-scope skills as enabled; no model invocation claimed."
     }
   ],
   "feedback": [
     {
       "kind": "explicit objective",
       "text": "User requests actual skill-backed interviewing/discovery plus confirmation and coordinated tracked execution for general tasks."
+    },
+    {
+      "kind": "explicit approval",
+      "text": "User replied Approve to the specific reviewed LP3 exception request; scope is recorded in exception.json."
     }
   ],
   "revisit_when": [
-    "User explicitly approves the exact LP3 exception or a reviewed capability-scope solution resolves it",
+    "Payload hashes or scanner findings change beyond the approved LP3 exception",
     "A target device is available for native discovery/invocation tests",
     "Selected upstream payloads change",
     "Actual projects reveal interview/discovery or coordination failures",
     "Concurrent distributed work requires a larger tracker"
   ],
   "supersedes": [],
-  "refines": "2026-11-02-matt-ecc-karpathy-build-advisor: installation and confirmation portions; historical source findings remain intact."
+  "refines": "2026-11-02-matt-ecc-karpathy-build-advisor: installation and confirmation portions; historical source findings remain intact.",
+  "amended_at": "2026-11-02T15:05:48.188621+00:00"
 }

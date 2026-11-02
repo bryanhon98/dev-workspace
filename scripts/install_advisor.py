@@ -20,6 +20,7 @@ SCANNER_REVISION = 'cf5cac7ba5c756a6e0ebf52dc9763f49422f889f'
 SCANNER_VERSION = '2.12.0'
 SCANNER_REVIEW = 'audits/skillspector-cf5cac7-20261018/review.json'
 EXCEPTIONS = {
+    'tool-advisor': 'tool-advisor-1.0.0-20261102-LP3-user-approved',
     'grilling': 'matt-pocock-49dd158-20261018-user-approved',
     'find-skills': 'find-skills-13e4063-20261018-user-approved',
 }
@@ -140,7 +141,19 @@ def _audit(root, component, scanner):
             recorded = {p[len('grilling/'):]: h for p, h in recorded.items() if p.startswith('grilling/')}
         if recorded != expected:
             raise ValueError('Exception payload hashes changed: ' + name)
-        report = _json(_inside(root, exception['report']))
+        report_path = _inside(root, exception['report'])
+        if name == 'tool-advisor':
+            if (audit.get('status') != 'reviewed-with-user-exception'
+                    or audit.get('sha256') != expected
+                    or audit.get('exception_ref') != exception['ref']):
+                raise ValueError('Advisor source review or payload hashes do not match the approval')
+            pin = audit.get('scanner', {})
+            if pin.get('revision') != scanner['revision'] or pin.get('version') != scanner['version']:
+                raise ValueError('Advisor source review scanner pin mismatch')
+            if (review.get('report_ref') != exception['report']
+                    or review.get('report_sha256') != _sha(report_path)):
+                raise ValueError('Approved advisor finding report changed')
+        report = _json(report_path)
         issues = report.get('issues')
         if not isinstance(issues, list) or not issues:
             raise ValueError('Missing historical exception findings: ' + name)

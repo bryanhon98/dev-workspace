@@ -1,0 +1,53 @@
+{
+  "name": "tool-advisor",
+  "revision": "1.0.0",
+  "exception_ref": "tool-advisor-1.0.0-20261102-LP3-user-approved",
+  "recorded_at": "2026-11-02T15:00:14.414856+00:00",
+  "approval": {
+    "response": "Approve",
+    "context": "Do you approve the specific LP3 exception for the reviewed advisor's local task-tracking file writes?",
+    "source": "Explicit user response in this conversation after the review and scope were presented."
+  },
+  "sha256": {
+    "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+    "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9",
+    "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
+    "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
+    "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+    "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971"
+  },
+  "report_ref": "audits/tool-advisor-1.0.0-20261102/scan.json",
+  "report_sha256": "993f718124b9c473aacf79fd112794133e90d0cea7e96241025aeebff69b1518",
+  "finding": {
+    "id": "LP3",
+    "finding_id": "finding-edaaa94582d24196baf22477023bb5ad",
+    "category": "MCP Least Privilege",
+    "pattern": "Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_write.",
+    "severity": "MEDIUM",
+    "confidence": 0.7,
+    "location": {
+      "file": "SKILL.md",
+      "start_line": 1,
+      "end_line": null
+    },
+    "finding": "Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_write.",
+    "explanation": "Without declared permissions the skill's intent is opaque and cannot be validated.",
+    "remediation": "Clarify the skill's intended tool scope and review how the host runtime enforces it; runtime permissions are unknown unless separately verified. For Claude Code / Agent Skills SKILL.md, 'allowed-tools' records preapproved tools, not a permission ceiling; add a tool only when it is independently approved as necessary, not to silence this finding. For MCP server manifests, use a 'permissions' list naming the required capabilities.",
+    "code_snippet": null,
+    "intent": null,
+    "tags": [
+      "ASI02"
+    ],
+    "evidence": {},
+    "match_fingerprint": null,
+    "occurrences": [
+      {
+        "file": "SKILL.md",
+        "start_line": 1,
+        "end_line": null
+      }
+    ]
+  },
+  "scope": "Only LP3 for the exact six reviewed tool-advisor 1.0.0 files. Fresh complete scans remain mandatory. Changed payloads or findings require a new review; this is not a generic scanner bypass or host tool preapproval.",
+  "device_scope": "Enables the curated bundle for installation and isolated workspace verification. Does not establish installation on the inaccessible user laptop."
+}

@@ -22,7 +22,7 @@ Approaches considered: documentation alone lacks executable setup and state; a f
 - [x] Integrate setup CLI flags, core selection output and managed checkout locator; retain the existing instruction installer and tests. Document Python 3.12+ for scanner bootstrap, network/model requirements and host limitations. An install/check receipt proves files and scanner checks, not a live model invocation.
 - [x] Inspect the reviewed scanner bootstrap and install it in an isolated development venv. Run actual static scans on final payloads and compare only exact historical exceptions. New findings block activation and remain concrete review items; they do not stop development, tests or preparing a reviewable bundle.
 - [x] Validate fixture installer success/rollback/refusal paths, task state transitions, source archive integrity and all 84 repo tests. Verify real scanner reports and actual source-bundle refusal before target writes. Obtain independent ledger review and fix its findings; primary-agent installer review is recorded separately. Keep project state and temporary profiles out of Git.
-- [ ] Activate the actual source bundle in an isolated profile and verify native host discovery. Blocked by the new LP3 finding; successful fixture installs do not establish this result.
+- [x] Activate the actual source bundle in isolated profiles after the explicit LP3 approval. Fresh scans and --check-advisor pass. Codex CLI 0.159.2 discovers all three enabled skills in an isolated project root. This does not claim a model-driven workflow or laptop installation.
 - [x] Prepare sanitized source for authorized publication; remote completion is reported only after verifying the push.
 
 ## Review focus
@@ -38,10 +38,10 @@ Tests must cover missing/partial/malformed scanner reports, new findings despite
 - [x] Run five fresh-context samples with the skill and edge-case trials; inspect every answer.
 - [x] Refine any failed behavior and rerun affected trials.
 - [x] Complete static review, exact hashes and licenses; save review and refusal evidence.
-- [ ] Obtain specific LP3 approval or a reviewed resolution before creating an actual activation receipt. Publication does not confer approval.
+- [x] Record the user's explicit LP3 approval, limited to the exact reviewed file hashes and finding; retain fresh scans and actual isolated installation receipts.
 
 The built-in skill-creator is unavailable in this environment. The repo's creator workflow and available Superpowers writing-skills/TDD guidance are being used directly. The accepted product brief supplies the scope; implementation details above are engineering choices, not new user preferences.
 
 ## Final verification state
 
-All 84 unit tests passed, including real temporary ledger transitions and fixture installer rollback/refusal tests. The original research archive hashes and derived coverage match. Actual final static scans cover all payload files; grilling/find-skills retain only their exact historical approved findings. The new advisor has one MEDIUM LP3 finding. Its actual install command refuses before creating target skills, instructions or receipts. See `audits/tool-advisor-1.0.0-20261102/review.json`. No laptop installation or fresh-session native invocation is claimed.
+All 89 unit tests pass, including five new exception-boundary tests. The original archive hashes and derived coverage match. The user explicitly approved the exact LP3 finding; fresh complete scans matched only the three components' approved findings. The actual installer and read-only check pass in isolated cloud profiles. A fresh Codex CLI app server discovers all three enabled skills in an isolated project .agents/skills root, and the installed ledger initializes and resumes state. See `audits/tool-advisor-1.0.0-20261102/verification.json` and `native-discovery.json`. No user-global/laptop installation or model-driven workflow invocation is claimed.

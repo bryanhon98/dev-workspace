@@ -1,0 +1,28 @@
+{
+  "host": "codex-cli 0.159.2",
+  "method": "Fresh local app-server skills/list with forceReload; standard isolated project .agents/skills directory",
+  "skills": [
+    {
+      "name": "find-skills",
+      "enabled": true,
+      "scope": "repo",
+      "relative_path": ".agents/skills/find-skills/SKILL.md"
+    },
+    {
+      "name": "grilling",
+      "enabled": true,
+      "scope": "repo",
+      "relative_path": ".agents/skills/grilling/SKILL.md"
+    },
+    {
+      "name": "tool-advisor",
+      "enabled": true,
+      "scope": "repo",
+      "relative_path": ".agents/skills/tool-advisor/SKILL.md"
+    }
+  ],
+  "target_errors": [],
+  "native_discovery_verified": true,
+  "native_model_invocation_verified": false,
+  "scope": "Isolated project discovery; no user-global or laptop installation and no model task executed."
+}

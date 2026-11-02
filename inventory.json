@@ -891,8 +891,8 @@
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "version": "1.0.0",
       "scope": "user",
-      "audit_status": "blocked-new-finding",
-      "restorable": false,
+      "audit_status": "reviewed-with-user-exception",
+      "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/custom/tool-advisor",
       "audit_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
@@ -913,7 +913,8 @@
         "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
         "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
         "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
-      }
+      },
+      "exception_ref": "tool-advisor-1.0.0-20261102-LP3-user-approved"
     }
   ]
 }

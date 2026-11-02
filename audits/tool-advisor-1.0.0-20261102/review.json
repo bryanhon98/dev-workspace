@@ -2,8 +2,8 @@
   "name": "tool-advisor",
   "version": "1.0.0",
   "reviewed_at": "2026-11-02T14:41:09.148181+00:00",
-  "status": "blocked-new-finding",
-  "restorable": false,
+  "status": "reviewed-with-user-exception",
+  "restorable": true,
   "sha256": {
     "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
     "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
@@ -49,21 +49,6 @@
     "runtime_execution": "Scanner CLI executed from its verified pinned package. Candidate skills/scripts were not invoked by the scanner.",
     "network": "--no-llm disables model analysis; it is not network isolation. Package vulnerability analyzers can query vulnerability services. The advisor ledger itself has no network calls or subprocesses."
   },
-  "pending_finding": {
-    "id": "LP3",
-    "severity": "MEDIUM",
-    "location": {
-      "file": "SKILL.md",
-      "start_line": 1
-    },
-    "finding": "Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_write.",
-    "match_fingerprint": null,
-    "approval": null,
-    "explanation": "The reviewed stdlib ledger writes project-local state, an ignore file, a lock and atomic temporary state files. The skill has no allowed-tools preapproval. Normal host execution permissions remain applicable; adding broad preapproval would not establish a filesystem sandbox.",
-    "requested_exception_scope": "Only LP3 for tool-advisor 1.0.0 at the six hashes above. No new tool preapproval, general scanner bypass, approval of future hashes or evidence of laptop installation.",
-    "rule_ref": "global/AGENTS.md",
-    "rule_quote": "New findings need new approval."
-  },
   "manual_review": {
     "skill_and_references": "Complete instructions, all three references, discovery metadata and full ledger implementation read. Interview and discovery are actual named dependencies, with native invocation/manual loading distinguished and a disclosed pre-confirmation fact-lookup adaptation.",
     "ledger": "Stdlib only; explicit project/input paths; regular-file and symlink checks, size bound, strict JSON, ignored private state, exclusive write lock, atomic state replacement and stale-snapshot rejection. Confirms current brief/proposal, checks role readiness, task DAG and acceptance evidence. Does not authenticate user answers or verify output truth.",
@@ -88,17 +73,21 @@
   "verification": {
     "unit_tests": {
       "command": "python3 -m unittest discover -s tests -v",
-      "passed": 84,
+      "passed": 89,
       "failed": 0,
       "scope": "Real temporary filesystem/CLI ledger and setup tests; installer scan outputs controlled in tests to exercise success, rollback and refusal branches."
     },
     "behavior_trials_ref": "audits/tool-advisor-1.0.0-20261102/behavior-trials.json",
     "real_report_validation": "Final actual scanner reports validated against complete manifest payloads. Historical exceptions accepted exactly; advisor LP3 rejected with an empty approval list.",
-    "actual_activation": "Actual setup CLI refused the source bundle with blocked-new-finding before creating the isolated target profile or skill root. See verification.json.",
-    "successful_production_bundle_install": "Not performed: LP3 approval is absent.",
-    "native_host_invocation": "Not performed on a fresh target session.",
+    "successful_production_bundle_install": "Actual release payload installed in an isolated profile. User-global or laptop installation was not performed.",
+    "native_host_invocation": "No model task was executed; discovery is verified separately from actual interviewing/discovery workflow invocation.",
     "laptop_installation": "Not performed; target laptop inaccessible.",
-    "edge_cases_ref": "audits/tool-advisor-1.0.0-20261102/edge-cases.json"
+    "edge_cases_ref": "audits/tool-advisor-1.0.0-20261102/edge-cases.json",
+    "preapproval_activation_check": "Actual setup CLI refused the source bundle with blocked-new-finding before creating the isolated target profile or skill root. See verification.json.",
+    "actual_activation": "Real source bundle installed after fresh complete static scans into an isolated cloud profile; --check-advisor returned ready. See verification.json.",
+    "approval_regressions": "Five new tests cover approved installation, changed payloads, new findings, altered historical report, missing approval and incomplete source review. The first run failed before support was implemented; final suite passes.",
+    "native_host_discovery": "Codex CLI 0.159.2 fresh app-server skills/list discovered all three installed skills enabled, with no target errors, under an isolated project .agents/skills root. See native-discovery.json.",
+    "installed_ledger": "Installed ledger initialized and resumed state successfully in an isolated project."
   },
   "limitations": [
     "Static coverage is not a security guarantee.",
@@ -112,11 +101,29 @@
     "https://code.claude.com/docs/en/skills"
   ],
   "implementation_hashes": {
-    "scripts/install_advisor.py": "8642f29938c9031b1189c42a0d91c365891fd897116f79c6c9b0f12227597fe7",
+    "scripts/install_advisor.py": "c455c94f2dc1f6ffb606d1dd818c9547a561b10c4ed95d0231783cebf8d35af6",
     "scripts/setup.py": "3ab6112d8183c04603cd2cf98b021a3be73f70ae3a653bf61a74dc1631d315b7",
     "scripts/advisor.py": "1a6ed41f4b5cd5acd293d5c2c13352c8f4bb5f30c875d1bc98f59869b93beb10",
     "tests/test_advisor.py": "decd67c0bb0bf9d08fa3cf7ee988251d83135beec92889e768d39b96ef92e001",
-    "tests/test_advisor_install.py": "7e96b20419ddac4754b6ca77accb337712258ede12be14dbe65052e6bc57ad4d",
+    "tests/test_advisor_install.py": "ee615a2d4754e66988643ebee8d7645ca6b3f36ec6c82d4f552839e14a8f1f38",
     "tests/test_setup.py": "22cb2a679f70cc5c20fd003243415ad24fdaa20e0e00faf7eb4dc9797c1f456d"
+  },
+  "exception_ref": "tool-advisor-1.0.0-20261102-LP3-user-approved",
+  "exception_record": "audits/tool-advisor-1.0.0-20261102/exception.json",
+  "approved_at_recorded": "2026-11-02T15:00:14.414856+00:00",
+  "approved_finding": {
+    "id": "LP3",
+    "severity": "MEDIUM",
+    "location": {
+      "file": "SKILL.md",
+      "start_line": 1
+    },
+    "finding": "Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_write.",
+    "match_fingerprint": null,
+    "approval": "audits/tool-advisor-1.0.0-20261102/exception.json",
+    "explanation": "The reviewed stdlib ledger writes project-local state, an ignore file, a lock and atomic temporary state files. The skill has no allowed-tools preapproval. Normal host execution permissions remain applicable; adding broad preapproval would not establish a filesystem sandbox.",
+    "requested_exception_scope": "Only LP3 for tool-advisor 1.0.0 at the six hashes above. No new tool preapproval, general scanner bypass, approval of future hashes or evidence of laptop installation.",
+    "rule_ref": "global/AGENTS.md",
+    "rule_quote": "New findings need new approval."
   }
 }

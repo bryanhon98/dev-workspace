@@ -8,7 +8,7 @@ This routing depends on the host loading the repo or global instructions. The re
 
 ## Install the advisor core
 
-**Activation is currently blocked pending review of one new SkillSpector finding:** LP3 flags that the advisor's local ledger writes files without a tool-permission declaration. The source and installer are prepared, but the advisor audit is not approved for activation. The command below refuses this state; it becomes usable after that specific finding is resolved or explicitly approved under [the repo rules](global/AGENTS.md). No blanket tool preapproval has been added.
+The advisor core is approved for installation. Its [specific LP3 exception](audits/tool-advisor-1.0.0-20261102/exception.json) covers the reviewed local task-ledger writes at the recorded file hashes. Installation still runs fresh static scans and rejects changed files or findings. Normal host permissions apply.
 
 On the device where you use Codex, clone this repo and run:
 
@@ -90,7 +90,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer remain available. The explicit advisor option targets only its curated core and currently refuses activation while its LP3 review is pending. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer remain available. The explicit advisor option installs its three reviewed core skills under their exact approved exceptions. Installation and file checks passed in an isolated cloud profile; each device still needs its own setup and fresh-session verification. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 
