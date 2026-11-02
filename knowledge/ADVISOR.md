@@ -8,6 +8,8 @@ For substantial tasks in any domain, enter through the installed tool-advisor sk
 
 Infer the intended outcome, input/output formats, current project stack, client, device, budget, privacy requirements and existing subscriptions from the conversation and project. Ask only for missing details that change the choice. Use [routing examples](ROUTING.md) to start, not as a fixed ranking. A task may need no additional skill.
 
+Current explicit user choices: keep Ponytail and Caveman out of the advisor workflow unless the user revisits that choice. Consider a council review for important decisions after scope is clear and before committing to the approach; it is optional for routine work. The user means Karpathy's multi-model LLM Council, not the similarly named persona-based Claude Council. A review checkpoint does not imply approval to install a particular council runtime, send project content to extra providers or incur new charges. See the dated council/model-selection decisions for implementation candidates and remaining gaps.
+
 Search across the reel research, existing inventory and historical source reviews:
 
 ```sh

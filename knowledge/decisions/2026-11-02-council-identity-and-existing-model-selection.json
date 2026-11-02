@@ -1,0 +1,176 @@
+{
+  "id": "2026-11-02-council-identity-and-existing-model-selection",
+  "recorded_at": "2026-11-02T16:12:07.034779+00:00",
+  "task": "Clarify API application versus skill, council placement, user exclusions and existing task-model selection candidates.",
+  "constraints": {
+    "explicit": [
+      "User means Karpathy llm-council",
+      "Use council review at important decisions",
+      "Exclude Ponytail and Caveman from the workflow",
+      "Investigate an existing mature model-selection skill before proposing new custom machinery"
+    ],
+    "scope": "Record choices and research; no new council or routing installation, provider calls or modification of approved core skill files."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "identity": "obra/superpowers",
+      "source_url": "https://github.com/obra/superpowers",
+      "skill_paths": [
+        "skills/subagent-driven-development/SKILL.md"
+      ],
+      "recorded_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "upstream_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "checked_at": "2026-11-02T16:12:07.034779+00:00",
+      "review_depth": "Main skill read with focused complete Model Selection section; supporting execution references/runtime not newly audited.",
+      "fit": "Preferred existing software execution candidate: explicit model tiers by task, reviewer risk and escalation.",
+      "overlap": "Software-specific workflow; host must support selected model IDs and effort. Not a general provider gateway.",
+      "prerequisites": "Host-specific capabilities and review before adoption",
+      "costs": "No new services or model calls used in this research",
+      "uncertainties": [
+        "Software-specific workflow; host must support selected model IDs and effort. Not a general provider gateway."
+      ]
+    },
+    {
+      "identity": "zscole/model-hierarchy-skill",
+      "source_url": "https://github.com/zscole/model-hierarchy-skill",
+      "skill_paths": [
+        "SKILL.md"
+      ],
+      "recorded_revision": "9095f8303847a60de9f564659e561f3f6fd0cdc4",
+      "upstream_revision": "9095f8303847a60de9f564659e561f3f6fd0cdc4",
+      "checked_at": "2026-11-02T16:12:07.034779+00:00",
+      "review_depth": "Full README, SKILL.md and tests/test_classification.py read; no tests or model calls executed.",
+      "fit": "Direct standalone model hierarchy instructions; defer adoption.",
+      "overlap": "Old model/pricing table, broad keyword heuristics, illustrative cost mix. Tests classify strings and calculate assumed costs, not actual task quality or observed savings.",
+      "prerequisites": "Host-specific capabilities and review before adoption",
+      "costs": "No new services or model calls used in this research",
+      "uncertainties": [
+        "Old model/pricing table, broad keyword heuristics, illustrative cost mix. Tests classify strings and calculate assumed costs, not actual task quality or observed savings."
+      ]
+    },
+    {
+      "identity": "lm-sys/RouteLLM",
+      "source_url": "https://github.com/lm-sys/RouteLLM",
+      "skill_paths": [
+        "README.md"
+      ],
+      "recorded_revision": "0b64fdafe049e596a3f5657c219329f24af24198",
+      "upstream_revision": "0b64fdafe049e596a3f5657c219329f24af24198",
+      "checked_at": "2026-11-02T16:12:07.034779+00:00",
+      "review_depth": "Current README read; runtime not audited.",
+      "fit": "Research-backed strong/weak request-routing framework for an API service.",
+      "overlap": "Not a skill or worker manager; published benchmarks use older model pairs and need workload calibration. Current source head last pushed 2024-08-10.",
+      "prerequisites": "Host-specific capabilities and review before adoption",
+      "costs": "No new services or model calls used in this research",
+      "uncertainties": [
+        "Not a skill or worker manager; published benchmarks use older model pairs and need workload calibration. Current source head last pushed 2024-08-10."
+      ]
+    },
+    {
+      "identity": "musistudio/claude-code-router",
+      "source_url": "https://github.com/musistudio/claude-code-router",
+      "skill_paths": [
+        "README.md"
+      ],
+      "recorded_revision": "057abaa1f95519ab8faf999e1ccef2b80ccdeb9e",
+      "upstream_revision": "057abaa1f95519ab8faf999e1ccef2b80ccdeb9e",
+      "checked_at": "2026-11-02T16:12:07.034779+00:00",
+      "review_depth": "Current README capability/setup sections checked; retained earlier pinned review, no new runtime audit.",
+      "fit": "Existing catalog gateway candidate if extra providers are required.",
+      "overlap": "Separate software, credentials and routing rules; does not itself establish task difficulty or best worker model.",
+      "prerequisites": "Host-specific capabilities and review before adoption",
+      "costs": "No new services or model calls used in this research",
+      "uncertainties": [
+        "Separate software, credentials and routing rules; does not itself establish task difficulty or best worker model."
+      ]
+    },
+    {
+      "identity": "SuperShary/claude-council",
+      "source_url": "https://github.com/SuperShary/claude-council",
+      "skill_paths": [
+        "skills/council/SKILL.md"
+      ],
+      "recorded_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "upstream_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "checked_at": "2026-11-02T16:12:07.034779+00:00",
+      "review_depth": "Prior main skill review retained; live metadata rechecked.",
+      "fit": "Identity clarification only; user confirms Karpathy council instead.",
+      "overlap": "GitHub reports 2 stars and creation 2026-09-17; not evidence of mature adoption. Persona debate is distinct from multiple independent model providers.",
+      "prerequisites": "Host-specific capabilities and review before adoption",
+      "costs": "No new services or model calls used in this research",
+      "uncertainties": [
+        "GitHub reports 2 stars and creation 2026-09-17; not evidence of mature adoption. Persona debate is distinct from multiple independent model providers."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Council identity and prerequisites",
+      "examined": [
+        "Karpathy README from prior current source review",
+        "Claude Council main skill and current GitHub metadata"
+      ],
+      "decision": "Karpathy original is a local app making external OpenRouter calls. Persona skill needs host usage but no separate model API of its own."
+    },
+    {
+      "job": "Worker model selection",
+      "examined": [
+        "Superpowers SDD",
+        "model-hierarchy-skill"
+      ],
+      "decision": "Prefer evaluating existing Superpowers model-selection guidance for software execution. Effort and available model mapping remain host integration work."
+    },
+    {
+      "job": "Provider routing",
+      "examined": [
+        "RouteLLM",
+        "Claude Code Router"
+      ],
+      "decision": "Optional infrastructure only when native host model controls are insufficient."
+    }
+  ],
+  "decision": {
+    "status": "Preferences recorded; implementation candidates proposed, not installed",
+    "selected_roles": [
+      "Existing main advisor remains coordinator",
+      "Optional council decision review after interview",
+      "Existing Superpowers SDD as first software model-selection candidate"
+    ],
+    "exclusions": [
+      "Ponytail",
+      "Caveman"
+    ],
+    "council_timing": "After requirements are clear, when an important decision warrants review; repeat only for a consequential new decision. No requirement to install Karpathy app before basic interviews or discovery.",
+    "not_implemented": [
+      "Council runtime integration",
+      "Automatic model/effort router",
+      "New external provider authentication or payments"
+    ],
+    "cost_note": "Chat subscriptions do not automatically supply API credits; original Karpathy application uses OpenRouter API access."
+  },
+  "evidence": [
+    {
+      "url": "https://api.github.com/repos/SuperShary/claude-council",
+      "finding": "2 stargazers observed; created 2026-09-17. Popularity alone does not establish quality, but mature deployment claims would be unsupported."
+    },
+    {
+      "url": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development/SKILL.md#model-selection",
+      "finding": "Explicit worker model selection for mechanical/integration/architecture/review roles and stuck-worker escalation. No universal effort controller or provider access implied."
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "explicit preference",
+      "text": "Keep Ponytail and Caveman out of workflow; council for important decisions; identity is Karpathy llm-council."
+    }
+  ],
+  "revisit_when": [
+    "User selects concrete council integration and providers",
+    "A general non-software task needs model-allocation guidance",
+    "Host capability or model pricing changes",
+    "Task-based evaluation establishes better quality/cost"
+  ],
+  "supersedes": [],
+  "refines": "2026-11-02-councils-compression-model-routing"
+}
