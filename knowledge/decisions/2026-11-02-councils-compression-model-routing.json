@@ -1,0 +1,158 @@
+{
+  "id": "2026-11-02-councils-compression-model-routing",
+  "recorded_at": "2026-11-02T15:59:42.654338+00:00",
+  "task": "Assess council review, Ponytail/Caveman effects and per-task model/effort selection for the advisor.",
+  "constraints": {
+    "scope": "Read-only candidate research and saved decision; no new skill installation, activation, paid model calls or workflow changes.",
+    "user_questions": [
+      "Can councils improve the workflow?",
+      "Could Ponytail or Caveman reduce ideas, reasoning or clarity?",
+      "Can a stronger coordinator choose cheaper models and lower effort for simple workers?"
+    ]
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "identity": "karpathy/llm-council",
+      "source_url": "https://github.com/karpathy/llm-council",
+      "skill_paths": [
+        "README.md"
+      ],
+      "recorded_revision": "92e1fccb1bdcf1bab7221aa9ed90f9dc72529131",
+      "upstream_revision": "92e1fccb1bdcf1bab7221aa9ed90f9dc72529131",
+      "checked_at": "2026-11-02T15:59:42.654338+00:00",
+      "review_depth": "Complete current README; retained prior pinned backend review. No new runtime execution.",
+      "fit": "Optional comparison of independent model answers; author explicitly disclaims ongoing support.",
+      "overlap": "Separate OpenRouter application; more calls, latency and API cost.",
+      "prerequisites": "Host support and candidate-specific runtime review before adoption",
+      "costs": "Host/model usage; council fan-out and optional provider services add costs",
+      "uncertainties": [
+        "No current runtime validation or installation approval from this comparison"
+      ]
+    },
+    {
+      "identity": "SuperShary/claude-council",
+      "source_url": "https://github.com/SuperShary/claude-council",
+      "skill_paths": [
+        "skills/council/SKILL.md"
+      ],
+      "recorded_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "upstream_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "checked_at": "2026-11-02T15:59:42.654338+00:00",
+      "review_depth": "Complete current SKILL.md and relevant README sections; supporting persona/protocol files and installers not audited.",
+      "fit": "Possible identity for High Council: simulated persona councils with a final High Council stage. User identity not confirmed.",
+      "overlap": "Overlaps interview and coordination. Long staged debate; personas do not constitute independent expert evidence.",
+      "prerequisites": "Host support and candidate-specific runtime review before adoption",
+      "costs": "Host/model usage; council fan-out and optional provider services add costs",
+      "uncertainties": [
+        "No current runtime validation or installation approval from this comparison"
+      ]
+    },
+    {
+      "identity": "DietrichGebert/ponytail",
+      "source_url": "https://github.com/DietrichGebert/ponytail",
+      "skill_paths": [
+        "skills/ponytail/SKILL.md"
+      ],
+      "recorded_revision": "96608e078b2d5ea607c5c3b8b5a54d1c1fba6846",
+      "upstream_revision": "96608e078b2d5ea607c5c3b8b5a54d1c1fba6846",
+      "checked_at": "2026-11-02T15:59:42.654338+00:00",
+      "review_depth": "Complete current main skill; hooks/runtime not refreshed or executed.",
+      "fit": "Prefer phase-specific implementation simplicity after requirements and creative direction are settled.",
+      "overlap": "Session-persistent minimal-scope defaults could narrow exploration; lite follows requested scope and offers smaller alternatives.",
+      "prerequisites": "Host support and candidate-specific runtime review before adoption",
+      "costs": "Host/model usage; council fan-out and optional provider services add costs",
+      "uncertainties": [
+        "No current runtime validation or installation approval from this comparison"
+      ]
+    },
+    {
+      "identity": "JuliusBrussee/caveman",
+      "source_url": "https://github.com/JuliusBrussee/caveman",
+      "skill_paths": [
+        "skills/caveman/SKILL.md"
+      ],
+      "recorded_revision": "2e068f735253cce28256744804785f01887d9646",
+      "upstream_revision": "2e068f735253cce28256744804785f01887d9646",
+      "checked_at": "2026-11-02T15:59:42.654338+00:00",
+      "review_depth": "Complete current README, main skill and docs/AUTO-BENCHMARK.md. Compression/router runtime and service not audited or tested.",
+      "fit": "Distinguish output brevity, input compression and Auto model/effort routing. Potential optional trial, no default adoption.",
+      "overlap": "Auto needs account and sends documented request context to service; interim author benchmark is not quality equivalence proof.",
+      "prerequisites": "Host support and candidate-specific runtime review before adoption",
+      "costs": "Host/model usage; council fan-out and optional provider services add costs",
+      "uncertainties": [
+        "No current runtime validation or installation approval from this comparison"
+      ]
+    }
+  ],
+  "decision": {
+    "status": "recommendation-only",
+    "selected_roles": [
+      "Existing advisor remains coordinator",
+      "Optional bounded independent review for consequential uncertain decisions",
+      "Proposed host-supported task model/effort selection with verification and escalation"
+    ],
+    "defer": [
+      "Always-on council for every task",
+      "Global minimalism during creative exploration",
+      "Automatic input compression or external routing before workload evaluation"
+    ],
+    "current_product_limit": "The ledger tracks roles, actors and evidence but does not launch models or implement automatic model/effort routing. Current host worker tool exposes model and effort controls; availability and allowed overrides remain host-specific. Main session model is host-selected.",
+    "installation_changes": []
+  },
+  "coverage": [
+    {
+      "job": "Alternative opinions",
+      "examined": [
+        "karpathy/llm-council",
+        "SuperShary/claude-council"
+      ],
+      "recommendation": "Optional decision checkpoint; preserve dissent and require evidence. No benchmarked improvement claimed."
+    },
+    {
+      "job": "Reduce waste without losing requirements",
+      "examined": [
+        "Ponytail main skill",
+        "Caveman voice and Auto docs"
+      ],
+      "recommendation": "Protect exploration, requirements and handoff detail; test compression against a baseline."
+    },
+    {
+      "job": "Allocate model cost",
+      "examined": [
+        "Current host worker tool schema",
+        "Existing advisor execution and ledger contracts",
+        "Caveman Auto interim benchmark"
+      ],
+      "recommendation": "Propose model tiers by ambiguity, consequences and verifiability, with a budget and escalation. Not implemented."
+    }
+  ],
+  "evidence": [
+    {
+      "url": "https://github.com/JuliusBrussee/caveman/blob/2e068f735253cce28256744804785f01887d9646/docs/AUTO-BENCHMARK.md",
+      "finding": "Author reports 85 interim paired tasks: Claude-only Auto 43.7% versus 44.3% baseline, 0.46x list-price cost. Quality difference CI about +/-7 points; baseline xhigh, savings mostly reduced effort, raw trajectories absent. No replication here."
+    },
+    {
+      "local_ref": "skills/custom/tool-advisor/references/ledger.md",
+      "finding": "No model launcher or model/effort routing policy in current ledger."
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "question, not accepted preference",
+      "text": "User raises cost-sensitive model assignment and possible loss of creativity/clarity."
+    }
+  ],
+  "revisit_when": [
+    "User selects a specific council identity",
+    "A concrete routing policy is requested",
+    "Relevant host model controls or provider terms change",
+    "Paired task trials demonstrate a quality/cost improvement"
+  ],
+  "supersedes": [],
+  "research_limits": [
+    "Web search failed; GitHub source tools were used.",
+    "Current full runtime/hook audits and quality/cost experiments were not performed.",
+    "No claim that all High Council projects were identified."
+  ]
+}
