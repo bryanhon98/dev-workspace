@@ -27,6 +27,8 @@ Start a new Codex session in your project and say:
 
 > Use tool-advisor. I want to [describe the outcome]. Interview me, find suitable skills and specialists, and show me the combination before starting.
 
+After setup, substantial project requests should enter this flow automatically when Codex loads the managed instructions; you do not need to name the skills. The explicit prompt above is a useful fallback. Inside this repo, its AGENTS.md also directs the assistant into the flow. In another project or on another device, merely linking this GitHub repo does not install or activate it. Simple edits and explanation questions use the shorter direct path. The [latest workflow approval](knowledge/decisions/2026-11-02-workflow-approval-and-startup.json) approves this process, not every future project's unseen combination or all optional installations.
+
 The main assistant uses the interview and discovery skills, presents the plan for your confirmation, then prepares selected capabilities and coordinates workers when its host supports them. It keeps task ownership, dependencies, blockers and verification evidence in the project's ignored `.tool-advisor/` directory. Resume with the same request or inspect the state with:
 
 ```sh

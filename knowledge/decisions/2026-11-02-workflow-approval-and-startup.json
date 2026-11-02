@@ -1,0 +1,65 @@
+{
+  "id": "2026-11-02-workflow-approval-and-startup",
+  "recorded_at": "2026-11-02T17:47:22Z",
+  "task": "Record user's explicit approval of the clarified advisor workflow and explain startup/automatic routing.",
+  "constraints": {
+    "scope": "Publish approved workflow clarifications and startup documentation; no new skill creation, payload modification, installation or host integration."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "Workflow principles approved; documentation recorded. Device deployment and per-project combinations remain distinct.",
+    "approved": [
+      "Main assistant coordinates; Superpowers supplies the preferred software method within the proposed combination.",
+      "Skills are instructions, not automatically subagents; direct sequential work remains possible.",
+      "Choose the smallest suitable combination by requirements, rather than activating every candidate at each step.",
+      "Search relevant installed/repo/external sources including GitHub when useful; trends do not establish best fit.",
+      "Define acceptance criteria before work and choose verification tools appropriate to requirements and risks.",
+      "Reuse existing skills; existing custom tool-advisor connects stages. Another custom skill needs a concrete uncovered need.",
+      "Retain sanitized outcomes and corrections; consult them later and refresh relevant sources. No autonomous background learning, model retraining or automatic skill replacement."
+    ],
+    "startup": "Repo AGENTS.md or installed managed instructions direct substantial requests into tool-advisor. Use explicit 'Use tool-advisor' prompt as fallback. Target device setup and fresh-session discovery must be verified; no universal prompt interception.",
+    "not_authorized_by_this_approval": [
+      "Bulk optional candidate installation",
+      "An unseen project-specific skill combination",
+      "Unreviewed payload changes or new scanner exceptions",
+      "New provider charges or background services"
+    ]
+  },
+  "evidence": {
+    "local_refs": [
+      "skills/custom/tool-advisor/SKILL.md",
+      "skills/custom/tool-advisor/references/execution.md",
+      "AGENTS.md",
+      "README.md",
+      "knowledge/BUILD-FLOW.md"
+    ],
+    "review": "Read saved skill, execution contract, startup docs and repo trigger rules. Existing implementation supports the documented coordination contract; no new live end-to-end execution tested.",
+    "unperformed": [
+      "User laptop deployment/discovery",
+      "New model-driven end-to-end project",
+      "Benchmark demonstrating improved recommendations"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit approval",
+      "text": "Alright all seems good and approved."
+    },
+    {
+      "kind": "explicit goal confirmation",
+      "text": "Seems good, i think this is my goal."
+    },
+    {
+      "kind": "explicit publication request",
+      "text": "Make sure the latest discussion and approved by me is published."
+    }
+  ],
+  "revisit_when": [
+    "Host or target device changes",
+    "Core skill instructions or installation status change",
+    "Project scope or selected combination changes",
+    "Evaluations reveal routing or selection failures"
+  ],
+  "supersedes": []
+}
