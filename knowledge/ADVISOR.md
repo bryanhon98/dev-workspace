@@ -10,6 +10,8 @@ Infer the intended outcome, input/output formats, current project stack, client,
 
 Current explicit user choices: keep Ponytail and Caveman out of the advisor workflow unless the user revisits that choice. Consider a council review for important decisions after scope is clear and before committing to the approach; it is optional for routine work. The user means Karpathy's multi-model LLM Council, not the similarly named persona-based Claude Council. A review checkpoint does not imply approval to install a particular council runtime, send project content to extra providers or incur new charges. See the dated council/model-selection decisions for implementation candidates and remaining gaps.
 
+The user accepts Superpowers as the preferred direction for software execution and review. This is a preference, not evidence of a newly completed installation or approval to activate every bundled workflow. Keep one owner for each review scope; add a focused reviewer only for a concrete gap such as behavioral test coverage or security-sensitive changes. Do not stack all general reviewers. See the [reviewer comparison from extracted reels](decisions/2026-11-02-reviewer-skills-from-reels.json) for current source evidence, overlap and readiness gaps.
+
 Search across the reel research, existing inventory and historical source reviews:
 
 ```sh

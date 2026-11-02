@@ -1,0 +1,272 @@
+{
+  "id": "2026-11-02-reviewer-skills-from-reels",
+  "recorded_at": "2026-11-02T16:30:31Z",
+  "task": "Search extracted reel research for reviewer candidates; compare with Superpowers and record accepted direction.",
+  "constraints": {
+    "explicit": [
+      "User accepts Superpowers direction and requests reviewer research from extracted reels.",
+      "Keep Ponytail, Caveman and previously excluded SecuritySweep out of workflow."
+    ],
+    "scope": "Research and routing/preference records only; no new plugin installation, reviewer invocation or approved core payload changes."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "identity": "obra/superpowers",
+      "source_url": "https://github.com/obra/superpowers",
+      "skill_paths": [
+        "skills/subagent-driven-development/task-reviewer-prompt.md"
+      ],
+      "recorded_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "upstream_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Full task-reviewer prompt read; earlier main skill/model-selection review retained.",
+      "fit": "Preferred software execution/review process; task reviewer checks requirements and code quality; final integration review remains useful.",
+      "overlap": "General PR review overlaps; choose one owner for each review checkpoint.",
+      "prerequisites": "Host delegation and compatible skill setup; target-device installation still to verify.",
+      "costs": "Reviewer calls per task and final integration.",
+      "uncertainties": [
+        "Accepted direction, not a completed new installation."
+      ]
+    },
+    {
+      "identity": "anthropics/claude-plugins-official/code-review",
+      "source_url": "https://github.com/anthropics/claude-plugins-official",
+      "skill_paths": [
+        "plugins/code-review/commands/code-review.md"
+      ],
+      "recorded_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "upstream_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Complete command read at current revision.",
+      "fit": "Optional alternate final PR bug/compliance review.",
+      "overlap": "Four reviewers plus validators overlap with Superpowers general review; do not stack routinely.",
+      "prerequisites": "Claude Code plugin runtime, gh/PR access and requested models; Codex compatibility not demonstrated.",
+      "costs": "Several model calls per PR, including Opus.",
+      "uncertainties": [
+        "Current source uses issue validation, not the reel's old 80-point cutoff; no runtime validation."
+      ]
+    },
+    {
+      "identity": "anthropics/claude-plugins-official/pr-review-toolkit",
+      "source_url": "https://github.com/anthropics/claude-plugins-official",
+      "skill_paths": [
+        "plugins/pr-review-toolkit/README.md",
+        "plugins/pr-review-toolkit/agents/pr-test-analyzer.md",
+        "plugins/pr-review-toolkit/agents/silent-failure-hunter.md"
+      ],
+      "recorded_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "upstream_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Complete README and two named agent definitions read; other four agent bodies not reviewed.",
+      "fit": "Trial pr-test-analyzer for meaningful behavioral coverage gaps; error-handling specialist only after project-fit review.",
+      "overlap": "Generic code-reviewer duplicates default; do not load all six.",
+      "prerequisites": "Host agent support; source/security review before installation.",
+      "costs": "One targeted reviewer call per selected concern.",
+      "uncertainties": [
+        "Adjacent official discovery, not a resolved identity for generic reel 'code-reviewer'. Silent-failure-hunter assumes Sentry/Statsig/logging filenames and overstates universal severity; not recommended unchanged as universal reviewer."
+      ]
+    },
+    {
+      "identity": "alibaba/open-code-review",
+      "source_url": "https://github.com/alibaba/open-code-review",
+      "skill_paths": [
+        "skills/open-code-review/SKILL.md"
+      ],
+      "recorded_revision": "76ab46ac20f08a8bd8ac38881a8a826c7cb6495f",
+      "upstream_revision": "76ab46ac20f08a8bd8ac38881a8a826c7cb6495f",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Complete main skill read; CLI implementation/dependencies not audited.",
+      "fit": "Defer until repeatable CLI/CI review is needed.",
+      "overlap": "Another general review engine, not a necessary Superpowers companion.",
+      "prerequisites": "ocr CLI plus configured supported LLM provider.",
+      "costs": "Provider charges; default concurrency 8 and multiple rounds can add latency/cost.",
+      "uncertainties": [
+        "Open Code Review and Open Code Review AI reel entries are duplicate leads for same repository. Star-growth claim unverified. Candidate's automatic install guidance does not override repo scanner rules."
+      ]
+    },
+    {
+      "identity": "cloudflare/security-audit-skill",
+      "source_url": "https://github.com/cloudflare/security-audit-skill",
+      "skill_paths": [
+        "skills/security-audit/SKILL.md"
+      ],
+      "recorded_revision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "upstream_revision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Complete main skill read at current revision; prior catalog review retained; companion files/runtime not newly audited.",
+      "fit": "Security specialist for focused guidance or explicitly requested full audit before higher-risk release.",
+      "overlap": "Full multi-agent audit is excessive for routine edits; separate from general code review and install scanner.",
+      "prerequisites": "Full audit needs compatible delegation, validators and required sandbox capabilities for target execution.",
+      "costs": "Multiple reconnaissance, hunter and validation calls; scoped guidance cheaper.",
+      "uncertainties": [
+        "No audit executed; missing sandbox capability must remain a validation gap."
+      ]
+    },
+    {
+      "identity": "trailofbits/skills",
+      "source_url": "https://github.com/trailofbits/skills",
+      "skill_paths": [
+        "plugins/differential-review/skills/differential-review/SKILL.md"
+      ],
+      "recorded_revision": "d016e08cc7408ecb1853a299d06d4a56e363ad5e",
+      "upstream_revision": "d016e08cc7408ecb1853a299d06d4a56e363ad5e",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "Complete main differential-review skill read; linked methodology/agents not reviewed.",
+      "fit": "Security-focused review of risky commits/PR diffs, history and affected callers.",
+      "overlap": "Alternative to full audit for changed-code scope; not blanket full-codebase certification.",
+      "prerequisites": "Git history and compatible host/dependencies; full payload review before install.",
+      "costs": "Focused review still costs model/context usage; depends on diff size.",
+      "uncertainties": [
+        "Reel mentions Trail of Bits collection; specific differential-review selection comes from upstream research."
+      ]
+    },
+    {
+      "identity": "anthropics/claude-plugins-official/security-guidance",
+      "source_url": "https://github.com/anthropics/claude-plugins-official",
+      "skill_paths": [
+        "plugins/security-guidance/README.md"
+      ],
+      "recorded_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "upstream_revision": "a7ba5b93db0c7c8d17f3f1d25853adca79598a1a",
+      "checked_at": "2026-11-02T16:30:31Z",
+      "review_depth": "README capability, model and setup sections reviewed; hook source not audited.",
+      "fit": "Optional ongoing Claude Code security guardrail.",
+      "overlap": "Automatic stop/commit reviews can duplicate planned reviews and add hidden latency.",
+      "prerequisites": "Compatible Claude Code, Python, provider authentication/model access; target compatibility unverified.",
+      "costs": "Regex layer cheap; Stop and agentic layers use LLM calls.",
+      "uncertainties": [
+        "Current README describes regex, Stop LLM and agentic commit layers; do not reduce current capability to regex-only. Shared-worktree behavior needs care."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Software task and integration review",
+      "examined": [
+        "Superpowers",
+        "Anthropic Code Review"
+      ],
+      "owner": "Superpowers preferred; Anthropic optional alternate final PR review",
+      "gap": "Actual target-device setup and invocation remain unverified."
+    },
+    {
+      "job": "Behavioral test gaps and hidden errors",
+      "examined": [
+        "PR Review Toolkit pr-test-analyzer",
+        "PR Review Toolkit silent-failure-hunter"
+      ],
+      "owner": "Conditional test specialist; error specialist deferred pending project-fit changes",
+      "gap": "Other toolkit agent bodies not reviewed."
+    },
+    {
+      "job": "Security of changed code or full application",
+      "examined": [
+        "Trail of Bits differential-review",
+        "Cloudflare security-audit",
+        "Anthropic security-guidance"
+      ],
+      "owner": "Pick scoped specialist by risk and host",
+      "gap": "No security audit or performance benchmark run."
+    },
+    {
+      "job": "Automated repeatable CLI/CI review",
+      "examined": [
+        "Alibaba Open Code Review"
+      ],
+      "owner": null,
+      "gap": "Deferred until needed; CLI/provider not installed or tested."
+    },
+    {
+      "job": "Visual and interactive website quality",
+      "examined": [],
+      "owner": null,
+      "gap": "Code reviewers do not establish visual quality, responsive behavior, accessibility or 3D frame performance; route separately when building."
+    }
+  ],
+  "decision": {
+    "status": "Preference and research recorded; specialist additions proposed only",
+    "keep": [
+      "Superpowers as preferred software execution/review direction; host assistant remains overall advisor/coordinator."
+    ],
+    "trial": [
+      "PR test analyzer when critical behavior/test coverage warrants independent inspection.",
+      "Trail of Bits differential-review for security-sensitive changes.",
+      "Cloudflare security-audit for explicit scoped/full security work."
+    ],
+    "defer": [
+      "Installing entire reviewer collections",
+      "Alibaba CLI until CI/repeated review justifies extra runtime",
+      "Anthropic general PR review as an optional alternate checkpoint",
+      "Automatic security-guidance hooks pending host/cost fit"
+    ],
+    "policy": "One owner per review scope. Add specialists only for a concrete coverage gap; validate and deduplicate findings. Review the exact final diff after fixes. User acceptance of Superpowers is not blanket approval of new plugins or model spending."
+  },
+  "evidence": {
+    "discovery": {
+      "queries": [
+        "review",
+        "code-review",
+        "code-reviewer",
+        "security-audit",
+        "security-guidance",
+        "Open Code Review",
+        "Trail of Bits"
+      ],
+      "scope": "Imported entity entries, associated extracted source snippets, existing catalog/decisions and selected current official files. Targeted search, not exhaustive ranking.",
+      "identity_gaps": [
+        "Generic code-reviewer and code-review entries are not unique repository identities.",
+        "Trail of Bits appears in a shared countdown summary; do not attribute every tool claim to it."
+      ]
+    },
+    "reel_sources": [
+      {
+        "url": "https://www.instagram.com/reel/DekKa_Jsdjr/",
+        "local_ref": "knowledge/reel-library/entities/c.md#claude-code-code-review",
+        "claim": "Four Anthropic reviewers and confidence cutoff 80.",
+        "finding": "Current command still launches four primary reviewers but uses fresh issue validation; numeric cutoff is not current behavior."
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeRmBnKArLJ/",
+        "local_ref": "knowledge/reel-library/entities/o.md#open-code-review",
+        "claim": "Alibaba review workflow and rapid popularity.",
+        "finding": "Official skill confirms CLI/provider-dependent code review; popularity/quality claims not independently established."
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeHxga7qJcy/",
+        "local_ref": "knowledge/reel-library/entities/s.md#security-audit-skill",
+        "claim": "Cloudflare security audit.",
+        "finding": "Main source confirms distinct guidance and full audit modes with independent validation."
+      },
+      {
+        "url": "https://www.instagram.com/reel/Dew5OaVgfmG/",
+        "local_ref": "knowledge/reel-library/entities/s.md#security-audit",
+        "claim": "Countdown includes Trail of Bits Skills.",
+        "finding": "Specific differential-review skill identified through upstream research; star rankings not validated."
+      }
+    ],
+    "unperformed": [
+      "No new skill/plugin installed or invoked.",
+      "No candidate hooks/scripts/CLI executed or newly certified by SkillSpector.",
+      "No comparative defect-detection benchmark, latency measurement or present popularity ranking.",
+      "No live laptop skills inspection; no claim current installed setup is inferior."
+    ]
+  },
+  "feedback": [
+    {
+      "type": "explicit",
+      "statement": "User says Superpowers seems good based on the explanation."
+    },
+    {
+      "type": "explicit",
+      "statement": "Use extracted reels to discover reviewer candidates."
+    }
+  ],
+  "revisit_when": [
+    "User selects execution host or actual project/review scope.",
+    "Relevant upstream revision changes.",
+    "Observed missed bugs, excessive noise, latency or model cost.",
+    "Need for CI automation, security audit or visual/browser verification."
+  ],
+  "supersedes": []
+}
