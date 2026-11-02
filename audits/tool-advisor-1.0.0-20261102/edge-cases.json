@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-11-02T14:43:14.852267+00:00",
+  "method": "Summary of prior fresh-context response trials in this authoring session. These check proposed behavior, not actual tool execution or target-device installation. No private conversations are retained.",
+  "cases": [
+    {
+      "case": "Unclear research/video task",
+      "observed": "Loads the interviewing instructions and asks about the outcome, deliverable and constraints before dependent work; no execution workers dispatched."
+    },
+    {
+      "case": "Small typo correction",
+      "observed": "Uses the direct path instead of a full interview and skill-selection workflow. No actual file edit was part of the response trial."
+    },
+    {
+      "case": "Changed provider and price after a previous confirmation",
+      "observed": "Presents the material change for confirmation; a generic continue preceding the new proposal is not treated as acceptance."
+    },
+    {
+      "case": "Missing grilling dependency",
+      "observed": "Discloses missing availability and prepares setup instead of claiming the named interview skill ran."
+    },
+    {
+      "case": "Host has no workers; pasted worker report is unverified",
+      "observed": "Uses an honest sequential fallback and checks output evidence before completion; no invented worker identity or completed status."
+    },
+    {
+      "case": "Interview source asks for delegated factual research before combination confirmation",
+      "initial_issue": "Tension between upstream interviewing instructions and the user-requested worker confirmation boundary.",
+      "refinement": "Skill and build-flow now disclose that the coordinator performs factual lookups before confirmation.",
+      "retest": "Affected response trial respected the adaptation and did not silently launch pre-confirmation workers."
+    }
+  ],
+  "limits": [
+    "Other response trials are in behavior-trials.json.",
+    "No native host invocation was exercised.",
+    "Installer success tests use controlled scanner reports; actual production bundle activation remains blocked."
+  ]
+}

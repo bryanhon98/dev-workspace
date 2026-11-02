@@ -2,9 +2,40 @@
 
 This repo helps an agent choose tools for the task, compare them with your installed skills, verify current upstream versions, and remember what worked. It also backs up and restores your Codex setup.
 
-For a substantial build request, the [build flow](knowledge/BUILD-FLOW.md) tells the current assistant to clarify missing essentials, map the jobs, inspect available skills and current alternatives, select a small compatible combination, build and verify within your request, then save what worked. You do not need to name the skills first. The assistant is the advisor; Agency, ECC and Find Skills are optional sources of roles or discovery methods.
+For a substantial task, the [advisor flow](knowledge/BUILD-FLOW.md) uses an interview skill, searches the repo and external sources, proposes a compatible combination for your confirmation, then coordinates the work and tracks evidence. It applies to research, design, media, business, automation and software. You do not need to name the specialists first.
 
 This routing depends on the host loading the repo or global instructions. The repo update alone does not change another device's global rules or install an always-running agent. Simple fixes and explanation questions keep a shorter path.
+
+## Install the advisor core
+
+**Activation is currently blocked pending review of one new SkillSpector finding:** LP3 flags that the advisor's local ledger writes files without a tool-permission declaration. The source and installer are prepared, but the advisor audit is not approved for activation. The command below refuses this state; it becomes usable after that specific finding is resolved or explicitly approved under [the repo rules](global/AGENTS.md). No blanket tool preapproval has been added.
+
+On the device where you use Codex, clone this repo and run:
+
+```sh
+git clone https://github.com/bryanhon98/dev-workspace.git
+cd dev-workspace
+python3 scripts/setup.py --install-advisor
+python3 scripts/setup.py --check-advisor
+```
+
+This explicit command selects **tool-advisor**, Matt Pocock's **grilling**, and Vercel's **find-skills**. It installs those skills in `~/.agents/skills`, restores managed Codex instructions, and records the checkout location for access from other projects. It stages complete payloads, runs local static SkillSpector scans, checks exact review hashes and approved historical exceptions, and refuses new findings or locally edited skill copies. Keep the checkout available as the research library.
+
+Python 3.12–3.14, Git and network access are needed for scanner bootstrap; the installer uses an isolated scanner environment with the reviewed source revision and dependency constraints. An existing reviewed scanner can be supplied with `--scanner /path/to/skillspector`. Public-source discovery needs an available web/GitHub tool or a separately reviewed CLI; no unpinned CLI is installed by this command. Plugins, accounts and project-specific specialist runtimes retain their own setup requirements.
+
+Start a new Codex session in your project and say:
+
+> Use tool-advisor. I want to [describe the outcome]. Interview me, find suitable skills and specialists, and show me the combination before starting.
+
+The main assistant uses the interview and discovery skills, presents the plan for your confirmation, then prepares selected capabilities and coordinates workers when its host supports them. It keeps task ownership, dependencies, blockers and verification evidence in the project's ignored `.tool-advisor/` directory. Resume with the same request or inspect the state with:
+
+```sh
+python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project status
+```
+
+`--check-advisor` checks installed files, receipts, source location and managed instructions; a fresh session must still demonstrate that the host loads the skills. The first supported host is Codex. No background model service, universal prompt hook or new account authentication is installed. Isolated development checks are not evidence that your laptop has been configured.
+
+The [bundle manifest](advisor-bundle.json) identifies exact payloads and reviews. [Ledger commands](skills/custom/tool-advisor/references/ledger.md) describe confirmation and task transitions. The full ECC/Agency collections and larger trackers are optional candidates, not core dependencies.
 
 For advice, open the repo and ask, for example:
 
@@ -19,7 +50,7 @@ python3 scripts/knowledge.py inspect --root ~/.agents/skills --root ~/.codex/ski
 python3 scripts/knowledge.py verify
 ```
 
-Search retrieves evidence; the agent makes the task-specific comparison after reading relevant installed skills and current source. Inspection is read-only and limited to the machine/paths you run it on. No automatic installation, removal or background refresh is configured. Dated decisions and feedback are saved under `knowledge/decisions/` for reuse.
+Search retrieves evidence; the agent makes the task-specific comparison after reading relevant installed skills and current source. Inspection is read-only and limited to the machine/paths you run it on. New specialist installation follows the confirmed selection and inspection rules; no automatic removal or background refresh is configured. Dated decisions and feedback are saved under `knowledge/decisions/` for reuse.
 
 ## Set up a device
 
@@ -49,6 +80,8 @@ AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement a
 python3 scripts/setup.py                  # List choices; changes nothing
 python3 scripts/setup.py --install-rules  # Restore setup rules only
 python3 scripts/setup.py --check          # Check the installed instructions
+python3 scripts/setup.py --install-advisor # Scan/install the three core skills and rules
+python3 scripts/setup.py --check-advisor   # Check the advisor installation without writing
 ```
 
 Python 3 is required. The installer uses CODEX_HOME (normally ~/.codex), preserves unrelated instructions and keeps a local backup. It handles an existing global AGENTS.override.md and refuses to overwrite locally edited managed rules. If you cleared the instruction file, --install-rules restores it. If you only edited/deleted part of the managed section, reconcile it first. Start a new Codex session afterward. --codex-home PATH supports a different profile or isolated testing.
@@ -57,7 +90,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer work. Component installation and GitHub logging are performed by Codex following the rules; the Python command does not install skills. Existing entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator is deferred at the user's request; use Codex's built-in creator for now; Ponytail's source is identified and its review decision is recorded in the GitHub catalog. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer remain available. The explicit advisor option targets only its curated core and currently refuses activation while its LP3 review is pending. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 

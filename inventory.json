@@ -883,6 +883,37 @@
         "tests/fixtures/parcel-app/src/main/java/com/example/parcel/ShipmentRouter.java": "52e98217b4c2f6630bac0a96c94130cd7e1d669a2bd4dfcad2eb32bdd578874a",
         "tests/test_runtime.py": "0526f359fb6f8c38b5045e33089ad34d8ca8f1eb9d005a9111971c4784059cb0"
       }
+    },
+    {
+      "name": "tool-advisor",
+      "kind": "skill",
+      "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "version": "1.0.0",
+      "scope": "user",
+      "audit_status": "blocked-new-finding",
+      "restorable": false,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/custom/tool-advisor",
+      "audit_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
+      "purpose": "Interview through grilling, discover and compare capabilities, confirm the combination, coordinate work and track evidence",
+      "required_tools": [
+        "skillspector",
+        "Python 3.12\u20133.14 for scanner bootstrap",
+        "grilling",
+        "find-skills",
+        "accessible research checkout and web/GitHub discovery",
+        "host worker tools for optional parallel execution"
+      ],
+      "setup_requirements": "Explicit --install-advisor stages and scans the curated core; new findings block activation. Keep research checkout available. Start a fresh Codex session and verify skill loading; file checks alone do not prove invocation.",
+      "sha256": {
+        "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+        "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
+        "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
+        "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+        "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
+        "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+      }
     }
   ]
 }

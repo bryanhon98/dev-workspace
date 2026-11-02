@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tool Advisor"
+  short_description: "Scope a task and choose a verified skill combination"
+  default_prompt: "Use $tool-advisor to clarify my task, research suitable capabilities, and present a combination for my confirmation before coordinating execution."
+policy:
+  allow_implicit_invocation: true

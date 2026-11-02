@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "bundle_version": "1.0.0",
+  "scanner": {
+    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "version": "2.12.0",
+    "source_url": "https://github.com/NVIDIA/skillspector.git",
+    "constraints": "audits/skillspector-cf5cac7-20261018/dependency-constraints.txt"
+  },
+  "components": [
+    {
+      "name": "tool-advisor",
+      "path": "skills/custom/tool-advisor",
+      "version": "1.0.0",
+      "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "hashes": {
+        "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+        "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
+        "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
+        "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+        "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
+        "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+      },
+      "extra_files": [],
+      "audit_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
+      "exception": null
+    },
+    {
+      "name": "grilling",
+      "path": "skills/external/matt-pocock/grilling",
+      "version": "49dd158d1076134a641b33efb035946536778336",
+      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling",
+      "hashes": {
+        "SKILL.md": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15",
+        "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+      },
+      "extra_files": [
+        {
+          "source": "skills/external/matt-pocock/LICENSE",
+          "destination": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+        }
+      ],
+      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
+      "exception": {
+        "review": "audits/matt-pocock-49dd158-20261018/review.json",
+        "report": "audits/matt-pocock-49dd158-20261018/grilling-scan.json",
+        "ref": "matt-pocock-49dd158-20261018-user-approved"
+      }
+    },
+    {
+      "name": "find-skills",
+      "path": "skills/external/find-skills",
+      "version": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "source": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
+      "hashes": {
+        "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+        "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+      },
+      "extra_files": [],
+      "audit_ref": "audits/find-skills-a80e4c9-20261023/review.json",
+      "exception": {
+        "review": "audits/find-skills-a80e4c9-20261023/review.json",
+        "report": "audits/find-skills-a80e4c9-20261023/scan.json",
+        "ref": "find-skills-13e4063-20261018-user-approved"
+      }
+    }
+  ]
+}

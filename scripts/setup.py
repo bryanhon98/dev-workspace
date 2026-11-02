@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Show setup choices; use --install-rules to restore global instructions."""
+"""Show setup choices; explicitly install rules or the reviewed advisor bundle."""
 import argparse
 import hashlib
 import json
@@ -97,7 +97,11 @@ def check(home, rules):
 
 
 def saved_rules():
-    return (ROOT / 'global' / 'AGENTS.md').read_text(encoding='utf-8').strip() + '\n'
+    rules = (ROOT / 'global' / 'AGENTS.md').read_text(encoding='utf-8').strip()
+    return rules + '\n\n## Local research checkout\n\n' + (
+        'This device installed the rules from ' + json.dumps(str(ROOT), ensure_ascii=False) +
+        '. Use this explicit checkout for the advisor library and scripts when working in other projects. '
+        'Keep the checkout available; if moved, reinstall the rules and advisor from its new location.\n')
 
 
 def show_catalog():
@@ -119,16 +123,51 @@ def show_catalog():
     print('\nTell Codex: Which skills do you want — selected names, all eligible skills, or none?')
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, Codex can restore global rules with --install-rules and inspect/install selected skills.')
+    print('Advisor core: --install-advisor selects tool-advisor, grilling and find-skills only, with fresh static scans.')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))))
+    parser.add_argument('--skills-root', type=Path, default=Path.home() / '.agents' / 'skills')
+    parser.add_argument('--scanner', type=Path, help='Existing reviewed SkillSpector executable for advisor installation')
     action = parser.add_mutually_exclusive_group()
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
     action.add_argument('--install-rules', action='store_true', help='Restore setup rules globally')
+    action.add_argument('--install-advisor', action='store_true', help='Scan/install the selected advisor core and global instructions')
+    action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
     args = parser.parse_args()
     try:
+        if args.scanner and not args.install_advisor:
+            raise ValueError('--scanner is only used with --install-advisor')
+        if args.check_advisor or args.install_advisor:
+            from install_advisor import check_bundle, install_bundle
+            rules = saved_rules()
+            if args.check_advisor:
+                result = check_bundle(ROOT, args.skills_root, args.codex_home)
+                if not check(args.codex_home, rules):
+                    result['ready'] = False
+                    result.setdefault('errors', []).append('Managed global instructions are missing or differ from this checkout.')
+                print(json.dumps(result, indent=2))
+                return 0 if result['ready'] else 1
+            # Check existing managed rules for local edits before activating skills.
+            target = target_for(args.codex_home)
+            before = target.read_bytes() if target.exists() else b''
+            span = managed_span(before)
+            if span:
+                current = before[span[0]:span[1]]
+                match = re.fullmatch(re.escape(START.encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(END.encode()), current, re.DOTALL)
+                if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
+                    raise ValueError('Managed rules changed locally; reconcile them before advisor installation')
+            result = install_bundle(ROOT, args.skills_root, args.codex_home, scanner=args.scanner)
+            try:
+                install(args.codex_home, rules)
+            except (OSError, ValueError) as exc:
+                raise ValueError('Skills were installed, but global rules could not be updated: ' + str(exc)) from exc
+            print(json.dumps(result, indent=2))
+            print('Start a new Codex session, then ask to use tool-advisor for your task.')
+            print('Files and scans verified; live host invocation still needs a fresh-session check.')
+            return 0
         if not args.check and not args.install_rules:
             show_catalog()
             return 0

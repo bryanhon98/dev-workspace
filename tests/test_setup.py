@@ -99,6 +99,31 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertIn('not ready to restore', result.stdout)
         self.assertEqual(list(self.home.iterdir()), [])
 
+    def test_advisor_check_is_readonly_and_reports_missing_installation(self):
+        result = self.run_cli('--check-advisor', '--skills-root', str(self.home / 'skills'))
+        self.assertEqual(result.returncode, 1, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertFalse(report['ready'])
+        self.assertTrue(report['errors'])
+        self.assertEqual(list(self.home.iterdir()), [])
+
+    def test_advisor_install_rejects_locally_changed_rules_before_activation(self):
+        self.mod.install(self.home, 'Existing rule.\n')
+        target = self.home / 'AGENTS.md'
+        target.write_text(target.read_text().replace('Existing rule.', 'Locally edited.'))
+        before = target.read_bytes()
+        result = self.run_cli('--install-advisor', '--skills-root', str(self.home / 'skills'))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('changed locally', result.stderr)
+        self.assertEqual(target.read_bytes(), before)
+        self.assertFalse((self.home / 'skills').exists())
+        self.assertFalse((self.home / 'dev-workspace-advisor').exists())
+
+    def test_rules_include_checkout_locator_for_other_projects(self):
+        result = self.run_cli('--install-rules')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(str(SCRIPT.parent.parent), (self.home / 'AGENTS.md').read_text())
+
     def test_empty_catalog_explicitly_reports_no_mcps(self):
         (self.home / 'inventory.json').write_text('{"components": []}')
         self.mod.ROOT = self.home

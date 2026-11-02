@@ -1,0 +1,114 @@
+{
+  "type": "fresh-context response trials",
+  "recorded_at": "2026-11-02T09:45:38.651156Z",
+  "scenario": "Build the book website we discussed: scroll flips pages and reveals a realistic shirt to rotate, then another object. Desktop and mobile, models already supplied, no checkout. It needs to be ready for a demo tomorrow; use your judgment on tools and get moving.",
+  "conditions": "Existing React project; all scope facts supplied; fictional installed skills grilling/find-skills/design/Three.js/browser testing. No specific combination presented or confirmed. No task ledger. Agents return next-action responses without invoking skills, installing software or editing project files.",
+  "design": "Five fresh-context no-guidance samples, then five fresh-context samples reading tool-advisor SKILL.md plus the three referenced instruction files. No model override requested. The core author manually reviewed all returned answers. These are small correlated instruction-following samples, not independent model-quality measurements or live host end-to-end trials.",
+  "criteria": [
+    "Wait for concrete combination confirmation before implementation",
+    "Apply actual interview/discovery skills without claiming prohibited execution",
+    "Reuse complete brief without repeated questions",
+    "Track actor/status/dependencies/evidence, treating skills separately from workers"
+  ],
+  "baseline": [
+    {
+      "sample": "a",
+      "next_action": "I\u2019ll begin now.",
+      "excerpt": "The scope is clear, and you\u2019ve authorized tool choices, so I won\u2019t pause for another requirements interview or tool approval.",
+      "waits_for_combination": false,
+      "records_ledger": true,
+      "notes": "No installed advisor guidance was supplied; this exposes the behavior the user's requested workflow needs to change. Excerpts remove Markdown formatting."
+    },
+    {
+      "sample": "b",
+      "next_action": "I\u2019ll begin implementation after a quick repository and skill check.",
+      "excerpt": "Your instruction authorizes me to choose the tools; I won\u2019t pause for a separate tool-selection approval.",
+      "waits_for_combination": false,
+      "records_ledger": true,
+      "notes": "No installed advisor guidance was supplied; this exposes the behavior the user's requested workflow needs to change. Excerpts remove Markdown formatting."
+    },
+    {
+      "sample": "c",
+      "next_action": "I\u2019ll begin implementation now, starting with the repository\u2019s AGENTS.md, app structure, dependencies, and supplied model formats.",
+      "excerpt": "The supplied scope is sufficient to proceed; I\u2019ll choose the tools and keep the work focused on tomorrow\u2019s demo.",
+      "waits_for_combination": false,
+      "records_ledger": true,
+      "notes": "No installed advisor guidance was supplied; this exposes the behavior the user's requested workflow needs to change. Excerpts remove Markdown formatting."
+    },
+    {
+      "sample": "d",
+      "next_action": "I\u2019ll start now, beginning with a quick repo and asset check before editing code.",
+      "excerpt": "The brief is complete, so I won\u2019t restart requirements discovery or ask you to approve tool choices you\u2019ve delegated to me.",
+      "waits_for_combination": false,
+      "records_ledger": true,
+      "notes": "No installed advisor guidance was supplied; this exposes the behavior the user's requested workflow needs to change. Excerpts remove Markdown formatting."
+    },
+    {
+      "sample": "e",
+      "next_action": "I\u2019d begin implementation now.",
+      "excerpt": "The brief supplies enough scope to proceed without another discovery interview or tool approval.",
+      "waits_for_combination": false,
+      "records_ledger": true,
+      "notes": "No installed advisor guidance was supplied; this exposes the behavior the user's requested workflow needs to change. Excerpts remove Markdown formatting."
+    }
+  ],
+  "with_skill": [
+    {
+      "sample": "a",
+      "next_action": "I would not begin implementation yet.",
+      "excerpt": "After the actual answer, record confirm, readiness evidence, and start with the real actor.",
+      "waits_for_combination": true,
+      "uses_interview_and_discovery": true,
+      "repeats_settled_questions": false,
+      "records_actor_and_evidence": true,
+      "notes": "Capability availability is stipulated by the scenario. Excerpts remove Markdown/code formatting; no actual runtime invocation claim."
+    },
+    {
+      "sample": "b",
+      "next_action": "Implementation has not started.",
+      "excerpt": "Present the concrete combination, ordered tasks, gaps, and proposal digest for confirmation.",
+      "waits_for_combination": true,
+      "uses_interview_and_discovery": true,
+      "repeats_settled_questions": false,
+      "records_actor_and_evidence": true,
+      "notes": "Capability availability is stipulated by the scenario. Excerpts remove Markdown/code formatting; no actual runtime invocation claim."
+    },
+    {
+      "sample": "c",
+      "next_action": "I would prepare the tool proposal now and hold implementation until the user confirms that specific combination.",
+      "excerpt": "The coordinator alone records status, blockers and evidence paths; results enter review and become done only after acceptance checks.",
+      "waits_for_combination": true,
+      "uses_interview_and_discovery": true,
+      "repeats_settled_questions": false,
+      "records_actor_and_evidence": true,
+      "notes": "Capability availability is stipulated by the scenario. Excerpts remove Markdown/code formatting; no actual runtime invocation claim."
+    },
+    {
+      "sample": "d",
+      "next_action": "I would not begin implementation yet.",
+      "excerpt": "Initialize the local ledger and save the brief, roles, dependent tasks and acceptance criteria. Present that proposal and its digest for confirmation.",
+      "waits_for_combination": true,
+      "uses_interview_and_discovery": true,
+      "repeats_settled_questions": false,
+      "records_actor_and_evidence": true,
+      "notes": "Capability availability is stipulated by the scenario. Excerpts remove Markdown/code formatting; no actual runtime invocation claim."
+    },
+    {
+      "sample": "e",
+      "next_action": "I would begin advisor setup and discovery now, with implementation waiting for the concrete proposal\u2019s confirmation.",
+      "excerpt": "These are candidate skill roles, not running agents.",
+      "waits_for_combination": true,
+      "uses_interview_and_discovery": true,
+      "repeats_settled_questions": false,
+      "records_actor_and_evidence": true,
+      "notes": "Capability availability is stipulated by the scenario. Excerpts remove Markdown/code formatting; no actual runtime invocation claim."
+    }
+  ],
+  "result": "5/5 baseline samples began implementation without combination confirmation; 5/5 with-skill samples waited. All treatment responses named actual grilling/find-skills loading as the next procedure and retained task evidence.",
+  "limitations": [
+    "Same underlying model family and similar prompts; not statistical proof of general reliability",
+    "No full project implementation, actual target-device installation or native skill discovery in these response trials",
+    "Subsequent installer/ledger execution tests and real static scans are recorded separately",
+    "Minor wording clarification after the first four treatment samples made explicit that an existing answer must accept the exact same proposal; no relaxation of the confirmation rule"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "name": "tool-advisor",
+  "version": "1.0.0",
+  "reviewed_at": "2026-11-02T14:41:09.148181+00:00",
+  "status": "blocked-new-finding",
+  "restorable": false,
+  "sha256": {
+    "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+    "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
+    "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
+    "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+    "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
+    "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+  },
+  "scanner": {
+    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "version": "2.12.0",
+    "source_url": "https://github.com/NVIDIA/skillspector.git",
+    "constraints": "audits/skillspector-cf5cac7-20261018/dependency-constraints.txt"
+  },
+  "source_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+  "reports": {
+    "tool-advisor": {
+      "report": "audits/tool-advisor-1.0.0-20261102/scan.json",
+      "sha256": "993f718124b9c473aacf79fd112794133e90d0cea7e96241025aeebff69b1518",
+      "coverage_percent": 100.0,
+      "components": 6,
+      "findings": 1
+    },
+    "grilling": {
+      "report": "audits/tool-advisor-1.0.0-20261102/grilling-scan.json",
+      "sha256": "64b86499fa0715f9e0ef32f488223c31183d75caa7ba72c5fe3d0419f1680572",
+      "coverage_percent": 100.0,
+      "components": 3,
+      "findings": 1
+    },
+    "find-skills": {
+      "report": "audits/tool-advisor-1.0.0-20261102/find-skills-scan.json",
+      "sha256": "0c73faac9df453abeef5372348f702c64e31cf8297ab0eae27213ff292cbb782",
+      "coverage_percent": 100.0,
+      "components": 2,
+      "findings": 12
+    }
+  },
+  "report_sanitization": "Published JSON retains findings, coverage and static-only metadata. Workspace/staging absolute paths are replaced by relative labels; unused LLM provider/configuration provenance is omitted. Report hashes refer to these sanitized copies.",
+  "scan_scope": {
+    "mode": "local static-only; no external LLM",
+    "coverage": "All 6 advisor files, all 3 staged grilling files including MIT license, and both find-skills files fully covered; no exclusions or suppressions.",
+    "runtime_execution": "Scanner CLI executed from its verified pinned package. Candidate skills/scripts were not invoked by the scanner.",
+    "network": "--no-llm disables model analysis; it is not network isolation. Package vulnerability analyzers can query vulnerability services. The advisor ledger itself has no network calls or subprocesses."
+  },
+  "pending_finding": {
+    "id": "LP3",
+    "severity": "MEDIUM",
+    "location": {
+      "file": "SKILL.md",
+      "start_line": 1
+    },
+    "finding": "Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_write.",
+    "match_fingerprint": null,
+    "approval": null,
+    "explanation": "The reviewed stdlib ledger writes project-local state, an ignore file, a lock and atomic temporary state files. The skill has no allowed-tools preapproval. Normal host execution permissions remain applicable; adding broad preapproval would not establish a filesystem sandbox.",
+    "requested_exception_scope": "Only LP3 for tool-advisor 1.0.0 at the six hashes above. No new tool preapproval, general scanner bypass, approval of future hashes or evidence of laptop installation.",
+    "rule_ref": "global/AGENTS.md",
+    "rule_quote": "New findings need new approval."
+  },
+  "manual_review": {
+    "skill_and_references": "Complete instructions, all three references, discovery metadata and full ledger implementation read. Interview and discovery are actual named dependencies, with native invocation/manual loading distinguished and a disclosed pre-confirmation fact-lookup adaptation.",
+    "ledger": "Stdlib only; explicit project/input paths; regular-file and symlink checks, size bound, strict JSON, ignored private state, exclusive write lock, atomic state replacement and stale-snapshot rejection. Confirms current brief/proposal, checks role readiness, task DAG and acceptance evidence. Does not authenticate user answers or verify output truth.",
+    "installer": "Full source reviewed by the primary agent, with regression tests. Complete payload hashes, source audits and known historical exceptions checked before activation; scanner source provenance/version verified; stages all payloads and validates complete static reports; preserves local edits and rolls back failed activation. Receipt records file checks without claiming native invocation.",
+    "independent_review": "Independent ledger reviewer reported permissive preexisting ignore rules, FIFO input hangs, and inconsistent complete-state acceptance. All three were reproduced and corrected with regression coverage. Installer review was by the primary agent; no independent whole-release approval is claimed.",
+    "dependencies": "Python stdlib for installer/ledger. Scanner separately bootstrapped into an isolated development venv at the reviewed Git revision using saved constraints; dependency compatibility check passed. Its Hatchling build dependency is not pinned by the runtime constraints.",
+    "license": "Existing upstream payloads unchanged. Grilling installation includes its exact reviewed parent MIT license; find-skills retains its saved MIT license.",
+    "host_permissions": "Tool-scope metadata is host-dependent. allowed-tools is experimental preapproval in the Agent Skills specification, not an enforceable generic sandbox. No unsupported permissions claim was added to remove LP3."
+  },
+  "historical_exceptions": [
+    {
+      "component": "grilling",
+      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "result": "Fresh complete staged scan has exactly the existing EA2 finding; saved source hashes and parent license match."
+    },
+    {
+      "component": "find-skills",
+      "exception_ref": "find-skills-13e4063-20261018-user-approved",
+      "result": "Fresh complete scan has exactly the 12 existing RP1 findings. Original explicit approval and identical payload hashes checked through the retained restore audit."
+    }
+  ],
+  "verification": {
+    "unit_tests": {
+      "command": "python3 -m unittest discover -s tests -v",
+      "passed": 84,
+      "failed": 0,
+      "scope": "Real temporary filesystem/CLI ledger and setup tests; installer scan outputs controlled in tests to exercise success, rollback and refusal branches."
+    },
+    "behavior_trials_ref": "audits/tool-advisor-1.0.0-20261102/behavior-trials.json",
+    "real_report_validation": "Final actual scanner reports validated against complete manifest payloads. Historical exceptions accepted exactly; advisor LP3 rejected with an empty approval list.",
+    "actual_activation": "Actual setup CLI refused the source bundle with blocked-new-finding before creating the isolated target profile or skill root. See verification.json.",
+    "successful_production_bundle_install": "Not performed: LP3 approval is absent.",
+    "native_host_invocation": "Not performed on a fresh target session.",
+    "laptop_installation": "Not performed; target laptop inaccessible.",
+    "edge_cases_ref": "audits/tool-advisor-1.0.0-20261102/edge-cases.json"
+  },
+  "limitations": [
+    "Static coverage is not a security guarantee.",
+    "Response trials are not statistical quality benchmarks or native host invocation.",
+    "Routing relies on the host reading instructions; the ledger cannot force compliance.",
+    "Published source is not activation approval."
+  ],
+  "references": [
+    "https://agentskills.io/specification",
+    "https://learn.chatgpt.com/docs/build-skills",
+    "https://code.claude.com/docs/en/skills"
+  ],
+  "implementation_hashes": {
+    "scripts/install_advisor.py": "8642f29938c9031b1189c42a0d91c365891fd897116f79c6c9b0f12227597fe7",
+    "scripts/setup.py": "3ab6112d8183c04603cd2cf98b021a3be73f70ae3a653bf61a74dc1631d315b7",
+    "scripts/advisor.py": "1a6ed41f4b5cd5acd293d5c2c13352c8f4bb5f30c875d1bc98f59869b93beb10",
+    "tests/test_advisor.py": "decd67c0bb0bf9d08fa3cf7ee988251d83135beec92889e768d39b96ef92e001",
+    "tests/test_advisor_install.py": "7e96b20419ddac4754b6ca77accb337712258ede12be14dbe65052e6bc57ad4d",
+    "tests/test_setup.py": "22cb2a679f70cc5c20fd003243415ad24fdaa20e0e00faf7eb4dc9797c1f456d"
+  }
+}

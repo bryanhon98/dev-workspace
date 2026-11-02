@@ -1,0 +1,261 @@
+{
+  "id": "2026-11-02-installable-advisor-core",
+  "recorded_at": "2026-11-02T09:58:36Z",
+  "task": "Make the setup/research repo installable as an advisor that interviews through skills, discovers capabilities, confirms a task-specific combination, coordinates available workers and tracks outcomes.",
+  "constraints": {
+    "explicit": [
+      "User requests a directly installable setup/advisor brain for any task domain",
+      "Interview through a skill; search the repo library and external sources",
+      "Present the combination for user confirmation before guided subagent execution",
+      "Track all tasks and preserve useful learning"
+    ],
+    "scope": "Implement and publish source, tests and reviewable package; use isolated development profiles. No authorization to bypass new scanner findings or claim the user's inaccessible laptop was configured.",
+    "preserve": [
+      "Existing setup selection and scanner rules",
+      "Historical skill payloads/approved exceptions",
+      "Original research archives",
+      "One coordinator and one task source"
+    ]
+  },
+  "device_alias": "cloud-development-only",
+  "candidates": [
+    {
+      "identity": "tool-advisor 1.0.0 (original coordinating skill and local ledger)",
+      "source_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "skill_paths": [
+        "skills/custom/tool-advisor/SKILL.md",
+        "skills/custom/tool-advisor/scripts/ledger.py"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": null,
+      "version": "1.0.0",
+      "checked_at": "2026-11-02T09:58:36Z",
+      "review_depth": "Authored skill and stdlib Python ledger with response trials, CLI tests and independent code review. Final exact source hashes and static scan live in the audit directory; no global activation approval.",
+      "fit": "General task coordination, source/availability distinctions, explicit proposal confirmation, dependency-aware tracking and evidence-required completion.",
+      "overlap": "Keeps the main host assistant as coordinator; avoids requiring another full agent platform or task-management runtime.",
+      "prerequisites": [
+        "Supported Codex skill/instruction loading",
+        "grilling and find-skills core skills",
+        "Python for local ledger, Python 3.12–3.14 for scanner bootstrap",
+        "Accessible research checkout and external read/search tools",
+        "Host worker tools for parallel execution; otherwise sequential adaptation"
+      ],
+      "costs": "No additional model service or paid API built into the core. The host's ordinary usage applies.",
+      "uncertainties": [
+        "SkillSpector LP3 flags absent tool-scope preapproval for file-writing helper; new finding blocks activation pending specific approval",
+        "Host permissions are not a skill sandbox; no broad preapproval added to silence the warning",
+        "Response tests are not live native host invocation or independent general-quality benchmarks",
+        "Current target laptop is inaccessible"
+      ]
+    },
+    {
+      "identity": "Matt Pocock grilling, saved reviewed interview payload",
+      "source_url": "https://github.com/mattpocock/skills",
+      "skill_paths": [
+        "skills/productivity/grilling/SKILL.md"
+      ],
+      "recorded_revision": "49dd158d1076134a641b33efb035946536778336",
+      "installed_revision": null,
+      "upstream_revision": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "checked_at": "2026-11-02T09:58:36Z",
+      "review_depth": "Read saved complete instructions and prior exception/hash record; current head rechecked, current interview review retained from today's source comparison. Keep saved reviewed payload unchanged, with upstream MIT license included in staged installation.",
+      "fit": "Actual interview dependency for branching scope decisions. Complete supplied briefs avoid repeating answered branches.",
+      "overlap": "Advisor adapts factual lookup to the coordinator before confirmation; disclose this rather than claiming unmodified upstream delegation behavior.",
+      "prerequisites": [
+        "Complete installed instructions or explicit manual loading",
+        "Existing exact EA2 exception and fresh scan"
+      ],
+      "costs": "Host model usage; longer interviews add turns.",
+      "uncertainties": [
+        "No live interview on the user's device performed",
+        "A newer upstream wording about fresh context does not establish improved outcomes"
+      ]
+    },
+    {
+      "identity": "Vercel Find Skills, saved reviewed discovery payload",
+      "source_url": "https://github.com/vercel-labs/skills",
+      "skill_paths": [
+        "skills/find-skills/SKILL.md"
+      ],
+      "recorded_revision": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "installed_revision": null,
+      "upstream_revision": "92a9a34ac3bf88e695e468b90c7bf32f163d32c8",
+      "checked_at": "2026-11-02T09:58:36Z",
+      "review_depth": "Read complete current and saved SKILL.md and existing hashes/exceptions. Current skill text is unchanged in substance; full repository/runtime was not audited.",
+      "fit": "Actual discovery dependency, using registry/web channels alongside repo search and current upstream inspection.",
+      "overlap": "Its popularity heuristics do not override task fit, full-source evidence or existing selections. Unpinned command examples do not authorize package execution.",
+      "prerequisites": [
+        "Available web/registry/GitHub access or separately reviewed pinned CLI",
+        "Existing exact RP1 exception and fresh scan"
+      ],
+      "costs": "Public source browsing needs no new paid inference service; host usage applies.",
+      "uncertainties": [
+        "No CLI newly installed or executed",
+        "Registry rank cannot prove suitability or exhaustive discovery"
+      ]
+    },
+    {
+      "identity": "Additional task-tracking and orchestration collections",
+      "source_url": "https://github.com/obra/superpowers",
+      "skill_paths": [
+        "skills/subagent-driven-development/SKILL.md"
+      ],
+      "recorded_revision": null,
+      "installed_revision": null,
+      "upstream_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "checked_at": "2026-11-02T09:58:36Z",
+      "review_depth": "Authorized research agent read current SDD, Planning with Files Codex skill, Task Master orchestrator/README/license and Beads packaged skill/README/license; supporting executable runtimes not fully audited. Exact refs and depth in linked research.",
+      "fit": "Superpowers remains an optional software execution workflow. Existing Beads/Task Master can remain the project task source; larger new runtimes are deferred until needed.",
+      "overlap": "Avoids two independently edited plans or competing controllers.",
+      "prerequisites": [
+        "Host-specific execution support and runtime setup for selected alternatives"
+      ],
+      "costs": "Model/tool usage; Task Master carries MIT plus Commons Clause, other reviewed options declare MIT. No cost benchmark.",
+      "uncertainties": [
+        "No candidate activation or runtime comparison",
+        "Task Observer identity conflation remains a historical discovery caveat"
+      ],
+      "research_ref": "knowledge/research/2026-11-02-task-tracking-options.md"
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Direct installation and actual dependency availability",
+      "examined": [
+        "Existing catalog/rule installer",
+        "Saved grilling/find-skills payloads and scanner audits"
+      ],
+      "chosen_owner": "Explicit --install-advisor bundle installer",
+      "gap": "New custom LP3 exception not approved; actual bundle activation stays blocked."
+    },
+    {
+      "job": "Interview to resolve scope",
+      "examined": [
+        "Matt grilling",
+        "Existing brief/context rules"
+      ],
+      "chosen_owner": "grilling with disclosed host adaptation",
+      "reason": "User now explicitly wants an interview skill in the core rather than only original short interview instructions."
+    },
+    {
+      "job": "Repo and external discovery with creator summaries",
+      "examined": [
+        "Find Skills current instructions",
+        "Existing knowledge search/routes/advisor/decisions"
+      ],
+      "chosen_owner": "tool-advisor orchestrating find-skills and source review",
+      "reason": "Summaries prioritize discovery; shortlist-specific evidence decides fit. No wholesale loading of opinions as instructions."
+    },
+    {
+      "job": "Confirm combination before execution",
+      "examined": [
+        "Previous build-flow behavior",
+        "Five baseline and five with-skill response samples"
+      ],
+      "chosen_owner": "Explicit skill contract plus digest-bound ledger confirmation",
+      "reason": "The new explicit user requirement changes the former proceed-within-build-authorization behavior."
+    },
+    {
+      "job": "Coordinate workers and durable task tracking",
+      "examined": [
+        "Native host worker tools",
+        "Superpowers SDD",
+        "Planning with Files",
+        "Task Master",
+        "Beads"
+      ],
+      "chosen_owner": "Main assistant and local ledger, or existing project tracker",
+      "reason": "Small core for general tasks; use real worker identities and evidence, with sequential fallback."
+    },
+    {
+      "job": "Verify and retain learning",
+      "examined": [
+        "Python state tests",
+        "Response/edge-case trials",
+        "Static scans",
+        "Independent code review",
+        "Existing decision contracts"
+      ],
+      "chosen_owner": "Coordinator verification and sanitized repo decisions",
+      "gap": "No fresh-session native discovery trial or measured improvement on completed user projects."
+    }
+  ],
+  "decision": {
+    "status": "Implemented source and tests; activation blocked by a new medium-severity LP3 finding pending specific user approval.",
+    "selected_roles": [
+      "tool-advisor coordinator",
+      "grilling interviewer",
+      "find-skills discovery channel",
+      "Native host workers when available after confirmed selection",
+      "Project-local ledger, respecting existing trackers"
+    ],
+    "source_update_policy": "Reuse exact reviewed external payloads; inspect current sources but do not silently replace them. New project specialists remain task-specific selections.",
+    "confirmation_policy": "Require acceptance of the concrete combination before execution; retain valid existing acceptance and invalidate it on material scope/selection change.",
+    "not_implemented": [
+      "Automatic background learning",
+      "Universal prompt interception",
+      "Model training",
+      "Full ECC/Agency installation",
+      "Actual target-device installation",
+      "New scanner exception approval"
+    ],
+    "installs_or_removals": [],
+    "activation_blocker": {
+      "rule": "LP3",
+      "severity": "MEDIUM",
+      "reason": "New skill contains file-writing local ledger but no declared tool preapproval.",
+      "approval": null,
+      "scope": "Only this new skill's exact reviewed final hashes and finding; no general scanner bypass."
+    }
+  },
+  "evidence": [
+    {
+      "local_ref": "audits/tool-advisor-1.0.0-20261102/behavior-trials.json",
+      "finding": "Five no-guidance samples began implementation; five with-skill samples waited for combination confirmation. Conditions and limits retained."
+    },
+    {
+      "local_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
+      "finding": "Final source/scanner/verification and activation status; no claim that draft review authorizes installation."
+    },
+    {
+      "local_ref": "tests/test_advisor.py",
+      "finding": "Executable ledger tests enforce confirmation, readiness, dependencies, evidence, privacy and resume."
+    },
+    {
+      "local_ref": "tests/test_advisor_install.py",
+      "finding": "Installer tests use controlled reports for acceptance/refusal branches; not substitutes for actual scanner results."
+    },
+    {
+      "local_ref": "knowledge/research/2026-11-02-task-tracking-options.md",
+      "finding": "Pinned comparison and full-review boundaries for optional trackers."
+    },
+    {
+      "url": "https://agentskills.io/specification",
+      "finding": "allowed-tools is experimental preapproval, not a universal permission ceiling."
+    },
+    {
+      "url": "https://code.claude.com/docs/en/skills",
+      "finding": "allowed-tools grants per-invocation-turn permissions in Claude Code; host semantics matter."
+    },
+    {
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "finding": "Official local Codex discovery uses ~/.agents/skills; full live discovery still needs verification on the target host."
+    }
+  ],
+  "feedback": [
+    {
+      "kind": "explicit objective",
+      "text": "User requests actual skill-backed interviewing/discovery plus confirmation and coordinated tracked execution for general tasks."
+    }
+  ],
+  "revisit_when": [
+    "User explicitly approves the exact LP3 exception or a reviewed capability-scope solution resolves it",
+    "A target device is available for native discovery/invocation tests",
+    "Selected upstream payloads change",
+    "Actual projects reveal interview/discovery or coordination failures",
+    "Concurrent distributed work requires a larger tracker"
+  ],
+  "supersedes": [],
+  "refines": "2026-11-02-matt-ecc-karpathy-build-advisor: installation and confirmation portions; historical source findings remain intact."
+}

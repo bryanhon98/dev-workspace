@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-11-02T14:41:47.908243+00:00",
+  "real_bundle_install_attempt": {
+    "exit_code": 1,
+    "message": "Skill audit is not approved for activation: tool-advisor (status: blocked-new-finding); see audits/tool-advisor-1.0.0-20261102/review.json",
+    "target_profile_created": false,
+    "target_skills_created": false,
+    "activation": false,
+    "purpose": "Verify actual unapproved source bundle refuses before target writes; temporary profile paths are not published."
+  },
+  "full_test_suite": {
+    "command": "python3 -m unittest discover -s tests -v",
+    "tests": 84,
+    "failures": 0,
+    "duration_seconds": 13.897
+  },
+  "archive_integrity": {
+    "command": "python3 scripts/knowledge.py verify",
+    "archive_hashes_match": true,
+    "derived_files_match": true,
+    "entities": 1083,
+    "report_sources": 475
+  },
+  "hash_verification": "All complete payload hashes, implementation hashes and sanitized report hashes match the final manifest/review. No bytecode cache is included in a skill payload.",
+  "whitespace_check": "git diff --check passed"
+}

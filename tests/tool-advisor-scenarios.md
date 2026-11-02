@@ -2,12 +2,14 @@
 
 Reviewed 2026-11-02 against AGENTS.md, global/AGENTS.md, knowledge/BUILD-FLOW.md and knowledge/ADVISOR.md. These are **manual instruction walkthroughs**, not executed fresh-session agent tests, measured quality improvements or proof that every host loads the rules. The existing Python suite tests repository tooling separately.
 
+The later installable-advisor requirement adds an explicit combination-confirmation step and actual grilling/find-skills dependencies. Its response trials and executable ledger/installer tests are recorded separately under audits/tool-advisor-1.0.0-20261102/. The earlier walkthrough below remains contextual; the installed skill and current build flow govern execution.
+
 | Input / condition | Expected behavior | Manual walkthrough |
 |---|---|---|
 | “Build a realistic 3D website: scrolling flips a book and reveals a shirt to inspect, then another object.” No skills named. | Start the flow. Preserve the supplied concept. Map design, asset creation, 3D, scroll, gestures, accessibility and performance before searching. Ask only missing essentials such as asset availability and target devices. | Covered by root/global triggers and build steps 1–3. |
 | Same brief, user has not named Taste, UI/UX Pro Max, Emil or Apple design. | Consult every matching routing row and design catalog; account for credible design/motion alternatives and identity ambiguity. Do not blindly stack them. | Covered by the advisor coverage requirement and step 4. Historical decisions remain accessible; recall has not been benchmarked. |
 | “Build me a website.” | Inspect context; ask a few questions about its purpose, users and essential experience. Continue independent project discovery while waiting. | Covered by step 1; unknown required answers block only dependent work. |
-| A complete brief with assets, stack, constraints and acceptance criteria. | Avoid repeating an interview. State material assumptions and proceed within authorization. | Covered by steps 1 and 5. |
+| A complete brief with assets, stack, constraints and acceptance criteria. | Load the interview skill without repeating settled questions. Present the skill combination for confirmation; reuse a matching confirmation already given. | Updated for the installable advisor's explicit confirmation requirement. |
 | “Use Matt's Grill Me and interview me deeply before building.” | Resolve and read the current skill and its dependency; use the requested interview depth if available. Do not describe the repo's short interview as the unmodified upstream skill. | Covered by the source-fit table; no skill invoked in this walkthrough. |
 | “What skills would fit this website?” | Compare and recommend; do not infer authorization to install skills or build the site. | Covered by trigger boundary and step 5. |
 | “Fix this misspelled button label.” | Make the narrow edit using project context; no broad discovery/interview or new framework. | Covered by non-trigger rule. |
