@@ -1,0 +1,70 @@
+{
+  "id": "2026-11-03-user-saved-four-candidates",
+  "recorded_at": "2026-11-03T14:15:31.618002+00:00",
+  "task": "Save four researched capabilities to the searchable library only.",
+  "constraints": {
+    "user_request": "Add those to my skills library only then",
+    "scope": "Library metadata and discovery routes; no installation, activation or baseline change."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "revision": "7a38047acf26a729cbb27851e3cb81639da86b29",
+      "decision": "trial",
+      "reason": "Conditional research access when native search/read cannot retrieve required text/comments/subtitles. CLI/runtime plus channels; not just a prompt. Instagram experimental; no claim of full reel perception. Login/session reuse and transcription provider keys require specific setup.",
+      "evidence": [
+        "https://github.com/Panniantong/Agent-Reach/blob/7a38047acf26a729cbb27851e3cb81639da86b29/README.md",
+        "https://github.com/Panniantong/Agent-Reach/blob/7a38047acf26a729cbb27851e3cb81639da86b29/agent_reach/skill/SKILL.md"
+      ]
+    },
+    {
+      "repo": "vercel-labs/agent-desktop",
+      "revision": "93ae89e86fb849eeb5fc265b0b8e37eca56aaf72",
+      "decision": "defer",
+      "reason": "Useful for local desktop GUI tasks; native binary plus OS permissions/session required. Prefer current connectors/browser tools when sufficient. Accessibility tree does not describe 3D canvas geometry; visual verification remains necessary.",
+      "evidence": [
+        "https://github.com/vercel-labs/agent-desktop/blob/93ae89e86fb849eeb5fc265b0b8e37eca56aaf72/README.md",
+        "https://github.com/vercel-labs/agent-desktop/blob/93ae89e86fb849eeb5fc265b0b8e37eca56aaf72/skills/agent-desktop/SKILL.md"
+      ]
+    },
+    {
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "revision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "decision": "defer",
+      "reason": "Same revision as prior review. Four sound general coding principles overlap existing guidance/Superpowers; broad activation adds little distinctive capability. Karpathy-inspired, not established as authored/endorsed by him; no reasoning-capability benchmark established.",
+      "evidence": [
+        "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md",
+        "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines/SKILL.md"
+      ]
+    },
+    {
+      "repo": "elvarofficial/teardown",
+      "revision": "a91262ac1109051e014662d42ecb0b7bc1f113b1",
+      "decision": "trial",
+      "reason": "Specialist for interactive machine simulations, cutaways and recorded explainers. Bundled Three.js runtime/build/capture/sound; Node20+, Playwright Chromium, optional ffmpeg/Python. Not a turnkey cloth/book-scroll specialist. Fixed1600x900 overlay and prescribed pale studio style may need explicit adaptation for responsive product sites.",
+      "evidence": [
+        "https://github.com/elvarofficial/teardown/blob/a91262ac1109051e014662d42ecb0b7bc1f113b1/README.md",
+        "https://github.com/elvarofficial/teardown/blob/a91262ac1109051e014662d42ecb0b7bc1f113b1/SKILL.md"
+      ]
+    }
+  ],
+  "decision": {
+    "status": "All four saved as library-only candidates, including previously deferred Karpathy Guidelines.",
+    "sources": "github-repos/reviews.json and github-repos/skills/user-saved-capabilities.md"
+  },
+  "evidence": {
+    "refs": [
+      "knowledge/decisions/2026-11-03-four-popular-capability-candidates.json"
+    ],
+    "unperformed": [
+      "No payload installation or scan",
+      "No target device or runtime verification"
+    ]
+  },
+  "feedback": [],
+  "revisit_when": [
+    "Task-specific selection for actual use"
+  ],
+  "supersedes": []
+}

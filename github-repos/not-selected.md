@@ -4,6 +4,8 @@
 
 These 26 entries were considered and left out of the chosen catalog. Some are useful alternatives or specialized projects; omission is a fit/overlap judgment, not proof of copying or poor quality. No existing inventory entry was removed and nothing was uninstalled.
 
+Karpathy Guidelines was subsequently [saved to the library](skills/user-saved-capabilities.md) at the user’s request on 3 November. Its historical baseline deferral below remains applicable; library inclusion does not mean activation.
+
 ## Engineering
 
 | Repository | Why it is not selected |

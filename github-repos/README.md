@@ -1,6 +1,6 @@
 # Reviewed GitHub options for my Codex setup
 
-Start here. **50 recovered repositories reviewed; 24 conditional options saved; 26 not selected.** Reviewed 14 October 2026 at the linked revisions. This is a curated reference catalog, not a list of installed or security-approved components.
+Start here. **Initial October collection: 50 recovered repositories reviewed; 24 conditional options saved; 26 not selected.** Reviewed 14 October 2026 at the linked revisions. This is a curated reference catalog, not a list of installed or security-approved components.
 
 Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil for UI motion, Corey Haines for marketing, and Obsidian Skills if you use an Obsidian vault. Your selected Taste BrandKit/Image-to-Code children are retained together. Keep broader workflows and extra runtimes optional.
 
@@ -16,6 +16,10 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
 | [Model routing software](tools/model-routing.md) | Claude Code Router |
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
+
+## Later user-saved library additions
+
+[Agent Reach, Vercel Agent Desktop, Karpathy Guidelines and Teardown](skills/user-saved-capabilities.md) are saved for task-specific discovery only. Three are new catalog records; Karpathy reuses its existing record. None is installed or added to the default baseline by this selection. The October counts above describe the original collection.
 
 ## What was left out
 

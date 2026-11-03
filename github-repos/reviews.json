@@ -7,7 +7,8 @@
     "shortlisted": 24,
     "not_selected": 26,
     "complete_shared_collection": false,
-    "missing_scope": "The shared-chat reader truncated long answers at 20000 characters. The latest answer stops at section II / wshobson entry. Earlier visible answers recovered additional URLs, yielding 50 unique candidate repositories. Remaining later sections, including further MCP/software entries, have not been recovered or reviewed."
+    "missing_scope": "The shared-chat reader truncated long answers at 20000 characters. The latest answer stops at section II / wshobson entry. Earlier visible answers recovered additional URLs, yielding 50 unique candidate repositories. Remaining later sections, including further MCP/software entries, have not been recovered or reviewed.",
+    "scope": "Original October recovered collection; counts below describe that historical review only."
   },
   "method": "Separate AI reviewers inspected pinned source and sought outside reviews/issues, followed by lead review and challenged selection decisions. Separate runs do not guarantee different models or independent errors. External benchmarks were not reproduced. Not every file or dependency in each repository was inspected; see review_depth.",
   "installation_policy": "Catalog references only. No candidate code executed, installed, security-approved, or copied into active skill paths. Selected skill activation still requires the existing creator/SkillSpector workflow as applicable, exact version review and target-device verification. Plugins/MCPs remain manual setup choices. No credentials or personal history are included.",
@@ -1328,8 +1329,11 @@
       "review_group": "engineering",
       "reviewed_date": "2026-10-14",
       "installation_status": "not-installed-by-this-review",
-      "catalog_decision": "not-selected",
-      "selection_reason": "Broad writing/review/refactoring trigger; cautions to stop and ask can increase permission-like friction. Inspired by Karpathy observations, not authored or endorsed by Karpathy as established by this review. Search found mostly directories and commentary, not reproducible comparative evidence."
+      "catalog_decision": "library-only",
+      "selection_reason": "User requested library inclusion only. Same revision as prior review. Four sound general coding principles overlap existing guidance/Superpowers; broad activation adds little distinctive capability. Karpathy-inspired, not established as authored/endorsed by him; no reasoning-capability benchmark established.",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/user-saved-capabilities.md"
     },
     {
       "repo": "musistudio/claude-code-router",
@@ -2000,6 +2004,98 @@
       "installation_status": "not-installed-by-this-review",
       "catalog_decision": "not-selected",
       "selection_reason": "Real native and generated Codex routes with specialist material, but a broad additional collection overlaps the chosen baseline. Revisit one child for a concrete unsupported technology."
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "category": "user-saved capability library",
+      "decision": "library-only",
+      "purpose": "Read/search platform content, comments and subtitles when existing research tools cannot retrieve them.",
+      "sha": "7a38047acf26a729cbb27851e3cb81639da86b29",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Complete README and SKILL read for fit; no security scan, execution or independent performance benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/7a38047acf26a729cbb27851e3cb81639da86b29/README.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        },
+        {
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/7a38047acf26a729cbb27851e3cb81639da86b29/agent_reach/skill/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        }
+      ],
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/user-saved-capabilities.md",
+      "selection_reason": "User requested library inclusion only. Conditional research access when native search/read cannot retrieve required text/comments/subtitles. CLI/runtime plus channels; not just a prompt. Instagram experimental; no claim of full reel perception. Login/session reuse and transcription provider keys require specific setup."
+    },
+    {
+      "repo": "vercel-labs/agent-desktop",
+      "category": "user-saved capability library",
+      "decision": "library-only",
+      "purpose": "Operate local desktop applications through native accessibility interfaces.",
+      "sha": "93ae89e86fb849eeb5fc265b0b8e37eca56aaf72",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Complete README and SKILL read for fit; no security scan, execution or independent performance benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/vercel-labs/agent-desktop/blob/93ae89e86fb849eeb5fc265b0b8e37eca56aaf72/README.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        },
+        {
+          "url": "https://github.com/vercel-labs/agent-desktop/blob/93ae89e86fb849eeb5fc265b0b8e37eca56aaf72/skills/agent-desktop/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        }
+      ],
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/user-saved-capabilities.md",
+      "selection_reason": "User requested library inclusion only. Useful for local desktop GUI tasks; native binary plus OS permissions/session required. Prefer current connectors/browser tools when sufficient. Accessibility tree does not describe 3D canvas geometry; visual verification remains necessary."
+    },
+    {
+      "repo": "elvarofficial/teardown",
+      "category": "user-saved capability library",
+      "decision": "library-only",
+      "purpose": "Interactive 3D mechanical simulators, cutaways, exploded views and recorded explainers.",
+      "sha": "a91262ac1109051e014662d42ecb0b7bc1f113b1",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Complete README and SKILL read for fit; no security scan, execution or independent performance benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/elvarofficial/teardown/blob/a91262ac1109051e014662d42ecb0b7bc1f113b1/README.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        },
+        {
+          "url": "https://github.com/elvarofficial/teardown/blob/a91262ac1109051e014662d42ecb0b7bc1f113b1/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Source used for capability and dependency assessment."
+        }
+      ],
+      "installation_status": "not-installed-by-this-review",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/user-saved-capabilities.md",
+      "selection_reason": "User requested library inclusion only. Specialist for interactive machine simulations, cutaways and recorded explainers. Bundled Three.js runtime/build/capture/sound; Node20+, Playwright Chromium, optional ffmpeg/Python. Not a turnkey cloth/book-scroll specialist. Fixed1600x900 overlay and prescribed pale studio style may need explicit adaptation for responsive product sites."
     }
-  ]
+  ],
+  "library_additions": {
+    "updated_date": "2026-11-03",
+    "total_unique_repository_records": 53,
+    "user_saved_only": [
+      "Panniantong/Agent-Reach",
+      "vercel-labs/agent-desktop",
+      "multica-ai/andrej-karpathy-skills",
+      "elvarofficial/teardown"
+    ],
+    "note": "Three new source-fit records; existing Karpathy record retained with updated library selection. Not installation or baseline approval."
+  }
 }
