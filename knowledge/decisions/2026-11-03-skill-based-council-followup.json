@@ -1,0 +1,79 @@
+{
+  "id": "2026-11-03-skill-based-council-followup",
+  "recorded_at": "2026-11-03T01:49:17.729141+00:00",
+  "task": "Identify an existing council skill for occasional important decisions instead of requiring Karpathy council application.",
+  "constraints": [
+    "Research only; no council invocation or installation.",
+    "Preserve source identity and distinguish actual workers from simulated perspectives."
+  ],
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "identity": "0xNyk/council-of-high-intelligence",
+      "source_url": "https://github.com/0xNyk/council-of-high-intelligence",
+      "skill_paths": [
+        "SKILL.codex.md"
+      ],
+      "recorded_revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "upstream_revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "checked_at": "2026-11-03T01:49:17.729154+00:00",
+      "review_depth": "Current Codex main skill read; persona files, installers, provider helpers and runtime not audited.",
+      "fit": "Conditional trial candidate for structured decision deliberation using actual host workers.",
+      "overlap": "Bounded advisory checkpoint, not replacement for main coordinator or software review.",
+      "prerequisites": [
+        "Council persona assets",
+        "Compatible host worker tooling; tool names require adaptation",
+        "Optional external seats need configured providers"
+      ],
+      "costs": "Several worker rounds plus synthesis; optional provider usage.",
+      "uncertainties": [
+        "Fallback simulates failed seats or entire panel; must not label that independent review.",
+        "Historical personas do not establish expertise or independent model families.",
+        "Weighted confidence votes are not objective correctness evidence.",
+        "No live trial or full installation audit."
+      ]
+    },
+    {
+      "identity": "SuperShary/claude-council",
+      "source_url": "https://github.com/SuperShary/claude-council",
+      "skill_paths": [
+        "skills/council/SKILL.md"
+      ],
+      "recorded_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "upstream_revision": "7ac4a5f5e2623ad64aa1d6e80258836afa930b55",
+      "checked_at": "2026-11-03T01:49:17.729159+00:00",
+      "review_depth": "Current head matches prior review; reread retrieved main skill sections, combined output truncated. Supporting references not newly reviewed.",
+      "fit": "Simulated persona brainstorming; less direct fit for independent decision review.",
+      "overlap": "Council roleplay overlaps perspective generation.",
+      "prerequisites": "Host instruction loading; full/deep delegation behavior needs supporting-reference review.",
+      "costs": "Model usage; larger debates add context and latency.",
+      "uncertainties": [
+        "Persona count is not independent expert count.",
+        "No comparative benchmark or runtime verification."
+      ]
+    }
+  ],
+  "decision": {
+    "status": "User preference updated; conditional trial recommendation only.",
+    "recommendation": "Consider Council of High Intelligence Codex skill for important disputed architecture/product decisions after scope clarification. Use small relevant panel, disclose any host adaptation, and do not count simulated fallback as independent review. Exact installation/runtime checks remain pending.",
+    "defer": [
+      "Mandatory council on every task",
+      "Automatic adoption of candidate installation commands"
+    ]
+  },
+  "evidence": [
+    "Current upstream heads and main skill sources checked. No council invoked; no agents spawned."
+  ],
+  "feedback": [
+    {
+      "kind": "explicit",
+      "text": "User asks for a similar council implemented as skills instead of necessarily Karpathy LLM Council."
+    }
+  ],
+  "revisit_when": [
+    "User selects candidate",
+    "Full payload and host compatibility reviewed",
+    "Trial establishes benefit or excessive noise/cost"
+  ],
+  "supersedes": []
+}
