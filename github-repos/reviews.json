@@ -2085,17 +2085,89 @@
       "library_added_date": "2026-11-03",
       "library_page": "github-repos/skills/user-saved-capabilities.md",
       "selection_reason": "User requested library inclusion only. Specialist for interactive machine simulations, cutaways and recorded explainers. Bundled Three.js runtime/build/capture/sound; Node20+, Playwright Chromium, optional ffmpeg/Python. Not a turnkey cloth/book-scroll specialist. Fixed1600x900 overlay and prescribed pale studio style may need explicit adaptation for responsive product sites."
+    },
+    {
+      "repo": "zhuyansen/awesome-claude-video-skills",
+      "category": "user-saved video and 3D library",
+      "decision": "library-only",
+      "purpose": "Video-skill discovery directory covering frameworks, promos, explainers, editing and motion graphics.",
+      "limitations": "A directory of many projects, not one installable production skill. Its security grades, rankings and runtime comparisons are maintainer-reported evidence, not our scan clearance or reproduced benchmarks. Saving this directory does not select every linked skill.",
+      "sha": "888820fdb61ff5c3085c79b37f23910c81a7519e",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Official source identity and HEAD checked; README overview/features/dependencies consulted for cataloging only. Not a complete skill/security audit or runtime benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/zhuyansen/awesome-claude-video-skills/blob/888820fdb61ff5c3085c79b37f23910c81a7519e/README.md",
+          "kind": "pinned_readme",
+          "finding": "Video-skill discovery directory covering frameworks, promos, explainers, editing and motion graphics."
+        }
+      ],
+      "installation_status": "not-installed-by-this-selection",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/video-and-3d.md",
+      "selection_reason": "User requested library inclusion only; no activation."
+    },
+    {
+      "repo": "CloudAI-X/threejs-skills",
+      "category": "user-saved video and 3D library",
+      "decision": "library-only",
+      "purpose": "Community specialist instructions for web 3D: scenes, materials, lighting, animation, interaction, performance, React Three Fiber and asset pipelines.",
+      "limitations": "Relevant to the book/shirt interactive website. Current README targets Three.js r186, Fiber9.8/drei10.7 and gltf-transform4.5; verify compatibility with the actual project. Community guidance, not official Three.js documentation; select only needed children.",
+      "sha": "0e181866f095b5f06d005133876e926515390d95",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Official source identity and HEAD checked; README overview/features/dependencies consulted for cataloging only. Not a complete skill/security audit or runtime benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/README.md",
+          "kind": "pinned_readme",
+          "finding": "Community specialist instructions for web 3D: scenes, materials, lighting, animation, interaction, performance, React Three Fiber and asset pipelines."
+        }
+      ],
+      "installation_status": "not-installed-by-this-selection",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/video-and-3d.md",
+      "selection_reason": "User requested library inclusion only; no activation."
+    },
+    {
+      "repo": "heygen-com/hyperframes",
+      "category": "user-saved video and 3D library",
+      "decision": "library-only",
+      "purpose": "HTML/CSS and seekable-animation video framework with production skills, CLI, browser preview and MP4 rendering.",
+      "limitations": "Local CLI needs Node22+ and FFmpeg; rendering uses headless Chrome. Open-source engine and optional Pro/cloud features have different requirements/costs. Useful for rendered video and motion graphics; not by itself an arbitrary interactive 3D model viewer. Match selected skills to the CLI release before later installation.",
+      "sha": "fc006f713beb8caf46554da468fa578247b8db08",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Official source identity and HEAD checked; README overview/features/dependencies consulted for cataloging only. Not a complete skill/security audit or runtime benchmark.",
+      "evidence": [
+        {
+          "url": "https://github.com/heygen-com/hyperframes/blob/fc006f713beb8caf46554da468fa578247b8db08/README.md",
+          "kind": "pinned_readme",
+          "finding": "HTML/CSS and seekable-animation video framework with production skills, CLI, browser preview and MP4 rendering."
+        }
+      ],
+      "installation_status": "not-installed-by-this-selection",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/video-and-3d.md",
+      "selection_reason": "User requested library inclusion only; no activation."
     }
   ],
   "library_additions": {
     "updated_date": "2026-11-03",
-    "total_unique_repository_records": 53,
+    "total_unique_repository_records": 56,
     "user_saved_only": [
       "Panniantong/Agent-Reach",
       "vercel-labs/agent-desktop",
       "multica-ai/andrej-karpathy-skills",
-      "elvarofficial/teardown"
+      "elvarofficial/teardown",
+      "zhuyansen/awesome-claude-video-skills",
+      "CloudAI-X/threejs-skills",
+      "heygen-com/hyperframes"
     ],
-    "note": "Three new source-fit records; existing Karpathy record retained with updated library selection. Not installation or baseline approval."
+    "note": "Seven user-saved library-only candidates across the two November additions; original October coverage counts remain historical. No installation or baseline approval."
   }
 }

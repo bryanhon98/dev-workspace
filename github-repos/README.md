@@ -21,6 +21,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 
 [Agent Reach, Vercel Agent Desktop, Karpathy Guidelines and Teardown](skills/user-saved-capabilities.md) are saved for task-specific discovery only. Three are new catalog records; Karpathy reuses its existing record. None is installed or added to the default baseline by this selection. The October counts above describe the original collection.
 
+[Awesome Claude Video Skills, Three.js Skills and Hyperframes](skills/video-and-3d.md) are also saved for library discovery only. The unspecified motion-skills collection was skipped; existing Emil motion entries remain.
+
 ## What was left out
 
 [See all 26 decisions](not-selected.md). Main reasons: overlapping global behavior (Ponytail/Karpathy/Caveman), extra orchestration frameworks alongside Superpowers and Claudex, duplicate gateways, Claude-specific provisioning, or a narrow job absent from this setup. These are not plagiarism findings. A derivative project can be useful when it adds substantive capability.

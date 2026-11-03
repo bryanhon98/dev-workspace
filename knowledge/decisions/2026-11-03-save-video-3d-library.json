@@ -1,0 +1,56 @@
+{
+  "id": "2026-11-03-save-video-3d-library",
+  "recorded_at": "2026-11-03T14:52:23.412316+00:00",
+  "task": "Save Awesome Claude Video Skills, Three.js Skills and Hyperframes to the discoverable library.",
+  "constraints": {
+    "user_request": "Save those in the library then, for motions skill if you cant find the trending one then skip",
+    "scope": "Library-only; ambiguous motion-skills identity skipped."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "repo": "zhuyansen/awesome-claude-video-skills",
+      "revision": "888820fdb61ff5c3085c79b37f23910c81a7519e",
+      "purpose": "Video-skill discovery directory covering frameworks, promos, explainers, editing and motion graphics.",
+      "limitations": "A directory of many projects, not one installable production skill. Its security grades, rankings and runtime comparisons are maintainer-reported evidence, not our scan clearance or reproduced benchmarks. Saving this directory does not select every linked skill.",
+      "decision": "library-only"
+    },
+    {
+      "repo": "CloudAI-X/threejs-skills",
+      "revision": "0e181866f095b5f06d005133876e926515390d95",
+      "purpose": "Community specialist instructions for web 3D: scenes, materials, lighting, animation, interaction, performance, React Three Fiber and asset pipelines.",
+      "limitations": "Relevant to the book/shirt interactive website. Current README targets Three.js r186, Fiber9.8/drei10.7 and gltf-transform4.5; verify compatibility with the actual project. Community guidance, not official Three.js documentation; select only needed children.",
+      "decision": "library-only"
+    },
+    {
+      "repo": "heygen-com/hyperframes",
+      "revision": "fc006f713beb8caf46554da468fa578247b8db08",
+      "purpose": "HTML/CSS and seekable-animation video framework with production skills, CLI, browser preview and MP4 rendering.",
+      "limitations": "Local CLI needs Node22+ and FFmpeg; rendering uses headless Chrome. Open-source engine and optional Pro/cloud features have different requirements/costs. Useful for rendered video and motion graphics; not by itself an arbitrary interactive 3D model viewer. Match selected skills to the CLI release before later installation.",
+      "decision": "library-only"
+    }
+  ],
+  "decision": {
+    "status": "Three library entries saved; no skills installed or default workflow changes.",
+    "skipped": "Unspecified trending motion-skills collection; no confident unique identity selected."
+  },
+  "evidence": {
+    "refs": [
+      "github-repos/skills/video-and-3d.md",
+      "github-repos/reviews.json",
+      "knowledge/decisions/2026-11-01-scroll-book-shirt-showcase.json"
+    ],
+    "method": "Official GitHub README overview and feature/dependency sections; git ls-remote HEAD. Prior Three.js task research retained.",
+    "unperformed": [
+      "No candidate installation or execution",
+      "No new skill/security scan",
+      "No independent reproduction of directory benchmarks or security ratings"
+    ]
+  },
+  "feedback": [],
+  "revisit_when": [
+    "Actual video or web3D task selection",
+    "User supplies specific motion-skills source"
+  ],
+  "supersedes": []
+}
