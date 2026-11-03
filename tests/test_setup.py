@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 SCRIPT = pathlib.Path(__file__).resolve().parents[1] / 'scripts' / 'setup.py'
 
@@ -120,9 +121,47 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertFalse((self.home / 'dev-workspace-advisor').exists())
 
     def test_full_advisor_setup_blocks_before_partial_install(self):
-        result = self.run_cli('--install-advisor', '--skills-root', str(self.home / 'skills'))
-        self.assertEqual(result.returncode, 1)
-        self.assertIn('Full advisor baseline is not ready', result.stderr)
+        installer = mock.Mock()
+        installer.require_baseline.side_effect = ValueError('Full advisor baseline is not ready: council')
+        errors = io.StringIO()
+        with mock.patch.dict(sys.modules, {'install_advisor': installer}), \
+                mock.patch.object(sys, 'argv', [str(SCRIPT), '--install-advisor', '--codex-home', str(self.home)]), \
+                contextlib.redirect_stderr(errors):
+            self.assertEqual(self.mod.main(), 1)
+        self.assertIn('Full advisor baseline is not ready', errors.getvalue())
+        installer.install_bundle.assert_not_called()
+        self.assertEqual(list(self.home.iterdir()), [])
+
+    def test_explicit_core_passes_exact_selection_to_installer(self):
+        installer = mock.Mock()
+        names = ['tool-advisor', 'grilling', 'find-skills']
+        installer.require_core_only.return_value = names
+        installer.install_bundle.return_value = {'ready': True, 'components': names}
+        skills = self.home / 'skills'
+        output = io.StringIO()
+        with mock.patch.dict(sys.modules, {'install_advisor': installer}), \
+                mock.patch.object(sys, 'argv', [str(SCRIPT), '--install-advisor-core',
+                    '--codex-home', str(self.home), '--skills-root', str(skills)]), \
+                contextlib.redirect_stdout(output):
+            self.assertEqual(self.mod.main(), 0)
+        installer.install_bundle.assert_called_once_with(self.mod.ROOT, skills, self.home,
+                                                        scanner=None, selected_names=names)
+        installer.require_baseline.assert_not_called()
+        self.assertIn('explicit-partial-core', output.getvalue())
+        self.assertIn('"full_baseline_files_ready": false', output.getvalue())
+
+    def test_partial_receipt_cannot_claim_full_advisor_ready(self):
+        installer = mock.Mock()
+        installer.check_bundle.return_value = {'ready': True, 'errors': [], 'full_bundle_ready': False}
+        installer.baseline_plan.return_value = {'payloads_prepared': True}
+        output = io.StringIO()
+        with mock.patch.dict(sys.modules, {'install_advisor': installer}), \
+                mock.patch.object(self.mod, 'check', return_value=True), \
+                mock.patch.object(sys, 'argv', [str(SCRIPT), '--check-advisor', '--codex-home', str(self.home)]), \
+                contextlib.redirect_stdout(output):
+            self.assertEqual(self.mod.main(), 1)
+        self.assertFalse(json.loads(output.getvalue())['ready'])
+        self.assertIn('full baseline', output.getvalue())
         self.assertEqual(list(self.home.iterdir()), [])
 
     def test_advisor_plan_is_readonly_and_shows_full_selection(self):

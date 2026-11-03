@@ -40,6 +40,12 @@ Current user policy (2026-11-03) supersedes earlier blanket source-review and bl
 - Install eligible skills, verify installed hashes and host discovery, preserve locally modified copies, and report blocked skills individually. Do not call the complete workflow ready when a required baseline skill is blocked. A scan does not prove a skill or external service harmless; report its actual scope.
 - Existing saved audits remain historical evidence. The new warning-and-proceed policy does not retroactively mark untriaged findings accepted. Scanner bootstrap provenance, secrets handling, provider permissions and plugin/account setup rules remain separate.
 
+## Native baseline host adaptations
+
+The baseline installs original Superpowers skills as native skill directories. Resolve upstream `superpowers:<name>` references to the installed `<name>` skill and load its complete instructions through the host-supported mechanism. Use actual host tool signatures and available models; never invent a tool, model or independent worker. Task scripts resolve sibling skill directories within the same skills root. Grilling follows the confirmed interview scope; the main assistant can perform pre-confirmation research directly when worker dispatch is not yet authorized.
+
+The optional brainstorming visual companion must be explicitly selected, bind to localhost, use its own session directory, and run with `SUPERPOWERS_DISABLE_TELEMETRY=1`. Installation does not launch it. Find Skills' `npx` examples are optional runtime commands, not permission to bypass selected-candidate scanning or execute an unchecked CLI package. Council includes a documented host override requiring at least two actual native workers and portable lookup of its bundled personas. Keep external providers separately authorized.
+
 ## Creating or improving my skills
 
 Use a creator workflow whenever I ask to build, create, improve or update a skill. Use Codex's built-in $skill-creator when available. Anthropic's official skill-creator is deferred; do not install it unless I ask again. Do not pretend Claude's /skill-creator command is installed in Codex. If neither creator is callable, disclose that and follow this workflow directly; installing a third-party creator requires the checks above.

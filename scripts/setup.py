@@ -135,7 +135,7 @@ def main():
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
     action.add_argument('--install-rules', action='store_true', help='Restore setup rules globally')
     action.add_argument('--plan-advisor', action='store_true', help='List all required baseline skills and payload preparation gaps without writing')
-    action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only the currently packaged core')
+    action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only tool-advisor, grilling and find-skills')
     action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
     args = parser.parse_args()
@@ -153,6 +153,9 @@ def main():
                 result = check_bundle(ROOT, args.skills_root, args.codex_home)
                 plan = baseline_plan(ROOT)
                 result['baseline'] = plan
+                if not result.get('full_bundle_ready', False):
+                    result['ready'] = False
+                    result.setdefault('errors', []).append('Installed receipt does not cover the full baseline.')
                 if not plan['payloads_prepared']:
                     result['ready'] = False
                     result.setdefault('errors', []).append('Full baseline payload preparation is incomplete.')
@@ -170,11 +173,13 @@ def main():
                 match = re.fullmatch(re.escape(START.encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(END.encode()), current, re.DOTALL)
                 if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
                     raise ValueError('Managed rules changed locally; reconcile them before advisor installation')
+            selected_names = None
             if args.install_advisor:
                 require_baseline(ROOT)
             else:
-                require_core_only(ROOT)
-            result = install_bundle(ROOT, args.skills_root, args.codex_home, scanner=args.scanner)
+                selected_names = require_core_only(ROOT)
+            result = install_bundle(ROOT, args.skills_root, args.codex_home, scanner=args.scanner,
+                                    selected_names=selected_names)
             result['setup_scope'] = 'full-baseline' if args.install_advisor else 'explicit-partial-core'
             result['full_baseline_files_ready'] = bool(args.install_advisor)
             try:

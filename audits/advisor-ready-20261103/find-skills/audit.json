@@ -1,0 +1,506 @@
+{
+  "status": "triaged-static",
+  "revision": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+  "sha256": {
+    "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+    "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+  },
+  "scanner": {
+    "version": "2.12.0",
+    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "mode": "static-only",
+    "exit_code": 1
+  },
+  "report_ref": "audits/advisor-ready-20261103/find-skills/scan.json",
+  "report_sha256": "c30e3218206ccc1df513de19825e25ec1307d498dc9d217ba3c2e2eb343aee08",
+  "findings_decisions": [
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        23,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        27,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        28,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        29,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        56,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        61,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        62,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        63,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        90,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        100,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        131,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    },
+    {
+      "signature": [
+        "RP1",
+        "MEDIUM",
+        "npx skills",
+        "SKILL.md",
+        140,
+        null,
+        null,
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782"
+      ],
+      "disposition": "warn",
+      "reason": "These are documented npx skills CLI examples, not commands executed by this installer. Running npx can fetch executable npm code: use only when needed, check the selected CLI version/dependencies first, and apply the managed scan/selection policy before any add/update. The -g -y example is not blanket permission to install discovered candidates."
+    }
+  ],
+  "coverage_decision": {
+    "disposition": "complete",
+    "reason": "All bundled files inspected; no reported coverage gaps."
+  },
+  "analysis_completeness": {
+    "total_components": 2,
+    "scanned_components": 2,
+    "coverage_percent": 100.0,
+    "is_complete": true,
+    "status": "complete",
+    "execution_successful": true,
+    "fully_inspected_files": 2,
+    "partially_inspected_files": 0,
+    "entirely_uninspected_files": 0,
+    "ledger_exceptions": [],
+    "scope_exclusions": [],
+    "analyzer_statuses": [
+      {
+        "analyzer_id": "artifact_integrity",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "behavioral_ast",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "behavioral_taint_tracking",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "bundled_execution_surface",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "mcp_least_privilege",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "mcp_rug_pull",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "mcp_tool_poisoning",
+        "status": "completed",
+        "planned_work": 1,
+        "completed": 1,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "meta_analyzer",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_developer_intent",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_quality_policy",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_security_discovery",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "static_patterns_agent_snooping",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_anti_refusal",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_data_exfiltration",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_deserialization",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_excessive_agency",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_harmful_content",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_memory_poisoning",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_output_handling",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_privilege_escalation",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_prompt_injection",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_rogue_agent",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_ssrf",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_supply_chain",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_system_prompt_leakage",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_tool_misuse",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_yara",
+        "status": "completed",
+        "planned_work": 2,
+        "completed": 2,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      }
+    ],
+    "references": [
+      {
+        "source_path": "SKILL.md",
+        "line": 45,
+        "column": 64,
+        "evidence": "Before running a CLI search, check the [skills.sh leaderboard](https://skills.sh/) to see if a well-known skill already exists for the domain. The leaderboard r",
+        "target_path": null,
+        "status": "rejected",
+        "disposition": "out_of_scope",
+        "reference_kind": "markdown_link"
+      }
+    ],
+    "limitations": [],
+    "findings_before_filtering": 12,
+    "findings_after_filtering": 12
+  }
+}

@@ -1,0 +1,472 @@
+{
+  "status": "triaged-static",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "sha256": {
+    "CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+    "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    "SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+    "condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+    "condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+    "defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+    "find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+    "root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+    "test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+    "test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+    "test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+    "test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
+  },
+  "scanner": {
+    "version": "2.12.0",
+    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+    "mode": "static-only",
+    "exit_code": 1
+  },
+  "report_ref": "audits/advisor-ready-20261103/systematic-debugging/scan.json",
+  "report_sha256": "e1bb4017d055db9bd480069efe81abce54ac7c71c4a4e05d785bdadb7ca86430",
+  "findings_decisions": [
+    {
+      "signature": [
+        "PE3",
+        "HIGH",
+        "Keychain",
+        "SKILL.md",
+        98,
+        null,
+        13,
+        "044e59b8cb232d8d2a59d6f4b1e8fe2b50ce1a35abe47e0398df30fd491b561c"
+      ],
+      "disposition": "warn",
+      "reason": "The context describes macOS codesigning diagnostics (list-keychains and find-identity), not password extraction. Only run for an authorized relevant diagnosis; keep identity metadata private and do not publish raw diagnostics."
+    },
+    {
+      "signature": [
+        "PE3",
+        "HIGH",
+        "keychain",
+        "SKILL.md",
+        99,
+        null,
+        17,
+        "cf159af5f3c5aa20214f7ff51b2ec06e8190ff1ab76c35f09188a749bd35c424"
+      ],
+      "disposition": "warn",
+      "reason": "The context describes macOS codesigning diagnostics (list-keychains and find-identity), not password extraction. Only run for an authorized relevant diagnosis; keep identity metadata private and do not publish raw diagnostics."
+    },
+    {
+      "signature": [
+        "AE1",
+        "HIGH",
+        "condition-based-waiting.md (partial)",
+        "SKILL.md",
+        283,
+        null,
+        null,
+        "6c509991cdc8a2b1c0d6c1df935ca199ee507bb22e0c50ab5c59e348c8b221cd"
+      ],
+      "disposition": "false-positive",
+      "reason": "This is a link to the bundled condition-based-waiting.md debugging guide. It is not an attempt to evade analysis."
+    },
+    {
+      "signature": [
+        "E4",
+        "HIGH",
+        "Capture context",
+        "defense-in-depth.md",
+        73,
+        null,
+        13,
+        "4a0c4f991eca111ef87cbb11c732000bea934c1f174d9cb57f6e3b63a4d417e9"
+      ],
+      "disposition": "warn",
+      "reason": "The example captures directory, cwd and stack context in local diagnostic logs, not a network destination. Redact private project details before sharing logs; installation does not execute this example."
+    },
+    {
+      "signature": [
+        "EA4",
+        "MEDIUM",
+        "Loop forever",
+        "condition-based-waiting.md",
+        89,
+        null,
+        18,
+        "593f247d88c70be4da3e30c34afe81f5fcf45d714cf136b7335177335f5dcd0a"
+      ],
+      "disposition": "false-positive",
+      "reason": "Loop forever is explicitly the bad example. The adjacent instruction says always include a timeout; the useful example bounds polling to five seconds."
+    }
+  ],
+  "coverage_decision": {
+    "disposition": "warn",
+    "reason": "The bounded parser limitation is in condition-based-waiting.md example code. Targeted reading of the complete guide confirms explicit timeout and polling limits; Loop forever is a discouraged pattern. Preserve 91.7%/partial with zero entirely uninspected files."
+  },
+  "analysis_completeness": {
+    "total_components": 12,
+    "scanned_components": 11,
+    "coverage_percent": 91.7,
+    "is_complete": false,
+    "status": "partial",
+    "execution_successful": true,
+    "fully_inspected_files": 11,
+    "partially_inspected_files": 1,
+    "entirely_uninspected_files": 0,
+    "ledger_exceptions": [
+      {
+        "outcome": "partial",
+        "phase": "static",
+        "reason_code": "static_parse_limit",
+        "message": "A security-relevant expression exceeded a bounded static parser's span limit.",
+        "path": "condition-based-waiting.md",
+        "start_line": null,
+        "end_line": null,
+        "fatal": false,
+        "analyzers": [
+          "static_patterns_tool_misuse"
+        ]
+      }
+    ],
+    "scope_exclusions": [],
+    "analyzer_statuses": [
+      {
+        "analyzer_id": "artifact_integrity",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "behavioral_ast",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "behavioral_taint_tracking",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "bundled_execution_surface",
+        "status": "not_applicable",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "no_applicable_files",
+        "message": "No files matched this analyzer's applicability contract."
+      },
+      {
+        "analyzer_id": "mcp_least_privilege",
+        "status": "completed",
+        "planned_work": 3,
+        "completed": 3,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "mcp_rug_pull",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "mcp_tool_poisoning",
+        "status": "completed",
+        "planned_work": 1,
+        "completed": 1,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "meta_analyzer",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "reference_coverage",
+        "status": "completed",
+        "planned_work": 1,
+        "completed": 1,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "semantic_developer_intent",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_quality_policy",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "semantic_security_discovery",
+        "status": "disabled",
+        "planned_work": 0,
+        "completed": 0,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0,
+        "reason_code": "disabled_by_configuration",
+        "message": "Analyzer was disabled by the requested configuration."
+      },
+      {
+        "analyzer_id": "static_patterns_agent_snooping",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_anti_refusal",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_data_exfiltration",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_deserialization",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_excessive_agency",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_harmful_content",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_memory_poisoning",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_output_handling",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_privilege_escalation",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_prompt_injection",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_rogue_agent",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_ssrf",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_supply_chain",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_system_prompt_leakage",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_patterns_tool_misuse",
+        "status": "degraded",
+        "planned_work": 12,
+        "completed": 11,
+        "partial": 1,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      },
+      {
+        "analyzer_id": "static_yara",
+        "status": "completed",
+        "planned_work": 12,
+        "completed": 12,
+        "partial": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unaccounted": 0
+      }
+    ],
+    "references": [
+      {
+        "source_path": "SKILL.md",
+        "line": 112,
+        "column": 9,
+        "evidence": "See `root-cause-tracing.md` in this directory for the complete backward tracing technique.",
+        "target_path": "root-cause-tracing.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "quoted_or_code"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 281,
+        "column": 6,
+        "evidence": "- **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger",
+        "target_path": "root-cause-tracing.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "quoted_or_code"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 282,
+        "column": 6,
+        "evidence": "- **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause",
+        "target_path": "defense-in-depth.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "quoted_or_code"
+      },
+      {
+        "source_path": "SKILL.md",
+        "line": 283,
+        "column": 6,
+        "evidence": "- **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling",
+        "target_path": "condition-based-waiting.md",
+        "status": "resolved",
+        "disposition": "analyzed",
+        "reference_kind": "quoted_or_code"
+      }
+    ],
+    "limitations": [
+      "Analyzer static_patterns_tool_misuse status: degraded."
+    ],
+    "findings_before_filtering": 5,
+    "findings_after_filtering": 5
+  }
+}

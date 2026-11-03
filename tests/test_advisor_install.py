@@ -15,6 +15,47 @@ SCRIPT = ROOT / 'scripts' / 'install_advisor.py'
 REVISION = 'cf5cac7ba5c756a6e0ebf52dc9763f49422f889f'
 
 
+# Exact pre-refresh fixture bytes; preserve historical exception provenance.
+HISTORICAL_GRILLING = {
+    'SKILL.md': (
+        '---\n'
+        'name: grilling\n'
+        "description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.\n"
+        '---\n'
+        '\n'
+        'Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.\n'
+        '\n'
+        "Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.\n"
+        '\n'
+        'Format a round like so:\n'
+        '\n'
+        '```\n'
+        '❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>\n'
+        '\n'
+        '➡️ <your recommended answer>\n'
+        '\n'
+        '---\n'
+        '\n'
+        '❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>\n'
+        '\n'
+        '➡️ <your recommended answer>\n'
+        '```\n'
+        '\n'
+        'Word each question so "yes" accepts your recommended answer.\n'
+        '\n'
+        'Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.\n'
+        '\n'
+        "Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.\n"
+        '\n'
+        'The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.\n'
+    ),
+    'agents/openai.yaml': (
+        'interface:\n'
+        '  display_name: "Grilling"\n'
+        '  short_description: "Stress-test thinking a round of questions at a time"\n'
+    ),
+}
+
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -102,13 +143,26 @@ class AdvisorInstallTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.mod.baseline_plan(self.repo)
 
-    def test_partial_core_refuses_expanded_bundle(self):
+    def test_partial_core_selects_only_core_from_expanded_bundle(self):
         self.add_component('grilling')
         self.add_component('find-skills')
         self.mod.require_core_only(self.repo)
         self.add_component('council')
-        with self.assertRaisesRegex(ValueError, 'core-only'):
-            self.mod.require_core_only(self.repo)
+        names = self.mod.require_core_only(self.repo)
+        self.assertEqual(set(names), {'tool-advisor', 'grilling', 'find-skills'})
+        result = self.mod.install_bundle(self.repo, self.skills, self.codex,
+                                         scanner=self.scanner, selected_names=names)
+        self.assertEqual(set(result['components']), set(names))
+        self.assertFalse((self.skills / 'council').exists())
+        self.assertTrue(self.check()['ready'])
+        self.assertFalse(self.check()['full_bundle_ready'])
+        self.install()
+        receipt = (self.codex / 'dev-workspace-advisor/receipt.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'migration'):
+            self.mod.install_bundle(self.repo, self.skills, self.codex,
+                                    scanner=self.scanner, selected_names=names)
+        self.assertEqual((self.codex / 'dev-workspace-advisor/receipt.json').read_bytes(), receipt)
+        self.assertTrue((self.skills / 'council').exists())
 
     def test_missing_roles_do_not_hide_broken_existing_payload(self):
         self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
@@ -116,6 +170,196 @@ class AdvisorInstallTests(unittest.TestCase):
         result = self.mod.baseline_plan(self.repo)
         self.assertEqual(result['missing_payloads'], ['council'])
         self.assertIn('hash mismatch', result['audit_error'])
+
+    def triage_fixture(self, incomplete=False, finding=True):
+        component = self.manifest['components'][0]
+        issue = {'id': 'SAMPLE', 'severity': 'HIGH', 'finding': 'Quoted command example',
+                 'location': {'file': 'SKILL.md', 'start_line': 3, 'end_line': 3,
+                              'start_column': 1}, 'match_fingerprint': 'example-fingerprint'}
+        report = {
+            'execution_successful': True,
+            'metadata': {'llm_requested': False, 'skillspector_version': '2.12.0'},
+            'issues': [issue] if finding else [], 'suppressed_count': 0, 'suppressed': [],
+            'components': [{'path': 'SKILL.md'}],
+            'analysis_completeness': {'execution_successful': True, 'is_complete': not incomplete,
+                'coverage_percent': 0 if incomplete else 100, 'status': 'partial' if incomplete else 'complete',
+                'total_components': 1, 'scanned_components': 0 if incomplete else 1,
+                'fully_inspected_files': 0 if incomplete else 1,
+                'partially_inspected_files': 1 if incomplete else 0, 'entirely_uninspected_files': 0,
+                'ledger_exceptions': [], 'scope_exclusions': [],
+                'limitations': ['Optional project-generated example is unavailable'] if incomplete else []},
+        }
+        report_path = self.write('audits/triaged-scan.json', report)
+        audit = {'status': 'triaged-static', 'revision': component['version'],
+                 'sha256': copy.deepcopy(component['hashes']), 'scanner': self.manifest['scanner'],
+                 'report_ref': 'audits/triaged-scan.json', 'report_sha256': digest(report_path),
+                 'analysis_completeness': copy.deepcopy(report['analysis_completeness']),
+                 'findings_decisions': [{'signature': list(self.mod._signature(issue)),
+                                        'disposition': 'false-positive',
+                                        'reason': 'This finding flags an inert quoted example.'}] if finding else [],
+                 'coverage_decision': {'disposition': 'warn' if incomplete else 'complete',
+                                       'reason': 'Only an optional project-generated example is absent.' if incomplete else 'All payload files inspected.'}}
+        self.write(component['audit_ref'], audit)
+        self.report_mutation = lambda r: r.update(copy.deepcopy(report))
+        return report, audit
+
+    def test_real_partial_parser_report_uses_fully_inspected_scan_count(self):
+        manifest = json.loads((ROOT / 'advisor-bundle.json').read_text())
+        component = next(c for c in manifest['components'] if c['name'] == 'brainstorming')
+        audit = json.loads((ROOT / component['audit_ref']).read_text())
+        report = json.loads((ROOT / audit['report_ref']).read_text())
+        profile = report['analysis_completeness']
+        self.assertEqual(profile['total_components'], 9)
+        self.assertEqual(profile['scanned_components'], 7)
+        self.assertEqual(profile['partially_inspected_files'], 2)
+        self.assertEqual(profile['coverage_percent'], 77.8)
+        prepared = {**component, 'installed_hashes': component['hashes'],
+                    'allowed_findings': self.mod._signatures(report['issues']),
+                    'accepted_scan_profile': copy.deepcopy(profile)}
+        self.mod._validate_report(report, prepared)
+        for field, value in [('scanned_components', 9), ('coverage_percent', 100),
+                             ('entirely_uninspected_files', 1)]:
+            changed = copy.deepcopy(report)
+            changed['analysis_completeness'][field] = value
+            prepared['accepted_scan_profile'] = copy.deepcopy(changed['analysis_completeness'])
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'count|coverage'):
+                self.mod._validate_report(changed, prepared)
+
+    def test_triaged_findings_warn_and_preserve_exact_report(self):
+        report, audit = self.triage_fixture()
+        result = self.install()
+        self.assertTrue(result['ready'])
+        self.assertEqual(result['warnings'][0]['disposition'], 'false-positive')
+        self.assertEqual(result['scan_completeness']['tool-advisor'], report['analysis_completeness'])
+        receipt = json.loads((self.codex / 'dev-workspace-advisor/receipt.json').read_text())
+        item = receipt['components'][0]
+        self.assertEqual(item['warnings'], result['warnings'])
+        self.assertEqual(item['scan_completeness'], report['analysis_completeness'])
+        self.assertEqual(json.loads((self.codex / 'dev-workspace-advisor' / item['report']).read_text())['issues'], report['issues'])
+        self.assertTrue(self.check()['ready'])
+        self.assertEqual(self.check()['warnings'], result['warnings'])
+
+    def test_triaged_incomplete_without_findings_accepts_exit_one_and_warns(self):
+        report, _ = self.triage_fixture(incomplete=True, finding=False)
+        result = self.install()
+        self.assertTrue(result['ready'])
+        self.assertFalse(result['scan_completeness']['tool-advisor']['is_complete'])
+        self.assertEqual(result['warnings'][0]['kind'], 'coverage')
+        self.assertTrue(self.check()['ready'])
+
+    def test_triage_rejects_unassessed_changed_findings_or_coverage(self):
+        for field in ('severity', 'start_line', 'limitations', 'coverage_percent'):
+            report, _ = self.triage_fixture(incomplete=True)
+            if field == 'severity':
+                report['issues'][0][field] = 'CRITICAL'
+            elif field == 'start_line':
+                report['issues'][0]['location'][field] = 4
+            else:
+                report['analysis_completeness'][field] = ['New missing dependency'] if field == 'limitations' else 25
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'finding|coverage|count'):
+                self.install()
+            self.assertFalse((self.skills / 'tool-advisor').exists())
+
+    def test_triage_requires_complete_decisions_and_matching_pins(self):
+        for field, value in [('findings_decisions', []), ('revision', 'different'),
+                             ('report_sha256', '0' * 64), ('sha256', {}),
+                             ('coverage_decision', {'disposition': 'warn', 'reason': ''})]:
+            _, audit = self.triage_fixture(incomplete=True)
+            audit[field] = value
+            self.write('audits/tool-advisor.json', audit)
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                self.install()
+        self.assertEqual(self.scan_count, 0)
+
+    def test_triage_cannot_accept_dangerous_or_unexplained_decisions(self):
+        for disposition, reason in [('block', 'Credential theft'), ('warn', ''),
+                                    ('unknown', 'Needs assessment')]:
+            _, audit = self.triage_fixture()
+            audit['findings_decisions'][0].update(disposition=disposition, reason=reason)
+            self.write('audits/tool-advisor.json', audit)
+            with self.subTest(disposition=disposition), self.assertRaises(ValueError):
+                self.install()
+        self.assertEqual(self.scan_count, 0)
+
+    def test_triage_cannot_accept_missing_files_suppression_llm_or_failed_execution(self):
+        for field in ('components', 'suppressed', 'llm', 'execution', 'uninspected', 'counts'):
+            report, audit = self.triage_fixture(incomplete=True)
+            if field == 'components':
+                report['components'] = []
+            elif field == 'suppressed':
+                report.update(suppressed_count=1, suppressed=[{}])
+            elif field == 'llm':
+                report['metadata']['llm_requested'] = True
+            elif field == 'execution':
+                report['execution_successful'] = False
+            elif field == 'counts':
+                report['analysis_completeness']['fully_inspected_files'] = 3
+            else:
+                report['analysis_completeness'].update(entirely_uninspected_files=1,
+                                                      partially_inspected_files=0)
+            pinned = self.write('audits/triaged-scan.json', report)
+            audit['report_sha256'] = digest(pinned)
+            audit['analysis_completeness'] = copy.deepcopy(report['analysis_completeness'])
+            self.write('audits/tool-advisor.json', audit)
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                self.install()
+        self.assertEqual(self.scan_count, 0)
+
+    def test_plan_handles_malformed_component_names_without_typeerror(self):
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor']})
+        for name in ([], {}, None, 123):
+            self.manifest['components'][0]['name'] = name
+            self.save_manifest()
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                self.mod.baseline_plan(self.repo)
+
+    def test_upstream_freshness_is_deduplicated_before_scanning(self):
+        self.add_component('council')
+        revision = 'a' * 40
+        for component in self.manifest['components']:
+            component.update(version=revision, upstream_repository='https://github.com/example/skills',
+                             upstream_ref='HEAD')
+        self.save_manifest()
+        fake = self.fake_run
+        calls = []
+        def upstream_run(args, **kwargs):
+            if args[:2] == ['git', 'ls-remote']:
+                calls.append(args)
+                self.assertEqual(self.scan_count, 0)
+                return subprocess.CompletedProcess(args, 0, revision + '\tHEAD\n', '')
+            return fake(args, **kwargs)
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=upstream_run):
+            self.install()
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(self.scan_count, 2)
+        self.assertTrue(self.check()['ready'])
+
+    def test_new_or_unavailable_upstream_blocks_without_activation(self):
+        self.manifest['components'][0].update(version='a' * 40,
+            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD')
+        self.save_manifest()
+        for code, output in [(0, 'b' * 40 + '\tHEAD\n'), (128, ''), (0, 'malformed')]:
+            with self.subTest(code=code, output=output), mock.patch.object(
+                    self.mod.subprocess, 'run', return_value=subprocess.CompletedProcess([], code, output, '')):
+                with self.assertRaisesRegex(ValueError, '(?i)upstream'):
+                    self.install()
+            self.assertFalse(self.skills.exists())
+            self.assertFalse(self.codex.exists())
+        self.assertEqual(self.scan_count, 0)
+
+    def test_entire_batch_is_scanned_before_risk_block(self):
+        self.add_component('council')
+        def new_finding(report):
+            if report['skill']['name'] == 'tool-advisor':
+                report['issues'] = [{'id': 'UNASSESSED', 'severity': 'HIGH',
+                                     'finding': 'New risk', 'location': {'file': 'SKILL.md'},
+                                     'match_fingerprint': None}]
+        self.report_mutation = new_finding
+        with self.assertRaisesRegex(ValueError, 'finding'):
+            self.install()
+        self.assertEqual(self.scan_count, 2)
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+        self.assertFalse((self.skills / 'council').exists())
 
     def fake_run(self, args, **kwargs):
         args = [str(a) for a in args]
@@ -160,7 +404,7 @@ class AdvisorInstallTests(unittest.TestCase):
                 self.report_mutation(report)
             output = pathlib.Path(args[args.index('--output') + 1])
             output.write_text(json.dumps(report))
-            code = self.scan_exit if self.scan_exit is not None else (1 if report['issues'] else 0)
+            code = self.scan_exit if self.scan_exit is not None else (1 if report['issues'] or isinstance(report['analysis_completeness'], dict) and not report['analysis_completeness'].get('is_complete') else 0)
             return subprocess.CompletedProcess(args, code, '', '')
         raise AssertionError('Unexpected external operation: ' + repr(args))
 
@@ -218,7 +462,7 @@ class AdvisorInstallTests(unittest.TestCase):
                              ('ledger_exceptions', [{'reason': 'skipped'}])]:
             with self.subTest(field=field):
                 self.report_mutation = lambda r: r['analysis_completeness'].update({field: value})
-                with self.assertRaisesRegex(ValueError, 'scan|coverage|complete'):
+                with self.assertRaisesRegex(ValueError, '(?i)scan|coverage|complete'):
                     self.install()
                 self.assertFalse((self.skills / 'tool-advisor').exists())
 
@@ -383,12 +627,16 @@ class AdvisorInstallTests(unittest.TestCase):
 
     def add_grilling(self):
         destination = self.repo / 'skills/grilling'
-        shutil.copytree(ROOT / 'skills/external/matt-pocock/grilling', destination)
+        for filename, content in HISTORICAL_GRILLING.items():
+            self.write('skills/grilling/' + filename, content)
         review_path = 'audits/matt-pocock-49dd158-20261018/review.json'
         report_path = 'audits/matt-pocock-49dd158-20261018/grilling-scan.json'
         for p in [review_path, report_path]:
             self.write(p, (ROOT / p).read_text())
         hashes = {p.relative_to(destination).as_posix(): digest(p) for p in destination.rglob('*') if p.is_file()}
+        historical = json.loads((self.repo / review_path).read_text())['sha256']
+        self.assertEqual(hashes, {p.removeprefix('grilling/'): h for p, h in historical.items()
+                                  if p.startswith('grilling/')})
         self.manifest['components'].append({
             'name': 'grilling', 'path': 'skills/grilling',
             'version': '49dd158d1076134a641b33efb035946536778336',

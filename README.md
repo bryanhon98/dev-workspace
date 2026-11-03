@@ -1,116 +1,168 @@
-# My tool brain and Codex setup
+# Tool Advisor — my tool and skill knowledge base
 
-This repo helps an agent choose tools for the task, compare them with your installed skills, verify current upstream versions, and remember what worked. It also backs up and restores your Codex setup.
+Describe what you want to achieve. This repository guides an assistant to understand the task, find suitable skills and tools, compare them with what is already installed, coordinate the work, and remember useful outcomes for next time.
 
-For a substantial task, the [advisor flow](knowledge/BUILD-FLOW.md) uses an interview skill, searches the repo and external sources, proposes a compatible combination for your confirmation, then coordinates the work and tracks evidence. It applies to research, design, media, business, automation and software. You do not need to name the specialists first.
+It supports software, design, research, media, business and automation. It also keeps a portable record of your Codex setup. You do not need to know the names of every specialist before asking for help.
 
-This routing depends on the host loading the repo or global instructions. The repo update alone does not change another device's global rules or install an always-running agent. Simple fixes and explanation questions keep a shorter path.
+## Current status
 
-## Current installation policy
+The complete **17-skill baseline is packaged**: Tool Advisor, Grilling, Find Skills, 13 Superpowers workflow skills and Council of High Intelligence. Installation checks upstream versions, scans the whole selected batch, retains documented warnings and verifies the installed files.
 
-The user requests newer skill versions to be scanned immediately before installation, without a separate manual source-code review unless requested. Scan the entire selected batch first; warn and proceed for established low-risk findings or false positives, and block dangerous findings or unresolved gaps that prevent risk classification. Read skill instructions to use them correctly. See [the authoritative policy](global/AGENTS.md#scan-before-installing-updating-or-restoring-skills).
+| Part | Status |
+|---|---|
+| Workflow, research library and saved decisions | Available in this repo |
+| All 17 baseline skill payloads | Packaged with exact hashes and scan decisions |
+| Full setup command | Installs the baseline together after its checks pass |
+| Security policy | Warn and proceed for established low risk; block dangerous or unclassified findings |
+| Your device | Run setup and verify discovery in a fresh session |
 
-**Implementation status:** this policy is recorded, but the current Python installer still enforces its older strict hash/audit/exception gates. It has not yet been updated to implement risk-based warning approvals or prepare the expanded baseline. Older readiness notes below must not be read as overriding the new policy or as proof that implementation is complete.
+The bundle uses original upstream skills. Council has [documented host adaptations](audits/advisor-ready-20261103/council/adaptations.json) for portable asset lookup and actual independent workers. No extra model-provider account is required for the native-worker council. A host without worker support can install the files but cannot run independent council deliberation.
 
-## Set up the complete advisor baseline
+**Verified on Linux:** all 17 skills installed and discovered by Codex in a fresh isolated project; all 110 tests passed. No known main setup blocker remained in that test. Full project execution and council deliberation were not exercised.
 
-“Setup tool-advisor” now selects the entire approved starting workflow up front: Tool Advisor, Grilling, Find Skills, the Superpowers execution/review/verification skills, and Council of High Intelligence. Domain specialists remain task-specific. Installing a skill does not mean running it on every request.
+See the [verification record](audits/advisor-ready-20261103/verification.json) for the tested environment and limits. A download alone does not install or activate skills.
 
-**Current blocker:** the complete baseline is not yet installable. Fresh Superpowers scans have new findings and incomplete coverage; the saved council's historical exception still needs integration into this installer. See the [preparation audit](audits/advisor-baseline-20261103/review.json). `--install-advisor` now refuses partial setup; it does not install only three skills and report success. The approved three-skill core remains available only through the explicit `--install-advisor-core` option. Its existing exact LP3 exception remains unchanged.
+## How the workflow works
 
-On the device where you use Codex, clone this repo and run:
+1. **Understand the goal.** Use the interview skill to clarify missing requirements, constraints and success criteria. Reuse information already supplied.
+2. **Map the necessary capabilities.** Identify all parts of the job, including design, implementation and verification where relevant.
+3. **Find suitable skills and tools.** Search relevant installed capabilities, extracted reels, saved decisions and external sources, including GitHub. Read shortlisted skill instructions and check current versions. Popularity is a discovery signal, not proof of suitability.
+4. **Propose a combination.** Explain each role, overlap, readiness, cost and gaps. Confirm the project-specific combination before execution; reuse unchanged approvals.
+5. **Do the work.** The main assistant coordinates, using selected skills directly or assigning bounded work to available subagents. Track ownership, dependencies and blockers.
+6. **Verify the result.** Check the agreed success criteria using appropriate tests, reviewers, browser interactions or measurements. Report anything unverified.
+7. **Save useful outcomes.** Record what worked, failed or changed, then consult that evidence on future tasks.
+
+Small edits and explanation-only questions use a shorter path. The assistant selects the smallest useful combination; it does not run every installed skill for every task.
+
+### Who does what?
+
+| Component | Role |
+|---|---|
+| Main assistant | Coordinates the goal, plan, workers and final result |
+| [Tool Advisor](skills/custom/tool-advisor/SKILL.md) | Custom instructions connecting interview, discovery, selection, tracking and verification |
+| [Grilling — Matt Pocock](https://github.com/mattpocock/skills) | Clarifies requirements through questions |
+| [Find Skills — Vercel](https://github.com/vercel-labs/skills) | Helps discover relevant skills |
+| [Superpowers](https://github.com/obra/superpowers) | Preferred software execution, review and verification methods |
+| [Council of High Intelligence](https://github.com/0xNyk/council-of-high-intelligence) | Optional structured deliberation for important decisions after scope is clear |
+| Project specialists | Provide the particular design, technical or domain guidance the task needs |
+
+A **skill is a set of instructions**. A **subagent is a separate AI worker** that can apply those instructions. Loading a skill does not create another worker. Use original selected skills rather than silently replacing them with invented substitutes; disclose host adaptations or unavailable dependencies.
+
+For agreed independent reviews, a separate worker applies the selected review instructions. Coordinator-only review must be labelled self-review. Separate workers may still use the same underlying model.
+
+The council is a bounded decision checkpoint, not another overall coordinator. Retry failed participants within a budget; continue with explicitly reported reduced participation only when at least two actual workers respond. Otherwise stop the checkpoint. Imagined responses never count as independent participants. These are the [approved council and reviewer rules](knowledge/decisions/2026-11-03-approved-council-and-review-policy.json).
+
+## Download and setup
+
+[Download ZIP](https://github.com/bryanhon98/dev-workspace/archive/refs/heads/main.zip), or clone the repository:
 
 ```sh
 git clone https://github.com/bryanhon98/dev-workspace.git
 cd dev-workspace
+```
+
+For an existing clean Git checkout, update with `git pull --ff-only`. Keep the checkout available: it is the assistant's research library.
+
+Open this folder in Codex **on the device you intend to configure**, then say:
+
+> Setup tool-advisor using this repo. Install the approved baseline up front, reuse my recorded choices, and report any blockers.
+
+That request selects Tool Advisor, Grilling, Find Skills, the Superpowers workflow skills and Council of High Intelligence, plus their required dependencies. It does not select every candidate in the research library. Project-specific specialists remain conditional.
+
+Inspect the selected baseline without installing anything:
+
+```sh
 python3 scripts/setup.py --plan-advisor
+```
+
+Install the full baseline and check its files:
+
+```sh
 python3 scripts/setup.py --install-advisor
 python3 scripts/setup.py --check-advisor
 ```
 
-The full command selects all roles in `advisor-baseline.json`. The currently packaged subset is **tool-advisor**, Matt Pocock's **grilling**, and Vercel's **find-skills**; complete setup blocks until the remaining reviewed payloads are included. It installs those skills in `~/.agents/skills`, restores managed Codex instructions, and records the checkout location for access from other projects. It stages complete payloads, runs local static SkillSpector scans, checks exact review hashes and approved historical exceptions, and refuses new findings or locally edited skill copies. Keep the checkout available as the research library.
+The installer stages and scans all 17 skills before activation. If a required component is blocked, it leaves the active bundle unchanged. `--install-advisor-core` is available only for an explicitly requested three-skill partial setup; `--check-advisor` reports that as incomplete workflow setup.
 
-Python 3.12–3.14, Git and network access are needed for scanner bootstrap; the installer uses an isolated scanner environment with the reviewed source revision and dependency constraints. An existing reviewed scanner can be supplied with `--scanner /path/to/skillspector`. Public-source discovery needs an available web/GitHub tool or a separately reviewed CLI; no unpinned CLI is installed by this command. Plugins, accounts and project-specific specialist runtimes retain their own setup requirements.
+Installation uses `~/.agents/skills`, managed Codex instructions and local receipts. It preserves unrelated instructions and refuses to overwrite locally modified managed content. Scanner bootstrap requires Python 3.12–3.14, Git and network access. An existing verified scanner can be supplied with `--scanner /path/to/skillspector`. Plugins, accounts and external model providers retain their own setup requirements; installing instruction files does not configure them automatically.
 
-Start a new Codex session in your project and say:
+For a broader device setup, say **“Setup my Codex using this repo.”** That opens the inventory and asks about additional selections while preserving existing approvals. Plugins and MCPs remain a manual setup/login checklist.
 
-> Use tool-advisor. I want to [describe the outcome]. Interview me, find suitable skills and specialists, and show me the combination before starting.
+## Start or resume a project
 
-After setup, substantial project requests should enter this flow automatically when Codex loads the managed instructions; you do not need to name the skills. The explicit prompt above is a useful fallback. Inside this repo, its AGENTS.md also directs the assistant into the flow. In another project or on another device, merely linking this GitHub repo does not install or activate it. Simple edits and explanation questions use the shorter direct path. The [latest workflow approval](knowledge/decisions/2026-11-02-workflow-approval-and-startup.json) approves this process, not every future project's unseen combination or all optional installations.
+After setup and a fresh Codex session, say:
 
-The main assistant uses the interview and discovery skills, presents the plan for your confirmation, then prepares selected capabilities and coordinates workers when its host supports them. It keeps task ownership, dependencies, blockers and verification evidence in the project's ignored `.tool-advisor/` directory. Resume with the same request or inspect the state with:
+> Use tool-advisor. I want to [describe the outcome]. Clarify the scope and show me the suitable skill combination before starting.
+
+Substantial project requests should enter the flow automatically **when the host loads the managed instructions**. Inside this repo, [AGENTS.md](AGENTS.md) also directs the assistant into the flow. The explicit prompt is a fallback. Merely sharing the GitHub link does not activate it in every app or on another device.
+
+For example:
+
+> I want a realistic 3D website where scrolling flips a book and reveals objects I can inspect. Help me choose the right combination and define how we will test it.
+
+The advisor should account for visual direction, 3D assets, scroll animation, inspection controls, mobile usability and performance—not just select a generic web-development skill.
+
+To resume, ask the assistant to continue from the project record. Its local task ledger lives in the ignored `.tool-advisor/` directory. You can inspect it with:
 
 ```sh
 python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project status
 ```
 
-`--check-advisor` checks installed files, receipts, source location and managed instructions; a fresh session must still demonstrate that the host loads the skills. The first supported host is Codex. No background model service, universal prompt hook or new account authentication is installed. Isolated development checks are not evidence that your laptop has been configured.
+An existing project tracker remains the task source. The advisor links relevant tasks and evidence rather than maintaining a competing plan. File checks and saved status do not replace checking actual outputs or demonstrating that the host can load the skills.
 
-The [bundle manifest](advisor-bundle.json) identifies exact payloads and reviews. [Ledger commands](skills/custom/tool-advisor/references/ledger.md) describe confirmation and task transitions. The full ECC/Agency collections and larger trackers are optional candidates, not core dependencies.
+## Installation policy
 
-For advice, open the repo and ask, for example:
+The [current user policy](global/AGENTS.md#scan-before-installing-updating-or-restoring-skills) is:
 
-> I want to analyze reels and produce original videos. Compare my current skills, check the relevant upstream versions, and recommend the smallest useful combination.
+- Check for newer versions at setup/update time. Scan the exact selected version immediately before installation; explain incompatibilities rather than silently choosing an older copy.
+- Stage and scan the entire selected batch before deciding what to install, including available supporting files. Do not execute candidate code just to scan it.
+- Skip a separate manual source-code/security audit unless requested. Read skill instructions for correct use and inspect flagged context when needed to assess risk.
+- **Warn and proceed** for findings reasonably established as low risk or false positives.
+- **Block** dangerous behaviour or unresolved gaps that prevent a risk decision. Resolve missing scan inputs where possible; never hide findings or fabricate complete coverage.
+- Verify installed files and skill discovery. Report blocked components individually and do not call the workflow ready if a required baseline skill is missing.
 
-Start with the [advisor workflow](knowledge/ADVISOR.md), [task routes](knowledge/ROUTING.md), [reel research index](knowledge/reel-library/index.md) and [import review](knowledge/reel-library/REVIEW.md). All three original research files are preserved with hashes: 1,083 entity records and 475 report entries. They are research leads, not 1,083 verified tools. The existing reviewed GitHub catalog and setup inventory remain separate.
+These rules replace the earlier blanket “block every finding” policy. Historical audits remain evidence, not automatic approval of changed files. The installer binds warning decisions to exact payload hashes, finding signatures and coverage reports. It rescans during installation; changed findings need fresh triage. Credentials stay on the device; extra provider access or charges are not implied by setup approval.
+
+If upstream HEAD has changed since this bundle was packaged, the command stops with “requires staging and rescan.” Ask the assistant to finish that preparation under the same policy and rerun setup. The Python command checks freshness; it does not autonomously rewrite skills or approve new findings. No repeat selection approval is needed for the unchanged baseline.
+
+Some accepted scans remain marked partial because of parser limits or optional/example references. Their exact limitations and targeted decisions are preserved in the [scan evidence](audits/advisor-ready-20261103/); they are not presented as clean scans or a guarantee of safety.
+
+## How the repository learns
+
+The assistant saves sanitized outcomes, failed approaches, corrections and source revisions in [decision records](knowledge/decisions/). Future recommendations consult those records and refresh relevant sources.
+
+This is maintained knowledge—not model retraining, automatic device monitoring or continuous GitHub scanning. Comparable evaluations are needed before claiming that a workflow change improves results. Learning does not automatically remove or replace installed skills.
+
+The three original reel documents are preserved with hashes: **1,083 entity records and 475 report entries**. They contain discovery leads and compiled claims, not 1,083 verified tools. Creator commentary is useful context; repeated claims and star counts are not independent evidence.
+
+## Explore the knowledge base
+
+| Location | Contents |
+|---|---|
+| [Advisor workflow](knowledge/BUILD-FLOW.md) | Steps from task request to verified result |
+| [Advisor rules](knowledge/ADVISOR.md) | Discovery, comparison, selection and evidence practices |
+| [Task routes](knowledge/ROUTING.md) | Starting points for different jobs |
+| [Reel library](knowledge/reel-library/index.md) | Searchable extracted research |
+| [Import review](knowledge/reel-library/REVIEW.md) | Preservation checks and source limitations |
+| [Decisions](knowledge/decisions/) | Dated comparisons, approvals and outcomes |
+| [GitHub catalog](github-repos/README.md) | Previously considered tools and skill collections |
+| [Inventory](inventory.json) | Component sources and recorded readiness |
+| [Global instructions](global/AGENTS.md) | Portable setup and operating rules |
+| [Required baseline](advisor-baseline.json) | Selected starting workflow skills |
+| [Packaged bundle](advisor-bundle.json) | Exact payload hashes and existing installation evidence |
+
+Useful read-only commands:
 
 ```sh
-python3 scripts/knowledge.py search "video transcript frames"
+python3 scripts/knowledge.py search "design accessibility"
 python3 scripts/knowledge.py show graphify
 python3 scripts/knowledge.py inspect --root ~/.agents/skills --root ~/.codex/skills
 python3 scripts/knowledge.py verify
+python3 scripts/setup.py
+python3 scripts/setup.py --plan-advisor
+python3 scripts/setup.py --check-advisor
 ```
 
-Search retrieves evidence; the agent makes the task-specific comparison after reading relevant installed skills and current source. Inspection is read-only and limited to the machine/paths you run it on. New specialist installation follows the confirmed selection and inspection rules; no automatic removal or background refresh is configured. Dated decisions and feedback are saved under `knowledge/decisions/` for reuse.
+`--install-rules` restores only managed instructions; `--check` checks those instructions. Neither installs skills. Start a new session after changing installed instructions. `CODEX_HOME`, `--codex-home` and `--skills-root` support alternate profiles; a cloud test profile is not your laptop.
 
-## Latest approved additions and download readiness
-
-The user approved the conditional recommendations and selected Council of High Intelligence for occasional important decisions, with [explicit council/reviewer rules](knowledge/decisions/2026-11-03-approved-council-and-review-policy.json). The explicit partial-core option installs the three packaged core skills. Full `--install-advisor` now requires Superpowers and council preparation up front; domain specialists remain conditional. Their approval does not mean their complete payloads or runtime integrations have passed review.
-
-Download the current repository or update an existing clean checkout with `git pull --ff-only`. Follow the core setup steps above on the intended device, then start a fresh Codex session. Ask: “Use tool-advisor. Check readiness of my approved Superpowers and council options, then help me with [goal].” Reuse recorded selections; ask only for unresolved scope, changed choices or new specific findings that require a decision.
-
-## Set up a device
-
-Open this repo in Codex on the laptop you want to configure and say:
-
-> Setup my Codex using this repo.
-
-Codex should:
-1. Show the saved skills, plugins and MCPs, including what needs review, login or manual setup.
-2. Ask which skills you want: choose names, all eligible skills, or none. Wait for your choice.
-3. Restore your global setup rules, then install/verify SkillSpector first and use it to inspect your chosen skills before installing them globally. "All" never skips a blocked scan.
-4. Give you plugin/MCP links and login instructions for manual setup.
-5. Verify successful installs and save their records to this GitHub repo.
-
-Additional options: [reviewed GitHub catalog](github-repos/README.md). It records conditional recommendations and omissions; candidates enter the setup inventory only after you choose them and the required review is completed.
-
-## The files you might edit
-
-- inventory.json — the component catalog, GitHub source links, prerequisites and restore status.
-- global/AGENTS.md — setup, SkillSpector, skill-creation and GitHub-sync rules.
-
-AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement and test global instruction setup. Skill files, inspection receipts, MCP templates and device logs get their own folders when real content is added.
-
-## Commands
-
-```sh
-python3 scripts/setup.py                  # List choices; changes nothing
-python3 scripts/setup.py --install-rules  # Restore setup rules only
-python3 scripts/setup.py --check          # Check the installed instructions
-python3 scripts/setup.py --plan-advisor    # List required baseline and gaps
-python3 scripts/setup.py --install-advisor # Full baseline only; blocks if preparation is incomplete
-python3 scripts/setup.py --install-advisor-core # Explicit partial core only
-python3 scripts/setup.py --check-advisor   # Check the advisor installation without writing
-```
-
-Python 3 is required. The installer uses CODEX_HOME (normally ~/.codex), preserves unrelated instructions and keeps a local backup. It handles an existing global AGENTS.override.md and refuses to overwrite locally edited managed rules. If you cleared the instruction file, --install-rules restores it. If you only edited/deleted part of the managed section, reconcile it first. Start a new Codex session afterward. --codex-home PATH supports a different profile or isolated testing.
-
-Codex personal instructions are stored in the selected machine's global AGENTS.md. Personalisation also includes other settings such as memory and personality; this repo restores the instruction text, not those account/app settings. [Official explanation](https://learn.chatgpt.com/docs/personalize).
-
-## Current status
-
-The catalog menu and global instruction installer remain available. The partial-core option installs the three reviewed core skills under their exact approved exceptions; full setup currently blocks on the remaining baseline preparation. Installation and file checks passed in an isolated cloud profile; each device still needs its own setup and fresh-session verification. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
-
-When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
-
-Skills from public repositories often need no download login, but some need tools, API keys or private-repo access. Credentials stay on each device. Manual marketplace changes are recorded only after a later sync/verification; this repo is not a background watcher.
+Verified setup changes and sanitized knowledge are published to this repo when the assistant has access. Raw conversations, private project state, credentials and personal databases are not published. A failed push must be reported as unsynced. No background publishing service is configured.

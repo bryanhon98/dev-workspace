@@ -1,0 +1,66 @@
+{
+  "id": "2026-11-03-complete-advisor-baseline",
+  "recorded_at": "2026-11-03T08:04:20.625558+00:00",
+  "task": "Finish the approved baseline and README, resolve main setup blockers, and publish downloadable workflow.",
+  "constraints": {
+    "user_request": "make sure there is no main blocker or anything anymore",
+    "policy": "Scan the full selected batch immediately before install; warn/proceed established low risk; block dangerous or unclassified; no routine manual source audit."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "All 17 baseline skills packaged, freshly installed and natively discovered in an isolated Linux profile. No known main setup blocker in that tested configuration.",
+    "selected": [
+      "tool-advisor",
+      "grilling",
+      "find-skills",
+      "brainstorming",
+      "dispatching-parallel-agents",
+      "executing-plans",
+      "finishing-a-development-branch",
+      "receiving-code-review",
+      "requesting-code-review",
+      "subagent-driven-development",
+      "systematic-debugging",
+      "test-driven-development",
+      "using-git-worktrees",
+      "using-superpowers",
+      "verification-before-completion",
+      "writing-plans",
+      "council"
+    ],
+    "runtime": "Use original skills; Council has documented host/tool/asset adaptations. Skills do not create workers; actual independent workers required for independent review/Council.",
+    "update": "Official HEAD checks before install; changed revisions require new staging and scan decisions.",
+    "setup": "Say setup tool-advisor in the checkout; --install-advisor installs the complete approved baseline. Domain specialists remain conditional."
+  },
+  "evidence": {
+    "refs": [
+      "audits/advisor-ready-20261103/verification.json",
+      "audits/advisor-ready-20261103/native-discovery.json",
+      "audits/advisor-ready-20261103/README.md",
+      "advisor-bundle.json"
+    ],
+    "unperformed": [
+      "No laptop, Windows or macOS installation tested in this run.",
+      "Discovery is verified; no end-to-end user project or Council deliberation was executed.",
+      "Optional external model providers and the visual companion were not configured or launched.",
+      "Some static reports remain partial as documented; accepted warnings are not a security guarantee.",
+      "New upstream versions require agent staging, scanning and triage before installation; the CLI does not automatically approve or fetch them."
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit approval",
+      "text": "User approved full baseline, risk-based warnings and current-version rescanning; requested completing blockers and README."
+    }
+  ],
+  "revisit_when": [
+    "Upstream HEAD changes",
+    "Scanner findings or coverage change",
+    "Different target host/platform",
+    "Runtime workflow failure or user feedback"
+  ],
+  "supersedes": [
+    "knowledge/decisions/2026-11-03-approved-council-and-review-policy.json: prior packaging/readiness status only; approved council/reviewer behavior retained"
+  ]
+}

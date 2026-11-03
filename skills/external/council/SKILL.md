@@ -66,16 +66,22 @@ If no panel flag is present, auto-select the best triad from problem context.
 - `exploration-orthogonal`: socrates, feynman, sun-tzu, machiavelli, ada, lao-tzu, aurelius, torvalds, karpathy, sutskever, kahneman, meadows
 - `execution-lean`: torvalds, feynman, sun-tzu, aurelius, ada
 
+## Host override: actual native workers required
+
+This deployment preserves the user's requirement for a real Council: at least two actual, distinct native worker agents must participate independently. This requirement takes precedence over the simulated fallback clauses below, including Steps 2.5, 3, 4 and 6; it cannot be relaxed by project overrides or a faster mode.
+
+- Use the host's available native worker tools with their documented argument names. Map upstream `spawn_agent` plus `fork_context=true` to the host's spawn tool with inherited conversation context; map upstream `send_input` to its supported continuation mechanism for the same worker. Do not invent unavailable tool calls. In hosts exposing `collaboration.spawn_agent`, inherited context is `fork_turns="all"`; continue an idle worker with `collaboration.followup_task` and deliver messages to a running worker with `collaboration.send_message`.
+- Preserve the upstream panel, persona files, restatement gate, rounds, dissent, voting and separate non-deliberating Chairman. Record actual worker identifiers and completed responses; native workers may share a model/provider and must not be described as different providers without evidence.
+- Retry failed workers as specified below, then mark an unrecovered seat offline. Do not synthesize persona responses to replace a failed worker. If fewer than two actual workers complete any required round, stop and report that real Council deliberation is blocked; do not present a simulated completion or count coordinator prose as an independent seat. A clearly labeled coordinator Chairman fallback remains permitted only after actual worker deliberation meets this minimum.
+- Use native workers for this baseline. External HTTP providers and CLI seats in Step 3.5 are optional upstream capabilities, not baseline prerequisites or permission to discover credentials, authenticate services, install software, or send the task elsewhere. Enable them only when the user explicitly selects and authorizes that provider and its setup has been verified separately.
+
 ## Execution Protocol
 
 ### Step 1: Locate Council Assets
 
-Resolve council files in this order:
+Resolve the council asset directory relative to the directory containing this loaded `SKILL.md`: use its `agents/` subdirectory, regardless of the current working directory or installation root. Read each selected member from `agents/council-{member}.md` in that directory.
 
-1. `~/.codex/skills/council/agents/`
-2. `./agents/`
-
-If neither exists, stop and tell the user to run `./install.sh --codex`.
+If the loaded skill directory cannot be identified or a selected persona file is missing, stop and report the missing Council asset; restore the reviewed skill payload before proceeding.
 
 ### Step 2: Parse Request
 

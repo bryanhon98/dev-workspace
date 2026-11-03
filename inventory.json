@@ -30,7 +30,7 @@
       "audit_status": "pending-review",
       "restorable": false,
       "restore_method": "agent-reviewed-source",
-      "note": "Version recorded in earlier Mac chat; present device state and exact source mapping require verification.",
+      "note": "Historical plugin observation only. The 13 selected native skills are separately packaged in advisor-bundle.json; the original plugin distribution remains a separate manual setup option.",
       "purpose": "Coding and development workflows",
       "setup_requirements": "Manual setup; check client support and any account login.",
       "github_url": "https://github.com/obra/superpowers"
@@ -181,45 +181,44 @@
       "name": "council",
       "display_name": "Council of High Intelligence",
       "kind": "skill",
-      "source": "https://github.com/0xNyk/council-of-high-intelligence",
-      "github_url": "https://github.com/0xNyk/council-of-high-intelligence",
-      "version": "bb42b4b58fd86b9058f2b3385d692937280d901c",
+      "source": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "github_url": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
       "scope": "user",
-      "audit_status": "approved-exception",
+      "audit_status": "static-scan-risk-triaged",
       "restorable": true,
-      "restore_method": "saved-reviewed-source-with-exception",
+      "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/council",
-      "audit_ref": "audits/council-bb42b4b-20261016.json",
-      "exception_ref": "council-bb42b4b-20261016-user-approved",
+      "audit_ref": "audits/advisor-ready-20261103/council/audit.json",
       "purpose": "Structured multi-perspective deliberation inside Codex",
       "required_tools": [
-        "skillspector"
+        "skillspector",
+        "at least two actual native workers",
+        "loaded skill directory access"
       ],
-      "setup_requirements": "Re-scan saved content; preserve documented exceptions. Install globally in ~/.agents/skills/council with ~/.codex/skills/council symlink for upstream asset lookup. Native Codex first; external-provider calls require authorization.",
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation. Bundled personas resolve relative to the loaded SKILL.md; no legacy alias is needed. External providers are optional and separately authorized.",
       "sha256": {
         "LICENSE": "678df73993b4b6709cd80aed556263ef5cdcffd5e7d6a7d796c828bf36baa4c7",
-        "SKILL.md": "e55c21f434313c0ce169b02a48852b2967021af1224401e6f76ae0de5bb67fd1",
-        "agents/council-watts.md": "57e28fe6d2b607c12029c0667c509d654bb0c25e7a115b5f961105c689b06e8a",
-        "agents/council-taleb.md": "470b6c3370880ef644b2278e8f91af223716503ef48e22affa9ff1d9a32df5ac",
-        "agents/council-musashi.md": "bd8f2c23ab08761f2ee920fab9ea3dfd2bd7867523f2cac826b2ca4a4203c574",
-        "agents/council-aristotle.md": "307a57602e3a3a9a3f55b1a56453386037780f1dcfa41ede250844f588cec1d9",
-        "agents/council-sutskever.md": "31908dcecdeae685402889ef71054c2d398d486bde77f86acc8750b8f31f07f4",
-        "agents/council-karpathy.md": "5b8d161c93cf6d789ed921d3d007eae99702f5c28bf837f03cb4987c854a8e16",
-        "agents/council-torvalds.md": "645c4eeffcf92691f8ba1f56316787381dea2dc6b841310d3fe239bf162cebfc",
-        "agents/council-aurelius.md": "ac8a1556746740441e08125f8ecad73b22a2999208fb8475bb144446f7762c16",
-        "agents/council-kahneman.md": "b8f193494a75db7058e7b68f5bf13193bf5374b8df2cde246e17fc9ebbc76564",
-        "agents/council-feynman.md": "4e4c4d21725f697d1ea8f5c7a9cfcac3fd98eed15c292a1b339c7e5aeb649b2b",
-        "agents/council-sun-tzu.md": "eb6b3fd7bcac307827fd5209de27ab1b72362c2d944e3d416a4208af81c75216",
-        "agents/council-meadows.md": "924c75c0d32e23b84d6ca84ad507cf74b873c9cd7c7baa30984c0c85c1ea75c6",
+        "SKILL.md": "14a448ab85bda321b850774aa482f43be79b7f834acf798012cdaa4f0898574b",
         "agents/council-ada.md": "f28d3c4af5b60b0fb14a484c28672ff513ced562dc17c55ce6348884819e5df2",
-        "agents/council-socrates.md": "4e23edd94d56ab4cbd68fc371ffe571f1294592dad40db0ca44d3d6fcb2654d5",
+        "agents/council-aristotle.md": "307a57602e3a3a9a3f55b1a56453386037780f1dcfa41ede250844f588cec1d9",
+        "agents/council-aurelius.md": "ac8a1556746740441e08125f8ecad73b22a2999208fb8475bb144446f7762c16",
+        "agents/council-feynman.md": "4e4c4d21725f697d1ea8f5c7a9cfcac3fd98eed15c292a1b339c7e5aeb649b2b",
+        "agents/council-kahneman.md": "b8f193494a75db7058e7b68f5bf13193bf5374b8df2cde246e17fc9ebbc76564",
+        "agents/council-karpathy.md": "5b8d161c93cf6d789ed921d3d007eae99702f5c28bf837f03cb4987c854a8e16",
         "agents/council-lao-tzu.md": "fc49cf4e67489d9416c101114fa3ec6ef48f610a578ef3d7ef11477dca84430e",
-        "agents/council-munger.md": "3f8cbcfab107a9a43c13e3a90b0f3bd62645f687e4a8a0c503bd02010a6a4311",
         "agents/council-machiavelli.md": "0f3083ba0faa52ea5d793a094a256013a56a20fabe5afd8ffb6b1613e2a55635",
+        "agents/council-meadows.md": "924c75c0d32e23b84d6ca84ad507cf74b873c9cd7c7baa30984c0c85c1ea75c6",
+        "agents/council-munger.md": "3f8cbcfab107a9a43c13e3a90b0f3bd62645f687e4a8a0c503bd02010a6a4311",
+        "agents/council-musashi.md": "bd8f2c23ab08761f2ee920fab9ea3dfd2bd7867523f2cac826b2ca4a4203c574",
         "agents/council-rams.md": "9bebe79ca873f4913554f0607b2d09a4626c01d623709b310f4da44f5e3dd7b6",
-        "scripts/detect-providers.sh": "462219c0dab94f78222dd485b8e2b8e29f4ea403ecca9258f9a0209ad10e6a37"
-      },
-      "latest_restore_audit_ref": "audits/council-bb42b4b-20261019/review.json"
+        "agents/council-socrates.md": "4e23edd94d56ab4cbd68fc371ffe571f1294592dad40db0ca44d3d6fcb2654d5",
+        "agents/council-sun-tzu.md": "eb6b3fd7bcac307827fd5209de27ab1b72362c2d944e3d416a4208af81c75216",
+        "agents/council-sutskever.md": "31908dcecdeae685402889ef71054c2d398d486bde77f86acc8750b8f31f07f4",
+        "agents/council-taleb.md": "470b6c3370880ef644b2278e8f91af223716503ef48e22affa9ff1d9a32df5ac",
+        "agents/council-torvalds.md": "645c4eeffcf92691f8ba1f56316787381dea2dc6b841310d3fe239bf162cebfc",
+        "agents/council-watts.md": "57e28fe6d2b607c12029c0667c509d654bb0c25e7a115b5f961105c689b06e8a"
+      }
     },
     {
       "name": "codebase-design",
@@ -281,21 +280,25 @@
     {
       "name": "grilling",
       "kind": "skill",
-      "source": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling",
-      "github_url": "https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336/skills/productivity/grilling",
-      "version": "49dd158d1076134a641b33efb035946536778336",
+      "source": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
+      "github_url": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
+      "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "scope": "user",
-      "audit_status": "approved-exception",
+      "audit_status": "static-scan-risk-triaged",
       "restorable": true,
-      "restore_method": "saved-reviewed-source-with-exception",
+      "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/matt-pocock/grilling",
-      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
-      "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
+      "audit_ref": "audits/advisor-ready-20261103/grilling/audit.json",
       "purpose": "Decision-tree interview",
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Re-scan exact saved bytes before restoration; exceptions apply only to matching hashes/findings. Install linked subset into ~/.agents/skills/. No mandatory credentials."
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "sha256": {
+        "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+        "SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
+        "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+      }
     },
     {
       "name": "improve-codebase-architecture",
@@ -319,30 +322,27 @@
     {
       "name": "find-skills",
       "kind": "skill",
-      "source": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
-      "github_url": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills",
-      "version": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "source": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
+      "github_url": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
+      "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
       "scope": "user",
-      "audit_status": "approved-exception",
+      "audit_status": "static-scan-risk-triaged",
       "restorable": true,
-      "restore_method": "saved-reviewed-source-with-exception",
+      "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/find-skills",
-      "audit_ref": "audits/find-skills-13e4063-20261018/review.json",
-      "exception_ref": "find-skills-13e4063-20261018-user-approved",
+      "audit_ref": "audits/advisor-ready-20261103/find-skills/audit.json",
       "purpose": "Discover candidate agent skills through skills.sh and assess sources before recommending them",
       "required_tools": [
         "skillspector",
         "Node.js/npm for optional CLI search",
         "web access to skills.sh"
       ],
-      "setup_requirements": "Re-scan exact saved bytes before restore. Use pinned reviewed CLI for command execution; no API key required for public discovery. Search results still require task suitability and installation review.",
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
-        "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
-        "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca"
+        "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+        "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
       },
-      "previous_source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills",
-      "latest_restore_audit_ref": "audits/find-skills-a80e4c9-20261023/review.json",
-      "note": "Latest upstream main checked 2026-10-23. Skill bytes unchanged from prior reviewed payload; local static re-scan has identical findings. Installed and hashes verified on mac-local; existing exception retained for identical content."
+      "previous_source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills"
     },
     {
       "name": "archviz",
@@ -891,11 +891,11 @@
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "version": "1.0.0",
       "scope": "user",
-      "audit_status": "reviewed-with-user-exception",
+      "audit_status": "static-scan-risk-triaged",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/custom/tool-advisor",
-      "audit_ref": "audits/tool-advisor-1.0.0-20261102/review.json",
+      "audit_ref": "audits/advisor-ready-20261103/tool-advisor/audit.json",
       "purpose": "Interview through grilling, discover and compare capabilities, confirm the combination, coordinate work and track evidence",
       "required_tools": [
         "skillspector",
@@ -905,7 +905,7 @@
         "accessible research checkout and web/GitHub discovery",
         "host worker tools for optional parallel execution"
       ],
-      "setup_requirements": "Explicit --install-advisor stages and scans the curated core; new findings block activation. Keep research checkout available. Start a fresh Codex session and verify skill loading; file checks alone do not prove invocation.",
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
         "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
         "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
@@ -913,8 +913,347 @@
         "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
         "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
         "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+      }
+    },
+    {
+      "name": "brainstorming",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers brainstorming",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/brainstorming",
+      "audit_ref": "audits/advisor-ready-20261103/brainstorming/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "61a7ef918652108c76a3fd01e02dd92d39996c6b46d4cb2819cbd03f6c45e46a",
+        "builder-check-prompt.md": "36d51a4723d6f0a3ce5811a0ea3b3a8424f07533947e1355f5d8cb8cce40c55e",
+        "scripts/frame-template.html": "6a8a4e58bd6a44b904e2e3c57de774481d909204597e1498de53f1b2fecc4c4e",
+        "scripts/helper.js": "43c6d69954a46ec34a2a262bcc62a9a7e83e839c739f199cb72646d397c686e3",
+        "scripts/server.cjs": "763abf96510e0b892a1141397b31aa82ef900cf87ed34dde94bc8782baf4a7ca",
+        "scripts/start-server.sh": "a4e5ae84275bcaacd2f84345afeabe59cf7b00ba080e123da7cc1fb226f12847",
+        "scripts/stop-server.sh": "0b5ccbbd57f62d3ed88993f7940b5ee0e5c0fc9b21c550c623da4f6292e47daf",
+        "visual-companion.md": "6ffcb038b53254bd31debaa15e12dcd4ff24bd63d690e0b644ac6396701cf2e2"
       },
-      "exception_ref": "tool-advisor-1.0.0-20261102-LP3-user-approved"
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers dispatching parallel agents",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/dispatching-parallel-agents",
+      "audit_ref": "audits/advisor-ready-20261103/dispatching-parallel-agents/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "executing-plans",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers executing plans",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/executing-plans",
+      "audit_ref": "audits/advisor-ready-20261103/executing-plans/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "e4649e59880ef2643d1da128e3d607e87e3f969410d72095a5bf65811b6036dc",
+        "scripts/task-done": "d0d4f2397c85a4426443ea955e699ef12568b41b408ec6122d4ec2433ee3a5f6",
+        "scripts/task-start": "f833693c8fce3700fc9f841562d80f8015cd40f652c168a3405ac3e46947a1fe"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers finishing a development branch",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/finishing-a-development-branch",
+      "audit_ref": "audits/advisor-ready-20261103/finishing-a-development-branch/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "receiving-code-review",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers receiving code review",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/receiving-code-review",
+      "audit_ref": "audits/advisor-ready-20261103/receiving-code-review/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "requesting-code-review",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers requesting code review",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/requesting-code-review",
+      "audit_ref": "audits/advisor-ready-20261103/requesting-code-review/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "2180e14a448e9410bec88e6646a2d1f0ce7fdd58de27388c1e052e929679d2bc",
+        "code-reviewer.md": "82e370be6b3447523816286195571e4216ba56ba1ad6ad0e87862294c4c78dcb"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "subagent-driven-development",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers subagent driven development",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/subagent-driven-development",
+      "audit_ref": "audits/advisor-ready-20261103/subagent-driven-development/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "ba41f697136cba88a7962d60c8e2f97488ba04a8688b1d0fbeb27f6953808e75",
+        "implementer-prompt.md": "81dd9d5a3fb0b09b96b5829f03b9796842f3199ef7591d1ba1c2db2a515f64d0",
+        "re-review-prompt.md": "0828a5e9cbb12ba49f14621dd8c3953c48c0fc383e75bb5494f055ed0d6d824f",
+        "references/batching.md": "b54dc7e23dbfb90db89bcb2fb3af591aabf6a271a165fbc0da4c6f9439980eac",
+        "references/cannot-verify.md": "e698713a15e0eabf1a2ab26ffe1bb04bf70c9d6d2e2060d44a0f9a1bdd4408bf",
+        "references/final-review.md": "2fd999d86e5dd0b9b32aaf93f2a41663ef30b3e3cb78fb2fd5cb450eb59eb9de",
+        "references/fix-loop.md": "eafff1f801af2ced86e8761f3eeef04b701860d986ba5d0a8b20d506a75104bb",
+        "references/handling-reports.md": "8f759cdd4936220c38aab05b6d6c48c6df8ac8f146b0f37a6d2facbf87133c67",
+        "references/preflight.md": "3ea21c5fc1af1a190ac8a9d19ceb0849b47bf2ffe27b87dffcc21b6a0539776c",
+        "references/resuming.md": "ff6e38bde2276faa2a7e93513086caded0ea10edbf2ec7f349a7e3b0d7c668c4",
+        "scripts/review-package": "f9275175b2276b1d5fdb1bae0bedaadd2a950659b7c6f311ea37ff85e1861b1f",
+        "scripts/sdd-workspace": "4fd9770e7a49b6bde488c0e92bac1b3bd01fcbdaf8f06b6c4efbe3a1abd99f86",
+        "scripts/task-brief": "cc563538e09abf719b34ddf4b2fa7a65cf3b301729039dbfa923cb060f729146",
+        "task-reviewer-prompt.md": "bfed55c8f19d0ff6ed57b0fe09127c92890e9311c6c73917129598826bf9ebe8"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers systematic debugging",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/systematic-debugging",
+      "audit_ref": "audits/advisor-ready-20261103/systematic-debugging/audit.json",
+      "sha256": {
+        "CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+        "condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+        "condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+        "defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+        "find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+        "root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+        "test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+        "test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+        "test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+        "test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "test-driven-development",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers test driven development",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/test-driven-development",
+      "audit_ref": "audits/advisor-ready-20261103/test-driven-development/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+        "writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "using-git-worktrees",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers using git worktrees",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/using-git-worktrees",
+      "audit_ref": "audits/advisor-ready-20261103/using-git-worktrees/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "using-superpowers",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers using superpowers",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/using-superpowers",
+      "audit_ref": "audits/advisor-ready-20261103/using-superpowers/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "82c5c8866ad7f5dd4440ce66bd7806ba48a2f13771beae5cf112e53f08fe36ba",
+        "references/antigravity-tools.md": "4880f6de3da4e32f9659ebe7a72b9e0ebfff04e028c2ed96173f86d0387a04c0",
+        "references/claude-code-tools.md": "21479a3fee27448cab8748a3b5687e53bb257883bda9c070426f9a1ab5cebf1b",
+        "references/codex-tools.md": "1a38ad9b188c393052f58d95657a1c35ea6aafc8b5a27f198f3922912f70bbe7",
+        "references/gemini-tools.md": "62b9157bcb0ee3c6784e3d0da0798ddfa5872f9e0c34bea48f3079dabea71965",
+        "references/hermes-tools.md": "e2185c976a3c87503910e05e2aea58cc89bc8e569bb624b93df9958ac47a9190",
+        "references/muse-tools.md": "5a1da5c575fe18456ca71cd47ebfd8a38c745f8d82a67fe64d5b83080000eeb3",
+        "references/pi-tools.md": "703dbc83d23ecab9c6f388460c38abc482e9dee2fe6772a8c7a255152ad3a4d5"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "verification-before-completion",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers verification before completion",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/verification-before-completion",
+      "audit_ref": "audits/advisor-ready-20261103/verification-before-completion/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
+    },
+    {
+      "name": "writing-plans",
+      "kind": "skill",
+      "scope": "user",
+      "purpose": "Superpowers writing plans",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
+      "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "audit_status": "static-scan-risk-triaged",
+      "restorable": true,
+      "restore_method": "explicit-advisor-bundle",
+      "bundle": "skills/external/superpowers/writing-plans",
+      "audit_ref": "audits/advisor-ready-20261103/writing-plans/audit.json",
+      "sha256": {
+        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
+      },
+      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "required_tools": [
+        "skillspector",
+        "host tools required by the selected task"
+      ]
     }
   ]
 }

@@ -39,12 +39,14 @@
         "verification-before-completion",
         "writing-plans"
       ],
-      "status": "staged-scan-blocked-new-findings-and-incomplete-coverage"
+      "status": "packaged-static-scan-triaged"
     },
     "council": {
       "url": "https://github.com/0xNyk/council-of-high-intelligence",
-      "saved_revision": "bb42b4b58fd86b9058f2b3385d692937280d901c",
-      "status": "saved-with-historical-exception-not-integrated-in-bundle"
+      "saved_revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "status": "packaged-static-scan-triaged-with-documented-host-adaptations",
+      "revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "previous_saved_revision": "bb42b4b58fd86b9058f2b3385d692937280d901c"
     }
   }
 }

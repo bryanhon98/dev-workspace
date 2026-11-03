@@ -1,4 +1,4 @@
-"""Install the curated advisor bundle after complete local static scans.
+"""Install the curated advisor bundle after risk-triaged local static scans.
 
 This module never invokes installed skills, executes their scripts, or restores
 global instructions. setup.py owns instruction setup and the user-facing CLI.
@@ -24,6 +24,7 @@ EXCEPTIONS = {
     'grilling': 'matt-pocock-49dd158-20261018-user-approved',
     'find-skills': 'find-skills-13e4063-20261018-user-approved',
 }
+CORE_NAMES = ('tool-advisor', 'grilling', 'find-skills')
 SHARED_LICENSE = {
     'source': 'skills/external/matt-pocock/LICENSE',
     'destination': 'LICENSE',
@@ -116,6 +117,8 @@ def _audit(root, component, scanner):
     audit = _json(_inside(root, component['audit_ref']))
     expected = component['hashes']
     exception = component.get('exception')
+    if audit.get('status') == 'triaged-static':
+        return _triaged_audit(root, component, scanner, audit)
     if exception:
         name = component['name']
         if (not isinstance(exception, dict)
@@ -157,7 +160,7 @@ def _audit(root, component, scanner):
         issues = report.get('issues')
         if not isinstance(issues, list) or not issues:
             raise ValueError('Missing historical exception findings: ' + name)
-        return sorted(_signature(i) for i in issues)
+        return {'allowed_findings': _signatures(issues), 'warnings': []}
     if audit.get('status') != 'reviewed-static':
         raise ValueError('Skill audit is not approved for activation: ' + component['name']
                          + ' (status: ' + str(audit.get('status', 'missing'))
@@ -167,10 +170,63 @@ def _audit(root, component, scanner):
     pin = audit.get('scanner', {})
     if pin.get('revision') != scanner['revision'] or pin.get('version') != scanner['version']:
         raise ValueError('Skill audit scanner pin mismatch: ' + component['name'])
-    return []
+    return {'allowed_findings': [], 'warnings': []}
 
 
-def _bundle(root):
+def _signatures(issues):
+    return sorted((_signature(issue) for issue in issues), key=repr)
+
+
+def _decision(value, dispositions):
+    if (not isinstance(value, dict) or value.get('disposition') not in dispositions
+            or not isinstance(value.get('reason'), str) or not value['reason'].strip()):
+        raise ValueError('Missing or unassessed risk triage decision')
+    return value
+
+
+def _triaged_audit(root, component, scanner, audit):
+    name = component['name']
+    if audit.get('sha256') != component['hashes'] or audit.get('revision') != component['version']:
+        raise ValueError('Triaged audit payload hash or revision mismatch: ' + name)
+    pin = audit.get('scanner')
+    if (not isinstance(pin, dict) or pin.get('revision') != scanner['revision']
+            or pin.get('version') != scanner['version']):
+        raise ValueError('Triaged audit scanner pin mismatch: ' + name)
+    report_path = _inside(root, audit.get('report_ref'))
+    if audit.get('report_sha256') != _sha(report_path):
+        raise ValueError('Triaged scan report hash mismatch: ' + name)
+    report = _json(report_path)
+    issues = report.get('issues')
+    if not isinstance(issues, list):
+        raise ValueError('Triaged scan findings missing: ' + name)
+    signatures = _signatures(issues)
+    decisions = audit.get('findings_decisions')
+    if not isinstance(decisions, list):
+        raise ValueError('Missing finding triage decisions: ' + name)
+    approved, warnings = [], []
+    for entry in decisions:
+        entry = _decision(entry, {'warn', 'false-positive'})
+        signature = entry.get('signature')
+        if not isinstance(signature, list) or len(signature) != 8:
+            raise ValueError('Malformed finding triage signature: ' + name)
+        approved.append(tuple(signature))
+        warnings.append({'component': name, 'kind': 'finding', **entry})
+    if sorted(approved, key=repr) != signatures:
+        raise ValueError('Every exact finding requires targeted risk triage: ' + name)
+    coverage = _decision(audit.get('coverage_decision'), {'warn', 'complete'})
+    profile = audit.get('analysis_completeness')
+    if not isinstance(profile, dict) or profile != report.get('analysis_completeness'):
+        raise ValueError('Triaged coverage does not match the pinned report: ' + name)
+    if (coverage['disposition'] == 'complete') != (profile.get('is_complete') is True):
+        raise ValueError('Coverage decision misrepresents scan completeness: ' + name)
+    if coverage['disposition'] == 'warn':
+        warnings.append({'component': name, 'kind': 'coverage', **coverage})
+    result = {'allowed_findings': signatures, 'accepted_scan_profile': profile, 'warnings': warnings}
+    _validate_report(report, {**component, **result})
+    return result
+
+
+def _bundle(root, selected_names=None):
     manifest = _json(root / 'advisor-bundle.json')
     if manifest.get('schema_version') != 1 or not isinstance(manifest.get('bundle_version'), str):
         raise ValueError('Unknown advisor bundle manifest')
@@ -186,15 +242,24 @@ def _bundle(root):
     components = manifest.get('components')
     if not isinstance(components, list) or not components:
         raise ValueError('Empty or malformed advisor bundle')
+    selection = None
+    if selected_names is not None:
+        if (not isinstance(selected_names, (list, tuple)) or not selected_names
+                or any(not isinstance(n, str) for n in selected_names)
+                or len(set(selected_names)) != len(selected_names)):
+            raise ValueError('Invalid selected component names')
+        selection = set(selected_names)
     names = set()
     prepared = []
     for item in components:
         if not isinstance(item, dict):
             raise ValueError('Malformed component')
         name = item.get('name', '')
-        if not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', name) or name in names:
+        if not isinstance(name, str) or not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', name) or name in names:
             raise ValueError('Invalid or duplicate component name')
         names.add(name)
+        if selection is not None and name not in selection:
+            continue
         hashes = _hash_map(item.get('hashes'))
         source = _inside(root, item.get('path'))
         if _hashes(source) != hashes or 'SKILL.md' not in hashes:
@@ -215,8 +280,10 @@ def _bundle(root):
             if _sha(path) != extra.get('sha256'):
                 raise ValueError('Extra-file hash mismatch: ' + destination)
             installed[destination] = extra['sha256']
-        prepared.append({**item, 'installed_hashes': installed,
-                         'allowed_findings': _audit(root, item, scanner)})
+        component = {**item, 'installed_hashes': installed}
+        prepared.append({**component, **_audit(root, component, scanner)})
+    if selection is not None and names & selection != selection:
+        raise ValueError('Selected component is missing from bundle')
     return manifest, prepared, review
 
 
@@ -234,7 +301,11 @@ def baseline_plan(repo_root):
     components = manifest.get('components')
     if not isinstance(components, list) or any(not isinstance(c, dict) for c in components):
         raise ValueError('Invalid advisor bundle components')
-    packaged = {c.get('name') for c in components}
+    names = [c.get('name') for c in components]
+    if (any(not isinstance(n, str) or not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', n) for n in names)
+            or len(set(names)) != len(names)):
+        raise ValueError('Invalid or duplicate advisor bundle component names')
+    packaged = set(names)
     missing = [name for name in required if name not in packaged]
     audit_error = None
     try:
@@ -248,18 +319,15 @@ def baseline_plan(repo_root):
 
 
 def require_core_only(repo_root):
-    """Never silently expand an explicitly partial installation as the bundle grows."""
-    manifest = _json(_path(repo_root) / 'advisor-bundle.json')
-    names = [c['name'] for c in manifest['components']]
-    if len(names) != 3 or set(names) != {'tool-advisor', 'grilling', 'find-skills'}:
-        raise ValueError('Explicit core-only setup requires a three-skill core bundle; '
-                         'this bundle has changed. Use the full setup selection instead.')
+    """Select the explicit three-skill core even when the full bundle grows."""
+    _bundle(_path(repo_root), selected_names=CORE_NAMES)
+    return list(CORE_NAMES)
 
 
 def require_baseline(repo_root):
     plan = baseline_plan(repo_root)
     if not plan['payloads_prepared']:
-        raise ValueError('Full advisor baseline is not ready; prepare reviewed payloads before setup: '
+        raise ValueError('Full advisor baseline is not ready; prepare scanned and risk-triaged payloads before setup: '
                          + (', '.join(plan['missing_payloads']) or plan['audit_error'])
                          + '. See --plan-advisor and audits/advisor-baseline-20261103/review.json. '
                          + 'A core-only install is available explicitly via --install-advisor-core; it is not full setup.')
@@ -279,8 +347,10 @@ def _read_receipt(path, root, skills, allow_relocation=False):
         raise ValueError('Malformed installed receipt')
     names = set()
     for component in components:
+        if not isinstance(component, dict):
+            raise ValueError('Malformed installed receipt component')
         name = component.get('name', '')
-        if not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', name) or name in names:
+        if not isinstance(name, str) or not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', name) or name in names:
             raise ValueError('Invalid receipt component')
         names.add(name)
         _hash_map(component.get('hashes'))
@@ -412,17 +482,13 @@ def _validate_report(report, component):
         raise ValueError('Malformed scan completeness or metadata section')
     if (report.get('execution_successful') is not True
             or complete.get('execution_successful') is not True
-            or complete.get('is_complete') is not True
-            or isinstance(complete.get('coverage_percent'), bool)
-            or complete.get('coverage_percent') != 100
             or metadata.get('llm_requested') is not False
+            or metadata.get('meta_analysis_applied', False) is not False
+            or metadata.get('inference_usage', []) != []
             or metadata.get('skillspector_version') != SCANNER_VERSION
+            or type(report.get('suppressed_count')) is not int
             or report.get('suppressed_count') != 0 or report.get('suppressed') != []):
         raise ValueError('Scan is incomplete, suppressed, or not verified static-only: ' + component['name'])
-    if any(complete.get(k) not in (0, []) for k in [
-            'partially_inspected_files', 'entirely_uninspected_files',
-            'ledger_exceptions', 'scope_exclusions', 'limitations']):
-        raise ValueError('Scan coverage contains omissions: ' + component['name'])
     files = set(component['installed_hashes'])
     scanned = report.get('components')
     if not isinstance(scanned, list):
@@ -430,14 +496,67 @@ def _validate_report(report, component):
     paths = [_relative(c.get('path')) for c in scanned if isinstance(c, dict)]
     if len(paths) != len(scanned) or len(paths) != len(set(paths)) or set(paths) != files:
         raise ValueError('Scan component coverage does not match complete payload')
-    if any(complete.get(k) != len(files) for k in ['total_components', 'scanned_components', 'fully_inspected_files']):
-        raise ValueError('Scan component count mismatch')
+    counts = ['total_components', 'scanned_components', 'fully_inspected_files',
+              'partially_inspected_files', 'entirely_uninspected_files']
+    if (any(type(complete.get(k)) is not int or complete[k] < 0 for k in counts)
+            or complete['total_components'] != len(files)
+            or complete['scanned_components'] != complete['fully_inspected_files']
+            or complete['entirely_uninspected_files'] != 0
+            or complete['fully_inspected_files'] + complete['partially_inspected_files'] != len(files)):
+        raise ValueError('Scan component count mismatch or uninspected files')
+    # SkillSpector counts only fully inspected files as scanned; partially
+    # inspected files remain in total_components and the complete file listing.
+    coverage = complete.get('coverage_percent')
+    if (type(coverage) not in (int, float) or not 0 <= coverage <= 100
+            or type(complete.get('is_complete')) is not bool
+            or any(not isinstance(complete.get(k), list) for k in
+                   ['ledger_exceptions', 'scope_exclusions', 'limitations'])):
+        raise ValueError('Malformed scan coverage')
+    if coverage != round(complete['fully_inspected_files'] / len(files) * 100, 1):
+        raise ValueError('Scan coverage percentage disagrees with inspected file counts')
+    has_omissions = (coverage != 100 or complete['fully_inspected_files'] != len(files)
+                     or any(complete[k] for k in ['ledger_exceptions', 'scope_exclusions', 'limitations']))
+    if complete['is_complete'] and has_omissions:
+        raise ValueError('Scan completeness contradicts coverage omissions')
+    profile = component.get('accepted_scan_profile')
+    if profile is not None:
+        if complete != profile:
+            raise ValueError('New or changed scan coverage requires targeted risk triage: ' + component['name'])
+    elif not complete['is_complete'] or has_omissions:
+        raise ValueError('Scan coverage contains omissions: ' + component['name'])
     issues = report.get('issues')
     if not isinstance(issues, list):
         raise ValueError('Scan findings missing')
-    signatures = sorted(_signature(i) for i in issues)
+    for key in ('findings_before_filtering', 'findings_after_filtering'):
+        if key in complete and (type(complete[key]) is not int or complete[key] != len(issues)):
+            raise ValueError('Scan finding counts disagree or findings were filtered')
+    signatures = _signatures(issues)
     if signatures != component['allowed_findings']:
-        raise ValueError('New or changed scan findings require specific review: ' + component['name'])
+        raise ValueError('New or changed scan findings require targeted risk triage: ' + component['name'])
+
+
+def _verify_upstream(components):
+    """Check selected official refs once per repository before fresh scans."""
+    checked = {}
+    for component in components:
+        repository = component.get('upstream_repository')
+        ref = component.get('upstream_ref')
+        if repository is None and ref is None:
+            continue
+        if (not isinstance(repository, str) or not re.fullmatch(r'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:\.git)?', repository)
+                or ref != 'HEAD'):
+            raise ValueError('Unsupported official upstream freshness pin: ' + component['name'])
+        key = (repository, ref)
+        if key not in checked:
+            result = _run(['git', 'ls-remote', repository, ref], timeout=60)
+            rows = result.stdout.strip().splitlines()
+            if (result.returncode or len(rows) != 1
+                    or not re.fullmatch(r'[a-f0-9]{40}\s+HEAD', rows[0])):
+                raise ValueError('Cannot verify latest official upstream version: ' + component['name'])
+            checked[key] = rows[0].split()[0]
+        if checked[key] != component['version']:
+            raise ValueError('New upstream version requires staging and rescan before installation: '
+                             + component['name'] + ' (' + checked[key] + ')')
 
 
 def _atomic_json(path, value):
@@ -455,18 +574,19 @@ def _atomic_json(path, value):
             os.unlink(temporary)
 
 
-def install_bundle(repo_root, skills_root, codex_home, scanner=None):
+def install_bundle(repo_root, skills_root, codex_home, scanner=None, selected_names=None):
     """Stage and scan a complete bundle, then commit files with rollback.
 
     Raises ValueError/OSError on blocked review, scanner or filesystem failures.
     A ready receipt establishes checked files, not a live model invocation.
     """
     root, skills, home = map(_path, (repo_root, skills_root, codex_home))
-    manifest, components, review = _bundle(root)
+    manifest, components, review = _bundle(root, selected_names)
     state = _path(home / 'dev-workspace-advisor')
     receipt_path = state / 'receipt.json'
     receipt = _read_receipt(receipt_path, root, skills, allow_relocation=True)
     snapshots = _preflight_targets(skills, components, receipt)
+    _verify_upstream(components)
     before = receipt_path.read_bytes() if receipt_path.exists() else None
     state.mkdir(parents=True, exist_ok=True)
     lock = _path(state / 'install.lock')
@@ -483,7 +603,7 @@ def install_bundle(repo_root, skills_root, codex_home, scanner=None):
             payloads, backups = staging / 'payloads', staging / 'backups'
             payloads.mkdir()
             backups.mkdir()
-            reports = {}
+            reports, scan_errors = {}, []
             for component in components:
                 name = component['name']
                 destination = payloads / name
@@ -495,19 +615,24 @@ def install_bundle(repo_root, skills_root, codex_home, scanner=None):
                 if _hashes(destination) != component['installed_hashes']:
                     raise ValueError('Staged payload changed: ' + name)
                 output = staging / (name + '.json')
-                result = _run(_scanner_command(scanner_meta['path'], 'scan', destination, '--no-llm', '--format', 'json',
-                               '--output', output, '--fail-on-incomplete', '--min-coverage', '100', '--fail-on-findings'))
-                if result.returncode not in (0, 1):
-                    raise ValueError('Scanner execution failed for ' + name + ': ' + result.stderr[-1500:])
-                report = _json(output)
-                _validate_report(report, component)
-                if result.returncode != (1 if report['issues'] else 0):
-                    raise ValueError('Scanner exit status disagrees with the verified report: ' + name)
-                if _hashes(destination) != component['installed_hashes']:
-                    raise ValueError('Payload changed during scan: ' + name)
-                reports[name] = report
+                try:
+                    result = _run(_scanner_command(scanner_meta['path'], 'scan', destination, '--no-llm', '--format', 'json',
+                                   '--output', output, '--fail-on-incomplete', '--min-coverage', '100', '--fail-on-findings'))
+                    if result.returncode not in (0, 1):
+                        raise ValueError('Scanner execution failed for ' + name + ': ' + result.stderr[-1500:])
+                    report = _json(output)
+                    _validate_report(report, component)
+                    if result.returncode != (1 if report['issues'] or not report['analysis_completeness']['is_complete'] else 0):
+                        raise ValueError('Scanner exit status disagrees with the verified report: ' + name)
+                    if _hashes(destination) != component['installed_hashes']:
+                        raise ValueError('Payload changed during scan: ' + name)
+                    reports[name] = report
+                except (ValueError, OSError) as exc:
+                    scan_errors.append(name + ': ' + str(exc))
+            if scan_errors:
+                raise ValueError('Selected bundle scans blocked activation: ' + '; '.join(scan_errors))
             # Recheck all sources and destinations after the potentially long scans.
-            current_manifest, current_components, _ = _bundle(root)
+            current_manifest, current_components, _ = _bundle(root, selected_names)
             if current_manifest != manifest or current_components != components:
                 raise ValueError('Bundle source changed during installation')
             if _preflight_targets(skills, components, receipt) != snapshots:
@@ -524,11 +649,14 @@ def install_bundle(repo_root, skills_root, codex_home, scanner=None):
                 installed.append({'name': name, 'version': component['version'], 'source': component['source'],
                                   'hashes': component['installed_hashes'], 'audit_ref': component['audit_ref'],
                                   'report': report_path.relative_to(state).as_posix(), 'report_sha256': _sha(report_path),
-                                  'exception_ref': (component.get('exception') or {}).get('ref')})
+                                  'exception_ref': (component.get('exception') or {}).get('ref'),
+                                  'warnings': component['warnings'],
+                                  'scan_completeness': reports[name]['analysis_completeness']})
             new_receipt = {'schema_version': 1, 'bundle_version': manifest['bundle_version'],
                            'source_root': str(root), 'skills_root': str(skills),
                            'manifest_sha256': _sha(root / 'advisor-bundle.json'),
                            'scanner': scanner_meta, 'components': installed,
+                           'selected_names': list(selected_names) if selected_names is not None else None,
                            'verification': 'static scans and complete file hashes; live host invocation untested'}
             changed, moved = [], []
             skills.mkdir(parents=True, exist_ok=True)
@@ -554,7 +682,11 @@ def install_bundle(repo_root, skills_root, codex_home, scanner=None):
                     os.replace(backups / name, skills / name)
                 raise
         return {'ready': True, 'errors': [], 'receipt': str(receipt_path), 'scanner': scanner_meta,
-                'components': [c['name'] for c in components], 'live_invocation_verified': False}
+                'components': [c['name'] for c in components],
+                'full_bundle_ready': len(components) == len(manifest['components']),
+                'warnings': [warning for c in components for warning in c['warnings']],
+                'scan_completeness': {name: r['analysis_completeness'] for name, r in reports.items()},
+                'live_invocation_verified': False}
     finally:
         lock.unlink(missing_ok=True)
 
@@ -563,19 +695,20 @@ def check_bundle(repo_root, skills_root, codex_home):
     """Read-only validation of current source, receipt, reports and installation."""
     try:
         root, skills, home = map(_path, (repo_root, skills_root, codex_home))
-        manifest, components, review = _bundle(root)
         state = _path(home / 'dev-workspace-advisor')
         if (state / 'install.lock').exists():
             raise ValueError('An advisor installation is in progress')
         receipt = _read_receipt(state / 'receipt.json', root, skills)
         if receipt is None:
             raise ValueError('Advisor installation receipt is missing')
+        manifest, components, review = _bundle(root, receipt.get('selected_names'))
         if (receipt.get('manifest_sha256') != _sha(root / 'advisor-bundle.json')
                 or receipt.get('bundle_version') != manifest['bundle_version']):
             raise ValueError('Installed bundle differs from the current source manifest')
         recorded = {c['name']: c for c in receipt['components']}
         if set(recorded) != {c['name'] for c in components}:
             raise ValueError('Receipt does not cover the current bundle')
+        scan_completeness = {}
         for component in components:
             item = recorded[component['name']]
             if (item['hashes'] != component['installed_hashes'] or item.get('version') != component['version']
@@ -586,12 +719,20 @@ def check_bundle(repo_root, skills_root, codex_home):
             report_path = _inside(state, item['report'])
             if _sha(report_path) != item.get('report_sha256'):
                 raise ValueError('Saved scan report changed')
-            _validate_report(_json(report_path), component)
+            report = _json(report_path)
+            _validate_report(report, component)
+            scan_completeness[component['name']] = report['analysis_completeness']
+            if ('warnings' in item and item['warnings'] != component['warnings']
+                    or 'scan_completeness' in item and item['scan_completeness'] != report['analysis_completeness']):
+                raise ValueError('Receipt risk triage or coverage mismatch: ' + component['name'])
         scanner = receipt.get('scanner', {})
         current = _verify_scanner(scanner.get('path', ''), manifest['scanner'], review)
         if current != scanner:
             raise ValueError('Installed scanner receipt/provenance mismatch')
         return {'ready': True, 'errors': [], 'receipt': str(state / 'receipt.json'),
-                'components': list(recorded), 'live_invocation_verified': False}
+                'components': list(recorded),
+                'full_bundle_ready': len(components) == len(manifest['components']),
+                'warnings': [warning for c in components for warning in c['warnings']],
+                'scan_completeness': scan_completeness, 'live_invocation_verified': False}
     except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
         return {'ready': False, 'errors': [str(exc)], 'live_invocation_verified': False}
