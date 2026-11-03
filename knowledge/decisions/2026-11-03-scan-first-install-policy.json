@@ -1,0 +1,44 @@
+{
+  "id": "2026-11-03-scan-first-install-policy",
+  "recorded_at": "2026-11-03T02:42:47.264264+00:00",
+  "task": "Record explicit newer-version scanning and no routine manual source review policy.",
+  "constraints": {
+    "scope": "Policy clarification and publication; no installation requested in this message."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "User policy recorded; existing installer migration outstanding.",
+    "policy": [
+      "Check official source for newer versions at installation/update time and scan exact payload before activation.",
+      "Scan all selected skills before deciding installations.",
+      "No separate manual security/source audit unless explicitly requested.",
+      "Read skill instructions for fit/use and inspect flagged context for risk triage.",
+      "Warn/proceed for established low-risk findings; block dangerous or materially unknown risk.",
+      "Resolve missing scan inputs where possible; do not hide findings or fake completeness."
+    ],
+    "not_claimed": [
+      "All scans pass",
+      "Installer implements new policy",
+      "Full baseline ready",
+      "Background automatic updates"
+    ]
+  },
+  "evidence": [
+    "User explicitly requests rescan newer versions and scan-only default before install.",
+    "Previous user message requests warning/proceed for low risk and blocking for serious danger.",
+    "Current scripts/install_advisor.py retains strict audit and exception requirements."
+  ],
+  "feedback": [
+    {
+      "kind": "explicit",
+      "text": "As long as there is a newer version, do rescan them. And you dont have to review them first unless i instruct specifically, else just scan them right before install only."
+    }
+  ],
+  "revisit_when": [
+    "Installer policy implementation",
+    "New risk or unresolved scan gap",
+    "Explicit manual review request"
+  ],
+  "supersedes": []
+}

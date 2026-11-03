@@ -6,6 +6,12 @@ For a substantial task, the [advisor flow](knowledge/BUILD-FLOW.md) uses an inte
 
 This routing depends on the host loading the repo or global instructions. The repo update alone does not change another device's global rules or install an always-running agent. Simple fixes and explanation questions keep a shorter path.
 
+## Current installation policy
+
+The user requests newer skill versions to be scanned immediately before installation, without a separate manual source-code review unless requested. Scan the entire selected batch first; warn and proceed for established low-risk findings or false positives, and block dangerous findings or unresolved gaps that prevent risk classification. Read skill instructions to use them correctly. See [the authoritative policy](global/AGENTS.md#scan-before-installing-updating-or-restoring-skills).
+
+**Implementation status:** this policy is recorded, but the current Python installer still enforces its older strict hash/audit/exception gates. It has not yet been updated to implement risk-based warning approvals or prepare the expanded baseline. Older readiness notes below must not be read as overriding the new policy or as proof that implementation is complete.
+
 ## Set up the complete advisor baseline
 
 “Setup tool-advisor” now selects the entire approved starting workflow up front: Tool Advisor, Grilling, Find Skills, the Superpowers execution/review/verification skills, and Council of High Intelligence. Domain specialists remain task-specific. Installing a skill does not mean running it on every request.
