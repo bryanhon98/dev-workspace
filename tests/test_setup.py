@@ -119,6 +119,21 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertFalse((self.home / 'skills').exists())
         self.assertFalse((self.home / 'dev-workspace-advisor').exists())
 
+    def test_full_advisor_setup_blocks_before_partial_install(self):
+        result = self.run_cli('--install-advisor', '--skills-root', str(self.home / 'skills'))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Full advisor baseline is not ready', result.stderr)
+        self.assertEqual(list(self.home.iterdir()), [])
+
+    def test_advisor_plan_is_readonly_and_shows_full_selection(self):
+        result = self.run_cli('--plan-advisor')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        plan = json.loads(result.stdout)
+        self.assertIn('council', plan['required_skills'])
+        self.assertIn('subagent-driven-development', plan['required_skills'])
+        self.assertFalse(plan['device_verified'])
+        self.assertEqual(list(self.home.iterdir()), [])
+
     def test_rules_include_checkout_locator_for_other_projects(self):
         result = self.run_cli('--install-rules')
         self.assertEqual(result.returncode, 0, result.stderr)

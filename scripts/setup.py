@@ -123,7 +123,7 @@ def show_catalog():
     print('\nTell Codex: Which skills do you want — selected names, all eligible skills, or none?')
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, Codex can restore global rules with --install-rules and inspect/install selected skills.')
-    print('Advisor core: --install-advisor selects tool-advisor, grilling and find-skills only, with fresh static scans.')
+    print('Advisor setup: --install-advisor selects the full baseline; --plan-advisor shows preparation gaps. --install-advisor-core explicitly installs only the three-skill core.')
 
 
 def main():
@@ -134,17 +134,28 @@ def main():
     action = parser.add_mutually_exclusive_group()
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
     action.add_argument('--install-rules', action='store_true', help='Restore setup rules globally')
-    action.add_argument('--install-advisor', action='store_true', help='Scan/install the selected advisor core and global instructions')
+    action.add_argument('--plan-advisor', action='store_true', help='List all required baseline skills and payload preparation gaps without writing')
+    action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only the currently packaged core')
+    action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
     args = parser.parse_args()
     try:
-        if args.scanner and not args.install_advisor:
-            raise ValueError('--scanner is only used with --install-advisor')
-        if args.check_advisor or args.install_advisor:
-            from install_advisor import check_bundle, install_bundle
+        if args.scanner and not (args.install_advisor or args.install_advisor_core):
+            raise ValueError('--scanner is only used with --install-advisor or --install-advisor-core')
+        if args.plan_advisor:
+            from install_advisor import baseline_plan
+            print(json.dumps(baseline_plan(ROOT), indent=2))
+            return 0
+        if args.check_advisor or args.install_advisor or args.install_advisor_core:
+            from install_advisor import check_bundle, install_bundle, require_baseline, baseline_plan, require_core_only
             rules = saved_rules()
             if args.check_advisor:
                 result = check_bundle(ROOT, args.skills_root, args.codex_home)
+                plan = baseline_plan(ROOT)
+                result['baseline'] = plan
+                if not plan['payloads_prepared']:
+                    result['ready'] = False
+                    result.setdefault('errors', []).append('Full baseline payload preparation is incomplete.')
                 if not check(args.codex_home, rules):
                     result['ready'] = False
                     result.setdefault('errors', []).append('Managed global instructions are missing or differ from this checkout.')
@@ -159,7 +170,13 @@ def main():
                 match = re.fullmatch(re.escape(START.encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(END.encode()), current, re.DOTALL)
                 if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
                     raise ValueError('Managed rules changed locally; reconcile them before advisor installation')
+            if args.install_advisor:
+                require_baseline(ROOT)
+            else:
+                require_core_only(ROOT)
             result = install_bundle(ROOT, args.skills_root, args.codex_home, scanner=args.scanner)
+            result['setup_scope'] = 'full-baseline' if args.install_advisor else 'explicit-partial-core'
+            result['full_baseline_files_ready'] = bool(args.install_advisor)
             try:
                 install(args.codex_home, rules)
             except (OSError, ValueError) as exc:

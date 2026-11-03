@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "required_skills": [
+    "tool-advisor",
+    "grilling",
+    "find-skills",
+    "brainstorming",
+    "dispatching-parallel-agents",
+    "executing-plans",
+    "finishing-a-development-branch",
+    "receiving-code-review",
+    "requesting-code-review",
+    "subagent-driven-development",
+    "systematic-debugging",
+    "test-driven-development",
+    "using-git-worktrees",
+    "using-superpowers",
+    "verification-before-completion",
+    "writing-plans",
+    "council"
+  ],
+  "selection": "User approved up-front setup of the whole advisor baseline on 2026-11-03. Domain specialists remain task-specific.",
+  "sources": {
+    "superpowers": {
+      "url": "https://github.com/obra/superpowers",
+      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "skills": [
+        "brainstorming",
+        "dispatching-parallel-agents",
+        "executing-plans",
+        "finishing-a-development-branch",
+        "receiving-code-review",
+        "requesting-code-review",
+        "subagent-driven-development",
+        "systematic-debugging",
+        "test-driven-development",
+        "using-git-worktrees",
+        "using-superpowers",
+        "verification-before-completion",
+        "writing-plans"
+      ],
+      "status": "staged-scan-blocked-new-findings-and-incomplete-coverage"
+    },
+    "council": {
+      "url": "https://github.com/0xNyk/council-of-high-intelligence",
+      "saved_revision": "bb42b4b58fd86b9058f2b3385d692937280d901c",
+      "status": "saved-with-historical-exception-not-integrated-in-bundle"
+    }
+  }
+}

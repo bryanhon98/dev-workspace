@@ -1,0 +1,51 @@
+{
+  "id": "2026-11-03-upfront-advisor-baseline",
+  "recorded_at": "2026-11-03T02:10:42.864698+00:00",
+  "task": "Make setup tool-advisor select all approved baseline skills up front.",
+  "constraints": {
+    "explicit": "User requires needed workflow skills installed at setup rather than discovering missing baseline dependencies during work.",
+    "scope": "Existing core, thirteen Superpowers workflow skills and council; domain specialists conditional; no new finding exceptions inferred."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "Setup selection and partial-success protection implemented; full baseline preparation remains blocked.",
+    "completed": [
+      "advisor-baseline.json declares required roles",
+      "--plan-advisor reports gaps read-only",
+      "--install-advisor and --check-advisor cannot report complete baseline with missing payloads",
+      "Explicit --install-advisor-core preserves partial option without silently expanding",
+      "Updated startup instructions and fresh static scan evidence"
+    ],
+    "blocked": [
+      "Superpowers exact payload source review/coverage reconciliation and specific new exceptions if needed",
+      "Council historical exception and asset lookup integration into installer",
+      "Complete baseline installation and target-device/native-invocation verification"
+    ],
+    "reused_approval": "Baseline selected without asking again; activation gates preserved."
+  },
+  "evidence": {
+    "audit": "audits/advisor-baseline-20261103/review.json",
+    "scanner": "Verified source provenance, version and reviewed entrypoint hashes; static-only reports saved with sanitized paths.",
+    "tests": "97 tests passed after regression fixes; new unit tests observed failing before implementation.",
+    "review": "Separate worker baseline_setup_review used original Superpowers review instructions. Two findings reproduced/fixed; no second review claimed.",
+    "minor_deferred": "Malformed unhashable component name in read-only setup plan may produce traceback, fails closed.",
+    "unperformed": [
+      "Full baseline installation",
+      "Any user laptop installation",
+      "Live council or software workflow execution"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit",
+      "text": "It should install all the skills that is needed at the front when i say setup tool-advisor"
+    }
+  ],
+  "revisit_when": [
+    "Payload review and scanner exceptions resolved",
+    "Baseline manifest or upstream sources change",
+    "Target host available for installation/discovery"
+  ],
+  "supersedes": []
+}

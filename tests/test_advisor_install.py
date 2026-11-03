@@ -77,6 +77,46 @@ class AdvisorInstallTests(unittest.TestCase):
         self.save_manifest()
         return component
 
+    def test_required_baseline_blocks_partial_activation(self):
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
+        self.assertRaisesRegex(ValueError, 'council', self.mod.require_baseline, self.repo)
+        self.assertFalse(self.skills.exists())
+
+    def test_required_baseline_accepts_all_packaged_roles(self):
+        self.add_component('council')
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
+        result = self.mod.require_baseline(self.repo)
+        self.assertTrue(result['payloads_prepared'])
+        self.assertFalse(result['device_verified'])
+
+    def test_setup_plan_lists_missing_roles_without_writes(self):
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
+        result = self.mod.baseline_plan(self.repo)
+        self.assertEqual(result['missing_payloads'], ['council'])
+        self.assertFalse(result['payloads_prepared'])
+        self.assertFalse(self.skills.exists())
+
+    def test_baseline_requires_valid_unique_skill_names(self):
+        for names in ([], ['../escape'], ['tool-advisor', 'tool-advisor']):
+            self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': names})
+            with self.assertRaises(ValueError):
+                self.mod.baseline_plan(self.repo)
+
+    def test_partial_core_refuses_expanded_bundle(self):
+        self.add_component('grilling')
+        self.add_component('find-skills')
+        self.mod.require_core_only(self.repo)
+        self.add_component('council')
+        with self.assertRaisesRegex(ValueError, 'core-only'):
+            self.mod.require_core_only(self.repo)
+
+    def test_missing_roles_do_not_hide_broken_existing_payload(self):
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
+        self.write('skills/tool-advisor/SKILL.md', 'tampered')
+        result = self.mod.baseline_plan(self.repo)
+        self.assertEqual(result['missing_payloads'], ['council'])
+        self.assertIn('hash mismatch', result['audit_error'])
+
     def fake_run(self, args, **kwargs):
         args = [str(a) for a in args]
         if '-c' in args and 'distribution(' in args[args.index('-c') + 1]:

@@ -6,20 +6,23 @@ For a substantial task, the [advisor flow](knowledge/BUILD-FLOW.md) uses an inte
 
 This routing depends on the host loading the repo or global instructions. The repo update alone does not change another device's global rules or install an always-running agent. Simple fixes and explanation questions keep a shorter path.
 
-## Install the advisor core
+## Set up the complete advisor baseline
 
-The advisor core is approved for installation. Its [specific LP3 exception](audits/tool-advisor-1.0.0-20261102/exception.json) covers the reviewed local task-ledger writes at the recorded file hashes. Installation still runs fresh static scans and rejects changed files or findings. Normal host permissions apply.
+“Setup tool-advisor” now selects the entire approved starting workflow up front: Tool Advisor, Grilling, Find Skills, the Superpowers execution/review/verification skills, and Council of High Intelligence. Domain specialists remain task-specific. Installing a skill does not mean running it on every request.
+
+**Current blocker:** the complete baseline is not yet installable. Fresh Superpowers scans have new findings and incomplete coverage; the saved council's historical exception still needs integration into this installer. See the [preparation audit](audits/advisor-baseline-20261103/review.json). `--install-advisor` now refuses partial setup; it does not install only three skills and report success. The approved three-skill core remains available only through the explicit `--install-advisor-core` option. Its existing exact LP3 exception remains unchanged.
 
 On the device where you use Codex, clone this repo and run:
 
 ```sh
 git clone https://github.com/bryanhon98/dev-workspace.git
 cd dev-workspace
+python3 scripts/setup.py --plan-advisor
 python3 scripts/setup.py --install-advisor
 python3 scripts/setup.py --check-advisor
 ```
 
-This explicit command selects **tool-advisor**, Matt Pocock's **grilling**, and Vercel's **find-skills**. It installs those skills in `~/.agents/skills`, restores managed Codex instructions, and records the checkout location for access from other projects. It stages complete payloads, runs local static SkillSpector scans, checks exact review hashes and approved historical exceptions, and refuses new findings or locally edited skill copies. Keep the checkout available as the research library.
+The full command selects all roles in `advisor-baseline.json`. The currently packaged subset is **tool-advisor**, Matt Pocock's **grilling**, and Vercel's **find-skills**; complete setup blocks until the remaining reviewed payloads are included. It installs those skills in `~/.agents/skills`, restores managed Codex instructions, and records the checkout location for access from other projects. It stages complete payloads, runs local static SkillSpector scans, checks exact review hashes and approved historical exceptions, and refuses new findings or locally edited skill copies. Keep the checkout available as the research library.
 
 Python 3.12–3.14, Git and network access are needed for scanner bootstrap; the installer uses an isolated scanner environment with the reviewed source revision and dependency constraints. An existing reviewed scanner can be supplied with `--scanner /path/to/skillspector`. Public-source discovery needs an available web/GitHub tool or a separately reviewed CLI; no unpinned CLI is installed by this command. Plugins, accounts and project-specific specialist runtimes retain their own setup requirements.
 
@@ -56,7 +59,7 @@ Search retrieves evidence; the agent makes the task-specific comparison after re
 
 ## Latest approved additions and download readiness
 
-The user approved the conditional recommendations and selected Council of High Intelligence for occasional important decisions, with [explicit council/reviewer rules](knowledge/decisions/2026-11-03-approved-council-and-review-policy.json). The downloadable advisor core still installs exactly tool-advisor, grilling and find-skills. Superpowers, council and specialist candidates are not silently included by `--install-advisor`; verify existing installations or prepare selected missing capabilities under the review rules before using them. Their approval does not mean their complete payloads or runtime integrations have passed review.
+The user approved the conditional recommendations and selected Council of High Intelligence for occasional important decisions, with [explicit council/reviewer rules](knowledge/decisions/2026-11-03-approved-council-and-review-policy.json). The explicit partial-core option installs the three packaged core skills. Full `--install-advisor` now requires Superpowers and council preparation up front; domain specialists remain conditional. Their approval does not mean their complete payloads or runtime integrations have passed review.
 
 Download the current repository or update an existing clean checkout with `git pull --ff-only`. Follow the core setup steps above on the intended device, then start a fresh Codex session. Ask: “Use tool-advisor. Check readiness of my approved Superpowers and council options, then help me with [goal].” Reuse recorded selections; ask only for unresolved scope, changed choices or new specific findings that require a decision.
 
@@ -88,7 +91,9 @@ AGENTS.md guides Codex inside this repo. scripts/setup.py and tests/ implement a
 python3 scripts/setup.py                  # List choices; changes nothing
 python3 scripts/setup.py --install-rules  # Restore setup rules only
 python3 scripts/setup.py --check          # Check the installed instructions
-python3 scripts/setup.py --install-advisor # Scan/install the three core skills and rules
+python3 scripts/setup.py --plan-advisor    # List required baseline and gaps
+python3 scripts/setup.py --install-advisor # Full baseline only; blocks if preparation is incomplete
+python3 scripts/setup.py --install-advisor-core # Explicit partial core only
 python3 scripts/setup.py --check-advisor   # Check the advisor installation without writing
 ```
 
@@ -98,7 +103,7 @@ Codex personal instructions are stored in the selected machine's global AGENTS.m
 
 ## Current status
 
-The catalog menu and global instruction installer remain available. The explicit advisor option installs its three reviewed core skills under their exact approved exceptions. Installation and file checks passed in an isolated cloud profile; each device still needs its own setup and fresh-session verification. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
+The catalog menu and global instruction installer remain available. The partial-core option installs the three reviewed core skills under their exact approved exceptions; full setup currently blocks on the remaining baseline preparation. Installation and file checks passed in an isolated cloud profile; each device still needs its own setup and fresh-session verification. Other component installation and sanitized GitHub logging are performed by Codex following the rules. Some catalog entries still need payload import/review or manual account setup. A sanitized REA MCP template is saved; verify its actual target-device setup before use. Anthropic's creator remains deferred; use Codex's built-in creator when available. An inventory entry is not evidence of installation.
 
 When local Codex loads these global rules and has GitHub write access, it is instructed to publish a record after each verified skill creation, installation, update or removal. Creation records identify drafts separately from installed skills. A failed push must be reported as unsynced, never logged as synced.
 

@@ -220,6 +220,52 @@ def _bundle(root):
     return manifest, prepared, review
 
 
+def baseline_plan(repo_root):
+    """Read-only list of selected baseline payloads, not a device readiness claim."""
+    root = _path(repo_root)
+    baseline = _json(root / 'advisor-baseline.json')
+    required = baseline.get('required_skills')
+    if (baseline.get('schema_version') != 1 or not isinstance(required, list)
+            or not required or any(not isinstance(n, str) or
+               not re.fullmatch('[a-z0-9]+(?:-[a-z0-9]+)*', n) for n in required)
+            or len(required) != len(set(required))):
+        raise ValueError('Invalid required advisor baseline skills')
+    manifest = _json(root / 'advisor-bundle.json')
+    components = manifest.get('components')
+    if not isinstance(components, list) or any(not isinstance(c, dict) for c in components):
+        raise ValueError('Invalid advisor bundle components')
+    packaged = {c.get('name') for c in components}
+    missing = [name for name in required if name not in packaged]
+    audit_error = None
+    try:
+        _bundle(root)
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        audit_error = str(exc)
+    return {'required_skills': required, 'missing_payloads': missing,
+            'payloads_prepared': not missing and audit_error is None,
+            'audit_error': audit_error, 'device_verified': False,
+            'note': 'Setup selects all baseline skills; missing or blocked source preparation prevents full setup. No device or live invocation verified.'}
+
+
+def require_core_only(repo_root):
+    """Never silently expand an explicitly partial installation as the bundle grows."""
+    manifest = _json(_path(repo_root) / 'advisor-bundle.json')
+    names = [c['name'] for c in manifest['components']]
+    if len(names) != 3 or set(names) != {'tool-advisor', 'grilling', 'find-skills'}:
+        raise ValueError('Explicit core-only setup requires a three-skill core bundle; '
+                         'this bundle has changed. Use the full setup selection instead.')
+
+
+def require_baseline(repo_root):
+    plan = baseline_plan(repo_root)
+    if not plan['payloads_prepared']:
+        raise ValueError('Full advisor baseline is not ready; prepare reviewed payloads before setup: '
+                         + (', '.join(plan['missing_payloads']) or plan['audit_error'])
+                         + '. See --plan-advisor and audits/advisor-baseline-20261103/review.json. '
+                         + 'A core-only install is available explicitly via --install-advisor-core; it is not full setup.')
+    return plan
+
+
 def _read_receipt(path, root, skills, allow_relocation=False):
     if not path.exists():
         return None

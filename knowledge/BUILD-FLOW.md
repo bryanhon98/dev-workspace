@@ -6,7 +6,7 @@ The interview has an explicit host adaptation: the coordinator performs factual 
 
 ## Install once, check on the actual device
 
-Follow the [README installation steps](../README.md). The explicit advisor command selects three skills and their declared prerequisites, scans the complete payloads, restores managed global instructions and records a local receipt. Other catalog skills remain unselected. Existing approved scanner exceptions remain limited to exact historical content/findings. New findings block activation.
+Follow the [README installation steps](../README.md). The full advisor command selects all approved baseline roles in advisor-baseline.json, including Superpowers and council, before project work. It must block if a required role is not packaged and reviewed; three installed core skills are not complete setup. The explicit --install-advisor-core option is partial only. Other task-specific catalog skills remain conditional. Existing approved scanner exceptions remain limited to exact historical content/findings. New findings block activation.
 
 Keep the checkout available as the research library. Installation records its location in managed instructions so other projects can find it. Start a new Codex session and check that the host can load the core skills. A file/hash check does not prove live invocation. Codex is the initial supported host; another host needs compatible skill paths, instruction loading and tools.
 
