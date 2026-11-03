@@ -23,6 +23,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 
 [Awesome Claude Video Skills, Three.js Skills and Hyperframes](skills/video-and-3d.md) are also saved for library discovery only. The unspecified motion-skills collection was skipped; existing Emil motion entries remain.
 
+[juliobsz/skills — awwwards and jury](skills/design.md#juliobsz--awwwards-and-jury) are saved as optional website-building and visual-review candidates, not installed or part of the baseline.
+
 ## What was left out
 
 [See all 26 decisions](not-selected.md). Main reasons: overlapping global behavior (Ponytail/Karpathy/Caveman), extra orchestration frameworks alongside Superpowers and Claudex, duplicate gateways, Claude-specific provisioning, or a narrow job absent from this setup. These are not plagiarism findings. A derivative project can be useful when it adds substantive capability.

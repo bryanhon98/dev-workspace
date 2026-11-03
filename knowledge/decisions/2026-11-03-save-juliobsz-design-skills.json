@@ -1,0 +1,47 @@
+{
+  "id": "2026-11-03-save-juliobsz-design-skills",
+  "recorded_at": "2026-11-03T15:50:41.920765+00:00",
+  "task": "Save juliobsz awwwards and jury to the searchable skills library.",
+  "constraints": {
+    "user_request": "Alright save it in library",
+    "scope": "Library-only; no installation, activation or baseline change."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [
+    {
+      "repo": "juliobsz/skills",
+      "revision": "add880bd6ec9f5592a1482846fc0dd282c9161bc",
+      "children": [
+        "awwwards",
+        "jury"
+      ],
+      "decision": "library-only"
+    }
+  ],
+  "decision": {
+    "status": "Saved parent repository once, with both selected children and overlap/dependency/verification limits."
+  },
+  "evidence": {
+    "refs": [
+      "github-repos/skills/design.md",
+      "github-repos/reviews.json"
+    ],
+    "sources": [
+      "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/README.md",
+      "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/awwwards/SKILL.md",
+      "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/jury/SKILL.md"
+    ],
+    "unperformed": [
+      "No installation or SkillSpector scan",
+      "No candidate scripts executed",
+      "No runtime or independent scoring benchmark"
+    ]
+  },
+  "feedback": [],
+  "revisit_when": [
+    "Task-specific selection",
+    "Upstream changes",
+    "Actual browser QA trial"
+  ],
+  "supersedes": []
+}

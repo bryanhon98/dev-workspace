@@ -2154,11 +2154,50 @@
       "library_added_date": "2026-11-03",
       "library_page": "github-repos/skills/video-and-3d.md",
       "selection_reason": "User requested library inclusion only; no activation."
+    },
+    {
+      "repo": "juliobsz/skills",
+      "sha": "add880bd6ec9f5592a1482846fc0dd282c9161bc",
+      "category": "website design and visual review",
+      "decision": "library-only",
+      "purpose": "awwwards: concept, art direction, typography, motion and website implementation with browser QA. jury: evidence-based visual/usability/performance scorecards with an independent critic when available.",
+      "selected_children": [
+        "awwwards",
+        "jury"
+      ],
+      "compatibility": "Documents Codex support. Helper scripts require Node20+, Playwright and axe-core; skills CLI documents Node22.20+. Image-capable model needed for screenshot review. Separate worker needed for independent critique.",
+      "limitations": "awwwards overlaps other design directors; choose one primary design owner. Its default infer-without-interview behavior must respect the confirmed brief. Its GSAP-only animation clock needs deliberate integration with Three.js/R3F. Minimum two QA passes and repeated AI score targets can add overhead. jury scores are subjective, unaffiliated with Awwwards; reported offset calibrated on only two winning sites. Stills/measurements do not fully judge motion feel or sound.",
+      "cost_license": "MIT repository; model usage, dependencies, assets and optional deployment accounts remain separate.",
+      "reviewed_date": "2026-11-03",
+      "review_depth": "Read official README and complete awwwards/SKILL.md and jury/SKILL.md; checked HEAD. Supporting scripts/references not comprehensively audited; no runtime trial or reproduced score calibration.",
+      "evidence": [
+        {
+          "url": "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/README.md",
+          "kind": "pinned_source",
+          "finding": "Source instructions used for fit, workflow and dependency assessment."
+        },
+        {
+          "url": "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/awwwards/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Source instructions used for fit, workflow and dependency assessment."
+        },
+        {
+          "url": "https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/jury/SKILL.md",
+          "kind": "pinned_source",
+          "finding": "Source instructions used for fit, workflow and dependency assessment."
+        }
+      ],
+      "installation_status": "not-installed-by-this-selection",
+      "catalog_decision": "library-only",
+      "library_status": "user-saved-not-installed",
+      "library_added_date": "2026-11-03",
+      "library_page": "github-repos/skills/design.md",
+      "selection_reason": "User explicitly requested saving to library only after source-based assessment; no baseline or activation approval."
     }
   ],
   "library_additions": {
     "updated_date": "2026-11-03",
-    "total_unique_repository_records": 56,
+    "total_unique_repository_records": 57,
     "user_saved_only": [
       "Panniantong/Agent-Reach",
       "vercel-labs/agent-desktop",
@@ -2166,8 +2205,9 @@
       "elvarofficial/teardown",
       "zhuyansen/awesome-claude-video-skills",
       "CloudAI-X/threejs-skills",
-      "heygen-com/hyperframes"
+      "heygen-com/hyperframes",
+      "juliobsz/skills"
     ],
-    "note": "Seven user-saved library-only candidates across the two November additions; original October coverage counts remain historical. No installation or baseline approval."
+    "note": "User-saved library-only repositories, with selected children recorded per entry. Original October coverage counts remain historical. No installation or baseline approval."
   }
 }

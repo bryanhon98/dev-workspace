@@ -69,3 +69,16 @@ Retained as a style option already represented in your inventory, not a general 
 **Cost and license:** MIT repository license plus NOTICE requesting Ian attribution/name retention when adapting or redistributing. Image generation consumes the user's available service usage; the skill does not provide an image model.
 
 [Reviewed snapshot](https://github.com/helloianneo/ian-xiaohei-illustrations/tree/4102eb807f03bcb6e538a16e8b31b41db8b5b954) · [Source](https://github.com/helloianneo/ian-xiaohei-illustrations/blob/4102eb807f03bcb6e538a16e8b31b41db8b5b954/ian-xiaohei-illustrations/SKILL.md) · Independent outcome evidence is insufficient.
+
+## [juliobsz — awwwards and jury](https://github.com/juliobsz/skills)
+
+**User-saved library candidates only.** No installation, activation or default baseline addition.
+
+- **awwwards:** creative direction and implementation for ambitious portfolios, launch sites and immersive showcases. Covers concepts, typography, layout, GSAP/Lenis/WebGL motion and production-build browser QA. For the book/shirt website, retain separate 3D asset and Three.js specialists.
+- **jury:** optional website review using screenshots, performance/accessibility measurements and a fresh critic. Use one visual-review owner; label self-review if no independent worker is available.
+
+Choose one primary design director: awwwards overlaps Taste, UI/UX Pro Max and other broad design guidance. Apply the confirmed brief rather than its default assumption-heavy, no-interview approach. Reconcile its single GSAP clock with Three.js/React Three Fiber before implementation. Its minimum two QA passes and AI-score loop can be expensive; agree proportionate verification criteria. Neither an 8/10 self-assessment nor jury's offset calibrated on two winning sites proves award-level quality. It is not affiliated with Awwwards, and still frames cannot fully assess motion feel or sound.
+
+**Requirements:** Node20+ for helpers; Playwright, Chromium and axe-core for browser checks; image-capable model for visual assessment. The documented skills CLI requires Node22.20+. MIT; model usage and optional deployment services remain separate.
+
+Checked revision: `add880bd6ec9f5592a1482846fc0dd282c9161bc` · [README](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/README.md) · [awwwards instructions](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/awwwards/SKILL.md) · [jury instructions](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/jury/SKILL.md). Read instructions for fit; no candidate scripts executed, installation scan or runtime quality comparison performed.
