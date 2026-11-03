@@ -31,3 +31,7 @@ The bundled Python ledger keeps confirmation, readiness, owners, dependencies, b
 Use an existing project tracker as the task source. The advisor can link its IDs and retain the combination/confirmation separately. A full ECC, Agency, Beads or Task Master installation is not required. Superpowers is the preferred software execution direction, subject to actual readiness and the project proposal; larger trackers need a concrete reason.
 
 Routing works when the host loads the installed skill or managed instructions. The repo does not intercept every prompt. Installing into a cloud test profile does not install anything on the user's laptop. A missing research checkout or inaccessible device must be reported as a gap.
+
+## Approved council and review behavior
+
+The [2026-11-03 approval](decisions/2026-11-03-approved-council-and-review-policy.json) selects Council of High Intelligence for appropriate important decisions, after required source review and host setup. Retry failed seats within budget; require at least two actual responding workers to continue a reduced panel, disclose missing participation, and otherwise stop that checkpoint. Do not use upstream simulated fallback as independent review. For agreed independent code reviews, load the selected original review instructions in a separate actual worker; coordinator-only review must be labelled self-review. These policies are published instructions, not proof of installed optional capabilities or successful invocation.

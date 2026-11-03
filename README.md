@@ -54,6 +54,12 @@ python3 scripts/knowledge.py verify
 
 Search retrieves evidence; the agent makes the task-specific comparison after reading relevant installed skills and current source. Inspection is read-only and limited to the machine/paths you run it on. New specialist installation follows the confirmed selection and inspection rules; no automatic removal or background refresh is configured. Dated decisions and feedback are saved under `knowledge/decisions/` for reuse.
 
+## Latest approved additions and download readiness
+
+The user approved the conditional recommendations and selected Council of High Intelligence for occasional important decisions, with [explicit council/reviewer rules](knowledge/decisions/2026-11-03-approved-council-and-review-policy.json). The downloadable advisor core still installs exactly tool-advisor, grilling and find-skills. Superpowers, council and specialist candidates are not silently included by `--install-advisor`; verify existing installations or prepare selected missing capabilities under the review rules before using them. Their approval does not mean their complete payloads or runtime integrations have passed review.
+
+Download the current repository or update an existing clean checkout with `git pull --ff-only`. Follow the core setup steps above on the intended device, then start a fresh Codex session. Ask: “Use tool-advisor. Check readiness of my approved Superpowers and council options, then help me with [goal].” Reuse recorded selections; ask only for unresolved scope, changed choices or new specific findings that require a decision.
+
 ## Set up a device
 
 Open this repo in Codex on the laptop you want to configure and say:

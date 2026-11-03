@@ -1,0 +1,52 @@
+{
+  "id": "2026-11-03-approved-council-and-review-policy",
+  "recorded_at": "2026-11-03T02:00:50.593386+00:00",
+  "task": "Publish explicit approval of conditional workflow recommendations and Council of High Intelligence failure-handling/review policy.",
+  "constraints": {
+    "scope": "Publish approved choices and downloadable setup instructions. Preserve scanner and host-readiness requirements; do not treat all candidates as mandatory.",
+    "user_approval": "Yea good idea. Alright all your recommendations so far are approved. Make sure its published so I can download to use"
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "User selections and instructions approved and recorded; optional installations/runtime validation not completed.",
+    "selected": "Council of High Intelligence as conditional decision-review skill; Superpowers remains preferred software method.",
+    "council_policy": [
+      "Use existing source skill; disclose host adaptations.",
+      "Bounded retries for failed seats.",
+      "Continue reduced panel only with at least two actual responding workers and explicit participation gaps; otherwise stop checkpoint.",
+      "Never count simulated responses as independent review; overrides upstream simulated fallback."
+    ],
+    "review_policy": [
+      "Load actual selected review instructions.",
+      "Use separate worker for agreed independent review where host supports it.",
+      "Disclose coordinator self-review if independent execution unavailable."
+    ],
+    "approval_interpretation": "Accept conditional recommendations and their deferrals, not blanket activation of all alternatives. Existing approvals should be reused within unchanged scope. New scanner findings, provider charges and project-specific unseen combinations retain applicable rules.",
+    "download_readiness": "Existing three-skill advisor core remains packaged. Optional council/Superpowers/specialists require actual-device verification and preparation if missing; no claim they are bundled or tested by this publication."
+  },
+  "evidence": {
+    "refs": [
+      "knowledge/decisions/2026-11-03-skill-based-council-followup.json",
+      "knowledge/decisions/2026-11-02-workflow-approval-and-startup.json",
+      "advisor-bundle.json"
+    ],
+    "unperformed": [
+      "No new optional payload installation or full audit",
+      "No actual council/reviewer dispatch",
+      "No laptop verification"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit approval",
+      "text": "User accepts retry/reduced-participation/stop policy and approves recommendations with request to publish."
+    }
+  ],
+  "revisit_when": [
+    "Council or review skill upstream changes",
+    "Actual host cannot support required workers",
+    "New review findings or changed project scope"
+  ],
+  "supersedes": []
+}
