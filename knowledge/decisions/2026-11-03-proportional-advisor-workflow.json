@@ -1,0 +1,38 @@
+{
+  "id": "2026-11-03-proportional-advisor-workflow",
+  "recorded_at": "2026-11-03T13:15:20.593485+00:00",
+  "task": "Reduce unnecessary workflow overhead, make requirements documents optional and consolidate coordination policy ownership.",
+  "constraints": {
+    "user_approval": "proceed if you think its definitely better than current workflow",
+    "interpretation": "Implement clearer proportionate routing and evaluate it; do not claim universally superior performance without evidence."
+  },
+  "device_alias": "cloud-workspace",
+  "candidates": [],
+  "decision": {
+    "status": "Implemented policy clarification and reduced duplicated coordination instructions; preliminary dry-run evaluation supports retention without claiming measurable speed gains.",
+    "authoritative_workflow": "knowledge/BUILD-FLOW.md",
+    "requirements": "Short brief by default; optional PRD and technical proposal/TRD proportional to complexity; reuse provided requirements and resolve conflicts.",
+    "routing": "Direct/focused/full; risk overrides task brevity; reuse unchanged approvals and one tracker.",
+    "original_skills": "Unchanged; explicit host routing override determines when stages apply. No replacement interview/reviewer/council method created."
+  },
+  "evidence": {
+    "refs": [
+      "audits/advisor-routing-20261103/README.md",
+      "audits/advisor-routing-20261103/before.json",
+      "audits/advisor-routing-20261103/after.json"
+    ],
+    "unperformed": [
+      "No real end-to-end project benchmark or measured speed/token improvement",
+      "No target laptop update",
+      "No statistical claim from one worker per condition"
+    ]
+  },
+  "feedback": [],
+  "revisit_when": [
+    "Unnecessary questioning or repeated research in real tasks",
+    "Skipped essential requirements or verification",
+    "Conflicting rule copies",
+    "Host/model changes affecting adherence"
+  ],
+  "supersedes": []
+}

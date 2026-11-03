@@ -24,6 +24,8 @@ See the [verification record](audits/advisor-ready-20261103/verification.json) f
 
 ## How the workflow works
 
+For substantial new projects, the full path is below. Task depth and shortcuts follow [BUILD-FLOW.md](knowledge/BUILD-FLOW.md).
+
 1. **Understand the goal.** Use the interview skill to clarify missing requirements, constraints and success criteria. Reuse information already supplied.
 2. **Map the necessary capabilities.** Identify all parts of the job, including design, implementation and verification where relevant.
 3. **Find suitable skills and tools.** Search relevant installed capabilities, extracted reels, saved decisions and external sources, including GitHub. Read shortlisted skill instructions and check current versions. Popularity is a discovery signal, not proof of suitability.
@@ -33,6 +35,14 @@ See the [verification record](audits/advisor-ready-20261103/verification.json) f
 7. **Save useful outcomes.** Record what worked, failed or changed, then consult that evidence on future tasks.
 
 Small edits and explanation-only questions use a shorter path. The assistant selects the smallest useful combination; it does not run every installed skill for every task.
+
+### How much process is needed?
+
+[BUILD-FLOW.md](knowledge/BUILD-FLOW.md) owns the routing policy. Clear small tasks go directly to action and a focused check. Bounded features reuse a short brief and existing tools. Complex projects get the fuller interview, discovery and coordination flow. Risk can require extra checks even for a small task.
+
+You do not need a PRD to start. A short brief is the default; a fuller product document is optional. The assistant and selected specialists prepare a technical proposal/TRD only when complexity warrants it, after clarifying scope. Existing requirements and approvals are reused. One tracker holds the work; council and independent reviews are selected for a concrete need.
+
+The [initial six-case routing evaluation](audits/advisor-routing-20261103/README.md) found clearer stage choices and no observed routing regression. It was a dry run, not a measured speed or end-to-end quality benchmark.
 
 ### Who does what?
 
