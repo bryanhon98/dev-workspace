@@ -53,7 +53,16 @@
       "required_tools": [
         "Python >=3.12,<3.15",
         "uv for recorded installation method"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "version-source-and-static-runtime-verified",
+          "version": "2.12.0",
+          "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json"
+        }
+      }
     },
     {
       "name": "claude-mem",
@@ -218,6 +227,15 @@
         "agents/council-taleb.md": "470b6c3370880ef644b2278e8f91af223716503ef48e22affa9ff1d9a32df5ac",
         "agents/council-torvalds.md": "645c4eeffcf92691f8ba1f56316787381dea2dc6b841310d3fe239bf162cebfc",
         "agents/council-watts.md": "57e28fe6d2b607c12029c0667c509d654bb0c25e7a115b5f961105c689b06e8a"
+      },
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
       }
     },
     {
@@ -298,6 +316,15 @@
         "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
         "SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
         "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+      },
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
       }
     },
     {
@@ -342,7 +369,16 @@
         "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
         "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
       },
-      "previous_source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills"
+      "previous_source": "https://github.com/vercel-labs/skills/tree/13e4063a1cf913f5606d57d42ab83a86f5001e04/skills/find-skills",
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "archviz",
@@ -913,6 +949,15 @@
         "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
         "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
         "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
+      },
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "1.0.0",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
       }
     },
     {
@@ -943,7 +988,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "dispatching-parallel-agents",
@@ -966,7 +1020,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "executing-plans",
@@ -991,7 +1054,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "finishing-a-development-branch",
@@ -1014,7 +1086,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "receiving-code-review",
@@ -1037,7 +1118,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "requesting-code-review",
@@ -1061,7 +1151,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "subagent-driven-development",
@@ -1097,7 +1196,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "systematic-debugging",
@@ -1130,7 +1238,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "test-driven-development",
@@ -1154,7 +1271,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "using-git-worktrees",
@@ -1177,7 +1303,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "using-superpowers",
@@ -1207,7 +1342,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "verification-before-completion",
@@ -1230,7 +1374,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     },
     {
       "name": "writing-plans",
@@ -1253,7 +1406,16 @@
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
-      ]
+      ],
+      "device_observations": {
+        "windows-local": {
+          "timestamp": "2026-11-04T02:30:05.025+08:00",
+          "status": "installed-files-scanned-and-discovered",
+          "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+          "audit_ref": "audits/advisor-windows-20261104/verification.json",
+          "live_workflow_execution_verified": false
+        }
+      }
     }
   ]
 }
