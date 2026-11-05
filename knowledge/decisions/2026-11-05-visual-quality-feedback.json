@@ -1,0 +1,70 @@
+{
+  "id": "2026-11-05-visual-quality-feedback",
+  "recorded_at": "2026-11-05T09:51:13Z",
+  "task": "Record user rejection of book-and-garment showcase quality and missing expert verification",
+  "constraints": [
+    "Preserve approved visual direction and exact product artwork",
+    "Do not equate functional tests with visual approval",
+    "Do not claim unavailable or unread skills executed"
+  ],
+  "device_alias": "unknown",
+  "candidates": [],
+  "decision": {
+    "status": "correction in progress; not accepted or visually verified",
+    "selected_roles": [
+      "Systematic Debugging for causes",
+      "Designly Taste Engine for reference roles",
+      "Designly Visual QA for physical and compositional rejection criteria"
+    ],
+    "completed": [
+      "Recorded explicit rejection and project acceptance criteria",
+      "Identified timing, initial poster, reveal scale and direct rotation causes in source"
+    ],
+    "pending": [
+      "Implement and visually verify corrections",
+      "Resolve garment asset fidelity",
+      "Evaluate named missing skills under existing discovery and scan policy"
+    ],
+    "installation_changes": "none"
+  },
+  "evidence": {
+    "project_record": "docs/superpowers/plans/2026-11-05-user-visual-rejection.md in the website checkout",
+    "source_findings": [
+      "Page turns start before cover finishes",
+      "Shirt grows from near-zero scale",
+      "Inspection target applies directly",
+      "Concept poster visible before scene readiness"
+    ],
+    "skills": "Full installed instructions loaded for tool-advisor, systematic-debugging, taste-engine, visual-qa and find-skills; this does not prove corrections passed",
+    "unperformed": [
+      "No successful independent visual review on this correction attempt",
+      "No Impeccable or UI UX Pro Max execution",
+      "No corrected garment verification"
+    ],
+    "worker_attempts": "Two resumed implementation workers returned usage-limit errors; neither attempt counts as execution or review"
+  },
+  "feedback": {
+    "explicit": [
+      "Record my feedback",
+      "Use relevant expert skills consistently",
+      "Initial concept-image flash is unacceptable",
+      "Pages must not emerge before cover",
+      "Shirt reveal is unconvincing",
+      "Inspection garment is flat and motion is not smooth",
+      "User asked whether Impeccable was used"
+    ],
+    "observed": [
+      "Supplied mobile screenshots show weak product scale and flat garment side profile",
+      "Earlier functional/static review missed physical-believability failures"
+    ],
+    "inferred": [
+      "Completion evidence should include intermediate animation frames and product side views; not just final screenshots"
+    ]
+  },
+  "revisit_when": [
+    "Resuming this showcase",
+    "Claiming visual completion",
+    "Selecting design or motion skills for similar work"
+  ],
+  "supersedes": []
+}
