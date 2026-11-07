@@ -15,6 +15,7 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
 | [Model routing software](tools/model-routing.md) | Claude Code Router |
+| [Agent orchestration software](tools/agent-orchestration.md) | Paperclip (library only) |
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
 
 ## Later user-saved library additions
@@ -24,6 +25,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 [Awesome Claude Video Skills, Three.js Skills and Hyperframes](skills/video-and-3d.md) are also saved for library discovery only. The unspecified motion-skills collection was skipped; existing Emil motion entries remain.
 
 [juliobsz/skills — awwwards and jury](skills/design.md#juliobsz--awwwards-and-jury) are saved as optional website-building and visual-review candidates, not installed or part of the baseline.
+
+[Paperclip](tools/agent-orchestration.md) was added on 8 November 2026 as an optional agent-orchestration **software** candidate, not a skill. Cataloging it does not install its app or bundled development skills.
 
 ## What was left out
 
