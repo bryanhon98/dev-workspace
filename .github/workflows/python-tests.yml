@@ -1,7 +1,7 @@
 name: Python unit tests
 on:
   push:
-    branches: [main, feature/lightweight-skill-approvals]
+    branches: [main, 'feature/**']
   pull_request:
   workflow_dispatch:
 
@@ -10,7 +10,13 @@ permissions:
 
 jobs:
   unittest:
-    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: '1'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

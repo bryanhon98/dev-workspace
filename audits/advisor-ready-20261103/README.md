@@ -27,3 +27,13 @@ When official HEAD changes, stage the complete selected skill files and required
 ## Independent code review
 
 A separate worker applied Superpowers' `requesting-code-review/code-reviewer.md` to the installer, setup commands, tests, manifests and audit handling. It independently ran 110 passing tests and verified preparation of all 17 roles. It found no remaining substantive blocker after the scanner count invariant and historical test fixtures were corrected. It did not claim a full upstream security audit, laptop installation, or an end-to-end council session. README accuracy and final installation evidence were checked by the coordinator separately.
+
+## Active approval system update (2026-11-08)
+
+These records are preserved as historical security evidence. The active
+installer uses the compact version ledger at `skill-approvals.json` and
+matches source/installed file contents directly. Historical scan report
+fingerprint fields are no longer installation gates; past findings and
+explicit review decisions are still parsed and compared for an unchanged
+approved revision. New complete scans without findings auto-approve newer
+revisions. Changed findings or incomplete scans require explicit review.

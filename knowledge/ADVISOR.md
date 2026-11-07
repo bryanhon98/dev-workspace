@@ -53,9 +53,9 @@ python3 scripts/knowledge.py inspect --root ~/.agents/skills --root ~/.codex/ski
 # Add project skill roots or plugin directories when applicable to the actual client.
 ```
 
-The command reads metadata and hashes SKILL.md instructions only. It does not execute candidate code, install, activate, delete, or upload anything. It reports missing paths, unreadable files and symlinks it did not follow. Pass a known symlink target as a separate root when appropriate. Same-name and identical-instruction groups are investigation leads, not automatic duplicates: references, hooks and dependencies may differ. Read the full relevant files after discovery and hash the complete payload when assessing revisions or modifications.
+The command reads metadata and hashes SKILL.md instructions only. It does not execute candidate code, install, activate, delete, or upload anything. It reports missing paths, unreadable files and symlinks it did not follow. Pass a known symlink target as a separate root when appropriate. Same-name and identical-instruction groups are investigation leads, not automatic duplicates: references, hooks and dependencies may differ. Read the relevant full files after discovery and compare their exact Git revisions and contents when assessing updates or modifications.
 
-Keep raw output local: it contains device paths. Publish only sanitized device aliases, relevant versions/hashes and conclusions. Do not scan chat/session history, credentials or an entire home directory as part of skill discovery. If this session can only see a cloud workspace, say so; do not claim to have inspected the user's Mac/Windows machine. Continue research independently and defer device-specific conclusions until it is accessible.
+Keep raw output local: it contains device paths. Publish only sanitized device aliases, approved revisions, scan statuses and conclusions. Do not scan chat/session history, credentials or an entire home directory as part of skill discovery. If this session can only see a cloud workspace, say so; do not claim to have inspected the user's Mac/Windows machine. Continue research independently and defer device-specific conclusions until it is accessible.
 
 ## Verify current shortlisted sources
 
