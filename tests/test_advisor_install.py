@@ -120,7 +120,7 @@ class AdvisorInstallTests(unittest.TestCase):
         self.assertIn('--fail-on-incomplete', args)
         self.assertIn('--fail-on-findings', args)
         self.assertEqual(args[args.index('--min-coverage') + 1], '100')
-        self.assertEqual(kwargs['env']['LANGSMITH_TRACING'], 'false')
+        self.assertEqual(self.mod._environment()['LANGSMITH_TRACING'], 'false')
         source = pathlib.Path(args[args.index('scan') + 1])
         self.assertNotEqual(source.parent, self.skills)
         files = sorted(p.relative_to(source).as_posix()
@@ -397,6 +397,8 @@ class AdvisorInstallTests(unittest.TestCase):
         marker = self.repo / 'executed.flag'
         self.write('skills/tool-advisor/evil.py',
                    'from pathlib import Path\nPath(' + repr(str(marker)) + ').write_text("executed")\n')
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.save()
         self.install()
         self.assertFalse(marker.exists())
         self.assertEqual(self.scan_count, 1)

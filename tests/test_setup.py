@@ -88,7 +88,7 @@ class GlobalSetupTests(unittest.TestCase):
         result = self.run_cli('--show-approvals')
         self.assertEqual(result.returncode, 0, result.stderr)
         ledger = json.loads(result.stdout)
-        self.assertEqual(ledger['schema_version'], 1)
+        self.assertEqual(ledger['schema_version'], 2)
         self.assertEqual(len(ledger['skills']), 17)
         self.assertEqual(list(self.home.iterdir()), [])
 
