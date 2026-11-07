@@ -10,6 +10,8 @@ permissions:
 
 jobs:
   unittest:
+    env:
+      PYTHONUTF8: '1'
     strategy:
       fail-fast: false
       matrix:
