@@ -1,7 +1,7 @@
 name: Python unit tests
 on:
   push:
-    branches: [main, feature/lightweight-skill-approvals]
+    branches: [main, 'feature/**']
   pull_request:
   workflow_dispatch:
 
