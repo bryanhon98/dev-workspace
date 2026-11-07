@@ -1,0 +1,160 @@
+{
+  "id": "2026-11-08-conditional-browser-verification-and-scoped-memory-pilot",
+  "recorded_at": "2026-11-07T18:31:10.416Z",
+  "task": "Update Tool Advisor workflow so Playwright and Chrome DevTools are selected conditionally, and persist essential project context while gating Claude-Mem behind an opt-in personal-repo trial.",
+  "constraints": {
+    "scope": "Repository routing and global instructions only; no tools/plugins installed or activated and no external accounts, browser sessions or memory stores connected.",
+    "preserve": [
+      "Existing 17-skill baseline and approved payloads",
+      "Tool Advisor as sole coordinator and Superpowers as preferred software executor",
+      "Existing SkillSpector, finding-triage and install authorization gates",
+      "Device-local state, privacy restrictions, one canonical task tracker",
+      "Prior Claude-Mem blocker until verified resolved"
+    ]
+  },
+  "device_alias": "github-connector-cloud",
+  "candidates": [
+    {
+      "identity": "microsoft/playwright (Playwright CLI/test runner)",
+      "source_url": "https://github.com/microsoft/playwright",
+      "skill_paths": [],
+      "recorded_revision": "07c7069cdbb1f5c7331d3f4d2abd864dcfde745a",
+      "upstream_revision": null,
+      "checked_at": "2026-11-08",
+      "review_depth": "Reused verified GitHub README and recorded candidate. CLI is separate from the core framework; no runtime installed or run.",
+      "fit": "Optional repeatable browser/UI verification on meaningful changes",
+      "overlap": "Existing project browser tests and Chrome DevTools diagnostics",
+      "prerequisites": [
+        "Browser runtime and appropriate CLI/tests on actual device"
+      ],
+      "costs": "Local browser and model tokens; external CI optional",
+      "uncertainties": [
+        "No Windows target runtime verified"
+      ]
+    },
+    {
+      "identity": "ChromeDevTools/chrome-devtools-mcp",
+      "source_url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "skill_paths": [],
+      "recorded_revision": "0b37364dc0a88a804c6d73d3335e776adc7f33c4",
+      "upstream_revision": null,
+      "checked_at": "2026-11-08",
+      "review_depth": "Reused official README details and existing catalog; no live Chrome connection.",
+      "fit": "Diagnose Chrome console, network and performance issues as needed",
+      "overlap": "Playwright covers reproducible tests; do not run both routinely",
+      "prerequisites": [
+        "Current Chrome/Node and explicitly authorized MCP/CLI setup"
+      ],
+      "costs": "Local resources and model tokens",
+      "uncertainties": [
+        "Existing authenticated Chrome data may be exposed to configured agent",
+        "Usage telemetry settings must be checked"
+      ]
+    },
+    {
+      "identity": "thedotmack/claude-mem",
+      "source_url": "https://github.com/thedotmack/claude-mem",
+      "skill_paths": [],
+      "recorded_revision": "2d8c08c182af68b20bb7528c7bf989aa871a7d2f",
+      "upstream_revision": null,
+      "checked_at": "2026-11-08",
+      "review_depth": "Reused official README/earlier candidate record and known prior adoption blocker; no hooks, worker or installation inspected on device.",
+      "fit": "Opt-in trial for loss of project context across coding sessions",
+      "overlap": "Canonical Git/project checkpoint records and context compaction are separate; memory cannot replace source evidence",
+      "prerequisites": [
+        "Explicit scope/capture approval",
+        "Privacy/telemetry/storage/retention and model-processing review",
+        "Prior blocker and host compatibility verification",
+        "Safe uninstall/rollback plan"
+      ],
+      "costs": "Possible worker/model time, storage and data transfer depending on configuration",
+      "uncertainties": [
+        "Memory retrieval accuracy, context savings and device compatibility unmeasured",
+        "Potential sensitive work-code/session exposure"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Web regression verification",
+      "candidates_examined": [
+        "Playwright/test runner",
+        "Existing browser tools"
+      ],
+      "chosen_owner": "Available browser runner chosen per UI acceptance criteria",
+      "reason": "Trigger only for meaningful behavior/layout changes."
+    },
+    {
+      "job": "Chrome diagnosis",
+      "candidates_examined": [
+        "Chrome DevTools MCP/CLI",
+        "Playwright traces"
+      ],
+      "chosen_owner": "Chrome DevTools only if console/network/performance root-cause evidence is needed",
+      "reason": "Avoid duplicate browser tooling."
+    },
+    {
+      "job": "Session continuity",
+      "candidates_examined": [
+        "Existing Git/project checkpoints",
+        "Claude-Mem"
+      ],
+      "chosen_owner": "Git-backed project record; Claude-Mem optional trial",
+      "reason": "Compaction can lose details and memory is imperfect and privacy-sensitive."
+    }
+  ],
+  "decision": {
+    "status": "Approved repository routing update; no device installation or memory capture",
+    "implemented": [
+      "knowledge/BUILD-FLOW.md",
+      "knowledge/ADVISOR.md",
+      "knowledge/ROUTING.md",
+      "global/AGENTS.md",
+      "global/CLAUDE.md",
+      "tests/tool-advisor-scenarios.md"
+    ],
+    "selected_roles": [
+      "Conditional Playwright verification",
+      "Conditional Chrome DevTools diagnosis",
+      "Durable project checkpoint before significant compaction/handoff",
+      "Optional Claude-Mem trial only after explicit scoped approval"
+    ],
+    "deferred": [
+      "Installing Playwright or Chrome DevTools on the target PC",
+      "Claude-Mem global installation, hooks, telemetry or continuous recording",
+      "Adding optional tools to the 17-skill baseline",
+      "Claims of improved token costs, recall accuracy or live browser coverage"
+    ]
+  },
+  "evidence": {
+    "sources": [
+      "https://github.com/microsoft/playwright",
+      "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "https://github.com/thedotmack/claude-mem",
+      "github-repos/research/2026-11-08-nine-projects.md"
+    ],
+    "static_checks": [
+      "Targeted unique-anchor policy edits",
+      "Manually described trigger and non-trigger regression cases"
+    ],
+    "not_performed": [
+      "Live Playwright or Chrome DevTools trial",
+      "Claude-Mem install, permission/data-flow review or recall benchmark",
+      "Device-level activation of global instructions",
+      "New SkillSpector scan (no skill payload changed)"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit user request",
+      "text": "User approved updating the workflow after discussing conditional Playwright/Chrome DevTools selection, persistent compaction checkpoints and a cautious Claude-Mem pilot."
+    }
+  ],
+  "revisit_when": [
+    "User explicitly chooses a supported browser-tool installation",
+    "User authorizes Claude-Mem on a named non-sensitive repo with privacy scope",
+    "A documented browser test or recall benchmark shows benefit/cost",
+    "Source revision, privacy or existing blocker changes"
+  ],
+  "supersedes": []
+}

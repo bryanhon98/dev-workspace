@@ -75,6 +75,12 @@ Prioritize acceptance/task fit and real evidence over popularity; then compare i
 
 Stop when all material jobs have qualified owners or known gaps, credible alternatives are considered, conflicts are resolved or escalated, and further search is unlikely to change the recommendation. State "best supported among candidates examined," not a globally proven best. Tool Advisor is the sole manager; Superpowers supplies software execution, while ECC orchestration and Council are conditional, distinct roles.
 
+## Browser and persistent-memory selection
+
+Browser tools and Claude-Mem have different jobs and activation rules. For **browser regression / UI behavior**, prefer a working Playwright CLI or existing test harness, including rendered visual checks when relevant. For **Chrome network/console/performance root cause**, consider Chrome DevTools MCP or CLI, but only when diagnosis is required. Do not select both by reflex, turn on authenticated Chrome access, or equate a catalog entry with an installed verified tool. Non-UI tasks and small copy-only edits do not require browser tooling.
+
+For **recurring cross-session context loss**, first use canonical project documentation, Git and the approved local tracker. Only propose Claude-Mem as an **opt-in, narrowly scoped pilot** after privacy, prior blockers, telemetry, provider processing, cost, retention and rollback are reviewed. No global session capture or background worker is authorized by workflow selection. Follow [the authoritative verification and memory gates](BUILD-FLOW.md#conditional-browser-verification-and-debugging).
+
 ## Select a combination
 
 Use an explicit comparison, scaled to the task:

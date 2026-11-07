@@ -44,3 +44,23 @@ For live evaluation, compare the same host, model, tools and fixture before/afte
 
 | Substantial skill discovery where Vercel Find Skills misses a plausible designer, architect or reviewer | Consult task-relevant entries of quemsah's Top 100 repository list as another source; inspect the corresponding individual subskills and their source revisions before selection, never ranking by stars alone. |
 | Simple task with adequate existing tools | Skip the quemsah catalog; avoid mandatory searches of Top 100 or the full index. |
+
+
+## Conditional browser and memory workflow scenarios — 2026-11-08
+
+These are **manual routing regression expectations**, not evidence that optional CLIs/MCPs/memory plugins are installed or that live tests passed.
+
+| Scenario | Expected behavior |
+|---|---|
+| Add checkout form validation and a mobile menu | Prefer available Playwright/project browser tests for interaction, viewport and accessibility checks. Check rendered state; record failures. Chrome DevTools only if diagnostics require it. |
+| A Java service method fails an integration test, no UI affected | Diagnose via source, Java/unit/integration tests. Neither browser tool is triggered. |
+| Typo or documentation-only edit | Use direct/focused checks; no automatic Playwright, DevTools, extra service or elaborate browser review. |
+| Browser flow fails because a request returns 500 or console throws | Use Chrome DevTools network/console for the root cause if available and permitted; Playwright when repeatable UI regression would add value. Do not blindly start both. |
+| Slow Chrome page and rendering jank | Chrome DevTools performance trace only when profiling is required; distinguish synthetic trace from real-device results. |
+| UI screenshot of a WebGL/3D product viewer | Render and inspect real screenshots/interactions, not just DOM snapshots. Report missing browser runtime as unverified. |
+| Browser tool not installed; catalog lists it | Do not claim it ran or silently install it; state blocker/fallback and follow selected-device authorization if the user chooses setup. |
+| Long-running Java cross-service investigation reaches compaction | Save a short source-backed project checkpoint with verified method/handler paths, unresolved producer, tests and next step; reload and recheck files on resume. |
+| A simple answer or a short task without future handoff | Do not create unnecessary memory/checkpoint files or start memory services. |
+| User asks for Claude-Mem globally on work repositories | Do not silently enable capture. Identify prior compatibility blocker, model processing/storage/telemetry/privacy, secure scope and explicit authorization before any plugin/worker install. |
+| Claude-Mem pilot explicitly approved for a personal sandbox repo | Verify privacy and installation gates, choose narrow capture scope, define opt-out/removal and side-by-side recall evaluation; do not mark improvement measured before tests. |
+| Summary or Claude-Mem recall contradicts Git-backed code | Treat repo/source evidence as canonical, label stale or uncertain memory and re-verify exact implementation. |
