@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy": "New revisions: auto-approve only after a complete suppression-free static scan with zero findings; otherwise require review. Historical scan evidence remains in audits/.",
   "skills": [
     {

@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "bundle_version": "1.1.0",
+  "schema_version": 2,
+  "bundle_version": "2.0.0",
   "scanner": {
     "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
     "version": "2.12.0",
@@ -13,14 +13,6 @@
       "path": "skills/custom/tool-advisor",
       "version": "1.0.0",
       "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
-      "hashes": {
-        "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
-        "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
-        "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
-        "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
-        "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
-        "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/tool-advisor/audit.json",
       "exception": null
@@ -30,11 +22,6 @@
       "path": "skills/external/matt-pocock/grilling",
       "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "source": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
-      "hashes": {
-        "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
-        "SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
-        "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/grilling/audit.json",
       "exception": null,
@@ -46,10 +33,6 @@
       "path": "skills/external/find-skills",
       "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
       "source": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
-      "hashes": {
-        "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
-        "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/find-skills/audit.json",
       "exception": null,
@@ -61,17 +44,6 @@
       "path": "skills/external/superpowers/brainstorming",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "61a7ef918652108c76a3fd01e02dd92d39996c6b46d4cb2819cbd03f6c45e46a",
-        "builder-check-prompt.md": "36d51a4723d6f0a3ce5811a0ea3b3a8424f07533947e1355f5d8cb8cce40c55e",
-        "scripts/frame-template.html": "6a8a4e58bd6a44b904e2e3c57de774481d909204597e1498de53f1b2fecc4c4e",
-        "scripts/helper.js": "43c6d69954a46ec34a2a262bcc62a9a7e83e839c739f199cb72646d397c686e3",
-        "scripts/server.cjs": "763abf96510e0b892a1141397b31aa82ef900cf87ed34dde94bc8782baf4a7ca",
-        "scripts/start-server.sh": "a4e5ae84275bcaacd2f84345afeabe59cf7b00ba080e123da7cc1fb226f12847",
-        "scripts/stop-server.sh": "0b5ccbbd57f62d3ed88993f7940b5ee0e5c0fc9b21c550c623da4f6292e47daf",
-        "visual-companion.md": "6ffcb038b53254bd31debaa15e12dcd4ff24bd63d690e0b644ac6396701cf2e2"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/brainstorming/audit.json",
       "exception": null,
@@ -83,10 +55,6 @@
       "path": "skills/external/superpowers/dispatching-parallel-agents",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/dispatching-parallel-agents/audit.json",
       "exception": null,
@@ -98,12 +66,6 @@
       "path": "skills/external/superpowers/executing-plans",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "e4649e59880ef2643d1da128e3d607e87e3f969410d72095a5bf65811b6036dc",
-        "scripts/task-done": "d0d4f2397c85a4426443ea955e699ef12568b41b408ec6122d4ec2433ee3a5f6",
-        "scripts/task-start": "f833693c8fce3700fc9f841562d80f8015cd40f652c168a3405ac3e46947a1fe"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/executing-plans/audit.json",
       "exception": null,
@@ -115,10 +77,6 @@
       "path": "skills/external/superpowers/finishing-a-development-branch",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/finishing-a-development-branch/audit.json",
       "exception": null,
@@ -130,10 +88,6 @@
       "path": "skills/external/superpowers/receiving-code-review",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/receiving-code-review/audit.json",
       "exception": null,
@@ -145,11 +99,6 @@
       "path": "skills/external/superpowers/requesting-code-review",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "2180e14a448e9410bec88e6646a2d1f0ce7fdd58de27388c1e052e929679d2bc",
-        "code-reviewer.md": "82e370be6b3447523816286195571e4216ba56ba1ad6ad0e87862294c4c78dcb"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/requesting-code-review/audit.json",
       "exception": null,
@@ -161,23 +110,6 @@
       "path": "skills/external/superpowers/subagent-driven-development",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "ba41f697136cba88a7962d60c8e2f97488ba04a8688b1d0fbeb27f6953808e75",
-        "implementer-prompt.md": "81dd9d5a3fb0b09b96b5829f03b9796842f3199ef7591d1ba1c2db2a515f64d0",
-        "re-review-prompt.md": "0828a5e9cbb12ba49f14621dd8c3953c48c0fc383e75bb5494f055ed0d6d824f",
-        "references/batching.md": "b54dc7e23dbfb90db89bcb2fb3af591aabf6a271a165fbc0da4c6f9439980eac",
-        "references/cannot-verify.md": "e698713a15e0eabf1a2ab26ffe1bb04bf70c9d6d2e2060d44a0f9a1bdd4408bf",
-        "references/final-review.md": "2fd999d86e5dd0b9b32aaf93f2a41663ef30b3e3cb78fb2fd5cb450eb59eb9de",
-        "references/fix-loop.md": "eafff1f801af2ced86e8761f3eeef04b701860d986ba5d0a8b20d506a75104bb",
-        "references/handling-reports.md": "8f759cdd4936220c38aab05b6d6c48c6df8ac8f146b0f37a6d2facbf87133c67",
-        "references/preflight.md": "3ea21c5fc1af1a190ac8a9d19ceb0849b47bf2ffe27b87dffcc21b6a0539776c",
-        "references/resuming.md": "ff6e38bde2276faa2a7e93513086caded0ea10edbf2ec7f349a7e3b0d7c668c4",
-        "scripts/review-package": "f9275175b2276b1d5fdb1bae0bedaadd2a950659b7c6f311ea37ff85e1861b1f",
-        "scripts/sdd-workspace": "4fd9770e7a49b6bde488c0e92bac1b3bd01fcbdaf8f06b6c4efbe3a1abd99f86",
-        "scripts/task-brief": "cc563538e09abf719b34ddf4b2fa7a65cf3b301729039dbfa923cb060f729146",
-        "task-reviewer-prompt.md": "bfed55c8f19d0ff6ed57b0fe09127c92890e9311c6c73917129598826bf9ebe8"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/subagent-driven-development/audit.json",
       "exception": null,
@@ -189,20 +121,6 @@
       "path": "skills/external/superpowers/systematic-debugging",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
-      "hashes": {
-        "CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
-        "condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
-        "condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
-        "defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
-        "find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
-        "root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
-        "test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
-        "test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
-        "test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
-        "test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/systematic-debugging/audit.json",
       "exception": null,
@@ -214,11 +132,6 @@
       "path": "skills/external/superpowers/test-driven-development",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
-        "writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/test-driven-development/audit.json",
       "exception": null,
@@ -230,10 +143,6 @@
       "path": "skills/external/superpowers/using-git-worktrees",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/using-git-worktrees/audit.json",
       "exception": null,
@@ -245,17 +154,6 @@
       "path": "skills/external/superpowers/using-superpowers",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "82c5c8866ad7f5dd4440ce66bd7806ba48a2f13771beae5cf112e53f08fe36ba",
-        "references/antigravity-tools.md": "4880f6de3da4e32f9659ebe7a72b9e0ebfff04e028c2ed96173f86d0387a04c0",
-        "references/claude-code-tools.md": "21479a3fee27448cab8748a3b5687e53bb257883bda9c070426f9a1ab5cebf1b",
-        "references/codex-tools.md": "1a38ad9b188c393052f58d95657a1c35ea6aafc8b5a27f198f3922912f70bbe7",
-        "references/gemini-tools.md": "62b9157bcb0ee3c6784e3d0da0798ddfa5872f9e0c34bea48f3079dabea71965",
-        "references/hermes-tools.md": "e2185c976a3c87503910e05e2aea58cc89bc8e569bb624b93df9958ac47a9190",
-        "references/muse-tools.md": "5a1da5c575fe18456ca71cd47ebfd8a38c745f8d82a67fe64d5b83080000eeb3",
-        "references/pi-tools.md": "703dbc83d23ecab9c6f388460c38abc482e9dee2fe6772a8c7a255152ad3a4d5"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/using-superpowers/audit.json",
       "exception": null,
@@ -267,10 +165,6 @@
       "path": "skills/external/superpowers/verification-before-completion",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/verification-before-completion/audit.json",
       "exception": null,
@@ -282,10 +176,6 @@
       "path": "skills/external/superpowers/writing-plans",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
-      "hashes": {
-        "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
-        "SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/writing-plans/audit.json",
       "exception": null,
@@ -297,28 +187,6 @@
       "path": "skills/external/council",
       "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
       "source": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
-      "hashes": {
-        "LICENSE": "678df73993b4b6709cd80aed556263ef5cdcffd5e7d6a7d796c828bf36baa4c7",
-        "SKILL.md": "14a448ab85bda321b850774aa482f43be79b7f834acf798012cdaa4f0898574b",
-        "agents/council-ada.md": "f28d3c4af5b60b0fb14a484c28672ff513ced562dc17c55ce6348884819e5df2",
-        "agents/council-aristotle.md": "307a57602e3a3a9a3f55b1a56453386037780f1dcfa41ede250844f588cec1d9",
-        "agents/council-aurelius.md": "ac8a1556746740441e08125f8ecad73b22a2999208fb8475bb144446f7762c16",
-        "agents/council-feynman.md": "4e4c4d21725f697d1ea8f5c7a9cfcac3fd98eed15c292a1b339c7e5aeb649b2b",
-        "agents/council-kahneman.md": "b8f193494a75db7058e7b68f5bf13193bf5374b8df2cde246e17fc9ebbc76564",
-        "agents/council-karpathy.md": "5b8d161c93cf6d789ed921d3d007eae99702f5c28bf837f03cb4987c854a8e16",
-        "agents/council-lao-tzu.md": "fc49cf4e67489d9416c101114fa3ec6ef48f610a578ef3d7ef11477dca84430e",
-        "agents/council-machiavelli.md": "0f3083ba0faa52ea5d793a094a256013a56a20fabe5afd8ffb6b1613e2a55635",
-        "agents/council-meadows.md": "924c75c0d32e23b84d6ca84ad507cf74b873c9cd7c7baa30984c0c85c1ea75c6",
-        "agents/council-munger.md": "3f8cbcfab107a9a43c13e3a90b0f3bd62645f687e4a8a0c503bd02010a6a4311",
-        "agents/council-musashi.md": "bd8f2c23ab08761f2ee920fab9ea3dfd2bd7867523f2cac826b2ca4a4203c574",
-        "agents/council-rams.md": "9bebe79ca873f4913554f0607b2d09a4626c01d623709b310f4da44f5e3dd7b6",
-        "agents/council-socrates.md": "4e23edd94d56ab4cbd68fc371ffe571f1294592dad40db0ca44d3d6fcb2654d5",
-        "agents/council-sun-tzu.md": "eb6b3fd7bcac307827fd5209de27ab1b72362c2d944e3d416a4208af81c75216",
-        "agents/council-sutskever.md": "31908dcecdeae685402889ef71054c2d398d486bde77f86acc8750b8f31f07f4",
-        "agents/council-taleb.md": "470b6c3370880ef644b2278e8f91af223716503ef48e22affa9ff1d9a32df5ac",
-        "agents/council-torvalds.md": "645c4eeffcf92691f8ba1f56316787381dea2dc6b841310d3fe239bf162cebfc",
-        "agents/council-watts.md": "57e28fe6d2b607c12029c0667c509d654bb0c25e7a115b5f961105c689b06e8a"
-      },
       "extra_files": [],
       "audit_ref": "audits/advisor-ready-20261103/council/audit.json",
       "exception": null,

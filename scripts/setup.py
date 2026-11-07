@@ -174,7 +174,7 @@ def main():
             from install_advisor import check_bundle, install_bundle, require_baseline, baseline_plan, require_core_only
             rules = saved_rules(host)
             if args.check_advisor:
-                result = check_bundle(ROOT, skills_root, home)
+                result = check_bundle(ROOT, skills_root, home, host=host)
                 plan = baseline_plan(ROOT)
                 result['baseline'] = plan
                 if not result.get('full_bundle_ready', False):

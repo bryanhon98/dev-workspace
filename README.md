@@ -11,7 +11,7 @@ The complete **17-skill baseline is packaged**: Tool Advisor, Grilling, Find Ski
 | Part | Status |
 |---|---|
 | Workflow, research library and saved decisions | Available in this repo |
-| All 17 baseline skill payloads | Packaged with exact hashes and scan decisions |
+| All 17 baseline skill payloads | Packaged at approved versions with scan decisions |
 | Full setup command | Installs the baseline together after its checks pass |
 | Security policy | Warn and proceed for established low risk; block dangerous or unclassified findings |
 | Your device | Run setup and verify discovery in a fresh session |
@@ -131,8 +131,8 @@ approved version, date and review status. Historical approval timestamps remain
 the supporting evidence. View the ledger with `python scripts/setup.py --show-approvals`.
 
 **Updating:** stage the complete new revision into the packaged skill directory,
-then update that component's version, source URL and file hashes in
-`advisor-bundle.json`. A new version is **pending**, not automatically trusted.
+then update that component's version and exact source URL in
+`advisor-bundle.json`. Commit the staged skill source before installation. A new version is **pending**, not automatically trusted.
 During `--install-advisor`, the pinned SkillSpector scans the whole staged
 payload. An entirely clean scan (zero findings, full coverage, no suppressions)
 automatically approves the changed version, writes a UTC approval timestamp,
@@ -149,9 +149,14 @@ installation reports available updates rather than silently replacing it.
 A newer revision with security findings needs explicit review and a newly
 triaged scan/audit record before its ledger entry can be set to
 `manual-reviewed` with `scan: triaged`.
-Technical file hashes remain an internal integrity check in the installer,
-not a daily record that you have to manage. Original skill contents are
-unchanged by this migration.
+**No custom SHA-256 file hashes remain in the active skill installer, approval
+ledger, manifest or new device receipts.** The installer checks actual staged,
+installed and locally saved file copies directly, requires skill sources to be
+committed in Git, and uses exact Git revisions for version identity. A local
+snapshot protects modified installed skills during updates. Old scan and audit
+files are archived unchanged and are parsed for past warning decisions;
+archived hash fields are not consulted during setup. Original skill contents
+are unchanged by this migration.
 
 ## Installation policy
 
@@ -164,9 +169,9 @@ The [current user policy](global/AGENTS.md#scan-before-installing-updating-or-re
 - **Block** dangerous behaviour or unresolved gaps that prevent a risk decision. Resolve missing scan inputs where possible; never hide findings or fabricate complete coverage.
 - Verify installed files and skill discovery. Report blocked components individually and do not call the workflow ready if a required baseline skill is missing.
 
-These rules replace the earlier blanket “block every finding” policy. Historical audits remain evidence, not automatic approval of changed files. The installer binds warning decisions to exact payload hashes, finding signatures and coverage reports. It rescans during installation; changed findings need fresh triage. Credentials stay on the device; extra provider access or charges are not implied by setup approval.
+These rules replace the earlier blanket “block every finding” policy. Historical audits remain evidence, not automatic approval of changed files. The installer binds past warning decisions to approved revisions, finding signatures and coverage reports. It rescans during installation; changed findings need fresh triage. Credentials stay on the device; extra provider access or charges are not implied by setup approval.
 
-If upstream HEAD has changed since this bundle was packaged, the command stops with “requires staging and rescan.” Ask the assistant to finish that preparation under the same policy and rerun setup. The Python command checks freshness; it does not autonomously rewrite skills or approve new findings. No repeat selection approval is needed for the unchanged baseline.
+If upstream HEAD has changed, installation can retain the last approved revision and report available updates. A new update must be staged from the exact current revision and rescanned before approval. The Python command checks freshness; it does not autonomously rewrite skills or approve new findings. No repeat selection approval is needed for the unchanged baseline.
 
 Some accepted scans remain marked partial because of parser limits or optional/example references. Their exact limitations and targeted decisions are preserved in the [scan evidence](audits/advisor-ready-20261103/); they are not presented as clean scans or a guarantee of safety.
 
@@ -192,7 +197,7 @@ The three original reel documents are preserved with hashes: **1,083 entity reco
 | [Inventory](inventory.json) | Component sources and recorded readiness |
 | [Global instructions](global/AGENTS.md) | Portable setup and operating rules |
 | [Required baseline](advisor-baseline.json) | Selected starting workflow skills |
-| [Packaged bundle](advisor-bundle.json) | Exact payload hashes and existing installation evidence |
+| [Packaged bundle](advisor-bundle.json) | Exact selected versions and source locations |
 
 Useful read-only commands:
 

@@ -1,5 +1,5 @@
+"""Regression tests for the version-based, no-checksum skill installer."""
 import copy
-import hashlib
 import importlib.util
 import json
 import pathlib
@@ -11,982 +11,433 @@ from unittest import mock
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / 'scripts' / 'install_advisor.py'
+SCRIPT = ROOT / 'scripts/install_advisor.py'
 REVISION = 'cf5cac7ba5c756a6e0ebf52dc9763f49422f889f'
-
-
-# Exact pre-refresh fixture bytes; preserve historical exception provenance.
-HISTORICAL_GRILLING = {
-    'SKILL.md': (
-        '---\n'
-        'name: grilling\n'
-        "description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.\n"
-        '---\n'
-        '\n'
-        'Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.\n'
-        '\n'
-        "Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.\n"
-        '\n'
-        'Format a round like so:\n'
-        '\n'
-        '```\n'
-        '❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>\n'
-        '\n'
-        '➡️ <your recommended answer>\n'
-        '\n'
-        '---\n'
-        '\n'
-        '❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>\n'
-        '\n'
-        '➡️ <your recommended answer>\n'
-        '```\n'
-        '\n'
-        'Word each question so "yes" accepts your recommended answer.\n'
-        '\n'
-        'Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.\n'
-        '\n'
-        "Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.\n"
-        '\n'
-        'The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.\n'
-    ),
-    'agents/openai.yaml': (
-        'interface:\n'
-        '  display_name: "Grilling"\n'
-        '  short_description: "Stress-test thinking a round of questions at a time"\n'
-    ),
-}
-
-def digest(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class AdvisorInstallTests(unittest.TestCase):
     def setUp(self):
-        self.assertTrue(SCRIPT.exists(), 'The advisor bundle installer is not implemented')
-        spec = importlib.util.spec_from_file_location('advisor_install', SCRIPT)
+        spec = importlib.util.spec_from_file_location('installer_under_test', SCRIPT)
         self.mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.mod)
-        self.tmp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp.cleanup)
-        self.base = pathlib.Path(self.tmp.name)
-        self.repo = self.base / 'repo'
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        base = pathlib.Path(temp.name)
+        self.repo, self.skills, self.home = base / 'repo', base / 'user/skills', base / 'user/codex'
         self.repo.mkdir()
-        self.skills = self.base / 'user' / 'skills'
-        self.codex = self.base / 'user' / 'codex'
-        self.scanner = self.base / 'venv' / 'bin' / 'skillspector'
-        self.scanner.parent.mkdir(parents=True)
-        self.scanner.write_text('scanner fixture')
-        (self.scanner.parent / 'python').write_text('python fixture')
-        self.review = json.loads((ROOT / 'audits/skillspector-cf5cac7-20261018/review.json').read_text())
-        self.write('audits/skillspector-cf5cac7-20261018/review.json', self.review)
         self.write('constraints.txt', 'example==1.0\n')
+        self.write('audits/skillspector-cf5cac7-20261018/review.json',
+                   (ROOT / 'audits/skillspector-cf5cac7-20261018/review.json').read_text())
         self.manifest = {
-            'schema_version': 1, 'bundle_version': '1.0.0',
+            'schema_version': 2, 'bundle_version': '2.0.0', 'approvals_ref': 'skill-approvals.json',
             'scanner': {'revision': REVISION, 'version': '2.12.0',
                         'source_url': 'https://github.com/NVIDIA/skillspector',
                         'constraints': 'constraints.txt'},
-            'components': [],
-        }
+            'components': []}
+        self.approvals = {'schema_version': 2, 'skills': []}
         self.add_component('tool-advisor')
+        self.write('advisor-baseline.json',
+                   {'schema_version': 1, 'required_skills': ['tool-advisor']})
+        self.scanner = {'path': str(base / 'scanner'), 'version': '2.12.0',
+                        'revision': REVISION, 'source_url': 'https://github.com/NVIDIA/skillspector'}
         self.report_mutation = None
-        self.scan_exit = None
-        self.metadata_mutation = None
         self.scan_count = 0
-        self.external = mock.patch.object(self.mod.subprocess, 'run', side_effect=self.fake_run)
-        self.external.start()
-        self.addCleanup(self.external.stop)
+        for name, kwargs in [
+            ('_prepare_scanner', {'return_value': self.scanner}),
+            ('_verify_scanner', {'return_value': self.scanner}),
+            ('_verify_upstream', {'return_value': []}),
+            ('_run', {'side_effect': self.fake_scan})]:
+            patch = mock.patch.object(self.mod, name, **kwargs)
+            patch.start()
+            self.addCleanup(patch.stop)
 
     def write(self, relative, value):
         path = self.repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(value) if isinstance(value, (dict, list)) else value)
+        if isinstance(value, (dict, list)):
+            path.write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
+        else:
+            path.write_text(value, encoding='utf-8')
         return path
 
-    def save_manifest(self):
+    def save(self):
         self.write('advisor-bundle.json', self.manifest)
+        self.write('skill-approvals.json', self.approvals)
+
+    def report(self, name, files, issues=None, complete=True):
+        issues = list(issues or [])
+        count = len(files)
+        covered = count if complete else max(0, count - 1)
+        return {
+            'skill': {'name': name},
+            'execution_successful': True,
+            'metadata': {'llm_requested': False, 'skillspector_version': '2.12.0',
+                         'meta_analysis_applied': False, 'inference_usage': []},
+            'suppressed_count': 0, 'suppressed': [], 'issues': issues,
+            'components': [{'path': p} for p in files],
+            'analysis_completeness': {
+                'execution_successful': True, 'is_complete': complete,
+                'status': 'complete' if complete else 'partial',
+                'total_components': count, 'scanned_components': covered,
+                'fully_inspected_files': covered,
+                'partially_inspected_files': count - covered,
+                'entirely_uninspected_files': 0,
+                'coverage_percent': round(100 * covered / count, 1),
+                'ledger_exceptions': [], 'scope_exclusions': [],
+                'limitations': [] if complete else ['A file was only partially inspected'],
+            }}
 
     def add_component(self, name):
-        path = self.write(f'skills/{name}/SKILL.md', f'---\nname: {name}\n---\nRead the project brief.\n')
-        hashes = {'SKILL.md': digest(path)}
-        audit = f'audits/{name}.json'
-        self.write(audit, {'status': 'reviewed-static', 'sha256': hashes,
-                           'scanner': {'revision': REVISION, 'version': '2.12.0'}})
-        component = {'name': name, 'path': f'skills/{name}', 'version': '1.0.0',
-                     'source': 'https://github.com/example/skills', 'hashes': hashes,
-                     'extra_files': [], 'audit_ref': audit, 'exception': None}
-        self.manifest['components'].append(component)
-        self.save_manifest()
-        return component
+        self.write('skills/' + name + '/SKILL.md',
+                   '---\nname: ' + name + '\n---\nUse the selected skill.\n')
+        path = 'audits/' + name
+        report = self.report(name, ['SKILL.md'])
+        self.write(path + '/scan.json', report)
+        self.write(path + '/audit.json', {
+            'status': 'triaged-static', 'revision': '1.0.0',
+            'scanner': self.manifest['scanner'],
+            'report_ref': path + '/scan.json',
+            'analysis_completeness': report['analysis_completeness'],
+            'findings_decisions': [],
+            'coverage_decision': {'disposition': 'complete', 'reason': 'All files inspected.'}})
+        item = {'name': name, 'path': 'skills/' + name, 'version': '1.0.0',
+                'source': 'https://github.com/example/dev-workspace/tree/main/skills/' + name,
+                'extra_files': [], 'audit_ref': path + '/audit.json'}
+        self.manifest['components'].append(item)
+        self.approvals['skills'].append({
+            'name': name, 'version': '1.0.0', 'source': item['source'],
+            'approved_at': None, 'approval': 'historical-reviewed',
+            'scan': 'historical-triaged', 'audit_ref': item['audit_ref'],
+            'upstream_repository': None})
+        self.save()
+        return item
 
-    def test_repository_packaged_baseline_remains_valid(self):
+    def fake_scan(self, args, **kwargs):
+        args = list(map(str, args))
+        if 'scan' not in args:
+            raise AssertionError('Unexpected external command: ' + repr(args))
+        self.assertIn('--no-llm', args)
+        self.assertIn('--fail-on-incomplete', args)
+        self.assertIn('--fail-on-findings', args)
+        self.assertEqual(args[args.index('--min-coverage') + 1], '100')
+        self.assertEqual(kwargs['env']['LANGSMITH_TRACING'], 'false')
+        source = pathlib.Path(args[args.index('scan') + 1])
+        self.assertNotEqual(source.parent, self.skills)
+        files = sorted(p.relative_to(source).as_posix()
+                       for p in source.rglob('*') if p.is_file())
+        report = self.report(source.name, files)
+        if self.report_mutation:
+            self.report_mutation(report)
+        output = pathlib.Path(args[args.index('--output') + 1])
+        output.write_text(json.dumps(report), encoding='utf-8')
+        self.scan_count += 1
+        return subprocess.CompletedProcess(args, 1 if report['issues'] or
+                            not report['analysis_completeness']['is_complete'] else 0, '', '')
+
+    def install(self, selected=None):
+        return self.mod.install_bundle(self.repo, self.skills, self.home,
+                                       selected_names=selected)
+
+    def check(self, selected_host='codex'):
+        return self.mod.check_bundle(self.repo, self.skills, self.home, host=selected_host)
+
+    def warning(self, name='tool-advisor'):
+        issue = {'id': 'LP3', 'severity': 'MEDIUM', 'finding': 'Explicit tool scope missing',
+                 'location': {'file': 'SKILL.md', 'start_line': 1,
+                              'end_line': None, 'start_column': None},
+                 'match_fingerprint': None}
+        path = 'audits/' + name
+        report = self.report(name, ['SKILL.md'], [issue])
+        self.write(path + '/scan.json', report)
+        audit = json.loads((self.repo / path / 'audit.json').read_text())
+        audit['analysis_completeness'] = report['analysis_completeness']
+        audit['findings_decisions'] = [{
+            'signature': list(self.mod._signature(issue)),
+            'disposition': 'warn', 'reason': 'Explicitly reviewed warning for exact revision.'}]
+        self.write(path + '/audit.json', audit)
+        self.report_mutation = lambda r: r.update(issues=[copy.deepcopy(issue)])
+        return issue
+
+    def test_real_17_skill_baseline_is_prepared(self):
         plan = self.mod.baseline_plan(ROOT)
         self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
         self.assertEqual(len(plan['required_skills']), 17)
         self.assertEqual(plan['pending_clean_approval'], [])
 
-    def test_manual_reviewed_findings_require_existing_exact_triage(self):
-        self._enable_light_approvals()
-        self.triage_fixture()
-        component = self.manifest['components'][0]
-        component['version'] = '1.0.1'
-        self.save_manifest()
-        audit = json.loads((self.repo / component['audit_ref']).read_text())
+    def test_plan_is_readonly_and_lists_selected_roles(self):
+        plan = self.mod.baseline_plan(self.repo)
+        self.assertTrue(plan['payloads_prepared'])
+        self.assertEqual(plan['required_skills'], ['tool-advisor'])
+        self.assertFalse(self.skills.exists())
+        self.assertFalse(self.home.exists())
+
+    def test_missing_required_skill_blocks_full_setup(self):
+        self.write('advisor-baseline.json',
+                   {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
+        with self.assertRaisesRegex(ValueError, 'council'):
+            self.mod.require_baseline(self.repo)
+        self.assertFalse(self.skills.exists())
+
+    def test_missing_or_duplicate_approval_entry_blocks(self):
+        for records in ([], self.approvals['skills'] * 2):
+            self.write('skill-approvals.json', {'schema_version': 2, 'skills': records})
+            with self.assertRaisesRegex(ValueError, 'approval'):
+                self.mod._bundle(self.repo)
+
+    def test_unexpected_schema_or_missing_ledger_blocks(self):
+        self.approvals['schema_version'] = 99
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'approval'):
+            self.mod._bundle(self.repo)
+        (self.repo / 'skill-approvals.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'read valid JSON|approval'):
+            self.mod._bundle(self.repo)
+
+    def test_install_and_check_with_direct_file_comparison(self):
+        result = self.install()
+        self.assertTrue(result['ready'])
+        self.assertEqual(result['auto_approved_updates'], [])
+        self.assertTrue(self.check()['ready'])
+        self.assertEqual((self.skills / 'tool-advisor/SKILL.md').read_bytes(),
+                         (self.repo / 'skills/tool-advisor/SKILL.md').read_bytes())
+        self.assertEqual((self.home / 'dev-workspace-advisor/snapshots/tool-advisor/SKILL.md').read_bytes(),
+                         (self.skills / 'tool-advisor/SKILL.md').read_bytes())
+
+    def test_no_file_hashes_in_manifest_approvals_or_receipt(self):
+        self.install()
+        receipt = json.loads((self.home / 'dev-workspace-advisor/receipt.json').read_text())
+        for entry in [self.manifest, self.approvals, receipt]:
+            encoded = json.dumps(entry)
+            self.assertNotIn('sha256', encoded)
+            self.assertNotIn('payload_digest', encoded)
+            self.assertNotIn('"hashes"', encoded)
+        self.assertEqual(receipt['schema_version'], 2)
+
+    def test_auto_approves_complete_clean_new_revision_and_updates_date(self):
+        self.install()
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        source.write_text(source.read_text() + 'New reviewed revision.\n')
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.manifest['bundle_version'] = '2.0.1'
+        self.save()
+        plan = self.mod.baseline_plan(self.repo)
+        self.assertEqual(plan['pending_clean_approval'], ['tool-advisor'])
+        audit_before = (self.repo / 'audits/tool-advisor/audit.json').read_bytes()
+        result = self.install()
+        self.assertEqual(result['auto_approved_updates'], ['tool-advisor'])
+        record = json.loads((self.repo / 'skill-approvals.json').read_text())['skills'][0]
+        self.assertEqual(record['version'], '1.0.1')
+        self.assertEqual(record['approval'], 'clean-auto')
+        self.assertTrue(record['approved_at'])
+        self.assertNotIn('payload_digest', record)
+        self.assertEqual(audit_before, (self.repo / 'audits/tool-advisor/audit.json').read_bytes())
+        self.assertTrue(self.check()['ready'])
+
+    def test_new_finding_blocks_automatic_approval(self):
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.save()
+        before = (self.repo / 'skill-approvals.json').read_bytes()
+        issue = {'id': 'NEW', 'severity': 'HIGH', 'finding': 'Unsafe instruction',
+                 'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}
+        self.report_mutation = lambda r: r.update(issues=[issue])
+        with self.assertRaisesRegex(ValueError, 'finding'):
+            self.install()
+        self.assertEqual(before, (self.repo / 'skill-approvals.json').read_bytes())
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+
+    def test_incomplete_new_scan_blocks_automatic_approval(self):
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.save()
+        def partial(report):
+            profile = report['analysis_completeness']
+            profile.update(is_complete=False, status='partial', coverage_percent=0,
+                           scanned_components=0, fully_inspected_files=0,
+                           partially_inspected_files=1,
+                           limitations=['SKILL.md only partly read'])
+        self.report_mutation = partial
+        with self.assertRaisesRegex(ValueError, 'coverage|omissions|scan'):
+            self.install()
+        self.assertFalse(self.skills.exists() and (self.skills / 'tool-advisor').exists())
+
+    def test_existing_historical_warning_preserved(self):
+        self.warning()
+        result = self.install()
+        self.assertEqual(result['warnings'][0]['kind'], 'finding')
+        self.assertTrue(self.check()['ready'])
+
+    def test_new_finding_on_old_approval_blocks(self):
+        self.warning()
+        self.report_mutation = lambda r: r.update(issues=[{'id': 'DIFFERENT',
+            'severity': 'HIGH', 'finding': 'Different risk',
+            'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}])
+        with self.assertRaisesRegex(ValueError, 'finding'):
+            self.install()
+
+    def test_manual_warning_review_matches_exact_revision(self):
+        self.warning()
+        self.manifest['components'][0]['version'] = '1.0.1'
+        audit = json.loads((self.repo / 'audits/tool-advisor/audit.json').read_text())
         audit['revision'] = '1.0.1'
-        self.write(component['audit_ref'], audit)
-        record = json.loads((self.repo / 'skill-approvals.json').read_text())
-        record['skills'][0].update(version='1.0.1', approval='manual-reviewed',
-                                   scan='triaged', approved_at='2026-11-08T00:00:00+00:00')
-        self.write('skill-approvals.json', record)
+        self.write('audits/tool-advisor/audit.json', audit)
+        self.approvals['skills'][0].update(version='1.0.1', approval='manual-reviewed',
+                                           scan='triaged', approved_at='2026-11-08T00:00:00+00:00')
+        self.save()
         result = self.install()
         self.assertTrue(result['ready'])
         self.assertTrue(result['warnings'])
         self.assertEqual(result['auto_approved_updates'], [])
         self.assertTrue(self.check()['ready'])
 
-    def _enable_light_approvals(self):
-        self.manifest['approvals_ref'] = 'skill-approvals.json'
-        self.save_manifest()
-        component = self.manifest['components'][0]
-        self.write('skill-approvals.json', {
-            'schema_version': 1, 'skills': [{
-                'name': component['name'], 'version': component['version'],
-                'source': component['source'], 'upstream_repository': None,
-                'approved_at': None, 'approval': 'historical-reviewed',
-                'scan': 'historical-triaged', 'audit_ref': component['audit_ref']
-            }]
-        })
-
-    def test_light_approval_keeps_original_historical_review(self):
-        self._enable_light_approvals()
-        self.assertTrue(self.install()['ready'])
-        self.assertTrue(self.check()['ready'])
-        record = json.loads((self.repo / 'skill-approvals.json').read_text())['skills'][0]
-        self.assertIsNone(record['approved_at'])
-        self.assertEqual(record['approval'], 'historical-reviewed')
-
-    def test_new_clean_revision_auto_approved_without_rewriting_audit(self):
-        self._enable_light_approvals()
-        old_audit = (self.repo / self.manifest['components'][0]['audit_ref']).read_bytes()
-        self.install()
-        skill = self.repo / 'skills/tool-advisor/SKILL.md'
-        skill.write_text(skill.read_text() + '\nNew cleaned skill.\n')
-        component = self.manifest['components'][0]
-        component['version'] = '1.0.1'
-        component['hashes']['SKILL.md'] = digest(skill)
-        self.manifest['bundle_version'] = '1.0.1'
-        self.save_manifest()
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor']})
-        self.assertEqual(self.mod.baseline_plan(self.repo)['pending_clean_approval'], ['tool-advisor'])
-        result = self.install()
-        self.assertEqual(result['auto_approved_updates'], ['tool-advisor'])
-        record = json.loads((self.repo / 'skill-approvals.json').read_text())['skills'][0]
-        self.assertEqual(record['version'], '1.0.1')
-        self.assertEqual(record['approval'], 'clean-auto')
-        self.assertEqual(record['scan'], 'clean')
-        self.assertIsNotNone(record['approved_at'])
-        self.assertEqual((self.repo / component['audit_ref']).read_bytes(), old_audit)
-        self.assertTrue(self.check()['ready'])
-
-    def test_changed_finding_blocks_auto_approval_without_mutating_records(self):
-        self._enable_light_approvals()
-        skill = self.repo / 'skills/tool-advisor/SKILL.md'
-        skill.write_text('---\nname: tool-advisor\n---\nUnreviewed change.\n')
-        component = self.manifest['components'][0]
-        component['version'] = '1.0.1'
-        component['hashes']['SKILL.md'] = digest(skill)
-        self.save_manifest()
-        old_approvals = (self.repo / 'skill-approvals.json').read_bytes()
-        def dangerous(report):
-            report['issues'] = [{'id': 'NEW', 'severity': 'HIGH',
-                'finding': 'New security warning',
-                'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}]
-        self.report_mutation = dangerous
-        with self.assertRaisesRegex(ValueError, 'finding'):
-            self.install()
-        self.assertEqual((self.repo / 'skill-approvals.json').read_bytes(), old_approvals)
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_incomplete_new_revision_is_not_auto_approved(self):
-        self._enable_light_approvals()
-        component = self.manifest['components'][0]
-        component['version'] = '1.0.1'
-        self.save_manifest()
-        def incomplete(report):
-            report['analysis_completeness'].update(
-                is_complete=False, coverage_percent=0,
-                scanned_components=0, fully_inspected_files=0,
-                partially_inspected_files=1)
-        self.report_mutation = incomplete
-        with self.assertRaisesRegex(ValueError, '(?i)coverage|omission|scan|component count'):
-            self.install()
-        self.assertEqual(json.loads((self.repo / 'skill-approvals.json').read_text())
-                         ['skills'][0]['version'], '1.0.0')
-
-    def test_clean_approved_revision_cannot_change_payload_silently(self):
-        self._enable_light_approvals()
-        component = self.manifest['components'][0]
-        component['version'] = '1.0.1'
-        self.save_manifest()
-        self.install()
-        source = self.repo / 'skills/tool-advisor/SKILL.md'
-        source.write_text('Different content, same version!')
-        component['hashes']['SKILL.md'] = digest(source)
-        self.save_manifest()
-        with self.assertRaisesRegex(ValueError, 'Approved payload changed'):
+    def test_manual_warning_review_wrong_version_blocked(self):
+        self.warning()
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.approvals['skills'][0].update(version='1.0.1', approval='manual-reviewed', scan='triaged')
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'revision'):
             self.install()
 
-    def test_declared_approval_file_must_exist(self):
-        self._enable_light_approvals()
-        (self.repo / 'skill-approvals.json').unlink()
-        with self.assertRaisesRegex(ValueError, 'approval records are missing'):
-            self.mod._bundle(self.repo)
-
-    def test_light_approval_missing_or_duplicate_entries_fail_closed(self):
-        self._enable_light_approvals()
-        path = self.repo / 'skill-approvals.json'
-        saved = json.loads(path.read_text())
-        for entries in ([], saved['skills'] * 2):
-            self.write('skill-approvals.json', {**saved, 'skills': entries})
-            with self.assertRaisesRegex(ValueError, 'approval'):
-                self.mod._bundle(self.repo)
-
-    def test_install_receipt_records_device_alias_locally(self):
-        self._enable_light_approvals()
-        with mock.patch.dict(self.mod.os.environ, {'ADVISOR_DEVICE_ALIAS': 'my-workstation'}):
-            self.install()
-        receipt = json.loads((self.codex / 'dev-workspace-advisor/receipt.json').read_text())
-        self.assertEqual(receipt['device'], 'my-workstation')
-        self.assertIn('installed_at', receipt)
-        self.assertNotIn('my-workstation', (self.repo / 'skill-approvals.json').read_text())
-
-    def test_required_baseline_blocks_partial_activation(self):
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
-        self.assertRaisesRegex(ValueError, 'council', self.mod.require_baseline, self.repo)
-        self.assertFalse(self.skills.exists())
-
-    def test_required_baseline_accepts_all_packaged_roles(self):
-        self.add_component('council')
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
-        result = self.mod.require_baseline(self.repo)
-        self.assertTrue(result['payloads_prepared'])
-        self.assertFalse(result['device_verified'])
-
-    def test_setup_plan_lists_missing_roles_without_writes(self):
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
-        result = self.mod.baseline_plan(self.repo)
-        self.assertEqual(result['missing_payloads'], ['council'])
-        self.assertFalse(result['payloads_prepared'])
-        self.assertFalse(self.skills.exists())
-
-    def test_baseline_requires_valid_unique_skill_names(self):
-        for names in ([], ['../escape'], ['tool-advisor', 'tool-advisor']):
-            self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': names})
-            with self.assertRaises(ValueError):
-                self.mod.baseline_plan(self.repo)
-
-    def test_partial_core_selects_only_core_from_expanded_bundle(self):
-        self.add_component('grilling')
-        self.add_component('find-skills')
-        self.mod.require_core_only(self.repo)
-        self.add_component('council')
-        names = self.mod.require_core_only(self.repo)
-        self.assertEqual(set(names), {'tool-advisor', 'grilling', 'find-skills'})
-        result = self.mod.install_bundle(self.repo, self.skills, self.codex,
-                                         scanner=self.scanner, selected_names=names)
-        self.assertEqual(set(result['components']), set(names))
-        self.assertFalse((self.skills / 'council').exists())
-        self.assertTrue(self.check()['ready'])
-        self.assertFalse(self.check()['full_bundle_ready'])
-        self.install()
-        receipt = (self.codex / 'dev-workspace-advisor/receipt.json').read_bytes()
-        with self.assertRaisesRegex(ValueError, 'migration'):
-            self.mod.install_bundle(self.repo, self.skills, self.codex,
-                                    scanner=self.scanner, selected_names=names)
-        self.assertEqual((self.codex / 'dev-workspace-advisor/receipt.json').read_bytes(), receipt)
-        self.assertTrue((self.skills / 'council').exists())
-
-    def test_missing_roles_do_not_hide_broken_existing_payload(self):
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
-        self.write('skills/tool-advisor/SKILL.md', 'tampered')
-        result = self.mod.baseline_plan(self.repo)
-        self.assertEqual(result['missing_payloads'], ['council'])
-        self.assertIn('hash mismatch', result['audit_error'])
-
-    def triage_fixture(self, incomplete=False, finding=True):
-        component = self.manifest['components'][0]
-        issue = {'id': 'SAMPLE', 'severity': 'HIGH', 'finding': 'Quoted command example',
-                 'location': {'file': 'SKILL.md', 'start_line': 3, 'end_line': 3,
-                              'start_column': 1}, 'match_fingerprint': 'example-fingerprint'}
-        report = {
-            'execution_successful': True,
-            'metadata': {'llm_requested': False, 'skillspector_version': '2.12.0'},
-            'issues': [issue] if finding else [], 'suppressed_count': 0, 'suppressed': [],
-            'components': [{'path': 'SKILL.md'}],
-            'analysis_completeness': {'execution_successful': True, 'is_complete': not incomplete,
-                'coverage_percent': 0 if incomplete else 100, 'status': 'partial' if incomplete else 'complete',
-                'total_components': 1, 'scanned_components': 0 if incomplete else 1,
-                'fully_inspected_files': 0 if incomplete else 1,
-                'partially_inspected_files': 1 if incomplete else 0, 'entirely_uninspected_files': 0,
-                'ledger_exceptions': [], 'scope_exclusions': [],
-                'limitations': ['Optional project-generated example is unavailable'] if incomplete else []},
-        }
-        report_path = self.write('audits/triaged-scan.json', report)
-        audit = {'status': 'triaged-static', 'revision': component['version'],
-                 'sha256': copy.deepcopy(component['hashes']), 'scanner': self.manifest['scanner'],
-                 'report_ref': 'audits/triaged-scan.json', 'report_sha256': digest(report_path),
-                 'analysis_completeness': copy.deepcopy(report['analysis_completeness']),
-                 'findings_decisions': [{'signature': list(self.mod._signature(issue)),
-                                        'disposition': 'false-positive',
-                                        'reason': 'This finding flags an inert quoted example.'}] if finding else [],
-                 'coverage_decision': {'disposition': 'warn' if incomplete else 'complete',
-                                       'reason': 'Only an optional project-generated example is absent.' if incomplete else 'All payload files inspected.'}}
-        self.write(component['audit_ref'], audit)
-        self.report_mutation = lambda r: r.update(copy.deepcopy(report))
-        return report, audit
-
-    def test_real_partial_parser_report_uses_fully_inspected_scan_count(self):
-        manifest = json.loads((ROOT / 'advisor-bundle.json').read_text())
-        component = next(c for c in manifest['components'] if c['name'] == 'brainstorming')
-        audit = json.loads((ROOT / component['audit_ref']).read_text())
-        report = json.loads((ROOT / audit['report_ref']).read_text())
-        profile = report['analysis_completeness']
-        self.assertEqual(profile['total_components'], 9)
-        self.assertEqual(profile['scanned_components'], 7)
-        self.assertEqual(profile['partially_inspected_files'], 2)
-        self.assertEqual(profile['coverage_percent'], 77.8)
-        prepared = {**component, 'installed_hashes': component['hashes'],
-                    'allowed_findings': self.mod._signatures(report['issues']),
-                    'accepted_scan_profile': copy.deepcopy(profile)}
-        self.mod._validate_report(report, prepared)
-        for field, value in [('scanned_components', 9), ('coverage_percent', 100),
-                             ('entirely_uninspected_files', 1)]:
-            changed = copy.deepcopy(report)
-            changed['analysis_completeness'][field] = value
-            prepared['accepted_scan_profile'] = copy.deepcopy(changed['analysis_completeness'])
-            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'count|coverage'):
-                self.mod._validate_report(changed, prepared)
-
-    def test_triaged_findings_warn_and_preserve_exact_report(self):
-        report, audit = self.triage_fixture()
-        result = self.install()
-        self.assertTrue(result['ready'])
-        self.assertEqual(result['warnings'][0]['disposition'], 'false-positive')
-        self.assertEqual(result['scan_completeness']['tool-advisor'], report['analysis_completeness'])
-        receipt = json.loads((self.codex / 'dev-workspace-advisor/receipt.json').read_text())
-        item = receipt['components'][0]
-        self.assertEqual(item['warnings'], result['warnings'])
-        self.assertEqual(item['scan_completeness'], report['analysis_completeness'])
-        self.assertEqual(json.loads((self.codex / 'dev-workspace-advisor' / item['report']).read_text())['issues'], report['issues'])
-        self.assertTrue(self.check()['ready'])
-        self.assertEqual(self.check()['warnings'], result['warnings'])
-
-    def test_triaged_incomplete_without_findings_accepts_exit_one_and_warns(self):
-        report, _ = self.triage_fixture(incomplete=True, finding=False)
-        result = self.install()
-        self.assertTrue(result['ready'])
-        self.assertFalse(result['scan_completeness']['tool-advisor']['is_complete'])
-        self.assertEqual(result['warnings'][0]['kind'], 'coverage')
-        self.assertTrue(self.check()['ready'])
-
-    def test_triage_rejects_unassessed_changed_findings_or_coverage(self):
-        for field in ('severity', 'start_line', 'limitations', 'coverage_percent'):
-            report, _ = self.triage_fixture(incomplete=True)
-            if field == 'severity':
-                report['issues'][0][field] = 'CRITICAL'
-            elif field == 'start_line':
-                report['issues'][0]['location'][field] = 4
-            else:
-                report['analysis_completeness'][field] = ['New missing dependency'] if field == 'limitations' else 25
-            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'finding|coverage|count'):
-                self.install()
-            self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_triage_requires_complete_decisions_and_matching_pins(self):
-        for field, value in [('findings_decisions', []), ('revision', 'different'),
-                             ('report_sha256', '0' * 64), ('sha256', {}),
-                             ('coverage_decision', {'disposition': 'warn', 'reason': ''})]:
-            _, audit = self.triage_fixture(incomplete=True)
-            audit[field] = value
-            self.write('audits/tool-advisor.json', audit)
-            with self.subTest(field=field), self.assertRaises(ValueError):
-                self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_triage_cannot_accept_dangerous_or_unexplained_decisions(self):
-        for disposition, reason in [('block', 'Credential theft'), ('warn', ''),
-                                    ('unknown', 'Needs assessment')]:
-            _, audit = self.triage_fixture()
-            audit['findings_decisions'][0].update(disposition=disposition, reason=reason)
-            self.write('audits/tool-advisor.json', audit)
-            with self.subTest(disposition=disposition), self.assertRaises(ValueError):
-                self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_triage_cannot_accept_missing_files_suppression_llm_or_failed_execution(self):
-        for field in ('components', 'suppressed', 'llm', 'execution', 'uninspected', 'counts'):
-            report, audit = self.triage_fixture(incomplete=True)
-            if field == 'components':
-                report['components'] = []
-            elif field == 'suppressed':
-                report.update(suppressed_count=1, suppressed=[{}])
-            elif field == 'llm':
-                report['metadata']['llm_requested'] = True
-            elif field == 'execution':
-                report['execution_successful'] = False
-            elif field == 'counts':
-                report['analysis_completeness']['fully_inspected_files'] = 3
-            else:
-                report['analysis_completeness'].update(entirely_uninspected_files=1,
-                                                      partially_inspected_files=0)
-            pinned = self.write('audits/triaged-scan.json', report)
-            audit['report_sha256'] = digest(pinned)
-            audit['analysis_completeness'] = copy.deepcopy(report['analysis_completeness'])
-            self.write('audits/tool-advisor.json', audit)
-            with self.subTest(field=field), self.assertRaises(ValueError):
-                self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_plan_handles_malformed_component_names_without_typeerror(self):
-        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor']})
-        for name in ([], {}, None, 123):
-            self.manifest['components'][0]['name'] = name
-            self.save_manifest()
-            with self.subTest(name=name), self.assertRaises(ValueError):
-                self.mod.baseline_plan(self.repo)
-
-    def test_upstream_freshness_is_deduplicated_before_scanning(self):
-        self.add_component('council')
-        revision = 'a' * 40
-        for component in self.manifest['components']:
-            component.update(version=revision, upstream_repository='https://github.com/example/skills',
-                             upstream_ref='HEAD')
-        self.save_manifest()
-        fake = self.fake_run
-        calls = []
-        def upstream_run(args, **kwargs):
-            if args[:2] == ['git', 'ls-remote']:
-                calls.append(args)
-                self.assertEqual(self.scan_count, 0)
-                return subprocess.CompletedProcess(args, 0, revision + '\tHEAD\n', '')
-            return fake(args, **kwargs)
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=upstream_run):
-            self.install()
-        self.assertEqual(len(calls), 1)
-        self.assertEqual(self.scan_count, 2)
-        self.assertTrue(self.check()['ready'])
-
-    def test_newer_upstream_does_not_block_last_approved_install(self):
-        self.manifest['components'][0].update(version='a' * 40,
-            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD')
-        self.save_manifest()
-        fake = self.fake_run
-        def remote(args, **kwargs):
-            if args[:2] == ['git', 'ls-remote']:
-                return subprocess.CompletedProcess(args, 0, 'b' * 40 + '\tHEAD\n', '')
-            return fake(args, **kwargs)
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=remote):
-            result = self.install()
-        self.assertEqual(result['updates_available'][0]['name'], 'tool-advisor')
-        self.assertTrue(self.check()['ready'])
-
-    def test_unavailable_upstream_still_blocks_activation(self):
-        component = self.manifest['components'][0]
-        component.update(version='a' * 40,
-            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD')
-        self.save_manifest()
-        for code, output in [(128, ''), (0, 'malformed')]:
-            with self.subTest(code=code, output=output), mock.patch.object(
-                    self.mod.subprocess, 'run', return_value=subprocess.CompletedProcess([], code, output, '')):
-                with self.assertRaisesRegex(ValueError, '(?i)upstream'):
-                    self.install()
-            self.assertFalse(self.skills.exists())
-        self.assertEqual(self.scan_count, 0)
-
-    def test_new_candidate_must_match_current_upstream_head(self):
-        self._enable_light_approvals()
-        component = self.manifest['components'][0]
-        component.update(version='a' * 40,
-            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD',
-            source='https://github.com/example/skills/tree/' + 'a' * 40 + '/skills/tool-advisor')
-        saved = json.loads((self.repo / 'skill-approvals.json').read_text())
-        saved['skills'][0]['upstream_repository'] = 'https://github.com/example/skills'
-        self.write('skill-approvals.json', saved)
-        self.save_manifest()
-        with mock.patch.object(self.mod.subprocess, 'run',
-                return_value=subprocess.CompletedProcess([], 0, 'b' * 40 + '\tHEAD\n', '')):
-            with self.assertRaisesRegex(ValueError, 'candidate must match upstream HEAD'):
-                self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_entire_batch_is_scanned_before_risk_block(self):
-        self.add_component('council')
-        def new_finding(report):
-            if report['skill']['name'] == 'tool-advisor':
-                report['issues'] = [{'id': 'UNASSESSED', 'severity': 'HIGH',
-                                     'finding': 'New risk', 'location': {'file': 'SKILL.md'},
-                                     'match_fingerprint': None}]
-        self.report_mutation = new_finding
-        with self.assertRaisesRegex(ValueError, 'finding'):
-            self.install()
-        self.assertEqual(self.scan_count, 2)
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-        self.assertFalse((self.skills / 'council').exists())
-
-    def fake_run(self, args, **kwargs):
-        args = [str(a) for a in args]
-        if '-c' in args and 'distribution(' in args[args.index('-c') + 1]:
-            result = {
-                'version': '2.12.0',
-                'direct_url': {'url': 'https://github.com/NVIDIA/skillspector.git',
-                               'vcs_info': {'vcs': 'git', 'commit_id': REVISION}},
-                'hashes': {'src/skillspector/__init__.py': self.review['source_hashes']['src/skillspector/__init__.py'],
-                           'src/skillspector/cli.py': self.review['source_hashes']['src/skillspector/cli.py']},
-            }
-            if self.metadata_mutation:
-                self.metadata_mutation(result)
-            return subprocess.CompletedProcess(args, 0, json.dumps(result), '')
-        if '--version' in args:
-            return subprocess.CompletedProcess(args, 0, 'SkillSpector v2.12.0\n', '')
-        if 'scan' in args:
-            self.scan_count += 1
-            source = pathlib.Path(args[args.index('scan') + 1])
-            self.assertNotEqual(source.parent, self.skills)
-            self.assertIn('--no-llm', args)
-            self.assertIn('--fail-on-incomplete', args)
-            self.assertIn('--fail-on-findings', args)
-            self.assertEqual(args[args.index('--min-coverage') + 1], '100')
-            self.assertEqual(kwargs['env']['LANGSMITH_TRACING'], 'false')
-            self.assertEqual(kwargs['env']['LANGCHAIN_TRACING_V2'], 'false')
-            files = [p.relative_to(source).as_posix() for p in source.rglob('*') if p.is_file()]
-            report = {
-                'skill': {'name': source.name, 'source': str(source)},
-                'execution_successful': True,
-                'risk_assessment': {'recommendation': 'SAFE'},
-                'metadata': {'llm_requested': False, 'skillspector_version': '2.12.0'},
-                'issues': [], 'suppressed_count': 0, 'suppressed': [],
-                'components': [{'path': p} for p in files],
-                'analysis_completeness': {'execution_successful': True, 'is_complete': True,
-                    'coverage_percent': 100, 'status': 'complete', 'total_components': len(files),
-                    'scanned_components': len(files), 'fully_inspected_files': len(files),
-                    'partially_inspected_files': 0, 'entirely_uninspected_files': 0,
-                    'ledger_exceptions': [], 'scope_exclusions': [], 'limitations': []},
-            }
-            if self.report_mutation:
-                self.report_mutation(report)
-            output = pathlib.Path(args[args.index('--output') + 1])
-            output.write_text(json.dumps(report))
-            code = self.scan_exit if self.scan_exit is not None else (1 if report['issues'] or isinstance(report['analysis_completeness'], dict) and not report['analysis_completeness'].get('is_complete') else 0)
-            return subprocess.CompletedProcess(args, code, '', '')
-        raise AssertionError('Unexpected external operation: ' + repr(args))
-
-    def install(self):
-        return self.mod.install_bundle(self.repo, self.skills, self.codex, scanner=self.scanner)
-
-    def check(self):
-        return self.mod.check_bundle(self.repo, self.skills, self.codex)
-
-    def test_stages_all_components_before_install_and_check_is_ready(self):
-        self.add_component('task-helper')
-        def assert_uninstalled(report):
-            self.assertFalse((self.skills / 'tool-advisor').exists())
-            self.assertFalse((self.skills / 'task-helper').exists())
-        self.report_mutation = assert_uninstalled
-        result = self.install()
-        self.assertTrue(result['ready'])
-        self.assertEqual(self.scan_count, 2)
-        self.assertTrue(self.check()['ready'])
-        self.assertEqual((self.skills / 'tool-advisor/SKILL.md').read_bytes(),
-                         (self.repo / 'skills/tool-advisor/SKILL.md').read_bytes())
-
-    def test_check_missing_install_is_readonly(self):
-        self.assertFalse(self.check()['ready'])
-        self.assertFalse(self.codex.exists())
-        self.assertFalse(self.skills.exists())
-
-    def test_source_hash_mismatch_blocks_before_scanner(self):
-        (self.repo / 'skills/tool-advisor/SKILL.md').write_text('Changed')
-        with self.assertRaisesRegex(ValueError, 'hash|payload'):
-            self.install()
-        self.assertEqual(self.scan_count, 0)
-        self.assertFalse(self.skills.exists())
-
-    def test_extra_unmanifested_source_file_blocks(self):
-        self.write('skills/tool-advisor/hidden.py', 'print("hidden")')
-        with self.assertRaisesRegex(ValueError, 'hash|payload'):
-            self.install()
-
-    def test_missing_draft_and_mismatched_audits_block(self):
-        for value in [None, {'status': 'draft'}, {'status': 'reviewed-static', 'sha256': {}}]:
-            with self.subTest(audit=value):
-                audit = self.repo / 'audits/tool-advisor.json'
-                if value is None:
-                    audit.unlink(missing_ok=True)
-                else:
-                    self.write('audits/tool-advisor.json', value)
-                with self.assertRaises((ValueError, OSError)):
-                    self.install()
-                self.assertFalse(self.skills.exists())
-
-    def test_partial_or_incomplete_scans_block(self):
-        for field, value in [('is_complete', False), ('coverage_percent', 99),
-                             ('execution_successful', False), ('partially_inspected_files', 1),
-                             ('ledger_exceptions', [{'reason': 'skipped'}])]:
-            with self.subTest(field=field):
-                self.report_mutation = lambda r: r['analysis_completeness'].update({field: value})
-                with self.assertRaisesRegex(ValueError, '(?i)scan|coverage|complete'):
-                    self.install()
-                self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_missing_components_and_llm_or_suppressed_reports_block(self):
-        mutations = [lambda r: r.update(components=[]),
-                     lambda r: r['metadata'].update(llm_requested=True),
-                     lambda r: r.update(suppressed_count=1),
-                     lambda r: r.pop('execution_successful')]
-        for mutation in mutations:
-            with self.subTest(mutation=mutation):
-                self.report_mutation = mutation
-                with self.assertRaises(ValueError):
-                    self.install()
-
-    def test_safe_recommendation_does_not_hide_new_findings(self):
-        self.report_mutation = lambda r: r.update(issues=[{'id': 'NEW', 'severity': 'LOW'}])
-        with self.assertRaisesRegex(ValueError, 'finding'):
-            self.install()
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_scanner_failure_blocks_even_with_complete_report(self):
-        self.scan_exit = 2
-        with self.assertRaisesRegex(ValueError, '(?i)scanner|scan'):
-            self.install()
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_malformed_or_missing_report_blocks(self):
-        original = self.mod.subprocess.run
-        for text in [None, '{bad json']:
-            def bad_run(args, **kwargs):
-                result = original(args, **kwargs)
-                if 'scan' in args:
-                    output = pathlib.Path(args[args.index('--output') + 1])
-                    if text is None:
-                        output.unlink()
-                    else:
-                        output.write_text(text)
-                return result
-            with self.subTest(text=text), mock.patch.object(self.mod.subprocess, 'run', side_effect=bad_run):
-                with self.assertRaises((ValueError, OSError)):
-                    self.install()
-
-    def test_wrong_scanner_source_commit_blocks(self):
-        self.metadata_mutation = lambda r: r['direct_url']['vcs_info'].update(commit_id='0' * 40)
-        with self.assertRaisesRegex(ValueError, 'provenance|revision|source'):
-            self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_wrong_scanner_code_hash_blocks(self):
-        self.metadata_mutation = lambda r: r['hashes'].update({'src/skillspector/cli.py': '0' * 64})
-        with self.assertRaisesRegex(ValueError, 'hash|source|provenance'):
-            self.install()
-
-    def test_preserves_unmanaged_conflicts(self):
-        target = self.skills / 'tool-advisor'
-        target.mkdir(parents=True)
-        (target / 'SKILL.md').write_text('User custom skill')
-        with self.assertRaisesRegex(ValueError, 'unmanaged|conflict'):
-            self.install()
-        self.assertEqual((target / 'SKILL.md').read_text(), 'User custom skill')
-
-    def test_identical_unmanaged_copy_can_be_adopted_without_rewriting(self):
-        target = self.skills / 'tool-advisor'
-        shutil.copytree(self.repo / 'skills/tool-advisor', target)
-        before = (target / 'SKILL.md').stat().st_mtime_ns
-        self.install()
-        self.assertEqual((target / 'SKILL.md').stat().st_mtime_ns, before)
-        self.assertTrue(self.check()['ready'])
-
-    def test_repeated_install_rescans_and_preserves_unchanged_files(self):
+    def test_reinstall_preserves_unmodified_skill_files(self):
         self.install()
         target = self.skills / 'tool-advisor/SKILL.md'
         before = target.stat().st_mtime_ns
         self.install()
-        self.assertEqual(self.scan_count, 2)
         self.assertEqual(target.stat().st_mtime_ns, before)
+        self.assertEqual(self.scan_count, 2)
 
-    def test_local_edits_are_never_overwritten(self):
+    def test_changed_installed_skill_never_overwritten(self):
         self.install()
         target = self.skills / 'tool-advisor/SKILL.md'
-        target.write_text('My local improvement')
+        target.write_text('Local custom content!')
         self.assertFalse(self.check()['ready'])
-        with self.assertRaisesRegex(ValueError, 'locally|modified|changed'):
+        with self.assertRaisesRegex(ValueError, 'modified locally'):
             self.install()
-        self.assertEqual(target.read_text(), 'My local improvement')
+        self.assertEqual(target.read_text(), 'Local custom content!')
 
-    def test_receipt_backed_update_is_supported(self):
-        self.install()
-        source = self.repo / 'skills/tool-advisor/SKILL.md'
-        source.write_text(source.read_text() + 'Updated reviewed instructions.\n')
-        c = self.manifest['components'][0]
-        c['version'] = '1.0.1'
-        c['hashes']['SKILL.md'] = digest(source)
-        self.manifest['bundle_version'] = '1.0.1'
-        self.write(c['audit_ref'], {'status': 'reviewed-static', 'sha256': c['hashes'],
-                                   'scanner': {'revision': REVISION, 'version': '2.12.0'}})
-        self.save_manifest()
-        self.assertFalse(self.check()['ready'])
-        self.install()
-        self.assertEqual((self.skills / 'tool-advisor/SKILL.md').read_bytes(), source.read_bytes())
-        self.assertTrue(self.check()['ready'])
-
-    def test_rollback_restores_previous_bundle_if_activation_fails(self):
-        self.install()
-        old = (self.skills / 'tool-advisor/SKILL.md').read_bytes()
-        receipt = self.codex / 'dev-workspace-advisor/receipt.json'
-        previous_receipt = receipt.read_bytes()
-        source = self.repo / 'skills/tool-advisor/SKILL.md'
-        source.write_text('New reviewed skill')
-        c = self.manifest['components'][0]
-        c['hashes']['SKILL.md'] = digest(source)
-        self.write(c['audit_ref'], {'status': 'reviewed-static', 'sha256': c['hashes'],
-                                   'scanner': {'revision': REVISION, 'version': '2.12.0'}})
-        self.add_component('task-helper')
-        replace = self.mod.os.replace
-        def fail_second(src, dst):
-            if pathlib.Path(dst) == self.skills / 'task-helper':
-                raise OSError('simulated disk error')
-            return replace(src, dst)
-        with mock.patch.object(self.mod.os, 'replace', side_effect=fail_second):
-            with self.assertRaisesRegex((ValueError, OSError), 'simulated disk error'):
-                self.install()
-        self.assertEqual((self.skills / 'tool-advisor/SKILL.md').read_bytes(), old)
-        self.assertEqual(receipt.read_bytes(), previous_receipt)
-        self.assertFalse((self.skills / 'task-helper').exists())
-
-    def test_check_detects_moved_checkout_missing_source_and_unknown_receipt(self):
-        self.install()
-        moved = self.base / 'moved'
-        shutil.copytree(self.repo, moved)
-        self.assertFalse(self.mod.check_bundle(moved, self.skills, self.codex)['ready'])
-        (self.repo / 'skills/tool-advisor/SKILL.md').unlink()
-        self.assertFalse(self.check()['ready'])
-        receipt = self.codex / 'dev-workspace-advisor/receipt.json'
-        receipt.write_text('{"schema_version": 999}')
-        self.assertFalse(self.check()['ready'])
-
-    def test_symlink_source_and_target_ancestor_are_refused(self):
-        source = self.repo / 'skills/tool-advisor/SKILL.md'
-        original = self.base / 'original.md'
-        source.replace(original)
-        source.symlink_to(original)
-        with self.assertRaisesRegex(ValueError, 'symlink'):
+    def test_unmanaged_conflict_blocks_install(self):
+        target = self.skills / 'tool-advisor/SKILL.md'
+        target.parent.mkdir(parents=True)
+        target.write_text('Other user-owned skill!')
+        with self.assertRaisesRegex(ValueError, 'Unmanaged'):
             self.install()
-        source.unlink()
-        original.replace(source)
-        outside = self.base / 'outside'
-        outside.mkdir()
-        self.skills.parent.mkdir()
-        self.skills.symlink_to(outside, target_is_directory=True)
-        with self.assertRaisesRegex(ValueError, 'symlink'):
-            self.install()
-        self.assertEqual(list(outside.iterdir()), [])
+        self.assertEqual(target.read_text(), 'Other user-owned skill!')
 
-    def test_parent_traversal_extra_file_destination_is_refused(self):
-        license_file = self.write('LICENSE', 'License')
-        self.manifest['components'][0]['extra_files'] = [
-            {'source': 'LICENSE', 'destination': '../escape', 'sha256': digest(license_file)}]
-        self.save_manifest()
-        with self.assertRaisesRegex(ValueError, 'path|destination'):
-            self.install()
-
-    def add_grilling(self):
-        destination = self.repo / 'skills/grilling'
-        for filename, content in HISTORICAL_GRILLING.items():
-            self.write('skills/grilling/' + filename, content)
-        review_path = 'audits/matt-pocock-49dd158-20261018/review.json'
-        report_path = 'audits/matt-pocock-49dd158-20261018/grilling-scan.json'
-        for p in [review_path, report_path]:
-            self.write(p, (ROOT / p).read_text())
-        hashes = {p.relative_to(destination).as_posix(): digest(p) for p in destination.rglob('*') if p.is_file()}
-        historical = json.loads((self.repo / review_path).read_text())['sha256']
-        self.assertEqual(hashes, {p.removeprefix('grilling/'): h for p, h in historical.items()
-                                  if p.startswith('grilling/')})
-        self.manifest['components'].append({
-            'name': 'grilling', 'path': 'skills/grilling',
-            'version': '49dd158d1076134a641b33efb035946536778336',
-            'source': 'https://github.com/mattpocock/skills', 'hashes': hashes,
-            'extra_files': [], 'audit_ref': review_path,
-            'exception': {'ref': 'matt-pocock-49dd158-20261018-user-approved',
-                          'review': review_path, 'report': report_path}})
-        self.save_manifest()
-        issue = json.loads((ROOT / report_path).read_text())['issues'][0]
-        self.report_mutation = lambda r: r.update(issues=[copy.deepcopy(issue)]) if r['skill']['name'] == 'grilling' else None
-        return issue
-
-    def test_exact_historical_exception_is_retained(self):
-        self.add_grilling()
-        self.install()
-        self.assertTrue(self.check()['ready'])
-
-    def test_new_or_changed_finding_is_not_covered_by_exception(self):
-        issue = self.add_grilling()
-        issue['severity'] = 'HIGH'
-        with self.assertRaisesRegex(ValueError, 'finding|exception'):
-            self.install()
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_unknown_exception_is_rejected(self):
-        self.add_grilling()
-        self.manifest['components'][-1]['exception']['ref'] = 'arbitrary-approval'
-        self.save_manifest()
-        with self.assertRaisesRegex(ValueError, 'exception|approval'):
-            self.install()
-
-    def approve_advisor_fixture(self):
-        component = self.manifest['components'][0]
-        issue = json.loads((ROOT / 'audits/tool-advisor-1.0.0-20261102/scan.json').read_text())['issues'][0]
-        exception_ref = 'tool-advisor-1.0.0-20261102-LP3-user-approved'
-        report = self.write('audits/advisor-scan.json', {'issues': [issue]})
-        approval = {'revision': component['version'], 'exception_ref': exception_ref,
-                    'approval': {'response': 'Approve', 'context': 'Fixture approval of this exact LP3 finding'},
-                    'sha256': copy.deepcopy(component['hashes']),
-                    'report_ref': 'audits/advisor-scan.json', 'report_sha256': digest(report)}
-        self.write('audits/advisor-exception.json', approval)
-        audit = json.loads((self.repo / component['audit_ref']).read_text())
-        audit.update(status='reviewed-with-user-exception', exception_ref=exception_ref)
-        self.write(component['audit_ref'], audit)
-        component['exception'] = {'ref': exception_ref, 'review': 'audits/advisor-exception.json',
-                                  'report': 'audits/advisor-scan.json'}
-        self.save_manifest()
-        self.report_mutation = lambda r: r.update(issues=[copy.deepcopy(issue)])
-        return component, issue
-
-    def test_approved_advisor_exception_installs_only_exact_reviewed_payload(self):
-        self.approve_advisor_fixture()
+    def test_identical_unmanaged_skill_can_be_adopted(self):
+        shutil.copytree(self.repo / 'skills/tool-advisor', self.skills / 'tool-advisor')
         self.assertTrue(self.install()['ready'])
         self.assertTrue(self.check()['ready'])
 
-    def test_advisor_exception_does_not_cover_changed_payload(self):
-        component, _ = self.approve_advisor_fixture()
-        source = self.repo / component['path'] / 'SKILL.md'
-        source.write_text(source.read_text() + 'Changed instructions.\n')
-        component['hashes']['SKILL.md'] = digest(source)
-        self.save_manifest()
-        with self.assertRaisesRegex(ValueError, 'hash|payload'):
-            self.install()
-        self.assertFalse(self.skills.exists())
-
-    def test_advisor_exception_does_not_cover_new_findings(self):
-        _, issue = self.approve_advisor_fixture()
-        extra = {**issue, 'id': 'NEW', 'finding': 'Additional unapproved capability'}
-        self.report_mutation = lambda r: r.update(issues=[issue, extra])
-        with self.assertRaisesRegex(ValueError, 'finding'):
-            self.install()
-        self.assertFalse((self.skills / 'tool-advisor').exists())
-
-    def test_advisor_approval_binds_the_exact_historical_report(self):
-        self.approve_advisor_fixture()
-        report = self.repo / 'audits/advisor-scan.json'
-        data = json.loads(report.read_text())
-        data['issues'][0]['id'] = 'OTHER'
-        report.write_text(json.dumps(data))
-        self.report_mutation = lambda r: r.update(issues=copy.deepcopy(data['issues']))
-        with self.assertRaisesRegex(ValueError, '(?i)report|hash'):
-            self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_advisor_exception_requires_source_review_and_explicit_approval(self):
-        component, _ = self.approve_advisor_fixture()
-        for path, field, value in [(component['audit_ref'], 'status', 'draft'),
-                                  ('audits/advisor-exception.json', 'approval', None),
-                                  ('audits/advisor-exception.json', 'revision', 'future-version')]:
-            with self.subTest(field=field):
-                original = (self.repo / path).read_text()
-                data = json.loads(original)
-                data[field] = value
-                self.write(path, data)
-                with self.assertRaises(ValueError):
-                    self.install()
-                self.write(path, original)
-        self.assertEqual(self.scan_count, 0)
-
-    def test_find_skills_restoration_requires_original_approval_and_identical_hashes(self):
-        destination = self.repo / 'skills/find-skills'
-        shutil.copytree(ROOT / 'skills/external/find-skills', destination)
-        review_path = 'audits/find-skills-a80e4c9-20261023/review.json'
-        approval_path = 'audits/find-skills-13e4063-20261018/review.json'
-        report_path = 'audits/find-skills-a80e4c9-20261023/scan.json'
-        for path in (review_path, approval_path, report_path):
-            self.write(path, (ROOT / path).read_text())
-        hashes = {p.relative_to(destination).as_posix(): digest(p)
-                  for p in destination.rglob('*') if p.is_file()}
-        self.manifest['components'].append({
-            'name': 'find-skills', 'path': 'skills/find-skills',
-            'version': 'a80e4c9d12d607631249d4d7d059f835d4b2f13a',
-            'source': 'https://github.com/vercel-labs/skills', 'hashes': hashes,
-            'extra_files': [], 'audit_ref': review_path,
-            'exception': {'ref': 'find-skills-13e4063-20261018-user-approved',
-                          'review': review_path, 'report': report_path}})
-        self.save_manifest()
-        issues = json.loads((ROOT / report_path).read_text())['issues']
-        self.report_mutation = lambda r: r.update(issues=copy.deepcopy(issues)) if r['skill']['name'] == 'find-skills' else None
+    def test_legacy_receipt_migrates_when_source_is_unchanged(self):
         self.install()
+        receipt = self.home / 'dev-workspace-advisor/receipt.json'
+        data = json.loads(receipt.read_text())
+        data['schema_version'] = 1
+        receipt.write_text(json.dumps(data))
+        shutil.rmtree(self.home / 'dev-workspace-advisor/snapshots')
+        self.assertTrue(self.install()['ready'])
+        self.assertEqual(json.loads(receipt.read_text())['schema_version'], 2)
         self.assertTrue(self.check()['ready'])
-        approval = json.loads((self.repo / approval_path).read_text())
-        approval['sha256']['SKILL.md'] = '0' * 64
-        self.write(approval_path, approval)
-        self.assertFalse(self.check()['ready'])
-        with self.assertRaisesRegex(ValueError, 'approval|hash'):
+
+    def test_legacy_receipt_changed_version_cannot_overwrite_unknown_files(self):
+        self.install()
+        receipt = self.home / 'dev-workspace-advisor/receipt.json'
+        data = json.loads(receipt.read_text())
+        data['schema_version'] = 1
+        receipt.write_text(json.dumps(data))
+        shutil.rmtree(self.home / 'dev-workspace-advisor/snapshots')
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'Legacy installation'):
             self.install()
 
-    def test_explicit_reinstall_can_relocate_identical_reviewed_checkout(self):
-        self.install()
-        moved = self.base / 'moved'
-        shutil.copytree(self.repo, moved)
-        self.assertFalse(self.mod.check_bundle(moved, self.skills, self.codex)['ready'])
-        self.mod.install_bundle(moved, self.skills, self.codex, scanner=self.scanner)
-        self.assertTrue(self.mod.check_bundle(moved, self.skills, self.codex)['ready'])
-        self.assertFalse(self.check()['ready'])
+    def test_receipt_device_name_is_local_only(self):
+        with mock.patch.dict(self.mod.os.environ, {'ADVISOR_DEVICE_ALIAS': 'Workstation'}):
+            self.install()
+        receipt = json.loads((self.home / 'dev-workspace-advisor/receipt.json').read_text())
+        self.assertEqual(receipt['device'], 'Workstation')
+        self.assertTrue(receipt['installed_at'])
+        self.assertNotIn('Workstation', (self.repo / 'skill-approvals.json').read_text())
 
-    def test_malformed_report_sections_fail_clearly_without_activation(self):
-        for field in ('analysis_completeness', 'metadata'):
-            self.report_mutation = lambda r: r.update({field: []})
-            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'scan|Scan'):
+    def test_fresh_scan_rejects_suppression_or_wrong_coverage(self):
+        for field in ('suppressed', 'missing_components'):
+            def bad(report):
+                if field == 'suppressed':
+                    report.update(suppressed_count=1, suppressed=[{'reason': 'hidden'}])
+                else:
+                    report['components'] = []
+            self.report_mutation = bad
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'Scan|coverage'):
                 self.install()
-            self.assertFalse((self.skills / 'tool-advisor').exists())
 
-    def test_scanner_failure_exit_without_findings_is_not_accepted(self):
-        self.scan_exit = 1
-        with self.assertRaisesRegex(ValueError, '(?i)scan'):
-            self.install()
-        self.assertFalse((self.skills / 'tool-advisor').exists())
+    def test_missing_receipt_check_does_not_write(self):
+        result = self.check()
+        self.assertFalse(result['ready'])
+        self.assertFalse(self.home.exists())
 
-    def test_unreviewed_extra_code_is_not_covered_by_source_audit(self):
-        helper = self.write('extra.py', 'print("not reviewed with this skill")')
-        self.manifest['components'][0]['extra_files'] = [
-            {'source': 'extra.py', 'destination': 'scripts/extra.py', 'sha256': digest(helper)}]
-        self.save_manifest()
-        with self.assertRaisesRegex(ValueError, '(?i)extra|license|audit'):
-            self.install()
-        self.assertEqual(self.scan_count, 0)
-
-    def test_grilling_shared_license_is_included_and_checked(self):
-        self.add_grilling()
-        license_path = 'skills/external/matt-pocock/LICENSE'
-        license_file = self.write(license_path, (ROOT / license_path).read_text())
-        self.manifest['components'][-1]['extra_files'] = [
-            {'source': license_path, 'destination': 'LICENSE', 'sha256': digest(license_file)}]
-        self.save_manifest()
+    def test_changed_scan_report_fails_readonly_check(self):
         self.install()
-        self.assertEqual((self.skills / 'grilling/LICENSE').read_bytes(), license_file.read_bytes())
-        self.assertTrue(self.check()['ready'])
+        receipt = json.loads((self.home / 'dev-workspace-advisor/receipt.json').read_text())
+        path = self.home / 'dev-workspace-advisor' / receipt['components'][0]['report']
+        report = json.loads(path.read_text())
+        report['issues'] = [{'id': 'UNREVIEWED', 'severity': 'HIGH', 'finding': 'Changed',
+                             'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}]
+        path.write_text(json.dumps(report))
+        self.assertFalse(self.check()['ready'])
 
-    def test_verified_package_is_used_instead_of_unverified_console_launcher(self):
-        fake = self.fake_run
-        def refuse_launcher(args, **kwargs):
-            if pathlib.Path(args[0]) == self.scanner:
-                raise AssertionError('Unverified console launcher was executed')
-            return fake(args, **kwargs)
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=refuse_launcher):
+    def test_selected_partial_core_cannot_claim_full_setup(self):
+        self.add_component('grilling')
+        self.add_component('find-skills')
+        self.add_component('council')
+        names = self.mod.require_core_only(self.repo)
+        self.assertEqual(set(names), {'tool-advisor', 'grilling', 'find-skills'})
+        out = self.install(selected=names)
+        self.assertFalse(out['full_bundle_ready'])
+        self.assertFalse((self.skills / 'council').exists())
+
+    def test_no_candidate_executes_or_runs_its_script_during_scan(self):
+        marker = self.repo / 'executed.flag'
+        self.write('skills/tool-advisor/evil.py',
+                   'from pathlib import Path\nPath(' + repr(str(marker)) + ').write_text("executed")\n')
+        self.install()
+        self.assertFalse(marker.exists())
+        self.assertEqual(self.scan_count, 1)
+
+    def test_symlink_source_is_rejected(self):
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        other = self.repo / 'original.md'
+        source.replace(other)
+        source.symlink_to(other)
+        with self.assertRaisesRegex(ValueError, 'symlink'):
             self.install()
-        self.assertTrue(self.check()['ready'])
+
+    def test_committed_git_source_required_when_repository_is_git(self):
+        subprocess.run(['git', 'init', '-q', str(self.repo)], check=True)
+        subprocess.run(['git', '-C', str(self.repo), 'add', 'skills/tool-advisor/SKILL.md'], check=True)
+        subprocess.run(['git', '-C', str(self.repo), '-c', 'user.name=Unit Test',
+                        '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'Initial source'],
+                       check=True)
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        source.write_text(source.read_text() + 'Uncommitted modification\n')
+        with self.assertRaisesRegex(ValueError, 'local edits'):
+            self.mod._bundle(self.repo)
+
+    def test_approval_revision_in_source_url_must_match(self):
+        item = self.manifest['components'][0]
+        item.update(version='a' * 40, upstream_repository='https://github.com/example/project',
+                    upstream_ref='HEAD', source='https://github.com/example/project/tree/' + 'b' * 40)
+        self.approvals['skills'][0]['upstream_repository'] = item['upstream_repository']
+        self.save()
+        with self.assertRaisesRegex(ValueError, 'exact upstream revision'):
+            self.mod._bundle(self.repo)
+
+    def test_report_warning_batch_scans_all_before_block(self):
+        self.add_component('council')
+        self.report_mutation = lambda r: r.update(issues=[{
+            'id': 'NEW', 'severity': 'HIGH', 'finding': 'New',
+            'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}])
+        with self.assertRaisesRegex(ValueError, 'scans blocked'):
+            self.install()
+        self.assertEqual(self.scan_count, 2)
+        self.assertFalse(self.skills.exists() and any(self.skills.iterdir()))
 
 
 if __name__ == '__main__':
