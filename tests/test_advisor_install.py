@@ -118,6 +118,31 @@ class AdvisorInstallTests(unittest.TestCase):
         self.save_manifest()
         return component
 
+    def test_repository_packaged_baseline_remains_valid(self):
+        plan = self.mod.baseline_plan(ROOT)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
+        self.assertEqual(len(plan['required_skills']), 17)
+        self.assertEqual(plan['pending_clean_approval'], [])
+
+    def test_manual_reviewed_findings_require_existing_exact_triage(self):
+        self._enable_light_approvals()
+        self.triage_fixture()
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        self.save_manifest()
+        audit = json.loads((self.repo / component['audit_ref']).read_text())
+        audit['revision'] = '1.0.1'
+        self.write(component['audit_ref'], audit)
+        record = json.loads((self.repo / 'skill-approvals.json').read_text())
+        record['skills'][0].update(version='1.0.1', approval='manual-reviewed',
+                                   scan='triaged', approved_at='2026-11-08T00:00:00+00:00')
+        self.write('skill-approvals.json', record)
+        result = self.install()
+        self.assertTrue(result['ready'])
+        self.assertTrue(result['warnings'])
+        self.assertEqual(result['auto_approved_updates'], [])
+        self.assertTrue(self.check()['ready'])
+
     def _enable_light_approvals(self):
         self.manifest['approvals_ref'] = 'skill-approvals.json'
         self.save_manifest()
