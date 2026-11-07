@@ -1,0 +1,185 @@
+{
+  "id": "2026-11-07-tool-advisor-v2-workflow",
+  "recorded_at": "2026-11-07T15:57:45.866Z",
+  "task": "Implement the explicitly approved Tool Advisor V2 workflow: one coordinator, Grilling for missing requirements, multi-source capability-first skill selection, bounded worker delegation, integration and independent review, and conditional Council.",
+  "constraints": {
+    "scope": "Repository authoritative workflow guidance and manual regression scenarios only; not a deployment onto either device or the eight previously discussed general refinements.",
+    "preserve": [
+      "Original Grilling and Find Skills dependencies",
+      "Superpowers as preferred software execution method",
+      "Council requires at least two actual participating workers",
+      "17-skill verified bundle, pinned hashes and SkillSpector scan policy",
+      "Global Codex/Claude rule files, privacy and installation authorization",
+      "Direct/focused/full task depth"
+    ]
+  },
+  "device_alias": "cloud-github-connector",
+  "candidates": [
+    {
+      "identity": "Existing Tool Advisor",
+      "source_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "skill_paths": [
+        "skills/custom/tool-advisor/SKILL.md"
+      ],
+      "recorded_revision": "4255d16b9044838cc108720535c6a60adc0be582",
+      "upstream_revision": null,
+      "checked_at": null,
+      "review_depth": "Complete existing skill and its discovery/execution references inspected",
+      "fit": "Sole accountable coordinator and approved ledger",
+      "overlap": "Avoid a second manager",
+      "prerequisites": [
+        "Host loads authoritative research checkout"
+      ],
+      "costs": "Normal model/tool usage",
+      "uncertainties": [
+        "No live host trial performed"
+      ]
+    },
+    {
+      "identity": "Vercel Find Skills and ECC skill-scout methods",
+      "source_url": "https://github.com/affaan-m/ECC",
+      "skill_paths": [
+        "skills/skill-scout/SKILL.md",
+        "skills/skill-stocktake/SKILL.md"
+      ],
+      "recorded_revision": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "upstream_revision": null,
+      "checked_at": "2026-11-02T16:51:45Z",
+      "review_depth": "Reused previously saved targeted full-skill reviews; did not check current upstream",
+      "fit": "Search by skill/job; stocktake for periodic audit",
+      "overlap": "Supplement rather than replace current Find Skills and advisor",
+      "prerequisites": [
+        "Actual host readiness before native invocation"
+      ],
+      "costs": "Normal model/search usage; optional external services need separate setup",
+      "uncertainties": [
+        "Upstream and device current state unverified"
+      ]
+    },
+    {
+      "identity": "Superpowers software execution",
+      "source_url": "https://github.com/obra/superpowers",
+      "skill_paths": [
+        "skills/subagent-driven-development/SKILL.md"
+      ],
+      "recorded_revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "upstream_revision": null,
+      "checked_at": null,
+      "review_depth": "Existing saved verified bundle and policy references reviewed",
+      "fit": "Software task execution and verification",
+      "overlap": "Not a universal manager",
+      "prerequisites": [
+        "Actual native worker support if using independent subagents"
+      ],
+      "costs": "Host model/worker usage",
+      "uncertainties": [
+        "No independent V2 worker run performed"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Requirements",
+      "candidates_examined": [
+        "Grilling"
+      ],
+      "chosen_owner": "Tool Advisor following original Grilling method",
+      "reason": "For unresolved substantial requirements, reuse prior answers"
+    },
+    {
+      "job": "Planning",
+      "candidates_examined": [
+        "Tool Advisor",
+        "Superpowers",
+        "ECC orchestration and Wayfinder as optional methods"
+      ],
+      "chosen_owner": "Tool Advisor",
+      "reason": "One main coordinator with separate product and implementation plans"
+    },
+    {
+      "job": "Discovery",
+      "candidates_examined": [
+        "Find Skills",
+        "ECC Scout",
+        "saved reel/decision library",
+        "GitHub",
+        "optional catalog indexes"
+      ],
+      "chosen_owner": "Tool Advisor with multi-source retrieval",
+      "reason": "Task coverage and evidence instead of popularity"
+    },
+    {
+      "job": "Execution and integration",
+      "candidates_examined": [
+        "Superpowers",
+        "ECC worker isolation methods"
+      ],
+      "chosen_owner": "Tool Advisor with selected native specialists",
+      "reason": "Bounded tasks, explicit interfaces, integration owner"
+    },
+    {
+      "job": "Review and disputes",
+      "candidates_examined": [
+        "Domain experts",
+        "Council"
+      ],
+      "chosen_owner": "Independent reviewer when justified; Council for consequential disagreements",
+      "reason": "Real worker evidence and proportional escalation"
+    }
+  ],
+  "decision": {
+    "status": "Repository policy update proposed for publication; no skill install or device activation is claimed",
+    "implemented": [
+      "knowledge/BUILD-FLOW.md",
+      "knowledge/ADVISOR.md",
+      "knowledge/ROUTING.md",
+      "README.md",
+      "tests/tool-advisor-scenarios.md"
+    ],
+    "retained": [
+      "Verified 17-skill payload and pinned hashes",
+      "Original global Codex and Claude rules"
+    ],
+    "deferred": [
+      "Full ECC install",
+      "Catalog backend runtime",
+      "Updated packaged Tool Advisor SKILL.md until fresh scan and manifest update",
+      "Target-device activation"
+    ],
+    "proposed_roles": [
+      "Single Tool Advisor coordinator",
+      "Grilling for missing scope",
+      "Find Skills and selective research channels",
+      "Superpowers for software execution",
+      "Domain-specific independent reviewers",
+      "Conditional Council"
+    ]
+  },
+  "evidence": {
+    "baseline_commit": "4255d16b9044838cc108720535c6a60adc0be582",
+    "static_checks": [
+      "Unique document anchors",
+      "Preservation of existing sections",
+      "V2 manual regression scenarios"
+    ],
+    "not_run": [
+      "Full Python unit suite in a checked-out repo",
+      "Live V1/V2 benchmark",
+      "Real native agent delegation/review",
+      "Fresh SkillSpector payload scan; no installable skill payload modified"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit user approval",
+      "text": "User agreed to the Tool Advisor workflow architecture and requested implementation."
+    }
+  ],
+  "revisit_when": [
+    "Host checks confirm the new checkout is loaded",
+    "The installable skill bundle is intentionally updated and freshly scanned",
+    "A controlled scenario shows missed capabilities or duplicate orchestration",
+    "A newly discovered skill is demonstrated to perform better"
+  ],
+  "supersedes": []
+}

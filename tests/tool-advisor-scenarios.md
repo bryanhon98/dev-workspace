@@ -21,3 +21,23 @@ The later installable-advisor requirement adds an explicit combination-confirmat
 | Another project has loaded the global rule, but this checkout/GitHub is inaccessible. | State the playbook gap, use available context, continue useful authorized work. Do not pretend local relative paths resolve or all saved decisions were searched. | Covered by global rule and build-flow host boundary. |
 
 To test behavior later, run the same prompts in clean sessions with the same model, tools and project fixtures before and after the rule change. Record capability coverage, unnecessary questions/tools, conflicting selections, unauthorized actions and actual output quality. Include the simple-fix and explanation cases. No such comparative run is reported here. Git history provides the prior instruction version for rollback.
+
+
+## Tool Advisor V2 manual regression scenarios — 2026-11-07
+
+These are policy walkthrough cases, **not executed fresh-worker or A/B benchmarks**.
+
+| Scenario | Expected behavior |
+|---|---|
+| Vague substantial website | Follow original Grilling interview method for missing goals; no invented separate Grill Me model. |
+| Complete requirements | Reuse settled answers and plan capabilities without repeating the interview. |
+| Interactive 3D site without skill names | Search individual design, assets, 3D, motion, usability, browser and performance skills; preserve alternative coverage. |
+| ECC Scout or AAS catalog not installed | Treat as research only; never claim installed/running or execute an unreviewed CLI. |
+| ECC and Superpowers both suggest orchestration | One Tool Advisor coordinator; no competing managers. |
+| Parallel frontend and backend workers | Agree interfaces, isolate writes, integrate and end-to-end test. |
+| Implementer reports success but reviewer finds defect | Verify against artifact and acceptance, fix and retest. |
+| Important unresolved architecture trade-off | Conditional Council requiring actual worker participation and permissions. |
+| Typo fix or general explanation | Direct path without interview, broad discovery or Council. |
+| Policy published, device checkout not updated | Clearly distinguish GitHub instructions from actual activated host behavior. |
+
+For live evaluation, compare the same host, model, tools and fixture before/after; record omissions, unnecessary questions, decisions, review defects and usage costs. No live benchmark is claimed.

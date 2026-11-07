@@ -34,6 +34,8 @@ For substantial new projects, the full path is below. Task depth and shortcuts f
 6. **Verify the result.** Check the agreed success criteria using appropriate tests, reviewers, browser interactions or measurements. Report anything unverified.
 7. **Save useful outcomes.** Record what worked, failed or changed, then consult that evidence on future tasks.
 
+**Tool Advisor V2 workflow policy (2026-11-07):** The underlying model remains the sole coordinator; Grilling guides substantial unresolved interviews. Strategic capability mapping precedes evidence-based discovery through installed knowledge, reels, Find Skills and targeted external sources. Real available workers receive bounded tasks; their outputs are integrated and independently reviewed when warranted. Council resolves important unresolved trade-offs. The verified 17-skill bundle and local installations are unchanged.
+
 Small edits and explanation-only questions use a shorter path. The assistant selects the smallest useful combination; it does not run every installed skill for every task.
 
 ### How much process is needed?

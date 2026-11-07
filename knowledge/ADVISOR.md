@@ -22,6 +22,12 @@ Search scores measure word matches, not quality or suitability. Read the complet
 
 Keep four states separate: **discovered in research**, **source reviewed at a revision**, **saved/restorable under the setup rules**, and **observed working on this device**. Account-visible plugins are a fifth observation, not proof of a local installation. Never put all reel entities into `inventory.json` or treat “install all” as including research candidates.
 
+## Complementary discovery sources
+
+For each material job search: (1) actually installed skills/plugins and saved inventory, (2) relevant dated decisions and `knowledge/reel-library/` creator evidence, (3) Vercel Find Skills/skills.sh, (4) targeted current GitHub and official sources, then (5) broader indexes including `quemsah/awesome-claude-plugins` or a checked AAS Core catalog if coverage is missing. ECC `skill-scout` offers research methods within the same advisor-led selection process; only invoke its original skill when selected and actually available. Use ECC `skill-stocktake` for triggered/periodic inventory reviews, not every request.
+
+Search synonyms and **individual subskills**, not only parent repositories. Distinguish a skill instruction, agent, runtime library, plugin, connector, and service. Creator claims, GitHub stars and installs are discovery leads; verify serious candidate identity, actual instructions, source revision and dependencies. Track each job's acceptance need, alternatives examined, chosen owner or gap, and evidence. Do not load every catalog result into working context or execute unreviewed CLIs.
+
 ## Check coverage before choosing a combination
 
 For a recommendation spanning several capabilities, complete this check before presenting the shortlist. It is a procedural requirement for the advising agent, not an automated completeness guarantee:
@@ -62,6 +68,12 @@ For each serious candidate and installed alternative:
 3. Compare the installed/pinned version with that exact revision. Identify changes affecting this task, compatibility, maintenance, permissions, privacy, costs, authentication, licensing and migration. New commits or a larger star count alone do not establish improvement. Treat bug fixes as untested until reproduced where practical.
 4. If upstream access fails, report the last verified revision/date and the gap. Say “current version unverified”, not “latest”. Do not refresh every unrelated repository for every request. Recheck relevant candidates before a recommendation; recheck exact payloads before installation. Previously blocked findings remain blocked until specifically resolved under the global rules.
 5. Use a small realistic task to compare serious alternatives where feasible and authorized. Measure output quality/correctness first, then reliability, effort, context/token cost and runtime. Keep baseline inputs and acceptance criteria fixed. Label documentation-only conclusions, unrun tests and subjective design judgments honestly.
+
+## Candidate evaluation and search stopping
+
+Prioritize acceptance/task fit and real evidence over popularity; then compare instruction quality, compatibility, permissions/privacy, dependencies, overlap, maintenance, setup effort and cost. Serious safety or compatibility blockers cannot be outweighed by a high score. Compare high-impact close finalists using identical realistic tasks when feasible/authorized; label unrun trials clearly.
+
+Stop when all material jobs have qualified owners or known gaps, credible alternatives are considered, conflicts are resolved or escalated, and further search is unlikely to change the recommendation. State "best supported among candidates examined," not a globally proven best. Tool Advisor is the sole manager; Superpowers supplies software execution, while ECC orchestration and Council are conditional, distinct roles.
 
 ## Select a combination
 
