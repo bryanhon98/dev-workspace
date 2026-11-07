@@ -1,0 +1,91 @@
+{
+  "id": "2026-11-07-quemsah-catalog-discovery",
+  "recorded_at": "2026-11-07T16:02:19.262Z",
+  "task": "Clarify quemsah/awesome-claude-plugins as a supplementary skill-discovery source in Tool Advisor V2.",
+  "constraints": {
+    "scope": "Policy-only targeted update, no new installs, no baseline bundle changes",
+    "preserve": [
+      "Vercel Find Skills as primary registry",
+      "ECC Scout methods",
+      "Task-driven discovery",
+      "Existing source verification and SkillSpector installation rules"
+    ]
+  },
+  "device_alias": "github-connector-cloud",
+  "candidates": [
+    {
+      "identity": "quemsah/awesome-claude-plugins",
+      "source_url": "https://github.com/quemsah/awesome-claude-plugins",
+      "skill_paths": [],
+      "recorded_revision": null,
+      "upstream_revision": null,
+      "checked_at": "2026-11-07",
+      "review_depth": "Read current GitHub README and repository structure; evaluated ranking claims and site snapshot caveat",
+      "fit": "Find high-profile relevant repositories missed by other sources",
+      "overlap": "Another discovery channel; not a skill-selection engine or installable specialist",
+      "prerequisites": [
+        "GitHub read access"
+      ],
+      "costs": "Read-only catalog lookup plus model context",
+      "uncertainties": [
+        "Repository ranking and website snapshot may be differently dated",
+        "Ranking does not validate quality or host compatibility"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Broaden discovery",
+      "candidates_examined": [
+        "Vercel Find Skills",
+        "reel/decision research",
+        "quemsah catalog",
+        "AAS Core (prior review)"
+      ],
+      "chosen_owner": "Existing Tool Advisor",
+      "reason": "Quemsah is a supplementary candidate lead, with no extra coordinator"
+    }
+  ],
+  "decision": {
+    "status": "Approved discovery-source policy refinement; no installation",
+    "selected_roles": [
+      "Task-driven Tool Advisor with quemsah Top 100 repository lookup when relevant"
+    ],
+    "implementation": [
+      "knowledge/ADVISOR.md",
+      "knowledge/BUILD-FLOW.md",
+      "knowledge/ROUTING.md",
+      "tests/tool-advisor-scenarios.md"
+    ],
+    "deferred": [
+      "Automatic full-corpus crawling",
+      "Rank by stars without task evidence",
+      "Unreviewed plugin installation"
+    ]
+  },
+  "evidence": {
+    "source": "https://github.com/quemsah/awesome-claude-plugins/blob/main/README.md",
+    "observation": "README dated 07.11.2026 describes Top 100 repositories and 54,236 indexed repositories; stars and plugin counts are metadata, not proof of individual skill quality",
+    "static_checks": [
+      "Unique paragraph replacement",
+      "Preserved existing security policies",
+      "Added two manual scenarios"
+    ],
+    "not_performed": [
+      "Live discovery benchmark",
+      "Python test suite in full checkout",
+      "Installation or target device deployment"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit request",
+      "text": "User requested quemsah list be included in discovery search."
+    }
+  ],
+  "revisit_when": [
+    "Discovery coverage tested",
+    "Catalog methodology or availability changes"
+  ],
+  "supersedes": []
+}

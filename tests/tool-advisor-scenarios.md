@@ -41,3 +41,6 @@ These are policy walkthrough cases, **not executed fresh-worker or A/B benchmark
 | Policy published, device checkout not updated | Clearly distinguish GitHub instructions from actual activated host behavior. |
 
 For live evaluation, compare the same host, model, tools and fixture before/after; record omissions, unnecessary questions, decisions, review defects and usage costs. No live benchmark is claimed.
+
+| Substantial skill discovery where Vercel Find Skills misses a plausible designer, architect or reviewer | Consult task-relevant entries of quemsah's Top 100 repository list as another source; inspect the corresponding individual subskills and their source revisions before selection, never ranking by stars alone. |
+| Simple task with adequate existing tools | Skip the quemsah catalog; avoid mandatory searches of Top 100 or the full index. |
