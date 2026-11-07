@@ -30,6 +30,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 
 [New November 8 GitHub candidates](research/2026-11-08-nine-projects.md): Playwright, Firecrawl, Chrome DevTools MCP, whatsmyagentdoing, Claude-Mem, Hallmark, Last30Days, Graphify, and the already-cataloged Watch. Eight new research references; nothing installed or approved for activation.
 
+[Agency Agents and OpenMontage](research/2026-11-08-agency-agents-openmontage.md) are saved as optional specialist-persona and end-to-end video-production references. Agency's existing **no bulk install** decision remains; neither project is installed or part of the approved baseline.
+
 ## What was left out
 
 [See all 26 decisions](not-selected.md). Main reasons: overlapping global behavior (Ponytail/Karpathy/Caveman), extra orchestration frameworks alongside Superpowers and Claudex, duplicate gateways, Claude-specific provisioning, or a narrow job absent from this setup. These are not plagiarism findings. A derivative project can be useful when it adds substantive capability.
