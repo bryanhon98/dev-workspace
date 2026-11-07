@@ -150,6 +150,7 @@ class AdvisorInstallTests(unittest.TestCase):
         component['hashes']['SKILL.md'] = digest(skill)
         self.manifest['bundle_version'] = '1.0.1'
         self.save_manifest()
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor']})
         self.assertEqual(self.mod.baseline_plan(self.repo)['pending_clean_approval'], ['tool-advisor'])
         result = self.install()
         self.assertEqual(result['auto_approved_updates'], ['tool-advisor'])
