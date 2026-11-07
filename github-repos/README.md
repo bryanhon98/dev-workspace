@@ -28,6 +28,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 
 [Paperclip](tools/agent-orchestration.md) was added on 8 November 2026 as an optional agent-orchestration **software** candidate, not a skill. Cataloging it does not install its app or bundled development skills.
 
+[New November 8 GitHub candidates](research/2026-11-08-nine-projects.md): Playwright, Firecrawl, Chrome DevTools MCP, whatsmyagentdoing, Claude-Mem, Hallmark, Last30Days, Graphify, and the already-cataloged Watch. Eight new research references; nothing installed or approved for activation.
+
 ## What was left out
 
 [See all 26 decisions](not-selected.md). Main reasons: overlapping global behavior (Ponytail/Karpathy/Caveman), extra orchestration frameworks alongside Superpowers and Claudex, duplicate gateways, Claude-specific provisioning, or a narrow job absent from this setup. These are not plagiarism findings. A derivative project can be useful when it adds substantive capability.
