@@ -104,11 +104,11 @@ def resolve(host):
 
 
 def marker_start(host):
-    return '<!-- ' + MARKER_PREFIX[resolve(host)] + '-setup:start -->'
+    return '<!-- ' + MARKER_PREFIX[resolve(host)] + ':start -->'
 
 
 def marker_end(host):
-    return '<!-- ' + MARKER_PREFIX[resolve(host)] + '-setup:end -->'
+    return '<!-- ' + MARKER_PREFIX[resolve(host)] + ':end -->'
 
 
 def instruction_files(host):
