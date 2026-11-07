@@ -407,7 +407,10 @@ class AdvisorInstallTests(unittest.TestCase):
         source = self.repo / 'skills/tool-advisor/SKILL.md'
         other = self.repo / 'original.md'
         source.replace(other)
-        source.symlink_to(other)
+        try:
+            source.symlink_to(other)
+        except (OSError, NotImplementedError):
+            self.skipTest('OS does not permit symlink creation')
         with self.assertRaisesRegex(ValueError, 'symlink'):
             self.install()
 
