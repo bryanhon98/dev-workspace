@@ -8,3 +8,6 @@ knowledge/reel-library/imports/** -text
 *.yaml text eol=lf
 *.yml text eol=lf
 **/LICENSE text eol=lf
+
+# Superpowers skills - ensure LF line endings on all platforms
+skills/external/superpowers/** text eol=lf
