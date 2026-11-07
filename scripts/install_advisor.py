@@ -574,6 +574,29 @@ def _atomic_json(path, value):
             os.unlink(temporary)
 
 
+def _validate_scan_record(report, component, device):
+    """Validate the local scan provenance; do not rewrite scanner findings."""
+    record = report.get('scan_record')
+    if not isinstance(record, dict):
+        raise ValueError('Saved scan record is missing: ' + component['name'])
+    stamp = record.get('scanned_at')
+    if not isinstance(stamp, str) or not stamp.endswith('+00:00'):
+        raise ValueError('Invalid UTC scan timestamp: ' + component['name'])
+    try:
+        timestamp = datetime.fromisoformat(stamp)
+    except ValueError as exc:
+        raise ValueError('Invalid scan timestamp: ' + component['name']) from exc
+    if timestamp.utcoffset() != timezone.utc.utcoffset(timestamp):
+        raise ValueError('Scan timestamp is not UTC: ' + component['name'])
+    expected = 'reviewed-warnings' if component['warnings'] else 'clean'
+    if (record.get('device_alias') != device
+            or record.get('skill_version') != component['version']
+            or record.get('status') != expected):
+        raise ValueError('Scan provenance does not match device, revision, or findings: '
+                         + component['name'])
+    return record
+
+
 def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=None, host='codex'):
     """Stage and scan a complete bundle, then commit files with rollback.
 
@@ -591,6 +614,7 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
     approvals_path = root / 'skill-approvals.json'
     approvals_before = approvals_path.read_bytes() if approvals_path.exists() else None
     pending_clean = [c for c in components if c.get('pending_clean_approval')]
+    device_alias = str(os.environ.get('ADVISOR_DEVICE_ALIAS') or socket.gethostname())[:128]
     state.mkdir(parents=True, exist_ok=True)
     lock = _path(state / 'install.lock')
     try:
@@ -631,6 +655,15 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                         raise ValueError('Scanner exit status disagrees with the verified report: ' + name)
                     if _files(destination) != component['installed_files']:
                         raise ValueError('Payload changed during scan: ' + name)
+                    # Record completion time on the accepted, locally saved copy.
+                    # This is intentionally separate from the approval and install times.
+                    report['scan_record'] = {
+                        'scanned_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                        'device_alias': device_alias,
+                        'skill_version': component['version'],
+                        'status': 'reviewed-warnings' if component['warnings'] else 'clean',
+                    }
+                    _validate_scan_record(report, component, device_alias)
                     reports[name] = report
                 except (ValueError, OSError) as exc:
                     scan_errors.append(name + ': ' + str(exc))
@@ -656,10 +689,10 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                                   'report': report_path.relative_to(state).as_posix(),
                                   'warnings': component['warnings'],
                                   'scan_completeness': reports[name]['analysis_completeness']})
-            device = os.environ.get('ADVISOR_DEVICE_ALIAS') or socket.gethostname()
             new_receipt = {'schema_version': 2, 'bundle_version': manifest['bundle_version'],
-                           'device': str(device)[:128],
+                           'device': device_alias,
                            'installed_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                           'scan_record_format': 1,
                            'source_root': str(root), 'skills_root': str(skills),
                            'scanner': scanner_meta, 'components': installed,
                            'selected_names': list(selected_names) if selected_names is not None else None,
@@ -717,6 +750,7 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 'full_bundle_ready': len(components) == len(manifest['components']),
                 'warnings': [warning for c in components for warning in c['warnings']],
                 'scan_completeness': {name: r['analysis_completeness'] for name, r in reports.items()},
+                'scan_records': {name: r['scan_record'] for name, r in reports.items()},
                 'live_invocation_verified': False}
     finally:
         lock.unlink(missing_ok=True)
@@ -738,7 +772,7 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
         recorded = {c['name']: c for c in receipt['components']}
         if set(recorded) != {c['name'] for c in components}:
             raise ValueError('Receipt does not cover the current bundle')
-        scan_completeness = {}
+        scan_completeness, scan_records = {}, {}
         for component in components:
             item = recorded[component['name']]
             if item.get('version') != component['version'] or item.get('source') != component['source']:
@@ -750,6 +784,9 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
             report_path = _inside(state, item['report'])
             report = _json(report_path)
             _validate_report(report, component)
+            if receipt.get('scan_record_format') == 1:
+                scan_records[component['name']] = _validate_scan_record(
+                    report, component, receipt.get('device'))
             scan_completeness[component['name']] = report['analysis_completeness']
             if ('warnings' in item and item['warnings'] != component['warnings']
                     or 'scan_completeness' in item and item['scan_completeness'] != report['analysis_completeness']):
@@ -762,6 +799,8 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
                 'components': list(recorded),
                 'full_bundle_ready': len(components) == len(manifest['components']),
                 'warnings': [warning for c in components for warning in c['warnings']],
-                'scan_completeness': scan_completeness, 'live_invocation_verified': False}
+                'scan_completeness': scan_completeness,
+                'scan_records': scan_records,
+                'live_invocation_verified': False}
     except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
         return {'ready': False, 'errors': [str(exc)], 'live_invocation_verified': False}
