@@ -118,6 +118,147 @@ class AdvisorInstallTests(unittest.TestCase):
         self.save_manifest()
         return component
 
+    def test_repository_packaged_baseline_remains_valid(self):
+        plan = self.mod.baseline_plan(ROOT)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
+        self.assertEqual(len(plan['required_skills']), 17)
+        self.assertEqual(plan['pending_clean_approval'], [])
+
+    def test_manual_reviewed_findings_require_existing_exact_triage(self):
+        self._enable_light_approvals()
+        self.triage_fixture()
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        self.save_manifest()
+        audit = json.loads((self.repo / component['audit_ref']).read_text())
+        audit['revision'] = '1.0.1'
+        self.write(component['audit_ref'], audit)
+        record = json.loads((self.repo / 'skill-approvals.json').read_text())
+        record['skills'][0].update(version='1.0.1', approval='manual-reviewed',
+                                   scan='triaged', approved_at='2026-11-08T00:00:00+00:00')
+        self.write('skill-approvals.json', record)
+        result = self.install()
+        self.assertTrue(result['ready'])
+        self.assertTrue(result['warnings'])
+        self.assertEqual(result['auto_approved_updates'], [])
+        self.assertTrue(self.check()['ready'])
+
+    def _enable_light_approvals(self):
+        self.manifest['approvals_ref'] = 'skill-approvals.json'
+        self.save_manifest()
+        component = self.manifest['components'][0]
+        self.write('skill-approvals.json', {
+            'schema_version': 1, 'skills': [{
+                'name': component['name'], 'version': component['version'],
+                'source': component['source'], 'upstream_repository': None,
+                'approved_at': None, 'approval': 'historical-reviewed',
+                'scan': 'historical-triaged', 'audit_ref': component['audit_ref']
+            }]
+        })
+
+    def test_light_approval_keeps_original_historical_review(self):
+        self._enable_light_approvals()
+        self.assertTrue(self.install()['ready'])
+        self.assertTrue(self.check()['ready'])
+        record = json.loads((self.repo / 'skill-approvals.json').read_text())['skills'][0]
+        self.assertIsNone(record['approved_at'])
+        self.assertEqual(record['approval'], 'historical-reviewed')
+
+    def test_new_clean_revision_auto_approved_without_rewriting_audit(self):
+        self._enable_light_approvals()
+        old_audit = (self.repo / self.manifest['components'][0]['audit_ref']).read_bytes()
+        self.install()
+        skill = self.repo / 'skills/tool-advisor/SKILL.md'
+        skill.write_text(skill.read_text() + '\nNew cleaned skill.\n')
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        component['hashes']['SKILL.md'] = digest(skill)
+        self.manifest['bundle_version'] = '1.0.1'
+        self.save_manifest()
+        self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor']})
+        self.assertEqual(self.mod.baseline_plan(self.repo)['pending_clean_approval'], ['tool-advisor'])
+        result = self.install()
+        self.assertEqual(result['auto_approved_updates'], ['tool-advisor'])
+        record = json.loads((self.repo / 'skill-approvals.json').read_text())['skills'][0]
+        self.assertEqual(record['version'], '1.0.1')
+        self.assertEqual(record['approval'], 'clean-auto')
+        self.assertEqual(record['scan'], 'clean')
+        self.assertIsNotNone(record['approved_at'])
+        self.assertEqual((self.repo / component['audit_ref']).read_bytes(), old_audit)
+        self.assertTrue(self.check()['ready'])
+
+    def test_changed_finding_blocks_auto_approval_without_mutating_records(self):
+        self._enable_light_approvals()
+        skill = self.repo / 'skills/tool-advisor/SKILL.md'
+        skill.write_text('---\nname: tool-advisor\n---\nUnreviewed change.\n')
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        component['hashes']['SKILL.md'] = digest(skill)
+        self.save_manifest()
+        old_approvals = (self.repo / 'skill-approvals.json').read_bytes()
+        def dangerous(report):
+            report['issues'] = [{'id': 'NEW', 'severity': 'HIGH',
+                'finding': 'New security warning',
+                'location': {'file': 'SKILL.md'}, 'match_fingerprint': None}]
+        self.report_mutation = dangerous
+        with self.assertRaisesRegex(ValueError, 'finding'):
+            self.install()
+        self.assertEqual((self.repo / 'skill-approvals.json').read_bytes(), old_approvals)
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+
+    def test_incomplete_new_revision_is_not_auto_approved(self):
+        self._enable_light_approvals()
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        self.save_manifest()
+        def incomplete(report):
+            report['analysis_completeness'].update(
+                is_complete=False, coverage_percent=0,
+                scanned_components=0, fully_inspected_files=0,
+                partially_inspected_files=1)
+        self.report_mutation = incomplete
+        with self.assertRaisesRegex(ValueError, '(?i)coverage|omission|scan|component count'):
+            self.install()
+        self.assertEqual(json.loads((self.repo / 'skill-approvals.json').read_text())
+                         ['skills'][0]['version'], '1.0.0')
+
+    def test_clean_approved_revision_cannot_change_payload_silently(self):
+        self._enable_light_approvals()
+        component = self.manifest['components'][0]
+        component['version'] = '1.0.1'
+        self.save_manifest()
+        self.install()
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        source.write_text('Different content, same version!')
+        component['hashes']['SKILL.md'] = digest(source)
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'Approved payload changed'):
+            self.install()
+
+    def test_declared_approval_file_must_exist(self):
+        self._enable_light_approvals()
+        (self.repo / 'skill-approvals.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'approval records are missing'):
+            self.mod._bundle(self.repo)
+
+    def test_light_approval_missing_or_duplicate_entries_fail_closed(self):
+        self._enable_light_approvals()
+        path = self.repo / 'skill-approvals.json'
+        saved = json.loads(path.read_text())
+        for entries in ([], saved['skills'] * 2):
+            self.write('skill-approvals.json', {**saved, 'skills': entries})
+            with self.assertRaisesRegex(ValueError, 'approval'):
+                self.mod._bundle(self.repo)
+
+    def test_install_receipt_records_device_alias_locally(self):
+        self._enable_light_approvals()
+        with mock.patch.dict(self.mod.os.environ, {'ADVISOR_DEVICE_ALIAS': 'my-workstation'}):
+            self.install()
+        receipt = json.loads((self.codex / 'dev-workspace-advisor/receipt.json').read_text())
+        self.assertEqual(receipt['device'], 'my-workstation')
+        self.assertIn('installed_at', receipt)
+        self.assertNotIn('my-workstation', (self.repo / 'skill-approvals.json').read_text())
+
     def test_required_baseline_blocks_partial_activation(self):
         self.write('advisor-baseline.json', {'schema_version': 1, 'required_skills': ['tool-advisor', 'council']})
         self.assertRaisesRegex(ValueError, 'council', self.mod.require_baseline, self.repo)
@@ -334,17 +475,47 @@ class AdvisorInstallTests(unittest.TestCase):
         self.assertEqual(self.scan_count, 2)
         self.assertTrue(self.check()['ready'])
 
-    def test_new_or_unavailable_upstream_blocks_without_activation(self):
+    def test_newer_upstream_does_not_block_last_approved_install(self):
         self.manifest['components'][0].update(version='a' * 40,
             upstream_repository='https://github.com/example/skills', upstream_ref='HEAD')
         self.save_manifest()
-        for code, output in [(0, 'b' * 40 + '\tHEAD\n'), (128, ''), (0, 'malformed')]:
+        fake = self.fake_run
+        def remote(args, **kwargs):
+            if args[:2] == ['git', 'ls-remote']:
+                return subprocess.CompletedProcess(args, 0, 'b' * 40 + '\tHEAD\n', '')
+            return fake(args, **kwargs)
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=remote):
+            result = self.install()
+        self.assertEqual(result['updates_available'][0]['name'], 'tool-advisor')
+        self.assertTrue(self.check()['ready'])
+
+    def test_unavailable_upstream_still_blocks_activation(self):
+        component = self.manifest['components'][0]
+        component.update(version='a' * 40,
+            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD')
+        self.save_manifest()
+        for code, output in [(128, ''), (0, 'malformed')]:
             with self.subTest(code=code, output=output), mock.patch.object(
                     self.mod.subprocess, 'run', return_value=subprocess.CompletedProcess([], code, output, '')):
                 with self.assertRaisesRegex(ValueError, '(?i)upstream'):
                     self.install()
             self.assertFalse(self.skills.exists())
-            self.assertFalse(self.codex.exists())
+        self.assertEqual(self.scan_count, 0)
+
+    def test_new_candidate_must_match_current_upstream_head(self):
+        self._enable_light_approvals()
+        component = self.manifest['components'][0]
+        component.update(version='a' * 40,
+            upstream_repository='https://github.com/example/skills', upstream_ref='HEAD',
+            source='https://github.com/example/skills/tree/' + 'a' * 40 + '/skills/tool-advisor')
+        saved = json.loads((self.repo / 'skill-approvals.json').read_text())
+        saved['skills'][0]['upstream_repository'] = 'https://github.com/example/skills'
+        self.write('skill-approvals.json', saved)
+        self.save_manifest()
+        with mock.patch.object(self.mod.subprocess, 'run',
+                return_value=subprocess.CompletedProcess([], 0, 'b' * 40 + '\tHEAD\n', '')):
+            with self.assertRaisesRegex(ValueError, 'candidate must match upstream HEAD'):
+                self.install()
         self.assertEqual(self.scan_count, 0)
 
     def test_entire_batch_is_scanned_before_risk_block(self):

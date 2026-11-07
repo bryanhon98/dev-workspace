@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "policy": "New revisions: auto-approve only after a complete suppression-free static scan with zero findings; otherwise require review. Historical scan evidence remains in audits/.",
+  "skills": [
+    {
+      "name": "tool-advisor",
+      "version": "1.0.0",
+      "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/tool-advisor/audit.json",
+      "upstream_repository": null
+    },
+    {
+      "name": "grilling",
+      "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "source": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/grilling/audit.json",
+      "upstream_repository": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "find-skills",
+      "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "source": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/find-skills/audit.json",
+      "upstream_repository": "https://github.com/vercel-labs/skills"
+    },
+    {
+      "name": "brainstorming",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/brainstorming/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/dispatching-parallel-agents/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "executing-plans",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/executing-plans/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/finishing-a-development-branch/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "receiving-code-review",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/receiving-code-review/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "requesting-code-review",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/requesting-code-review/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "subagent-driven-development",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/subagent-driven-development/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "systematic-debugging",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/systematic-debugging/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "test-driven-development",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/test-driven-development/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "using-git-worktrees",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/using-git-worktrees/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "using-superpowers",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/using-superpowers/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "verification-before-completion",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/verification-before-completion/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "writing-plans",
+      "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/writing-plans/audit.json",
+      "upstream_repository": "https://github.com/obra/superpowers"
+    },
+    {
+      "name": "council",
+      "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "source": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
+      "approved_at": null,
+      "approval": "historical-reviewed",
+      "scan": "historical-triaged",
+      "audit_ref": "audits/advisor-ready-20261103/council/audit.json",
+      "upstream_repository": "https://github.com/0xNyk/council-of-high-intelligence"
+    }
+  ]
+}

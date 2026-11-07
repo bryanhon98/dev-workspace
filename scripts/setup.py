@@ -153,6 +153,7 @@ def main():
     action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only tool-advisor, grilling and find-skills')
     action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
+    action.add_argument('--show-approvals', action='store_true', help='Print shared version approvals without writing')
     args = parser.parse_args()
     host = args.host
     home = args.home or args.codex_home or host_profiles.home_dir(host)
@@ -161,6 +162,10 @@ def main():
     try:
         if args.scanner and not (args.install_advisor or args.install_advisor_core):
             raise ValueError('--scanner is only used with --install-advisor or --install-advisor-core')
+        if args.show_approvals:
+            from install_advisor import _json
+            print(json.dumps(_json(ROOT / 'skill-approvals.json'), indent=2))
+            return 0
         if args.plan_advisor:
             from install_advisor import baseline_plan
             print(json.dumps(baseline_plan(ROOT), indent=2))

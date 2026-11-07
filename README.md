@@ -122,6 +122,37 @@ python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project sta
 
 An existing project tracker remains the task source. The advisor links relevant tasks and evidence rather than maintaining a competing plan. File checks and saved status do not replace checking actual outputs or demonstrating that the host can load the skills.
 
+## Lightweight skill approvals
+
+The shared [skill-approvals.json](skill-approvals.json), required by
+`advisor-bundle.json`, summarizes each skill's
+approved version, date and review status. Historical approval timestamps remain
+`null` where no trustworthy original time is available; archived audits remain
+the supporting evidence. View the ledger with `python scripts/setup.py --show-approvals`.
+
+**Updating:** stage the complete new revision into the packaged skill directory,
+then update that component's version, source URL and file hashes in
+`advisor-bundle.json`. A new version is **pending**, not automatically trusted.
+During `--install-advisor`, the pinned SkillSpector scans the whole staged
+payload. An entirely clean scan (zero findings, full coverage, no suppressions)
+automatically approves the changed version, writes a UTC approval timestamp,
+and records the device and install time in a local receipt. New or changed
+findings or incomplete coverage block automatic approval and require explicit
+review. The old historical audit is never rewritten as a shortcut.
+
+Approvals are shared in GitHub; review and commit the updated ledger after
+successful installation. The device name stays in the **local** receipt (override
+with `ADVISOR_DEVICE_ALIAS` if desired). Upstream fetching and committing
+are not automatic: an update must first be staged from the intended source.
+An already approved revision can still install when upstream has advanced;
+installation reports available updates rather than silently replacing it.
+A newer revision with security findings needs explicit review and a newly
+triaged scan/audit record before its ledger entry can be set to
+`manual-reviewed` with `scan: triaged`.
+Technical file hashes remain an internal integrity check in the installer,
+not a daily record that you have to manage. Original skill contents are
+unchanged by this migration.
+
 ## Installation policy
 
 The [current user policy](global/AGENTS.md#scan-before-installing-updating-or-restoring-skills) is:
