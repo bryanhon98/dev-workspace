@@ -203,6 +203,66 @@ class AdvisorInstallTests(unittest.TestCase):
         self.assertEqual((self.home / 'dev-workspace-advisor/snapshots/tool-advisor/SKILL.md').read_bytes(),
                          (self.skills / 'tool-advisor/SKILL.md').read_bytes())
 
+    def test_scan_provenance_has_utc_time_device_version_and_result(self):
+        with mock.patch.dict(self.mod.os.environ, {'ADVISOR_DEVICE_ALIAS': 'Home-PC'}):
+            result = self.install()
+        state = self.home / 'dev-workspace-advisor'
+        receipt = json.loads((state / 'receipt.json').read_text())
+        report = json.loads((state / receipt['components'][0]['report']).read_text())
+        record = report['scan_record']
+        self.assertEqual(record['device_alias'], 'Home-PC')
+        self.assertEqual(record['skill_version'], '1.0.0')
+        self.assertEqual(record['status'], 'clean')
+        self.assertTrue(record['scanned_at'].endswith('+00:00'))
+        self.assertEqual(receipt['scan_record_format'], 1)
+        self.assertEqual(receipt['device'], 'Home-PC')
+        self.assertLessEqual(
+            __import__('datetime').datetime.fromisoformat(record['scanned_at']),
+            __import__('datetime').datetime.fromisoformat(receipt['installed_at']))
+        self.assertEqual(result['scan_records']['tool-advisor'], record)
+        self.assertEqual(self.check()['scan_records']['tool-advisor'], record)
+        self.assertNotIn('Home-PC', (self.repo / 'skill-approvals.json').read_text())
+        self.assertIsNone(self.approvals['skills'][0]['approved_at'])
+
+    def test_historical_warnings_get_reviewed_scan_status(self):
+        self.warning()
+        self.install()
+        state = self.home / 'dev-workspace-advisor'
+        receipt = json.loads((state / 'receipt.json').read_text())
+        report = json.loads((state / receipt['components'][0]['report']).read_text())
+        self.assertEqual(report['scan_record']['status'], 'reviewed-warnings')
+        self.assertTrue(self.check()['ready'])
+
+    def test_scan_provenance_changes_fail_readonly_verification(self):
+        for field, altered in [('device_alias', 'Different-PC'),
+                               ('skill_version', '99.0.0'),
+                               ('status', 'reviewed-warnings'),
+                               ('scanned_at', 'not-a-date')]:
+            with self.subTest(field=field):
+                self.install()
+                state = self.home / 'dev-workspace-advisor'
+                receipt = json.loads((state / 'receipt.json').read_text())
+                path = state / receipt['components'][0]['report']
+                report = json.loads(path.read_text())
+                report['scan_record'][field] = altered
+                path.write_text(json.dumps(report))
+                self.assertFalse(self.check()['ready'])
+                self.assertTrue((self.skills / 'tool-advisor/SKILL.md').exists())
+
+    def test_scan_record_without_new_format_remains_backward_compatible(self):
+        self.install()
+        state = self.home / 'dev-workspace-advisor'
+        receipt_file = state / 'receipt.json'
+        receipt = json.loads(receipt_file.read_text())
+        report_file = state / receipt['components'][0]['report']
+        report = json.loads(report_file.read_text())
+        report.pop('scan_record')
+        report_file.write_text(json.dumps(report))
+        receipt.pop('scan_record_format')
+        receipt_file.write_text(json.dumps(receipt))
+        self.assertTrue(self.check()['ready'])
+        self.assertEqual(self.check()['scan_records'], {})
+
     def test_no_file_hashes_in_manifest_approvals_or_receipt(self):
         self.install()
         receipt = json.loads((self.home / 'dev-workspace-advisor/receipt.json').read_text())

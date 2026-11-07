@@ -136,13 +136,19 @@ then update that component's version and exact source URL in
 During `--install-advisor`, the pinned SkillSpector scans the whole staged
 payload. An entirely clean scan (zero findings, full coverage, no suppressions)
 automatically approves the changed version, writes a UTC approval timestamp,
-and records the device and install time in a local receipt. New or changed
-findings or incomplete coverage block automatic approval and require explicit
-review. The old historical audit is never rewritten as a shortcut.
+and records the device and installation time in a local receipt. Each accepted
+SkillSpector scan is also saved locally with an independent UTC `scanned_at`,
+a `device_alias`, the skill version, and `clean` or `reviewed-warnings`
+status. Check or install output includes these `scan_records`. The scan
+timestamp is distinct from `approved_at` in the shared approval ledger and
+`installed_at` in the local receipt. Previously archived scans retain their
+original metadata and unknown historical dates are not inferred.
+New or changed findings or incomplete coverage block automatic approval and
+require explicit review. The old historical audit is never rewritten as a shortcut.
 
 Approvals are shared in GitHub; review and commit the updated ledger after
-successful installation. The device name stays in the **local** receipt (override
-with `ADVISOR_DEVICE_ALIAS` if desired). Upstream fetching and committing
+successful installation. The device name stays in the **local** scan record and
+installation receipt (override with `ADVISOR_DEVICE_ALIAS` if desired). Upstream fetching and committing
 are not automatic: an update must first be staged from the intended source.
 An already approved revision can still install when upstream has advanced;
 installation reports available updates rather than silently replacing it.
