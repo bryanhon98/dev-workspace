@@ -15,6 +15,11 @@ import tempfile
 import uuid
 import venv
 
+# Add scripts directory to path for local imports when run directly
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import host_profiles
+
 
 SCANNER_REVISION = 'cf5cac7ba5c756a6e0ebf52dc9763f49422f889f'
 SCANNER_VERSION = '2.12.0'
@@ -574,15 +579,15 @@ def _atomic_json(path, value):
             os.unlink(temporary)
 
 
-def install_bundle(repo_root, skills_root, codex_home, scanner=None, selected_names=None):
+def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=None, host='codex'):
     """Stage and scan a complete bundle, then commit files with rollback.
 
     Raises ValueError/OSError on blocked review, scanner or filesystem failures.
     A ready receipt establishes checked files, not a live model invocation.
     """
-    root, skills, home = map(_path, (repo_root, skills_root, codex_home))
+    root, skills, home = map(_path, (repo_root, skills_root, home))
     manifest, components, review = _bundle(root, selected_names)
-    state = _path(home / 'dev-workspace-advisor')
+    state = _path(host_profiles.managed_state_path(host))
     receipt_path = state / 'receipt.json'
     receipt = _read_receipt(receipt_path, root, skills, allow_relocation=True)
     snapshots = _preflight_targets(skills, components, receipt)
@@ -691,11 +696,11 @@ def install_bundle(repo_root, skills_root, codex_home, scanner=None, selected_na
         lock.unlink(missing_ok=True)
 
 
-def check_bundle(repo_root, skills_root, codex_home):
+def check_bundle(repo_root, skills_root, home, host='codex'):
     """Read-only validation of current source, receipt, reports and installation."""
     try:
-        root, skills, home = map(_path, (repo_root, skills_root, codex_home))
-        state = _path(home / 'dev-workspace-advisor')
+        root, skills, home = map(_path, (repo_root, skills_root, home))
+        state = _path(host_profiles.managed_state_path(host))
         if (state / 'install.lock').exists():
             raise ValueError('An advisor installation is in progress')
         receipt = _read_receipt(state / 'receipt.json', root, skills)

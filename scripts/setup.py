@@ -9,31 +9,39 @@ import re
 import sys
 import tempfile
 
-START = '<!-- personal-codex-setup:start -->'
-END = '<!-- personal-codex-setup:end -->'
+# Add scripts directory to path for local imports when run directly
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import host_profiles
+
+# Backwards-compatible module constants (Codex markers). Tests reference these
+# directly; per-host behaviour comes from the host-aware functions below.
+START = host_profiles.marker_start('codex')
+END = host_profiles.marker_end('codex')
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def block(rules):
+def block(rules, host='codex'):
+    start, end = host_profiles.marker_start(host), host_profiles.marker_end(host)
     body = rules.strip() + '\n'
-    if not rules.strip() or START in rules or END in rules:
+    if not rules.strip() or start in rules or end in rules:
         raise ValueError('Rules must be nonempty and must not contain managed markers')
     digest = hashlib.sha256(body.encode()).hexdigest()
-    return (START + '\n<!-- content-sha256: ' + digest + ' -->\n' + body + END).encode()
+    return (start + '\n<!-- content-sha256: ' + digest + ' -->\n' + body + end).encode()
 
 
-def target_for(home):
-    for name in ('AGENTS.override.md', 'AGENTS.md'):
+def target_for(home, host='codex'):
+    for name in host_profiles.instruction_files(host):
         target = home / name
         if target.is_symlink():
             raise ValueError('Refusing symlink instruction file: ' + str(target))
         if target.exists() and target.read_bytes().strip():
             return target
-    return home / 'AGENTS.md'
+    return home / host_profiles.instruction_files(host)[-1]
 
 
-def managed_span(data):
-    start, end = START.encode(), END.encode()
+def managed_span(data, host='codex'):
+    start, end = host_profiles.marker_start(host).encode(), host_profiles.marker_end(host).encode()
     if start not in data and end not in data:
         return None
     if data.count(start) != 1 or data.count(end) != 1:
@@ -44,19 +52,20 @@ def managed_span(data):
     return first, last + len(end)
 
 
-def install(home, rules):
+def install(home, rules, host='codex'):
     home = Path(home)
-    desired = block(rules)
-    target = target_for(home)
+    desired = block(rules, host)
+    target = target_for(home, host)
     before = target.read_bytes() if target.exists() else b''
-    span = managed_span(before)
+    span = managed_span(before, host)
     if span:
         first, last = span
         current = before[first:last]
         if current == desired:
             return False
         match = re.fullmatch(
-            re.escape(START.encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(END.encode()),
+            re.escape(host_profiles.marker_start(host).encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)'
+            + re.escape(host_profiles.marker_end(host).encode()),
             current, re.DOTALL)
         if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
             raise ValueError('Managed rules changed locally; save/reconcile them in the repo first')
@@ -89,22 +98,23 @@ def install(home, rules):
     return True
 
 
-def check(home, rules):
-    target = target_for(Path(home))
+def check(home, rules, host='codex'):
+    target = target_for(Path(home), host)
     data = target.read_bytes() if target.exists() else b''
-    span = managed_span(data)
-    return bool(span and data[span[0]:span[1]] == block(rules))
+    span = managed_span(data, host)
+    return bool(span and data[span[0]:span[1]] == block(rules, host))
 
 
-def saved_rules():
-    rules = (ROOT / 'global' / 'AGENTS.md').read_text(encoding='utf-8').strip()
+def saved_rules(host='codex'):
+    rules = (ROOT / host_profiles.rules_source(host)).read_text(encoding='utf-8').strip()
     return rules + '\n\n## Local research checkout\n\n' + (
-        'This device installed the rules from ' + json.dumps(str(ROOT), ensure_ascii=False) +
-        '. Use this explicit checkout for the advisor library and scripts when working in other projects. '
+        'This device installed the rules from "' + str(ROOT) + '". '
+        'Use this explicit checkout for the advisor library and scripts when working in other projects. '
         'Keep the checkout available; if moved, reinstall the rules and advisor from its new location.\n')
 
 
-def show_catalog():
+def show_catalog(host='codex'):
+    wording = host_profiles.wording(host)
     catalog = json.loads((ROOT / 'inventory.json').read_text(encoding='utf-8'))
     components = catalog['components']
     for title, kind in [('Prerequisite tools — required before skill installation', 'tool'),
@@ -120,16 +130,21 @@ def show_catalog():
             print('    Source: ' + str(item.get('source') or 'unconfirmed'))
             print('    Review: ' + item.get('audit_status', 'unknown'))
             print('    Setup/login: ' + item.get('setup_requirements', 'Check requirements before installation.'))
-    print('\nTell Codex: Which skills do you want — selected names, all eligible skills, or none?')
+    print('\n' + wording['catalog_prompt'])
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
-    print('After choosing, Codex can restore global rules with --install-rules and inspect/install selected skills.')
+    print('After choosing, ' + wording['host_name'] + ' can restore global rules with --install-rules and inspect/install selected skills.')
     print('Advisor setup: --install-advisor selects the full baseline; --plan-advisor shows preparation gaps. --install-advisor-core explicitly installs only the three-skill core.')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))))
-    parser.add_argument('--skills-root', type=Path, default=Path.home() / '.agents' / 'skills')
+    parser.add_argument('--host', default='codex', choices=host_profiles.host_names(),
+                        help='Target client: codex (default) or claude')
+    # --codex-home is kept as a hidden alias for backwards compatibility; new
+    # invocations should use --home.
+    parser.add_argument('--home', type=Path, default=None)
+    parser.add_argument('--codex-home', type=Path, default=None, help=argparse.SUPPRESS)
+    parser.add_argument('--skills-root', type=Path, default=None)
     parser.add_argument('--scanner', type=Path, help='Existing reviewed SkillSpector executable for advisor installation')
     action = parser.add_mutually_exclusive_group()
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
@@ -139,6 +154,10 @@ def main():
     action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
     args = parser.parse_args()
+    host = args.host
+    home = args.home or args.codex_home or host_profiles.home_dir(host)
+    skills_root = args.skills_root or host_profiles.default_skills_root(host)
+    wording = host_profiles.wording(host)
     try:
         if args.scanner and not (args.install_advisor or args.install_advisor_core):
             raise ValueError('--scanner is only used with --install-advisor or --install-advisor-core')
@@ -148,9 +167,9 @@ def main():
             return 0
         if args.check_advisor or args.install_advisor or args.install_advisor_core:
             from install_advisor import check_bundle, install_bundle, require_baseline, baseline_plan, require_core_only
-            rules = saved_rules()
+            rules = saved_rules(host)
             if args.check_advisor:
-                result = check_bundle(ROOT, args.skills_root, args.codex_home)
+                result = check_bundle(ROOT, skills_root, home)
                 plan = baseline_plan(ROOT)
                 result['baseline'] = plan
                 if not result.get('full_bundle_ready', False):
@@ -159,18 +178,18 @@ def main():
                 if not plan['payloads_prepared']:
                     result['ready'] = False
                     result.setdefault('errors', []).append('Full baseline payload preparation is incomplete.')
-                if not check(args.codex_home, rules):
+                if not check(home, rules, host):
                     result['ready'] = False
                     result.setdefault('errors', []).append('Managed global instructions are missing or differ from this checkout.')
                 print(json.dumps(result, indent=2))
                 return 0 if result['ready'] else 1
             # Check existing managed rules for local edits before activating skills.
-            target = target_for(args.codex_home)
+            target = target_for(home, host)
             before = target.read_bytes() if target.exists() else b''
-            span = managed_span(before)
+            span = managed_span(before, host)
             if span:
                 current = before[span[0]:span[1]]
-                match = re.fullmatch(re.escape(START.encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(END.encode()), current, re.DOTALL)
+                match = re.fullmatch(re.escape(host_profiles.marker_start(host).encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(host_profiles.marker_end(host).encode()), current, re.DOTALL)
                 if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
                     raise ValueError('Managed rules changed locally; reconcile them before advisor installation')
             selected_names = None
@@ -178,30 +197,30 @@ def main():
                 require_baseline(ROOT)
             else:
                 selected_names = require_core_only(ROOT)
-            result = install_bundle(ROOT, args.skills_root, args.codex_home, scanner=args.scanner,
-                                    selected_names=selected_names)
+            result = install_bundle(ROOT, skills_root, home, scanner=args.scanner,
+                                    selected_names=selected_names, host=host)
             result['setup_scope'] = 'full-baseline' if args.install_advisor else 'explicit-partial-core'
             result['full_baseline_files_ready'] = bool(args.install_advisor)
             try:
-                install(args.codex_home, rules)
+                install(home, rules, host)
             except (OSError, ValueError) as exc:
                 raise ValueError('Skills were installed, but global rules could not be updated: ' + str(exc)) from exc
             print(json.dumps(result, indent=2))
-            print('Start a new Codex session, then ask to use tool-advisor for your task.')
+            print(wording['session_note_install'])
             print('Files and scans verified; live host invocation still needs a fresh-session check.')
             return 0
         if not args.check and not args.install_rules:
-            show_catalog()
+            show_catalog(host)
             return 0
-        rules = saved_rules()
+        rules = saved_rules(host)
         if args.check:
-            ok = check(args.codex_home, rules)
+            ok = check(home, rules, host)
             print('Global rules match this repo.' if ok else 'Global rules are missing or differ from this repo.')
             return 0 if ok else 1
-        changed = install(args.codex_home, rules)
-        print(('Installed: ' if changed else 'Already current: ') + str(target_for(args.codex_home)))
-        print('Start a new Codex session to load the global rules.')
-        print('This command installs instructions only. Continue README.md with Codex for selected skills, manual plugin/MCP setup and GitHub logging.')
+        changed = install(home, rules, host)
+        print(('Installed: ' if changed else 'Already current: ') + str(target_for(home, host)))
+        print(wording['session_note'])
+        print('This command installs instructions only. Continue README.md with ' + wording['host_name'] + ' for selected skills, manual plugin/MCP setup and GitHub logging.')
         return 0
     except (OSError, ValueError) as exc:
         print(str(exc), file=sys.stderr)

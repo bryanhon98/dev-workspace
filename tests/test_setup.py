@@ -145,7 +145,7 @@ class GlobalSetupTests(unittest.TestCase):
                 contextlib.redirect_stdout(output):
             self.assertEqual(self.mod.main(), 0)
         installer.install_bundle.assert_called_once_with(self.mod.ROOT, skills, self.home,
-                                                        scanner=None, selected_names=names)
+                                                        scanner=None, selected_names=names, host='codex')
         installer.require_baseline.assert_not_called()
         self.assertIn('explicit-partial-core', output.getvalue())
         self.assertIn('"full_baseline_files_ready": false', output.getvalue())
