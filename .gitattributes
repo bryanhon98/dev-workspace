@@ -1,2 +1,10 @@
 # Preserve original research attachment bytes across devices (including Windows).
 knowledge/reel-library/imports/** -text
+
+# Preserve hashed text bytes across operating systems.
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+**/LICENSE text eol=lf

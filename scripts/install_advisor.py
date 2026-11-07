@@ -4,6 +4,8 @@ This module never invokes installed skills, executes their scripts, or restores
 global instructions. setup.py owns instruction setup and the user-facing CLI.
 """
 import hashlib
+from datetime import datetime, timezone
+import socket
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -116,6 +118,86 @@ def _signature(issue):
     return (issue['id'], issue['severity'], issue['finding'],
             filename, location.get('start_line'), location.get('end_line'),
             location.get('start_column'), issue['match_fingerprint'])
+
+
+def _approval_records(root, manifest):
+    """Load the small shared approval ledger. Historical reports stay archived."""
+    ref = manifest.get('approvals_ref')
+    if ref is None:
+        return None  # explicitly legacy bundle (tests/older checkouts)
+    if ref != 'skill-approvals.json':
+        raise ValueError('Unsupported skill approval record location')
+    path = root / ref
+    if not path.exists():
+        raise ValueError('Required skill approval records are missing')
+    data = _json(path)
+    if data.get('schema_version') != 1 or not isinstance(data.get('skills'), list):
+        raise ValueError('Malformed skill approval record')
+    items = data['skills']
+    expected = {c['name'] for c in manifest['components']}
+    names = [c.get('name') for c in items if isinstance(c, dict)]
+    if len(names) != len(items) or len(set(names)) != len(names) or set(names) != expected:
+        raise ValueError('Skill approval records do not cover the exact bundle')
+    for item in items:
+        if (not isinstance(item.get('version'), str) or not item['version']
+                or not isinstance(item.get('source'), str)
+                or item.get('approval') not in ('historical-reviewed', 'manual-reviewed', 'clean-auto')
+                or item.get('scan') not in ('historical-triaged', 'triaged', 'clean')
+                or (item['approval'] == 'clean-auto' and item['scan'] != 'clean')
+                or (item['approval'] == 'historical-reviewed' and item['scan'] != 'historical-triaged')
+                or (item['approval'] == 'manual-reviewed' and item['scan'] != 'triaged')
+                or (item.get('upstream_repository') is not None and not isinstance(item['upstream_repository'], str))
+                or (item.get('approved_at') is not None and not isinstance(item['approved_at'], str))
+                or (item['approval'] == 'clean-auto' and not re.fullmatch(
+                    r'[a-f0-9]{64}', item.get('payload_digest', '')))):
+            raise ValueError('Invalid skill approval entry: ' + str(item.get('name')))
+    return {item['name']: item for item in items}
+
+
+def _payload_digest(component):
+    """Single internal fingerprint; not a second per-file approval manifest."""
+    value = json.dumps(component['hashes'], sort_keys=True, separators=(',', ':')).encode('utf-8')
+    return hashlib.sha256(value).hexdigest()
+
+
+def _approval_for(root, component, scanner, approvals):
+    """Old revisions use original triage; changed versions require clean scans."""
+    if approvals is None:
+        return {**_audit(root, component, scanner), 'pending_clean_approval': False}
+    name, entry = component['name'], approvals[component['name']]
+    if entry.get('upstream_repository') != component.get('upstream_repository'):
+        raise ValueError('Approved upstream repository changed: ' + name)
+    if entry['version'] != component['version']:
+        upstream = component.get('upstream_repository')
+        if upstream:
+            expected = upstream.removesuffix('.git') + '/tree/' + component['version']
+            if not (component['source'] == expected
+                    or component['source'].startswith(expected + '/')):
+                raise ValueError('Updated skill source does not match its upstream revision: ' + name)
+        elif component['source'] != entry['source']:
+            raise ValueError('Custom skill source changed without explicit review: ' + name)
+        return {'allowed_findings': [], 'warnings': [], 'pending_clean_approval': True}
+    if entry['source'] != component['source']:
+        raise ValueError('Approved source changed without version update: ' + name)
+    if entry['approval'] == 'clean-auto':
+        if entry['payload_digest'] != _payload_digest(component):
+            raise ValueError('Approved payload changed without version update: ' + name)
+        return {'allowed_findings': [], 'warnings': [], 'pending_clean_approval': False}
+    return {**_audit(root, component, scanner), 'pending_clean_approval': False}
+
+
+def _record_clean_approvals(root, components):
+    path = root / 'skill-approvals.json'
+    value = _json(path)
+    by_name = {x['name']: x for x in value['skills']}
+    stamp = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    for component in components:
+        item = by_name[component['name']]
+        item.update(version=component['version'], source=component['source'],
+                    approved_at=stamp, approval='clean-auto', scan='clean',
+                    payload_digest=_payload_digest(component))
+        item.pop('audit_ref', None)
+    _atomic_json(path, value)
 
 
 def _audit(root, component, scanner):
@@ -254,6 +336,7 @@ def _bundle(root, selected_names=None):
                 or len(set(selected_names)) != len(selected_names)):
             raise ValueError('Invalid selected component names')
         selection = set(selected_names)
+    approvals = _approval_records(root, manifest)
     names = set()
     prepared = []
     for item in components:
@@ -286,7 +369,7 @@ def _bundle(root, selected_names=None):
                 raise ValueError('Extra-file hash mismatch: ' + destination)
             installed[destination] = extra['sha256']
         component = {**item, 'installed_hashes': installed}
-        prepared.append({**component, **_audit(root, component, scanner)})
+        prepared.append({**component, **_approval_for(root, component, scanner, approvals)})
     if selection is not None and names & selection != selection:
         raise ValueError('Selected component is missing from bundle')
     return manifest, prepared, review
@@ -313,12 +396,15 @@ def baseline_plan(repo_root):
     packaged = set(names)
     missing = [name for name in required if name not in packaged]
     audit_error = None
+    pending = []
     try:
-        _bundle(root)
+        _, staged, _ = _bundle(root)
+        pending = [c['name'] for c in staged if c.get('pending_clean_approval')]
     except (ValueError, OSError, KeyError, TypeError) as exc:
         audit_error = str(exc)
     return {'required_skills': required, 'missing_payloads': missing,
             'payloads_prepared': not missing and audit_error is None,
+            'pending_clean_approval': pending,
             'audit_error': audit_error, 'device_verified': False,
             'note': 'Setup selects all baseline skills; missing or blocked source preparation prevents full setup. No device or live invocation verified.'}
 
@@ -542,7 +628,7 @@ def _validate_report(report, component):
 
 def _verify_upstream(components):
     """Check selected official refs once per repository before fresh scans."""
-    checked = {}
+    checked, available = {}, []
     for component in components:
         repository = component.get('upstream_repository')
         ref = component.get('upstream_ref')
@@ -560,8 +646,12 @@ def _verify_upstream(components):
                 raise ValueError('Cannot verify latest official upstream version: ' + component['name'])
             checked[key] = rows[0].split()[0]
         if checked[key] != component['version']:
-            raise ValueError('New upstream version requires staging and rescan before installation: '
-                             + component['name'] + ' (' + checked[key] + ')')
+            if component.get('pending_clean_approval'):
+                raise ValueError('New auto-approved candidate must match upstream HEAD: '
+                                 + component['name'] + ' (' + checked[key] + ')')
+            available.append({'name': component['name'], 'approved_version': component['version'],
+                              'latest_version': checked[key]})
+    return available
 
 
 def _atomic_json(path, value):
@@ -591,8 +681,11 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
     receipt_path = state / 'receipt.json'
     receipt = _read_receipt(receipt_path, root, skills, allow_relocation=True)
     snapshots = _preflight_targets(skills, components, receipt)
-    _verify_upstream(components)
+    available_updates = _verify_upstream(components)
     before = receipt_path.read_bytes() if receipt_path.exists() else None
+    approvals_path = root / 'skill-approvals.json'
+    approvals_before = approvals_path.read_bytes() if approvals_path.exists() else None
+    pending_clean = [c for c in components if c.get('pending_clean_approval')]
     state.mkdir(parents=True, exist_ok=True)
     lock = _path(state / 'install.lock')
     try:
@@ -657,7 +750,10 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                                   'exception_ref': (component.get('exception') or {}).get('ref'),
                                   'warnings': component['warnings'],
                                   'scan_completeness': reports[name]['analysis_completeness']})
+            device = os.environ.get('ADVISOR_DEVICE_ALIAS') or socket.gethostname()
             new_receipt = {'schema_version': 1, 'bundle_version': manifest['bundle_version'],
+                           'device': str(device)[:128],
+                           'installed_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
                            'source_root': str(root), 'skills_root': str(skills),
                            'manifest_sha256': _sha(root / 'advisor-bundle.json'),
                            'scanner': scanner_meta, 'components': installed,
@@ -680,7 +776,15 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                     if _hashes(skills / component['name']) != component['installed_hashes']:
                         raise ValueError('Installed payload verification failed')
                 _atomic_json(receipt_path, new_receipt)
+                if pending_clean:
+                    _record_clean_approvals(root, pending_clean)
             except Exception:
+                if before is None:
+                    receipt_path.unlink(missing_ok=True)
+                elif receipt_path.read_bytes() != before:
+                    receipt_path.write_bytes(before)
+                if approvals_before is not None and approvals_path.read_bytes() != approvals_before:
+                    approvals_path.write_bytes(approvals_before)
                 for name in reversed(changed):
                     shutil.rmtree(_path(skills / name))
                 for name in reversed(moved):
@@ -688,6 +792,9 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 raise
         return {'ready': True, 'errors': [], 'receipt': str(receipt_path), 'scanner': scanner_meta,
                 'components': [c['name'] for c in components],
+                'auto_approved_updates': [c['name'] for c in pending_clean],
+                'updates_available': available_updates,
+                'approval_records': str(approvals_path) if approvals_before is not None else None,
                 'full_bundle_ready': len(components) == len(manifest['components']),
                 'warnings': [warning for c in components for warning in c['warnings']],
                 'scan_completeness': {name: r['analysis_completeness'] for name, r in reports.items()},

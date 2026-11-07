@@ -325,5 +325,6 @@
       "upstream_repository": "https://github.com/0xNyk/council-of-high-intelligence",
       "upstream_ref": "HEAD"
     }
-  ]
+  ],
+  "approvals_ref": "skill-approvals.json"
 }
