@@ -677,7 +677,7 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
     """
     root, skills, home = map(_path, (repo_root, skills_root, home))
     manifest, components, review = _bundle(root, selected_names)
-    state = _path(host_profiles.managed_state_path(host))
+    state = _path(home / host_profiles.state_subdir(host))
     receipt_path = state / 'receipt.json'
     receipt = _read_receipt(receipt_path, root, skills, allow_relocation=True)
     snapshots = _preflight_targets(skills, components, receipt)
@@ -807,7 +807,7 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
     """Read-only validation of current source, receipt, reports and installation."""
     try:
         root, skills, home = map(_path, (repo_root, skills_root, home))
-        state = _path(host_profiles.managed_state_path(host))
+        state = _path(home / host_profiles.state_subdir(host))
         if (state / 'install.lock').exists():
             raise ValueError('An advisor installation is in progress')
         receipt = _read_receipt(state / 'receipt.json', root, skills)
