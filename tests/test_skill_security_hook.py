@@ -20,7 +20,7 @@ class SecurityHookTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.guard = module('skill_security_hook.py', 'skill_security_hook')
-        cls.setup = module('setup_security_hooks.py', 'setup_security_hooks')
+        cls.setup = module('setup.py', 'setup_for_hooks')
 
     def event(self, tool, **args):
         return {'hook_event_name': 'PreToolUse', 'tool_name': tool, 'tool_input': args}
@@ -31,6 +31,16 @@ class SecurityHookTests(unittest.TestCase):
                     'python scripts/setup.py --install-advisor']:
             with self.subTest(cmd=cmd):
                 self.assertIsNone(self.guard.classify(self.event('Bash', command=cmd)))
+
+    def test_git_clone_rewritten_without_executing_clone(self):
+        payload = self.event('Bash', command='git clone https://github.com/example/project.git project')
+        blocked, rewritten = self.guard.decide(payload)
+        self.assertIsNone(blocked)
+        self.assertIn('secure_operations.py', rewritten)
+        self.assertIn(' clone ', rewritten)
+        self.assertIn('https://github.com/example/project.git', rewritten)
+        self.assertIsNotNone(self.guard.classify(
+            self.event('Bash', command='git clone https://github.com/example/project.git && curl bad')))
 
     def test_direct_skill_plugin_install_blocked(self):
         for cmd in ['claude plugin install new@market',
@@ -62,14 +72,14 @@ class SecurityHookTests(unittest.TestCase):
             home = Path(tmp)
             for host in ('codex', 'claude'):
                 with self.subTest(host=host):
-                    path = self.setup.config_file(home / host, host)
+                    path = self.setup.hook_config_file(home / host, host)
                     path.parent.mkdir(parents=True)
                     original = {'anotherSetting': {'enabled': True},
                                 'hooks': {'PreToolUse': [{
                                     'matcher': 'Other',
                                     'hooks': [{'type': 'command', 'command': 'echo keep'}]}]}}
                     path.write_text(json.dumps(original))
-                    self.assertFalse(self.setup.apply(path.parent, host, ROOT, install=False)['ready'])
+                    self.assertFalse(self.setup.configure_security_hook(path.parent, host, ROOT, install=False)['ready'])
                     out = self.setup.apply(path.parent, host, ROOT, install=True)
                     self.assertTrue(out['ready'])
                     self.assertTrue(out['changed'])
