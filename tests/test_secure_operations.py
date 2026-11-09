@@ -1,4 +1,4 @@
-"""Standalone skill installation security regression tests."""
+"""Controlled standalone skill installation security regression tests."""
 import importlib.util
 from pathlib import Path
 import tempfile
@@ -8,9 +8,9 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 
 
-class StandaloneSkillInstallTests(unittest.TestCase):
+class SecureOperationsTests(unittest.TestCase):
     def setUp(self):
-        spec = importlib.util.spec_from_file_location('install_selected_skill',
+        spec = importlib.util.spec_from_file_location('secure_operations',
                                                       ROOT / 'scripts/install_selected_skill.py')
         self.mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.mod)
@@ -21,7 +21,7 @@ class StandaloneSkillInstallTests(unittest.TestCase):
         self.source.mkdir(parents=True)
         (self.source / 'SKILL.md').write_text('---\nname: example\n---\nSimple\n')
         self.skills = self.dir / '.agents/skills'
-        scanner = mock.patch.object(self.mod, '_scanner_executable',
+        scanner = mock.patch.object(self.mod, 'scanner_executable',
                                     return_value={'path': '/verified/scanner', 'version': 'test'})
         scanner.start()
         self.addCleanup(scanner.stop)
@@ -34,17 +34,17 @@ class StandaloneSkillInstallTests(unittest.TestCase):
             self.assertFalse((self.skills / 'example').exists())
             captured.append(directory)
             return []
-        with mock.patch.object(self.mod, '_scan', side_effect=scan):
-            result = self.mod.install_one(self.source, self.skills, 'example')
+        with mock.patch.object(self.mod, 'scan_skill', side_effect=scan):
+            result = self.mod.install_skill(self.source, self.skills, 'example')
         self.assertTrue(result['installed'])
         self.assertEqual(len(captured), 1)
         self.assertTrue((self.skills / 'example/SKILL.md').exists())
         self.assertFalse((self.skills.parent / 'reports').exists())
 
     def test_risky_scan_blocks_before_install(self):
-        with mock.patch.object(self.mod, '_scan', side_effect=ValueError('HIGH risk')):
+        with mock.patch.object(self.mod, 'scan_skill', side_effect=ValueError('HIGH risk')):
             with self.assertRaisesRegex(ValueError, 'HIGH'):
-                self.mod.install_one(self.source, self.skills, 'example')
+                self.mod.install_skill(self.source, self.skills, 'example')
         self.assertFalse((self.skills / 'example').exists())
 
     def test_existing_skill_is_not_overwritten(self):
@@ -52,14 +52,14 @@ class StandaloneSkillInstallTests(unittest.TestCase):
         existing.mkdir(parents=True)
         (existing / 'SKILL.md').write_text('User data')
         with self.assertRaisesRegex(ValueError, 'already exists'):
-            self.mod.install_one(self.source, self.skills, 'example')
+            self.mod.install_skill(self.source, self.skills, 'example')
         self.assertEqual((existing / 'SKILL.md').read_text(), 'User data')
 
     def test_missing_scanner_blocks(self):
         with mock.patch.object(self.mod, '_scanner_executable',
                                side_effect=ValueError('scanner missing')):
             with self.assertRaisesRegex(ValueError, 'scanner missing'):
-                self.mod.install_one(self.source, self.skills, 'example')
+                self.mod.install_skill(self.source, self.skills, 'example')
         self.assertFalse((self.skills / 'example').exists())
 
     def test_symlink_in_source_blocks(self):
@@ -71,11 +71,11 @@ class StandaloneSkillInstallTests(unittest.TestCase):
         except (OSError, NotImplementedError):
             self.skipTest('Symlink not allowed on this host')
         with self.assertRaisesRegex(ValueError, 'symlink'):
-            self.mod.install_one(self.source, self.skills, 'example')
+            self.mod.install_skill(self.source, self.skills, 'example')
 
     def test_invalid_name_blocks(self):
         with self.assertRaisesRegex(ValueError, 'Invalid skill name'):
-            self.mod.install_one(self.source, self.skills, '../example')
+            self.mod.install_skill(self.source, self.skills, '../example')
 
 
 if __name__ == '__main__':
