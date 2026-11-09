@@ -1,0 +1,93 @@
+"""Regression tests for the optional host hooks and capability-activation guard."""
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+import unittest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def module(path, name):
+    spec = importlib.util.spec_from_file_location(name, ROOT / 'scripts' / path)
+    value = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(value)
+    return value
+
+
+class SecurityHookTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.guard = module('skill_security_hook.py', 'skill_security_hook')
+        cls.setup = module('setup_security_hooks.py', 'setup_security_hooks')
+
+    def event(self, tool, **args):
+        return {'hook_event_name': 'PreToolUse', 'tool_name': tool, 'tool_input': args}
+
+    def test_benign_operations_allowed(self):
+        for cmd in ['git clone https://github.com/example/project.git project',
+                    'git status', 'python -m unittest discover -s tests',
+                    'python scripts/setup.py --install-advisor']:
+            with self.subTest(cmd=cmd):
+                self.assertIsNone(self.guard.classify(self.event('Bash', command=cmd)))
+
+    def test_direct_skill_plugin_install_blocked(self):
+        for cmd in ['claude plugin install new@market',
+                    'codex plugin add unknown@market',
+                    'npx skills add github-repo',
+                    'pnpm dlx skills add foo',
+                    'git clone https://example.com/foo ~/.claude/skills/foo',
+                    'Copy-Item -Recurse ./untrusted $HOME\\.claude\\skills\\untrusted',
+                    'cp -r foo ~/.agents/skills/foo']:
+            with self.subTest(cmd=cmd):
+                self.assertIsNotNone(self.guard.classify(self.event('Bash', command=cmd)))
+
+    def test_file_tool_writes_to_active_skill_dir_blocked(self):
+        self.assertIsNotNone(self.guard.classify(
+            self.event('Write', file_path='C:\\Users\\Example\\.claude\\skills\\new\\SKILL.md',
+                       content='untrusted')))
+        self.assertIsNotNone(self.guard.classify(
+            self.event('apply_patch', command='*** Add File: ~/.agents/skills/new/SKILL.md')))
+        self.assertIsNone(self.guard.classify(
+            self.event('Write', file_path='docs/skills-guide.md', content='normal documentation')))
+
+    def test_bad_input_fails_closed_and_non_pretool_is_ignored(self):
+        self.assertIsNotNone(self.guard.classify(self.event('Bash')))
+        self.assertIsNone(self.guard.classify({
+            'hook_event_name': 'PostToolUse', 'tool_name': 'Bash', 'tool_input': {}}))
+
+    def test_setup_preserves_existing_hooks_and_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            for host in ('codex', 'claude'):
+                with self.subTest(host=host):
+                    path = self.setup.config_file(home / host, host)
+                    path.parent.mkdir(parents=True)
+                    original = {'anotherSetting': {'enabled': True},
+                                'hooks': {'PreToolUse': [{
+                                    'matcher': 'Other',
+                                    'hooks': [{'type': 'command', 'command': 'echo keep'}]}]}}
+                    path.write_text(json.dumps(original))
+                    self.assertFalse(self.setup.apply(path.parent, host, ROOT, install=False)['ready'])
+                    out = self.setup.apply(path.parent, host, ROOT, install=True)
+                    self.assertTrue(out['ready'])
+                    self.assertTrue(out['changed'])
+                    updated = json.loads(path.read_text())
+                    self.assertEqual(updated['anotherSetting'], original['anotherSetting'])
+                    self.assertEqual(len(updated['hooks']['PreToolUse']), 2)
+                    self.assertTrue(self.setup.apply(path.parent, host, ROOT, install=True)['ready'])
+                    self.assertTrue(self.setup.apply(path.parent, host, ROOT, install=False)['ready'])
+
+    def test_invalid_settings_not_overwritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            cfg = self.setup.config_file(home, 'claude')
+            cfg.write_text('{invalid')
+            with self.assertRaises(ValueError):
+                self.setup.apply(home, 'claude', ROOT, install=True)
+            self.assertEqual(cfg.read_text(), '{invalid')
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "bryanhon98/dev-workspace",
   "default_skill_scope": "user",
-  "provenance": "Historical component list from Install GitHub plugins chat; not a live machine inventory. Payloads and reports remain to be imported.",
+  "provenance": "Historical component discovery list, not proof of a current installation or scan. Activation requires the fresh staged SkillSpector gate; no shared scan archives.",
   "components": [
     {
       "name": "ian-xiaohei-illustrations",
@@ -39,17 +39,16 @@
       "name": "skillspector",
       "kind": "tool",
       "source": "https://github.com/NVIDIA/skillspector",
-      "version": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
+      "version": "verify on target device",
       "scope": "user",
-      "audit_status": "source-reviewed-runtime-verified",
+      "audit_status": "prerequisite-not-verified-on-this-device",
       "restorable": true,
-      "restore_method": "pinned-source-tool-install",
-      "note": "Verified persistent user-level scanner in cloud-workspace; see per-device installation logs. Earlier Mac record remains historical, not a verification of that device.",
+      "restore_method": "official-uv-tool-install",
+      "note": "Scanner is a prerequisite. Historical local observations do not establish current device readiness; no persistent scan/approval ledger required.",
       "purpose": "Must be installed and verified before any skill installation",
-      "setup_requirements": "Review pinned source/bootstrap, install with uv tool using recorded dependency constraints, verify package version and source commit, run dependency check and local --no-llm static scan. No model credentials needed for static mode.",
+      "setup_requirements": "Install the official NVIDIA CLI with uv tool install git+https://github.com/NVIDIA/skillspector.git; verify --version and a local static scan. The security gate checks installed CLI availability on the target device.",
       "github_url": "https://github.com/NVIDIA/skillspector",
       "release_version": "2.12.0",
-      "audit_ref": "audits/skillspector-cf5cac7-20261018/review.json",
       "required_tools": [
         "Python >=3.12,<3.15",
         "uv for recorded installation method"
@@ -59,8 +58,7 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "version-source-and-static-runtime-verified",
           "version": "2.12.0",
-          "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json"
+          "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f"
         }
       }
     },
@@ -194,11 +192,10 @@
       "github_url": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
       "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
       "scope": "user",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/council",
-      "audit_ref": "audits/advisor-ready-20261103/council/audit.json",
       "purpose": "Structured multi-perspective deliberation inside Codex",
       "required_tools": [
         "skillspector",
@@ -233,7 +230,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -249,7 +245,6 @@
       "restorable": true,
       "restore_method": "saved-reviewed-source-with-exception",
       "bundle": "skills/external/matt-pocock/codebase-design",
-      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
       "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
       "purpose": "Deep-module architecture vocabulary",
       "required_tools": [
@@ -268,7 +263,6 @@
       "restorable": true,
       "restore_method": "saved-reviewed-source-with-exception",
       "bundle": "skills/external/matt-pocock/domain-modeling",
-      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
       "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
       "purpose": "Domain glossary and architecture decisions",
       "required_tools": [
@@ -287,7 +281,6 @@
       "restorable": true,
       "restore_method": "saved-reviewed-source-with-exception",
       "bundle": "skills/external/matt-pocock/grill-me",
-      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
       "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
       "purpose": "User-invoked design interview",
       "required_tools": [
@@ -302,11 +295,10 @@
       "github_url": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
       "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "scope": "user",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/matt-pocock/grilling",
-      "audit_ref": "audits/advisor-ready-20261103/grilling/audit.json",
       "purpose": "Decision-tree interview",
       "required_tools": [
         "skillspector"
@@ -322,7 +314,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -338,7 +329,6 @@
       "restorable": true,
       "restore_method": "saved-reviewed-source-with-exception",
       "bundle": "skills/external/matt-pocock/improve-codebase-architecture",
-      "audit_ref": "audits/matt-pocock-49dd158-20261018/review.json",
       "exception_ref": "matt-pocock-49dd158-20261018-user-approved",
       "purpose": "Architecture exploration and HTML review",
       "required_tools": [
@@ -353,11 +343,10 @@
       "github_url": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
       "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
       "scope": "user",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/find-skills",
-      "audit_ref": "audits/advisor-ready-20261103/find-skills/audit.json",
       "purpose": "Discover candidate agent skills through skills.sh and assess sources before recommending them",
       "required_tools": [
         "skillspector",
@@ -375,7 +364,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -393,7 +381,6 @@
       "restorable": true,
       "restore_method": "agent-reviewed-source",
       "payload_path": "skills/external/arjun988/archviz",
-      "audit_ref": "audits/archviz-8f778d2-20261018/review.json",
       "exception_ref": "archviz-8f778d2-20261018-user-approved",
       "required_tools": [
         "Blender",
@@ -418,7 +405,6 @@
         "skillspector"
       ],
       "setup_requirements": "Run SkillSpector before restoration; retain exception only for exact hashes and findings. Install reviewed rea-agents 6.7.0 CLI and configure Codex MCP; reconnect client. Optional engines separate.",
-      "audit_ref": "audits/rea-6.7.0-20261024/review.json",
       "note": "Reviewed payload saved under skills/external/reverse-engineer-anything. Cloud installation verified; re-scan exact bytes on restoration.",
       "exceptions": [
         "rea-6.7.0-20261024-user-approved"
@@ -438,8 +424,7 @@
       "required_tools": [
         "Node.js ^22.19.0 || ^24.11.0 || >=26.0.0"
       ],
-      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client.",
-      "audit_ref": "audits/rea-6.7.0-20261024/review.json"
+      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client."
     },
     {
       "name": "rea",
@@ -455,8 +440,7 @@
       "required_tools": [
         "Node.js ^22.19.0 || ^24.11.0 || >=26.0.0"
       ],
-      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client.",
-      "audit_ref": "audits/rea-6.7.0-20261024/review.json"
+      "setup_requirements": "Explicit scoped setup; npm install with scripts disabled and optional dependencies omitted. Codex rea setup --client codex --yes. Reconnect client."
     },
     {
       "name": "animation-performance",
@@ -472,8 +456,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "apple-design",
@@ -489,8 +472,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "deploy-to-vercel",
@@ -506,8 +488,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "design-taste-frontend",
@@ -523,8 +504,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-core",
@@ -540,8 +520,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-frameworks",
@@ -557,8 +536,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-performance",
@@ -574,8 +552,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-plugins",
@@ -591,8 +568,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-react",
@@ -608,8 +584,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-scrolltrigger",
@@ -625,8 +600,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-timeline",
@@ -642,8 +616,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "gsap-utils",
@@ -659,8 +632,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "impeccable",
@@ -676,8 +648,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "ui-ux-pro-max",
@@ -693,8 +664,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-cli-with-tokens",
@@ -710,8 +680,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-composition-patterns",
@@ -727,8 +696,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-optimize",
@@ -744,8 +712,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-react-best-practices",
@@ -761,8 +728,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-react-native-skills",
@@ -778,8 +744,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "vercel-react-view-transitions",
@@ -795,8 +760,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "web-design-guidelines",
@@ -812,8 +776,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "writing-guidelines",
@@ -829,8 +792,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security.",
-      "audit_ref": "audits/cloud-skills-observed-20261024/observations.json"
+      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
     },
     {
       "name": "watch",
@@ -851,7 +813,6 @@
         "yt-dlp"
       ],
       "setup_requirements": "Re-scan on restore; prior exception applies only to recorded hashes/findings. Cloud-workspace Instagram access blocked. Windows-local link download and frame extraction verified; use recorded launcher for tool paths, local engine and captions-only operation.",
-      "audit_ref": "audits/watch-03ceb42-20261101/review.json",
       "exception_ref": "audits/watch-03ceb42-20261101/exception.json",
       "device_audits": {
         "windows-local": "audits/watch-windows-local-20261101/review.json"
@@ -875,7 +836,6 @@
         "Web/GitHub access for identity verification"
       ],
       "setup_requirements": "Re-scan saved source before restore. Speech transcription is separate and must be authorized when absent. Cloud/paid analysis, promoted-tool installation and collection publishing are not implied.",
-      "audit_ref": "audits/reel-knowledge-extractor-1.0.3-20261101/review.json",
       "sha256": {
         "SKILL.md": "86a870edfc4ebcc7f5b66521bed8cb4dee9e3cd9cefde5fb98ebcd50f452bdfc",
         "agents/openai.yaml": "0ba9d09edfa9fbd5d2b92bd9a708ffe42c2d2d351c309cf11a7ff1e668f3b58d",
@@ -899,7 +859,6 @@
         "Playwright + Chromium (optional browser verification)"
       ],
       "setup_requirements": "No credentials for local builds. Re-scan before restoration; exception applies only to recorded hashes/findings. Generated repository atlases stay local and are excluded from skill backups.",
-      "audit_ref": "audits/repo-flow-atlas-1.0.0-20261101/review.json",
       "exception_ref": "audits/repo-flow-atlas-1.0.0-20261101/exception.json",
       "sha256": {
         "SKILL.md": "ed94668174b07f65add5a220e7f4d52a901042a47f346a8afed5256b73b86cdf",
@@ -927,15 +886,14 @@
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "version": "1.0.0",
       "scope": "user",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/custom/tool-advisor",
-      "audit_ref": "audits/advisor-ready-20261103/tool-advisor/audit.json",
       "purpose": "Interview through grilling, discover and compare capabilities, confirm the combination, coordinate work and track evidence",
       "required_tools": [
         "skillspector",
-        "Python 3.12\u20133.14 for scanner bootstrap",
+        "Python 3.12–3.14 for scanner bootstrap",
         "grilling",
         "find-skills",
         "accessible research checkout and web/GitHub discovery",
@@ -955,7 +913,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "1.0.0",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -968,11 +925,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/brainstorming",
-      "audit_ref": "audits/advisor-ready-20261103/brainstorming/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "61a7ef918652108c76a3fd01e02dd92d39996c6b46d4cb2819cbd03f6c45e46a",
@@ -994,7 +950,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1007,11 +962,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/dispatching-parallel-agents",
-      "audit_ref": "audits/advisor-ready-20261103/dispatching-parallel-agents/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c"
@@ -1026,7 +980,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1039,11 +992,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/executing-plans",
-      "audit_ref": "audits/advisor-ready-20261103/executing-plans/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "e4649e59880ef2643d1da128e3d607e87e3f969410d72095a5bf65811b6036dc",
@@ -1060,7 +1012,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1073,11 +1024,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/finishing-a-development-branch",
-      "audit_ref": "audits/advisor-ready-20261103/finishing-a-development-branch/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
@@ -1092,7 +1042,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1105,11 +1054,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/receiving-code-review",
-      "audit_ref": "audits/advisor-ready-20261103/receiving-code-review/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
@@ -1124,7 +1072,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1137,11 +1084,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/requesting-code-review",
-      "audit_ref": "audits/advisor-ready-20261103/requesting-code-review/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "2180e14a448e9410bec88e6646a2d1f0ce7fdd58de27388c1e052e929679d2bc",
@@ -1157,7 +1103,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1170,11 +1115,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/subagent-driven-development",
-      "audit_ref": "audits/advisor-ready-20261103/subagent-driven-development/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "ba41f697136cba88a7962d60c8e2f97488ba04a8688b1d0fbeb27f6953808e75",
@@ -1202,7 +1146,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1215,11 +1158,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/systematic-debugging",
-      "audit_ref": "audits/advisor-ready-20261103/systematic-debugging/audit.json",
       "sha256": {
         "CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
@@ -1244,7 +1186,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1257,11 +1198,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/test-driven-development",
-      "audit_ref": "audits/advisor-ready-20261103/test-driven-development/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
@@ -1277,7 +1217,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1290,11 +1229,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/using-git-worktrees",
-      "audit_ref": "audits/advisor-ready-20261103/using-git-worktrees/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd"
@@ -1309,7 +1247,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1322,11 +1259,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/using-superpowers",
-      "audit_ref": "audits/advisor-ready-20261103/using-superpowers/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "82c5c8866ad7f5dd4440ce66bd7806ba48a2f13771beae5cf112e53f08fe36ba",
@@ -1348,7 +1284,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1361,11 +1296,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/verification-before-completion",
-      "audit_ref": "audits/advisor-ready-20261103/verification-before-completion/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
@@ -1380,7 +1314,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }
@@ -1393,11 +1326,10 @@
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
       "github_url": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "audit_status": "static-scan-risk-triaged",
+      "audit_status": "packaged-requires-fresh-scan",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/external/superpowers/writing-plans",
-      "audit_ref": "audits/advisor-ready-20261103/writing-plans/audit.json",
       "sha256": {
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
@@ -1412,7 +1344,6 @@
           "timestamp": "2026-11-04T02:30:05.025+08:00",
           "status": "installed-files-scanned-and-discovered",
           "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-          "audit_ref": "audits/advisor-windows-20261104/verification.json",
           "live_workflow_execution_verified": false
         }
       }

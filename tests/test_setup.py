@@ -84,12 +84,12 @@ class GlobalSetupTests(unittest.TestCase):
     def run_cli(self, *args):
         return subprocess.run([sys.executable, str(SCRIPT), '--codex-home', str(self.home), *args], text=True, capture_output=True)
 
-    def test_show_approvals_is_readonly(self):
-        result = self.run_cli('--show-approvals')
+    def test_plan_advisor_is_readonly_without_approval_ledger(self):
+        result = self.run_cli('--plan-advisor')
         self.assertEqual(result.returncode, 0, result.stderr)
-        ledger = json.loads(result.stdout)
-        self.assertEqual(ledger['schema_version'], 2)
-        self.assertEqual(len(ledger['skills']), 17)
+        plan = json.loads(result.stdout)
+        self.assertEqual(len(plan['required_skills']), 17)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
         self.assertEqual(list(self.home.iterdir()), [])
 
     def test_default_lists_choices_without_installing(self):
@@ -207,7 +207,7 @@ class GlobalSetupTests(unittest.TestCase):
         result = self.run_cli('--install-rules')
         self.assertEqual(result.returncode, 0, result.stderr)
         target = self.home / 'AGENTS.md'
-        target.write_text(target.read_text().replace('## SkillSpector must be ready first', 'Changed locally:'))
+        target.write_text(target.read_text().replace('## Global SkillSpector security gate (before Tool Advisor)', 'Changed locally:'))
         self.assertEqual(self.run_cli('--check').returncode, 1)
 
     def test_reinstalls_after_user_clears_instruction_file(self):
@@ -216,7 +216,7 @@ class GlobalSetupTests(unittest.TestCase):
         target.write_text('')
         self.assertEqual(self.run_cli('--check').returncode, 1)
         self.assertEqual(self.run_cli('--install-rules').returncode, 0)
-        self.assertIn('## SkillSpector must be ready first', target.read_text())
+        self.assertIn('## Global SkillSpector security gate (before Tool Advisor)', target.read_text())
         self.assertEqual(self.run_cli('--check').returncode, 0)
 
 if __name__ == '__main__':
