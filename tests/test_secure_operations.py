@@ -78,5 +78,24 @@ class SecureOperationsTests(unittest.TestCase):
             self.mod.install_skill(self.source, self.skills, '../example')
 
 
+
+    def test_update_requires_existing_unmodified_managed_install(self):
+        with mock.patch.object(self.mod, 'scan_skill', return_value=[]):
+            self.mod.install_skill(self.source, self.skills, 'example')
+            (self.source / 'SKILL.md').write_text('---\nname: example\n---\nnew content\n')
+            result = self.mod.install_skill(self.source, self.skills, 'example', update=True)
+        self.assertTrue(result['updated'])
+        self.assertIn('new content', (self.skills / 'example/SKILL.md').read_text())
+        (self.skills / 'example/SKILL.md').write_text('user customization')
+        with self.assertRaisesRegex(ValueError, 'changed locally'):
+            self.mod.install_skill(self.source, self.skills, 'example', update=True)
+        self.assertEqual((self.skills / 'example/SKILL.md').read_text(), 'user customization')
+
+    def test_clone_rejects_outside_destination_and_non_github_source(self):
+        with self.assertRaisesRegex(ValueError, 'Only HTTPS GitHub'):
+            self.mod.clone_repository('https://example.org/untrusted.git', 'new', self.dir)
+        with self.assertRaises(ValueError):
+            self.mod.clone_repository('https://github.com/example/demo.git', '../outside', self.dir)
+
 if __name__ == '__main__':
     unittest.main()

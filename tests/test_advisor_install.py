@@ -198,7 +198,7 @@ class AdvisorInstallTests(unittest.TestCase):
         for report, code, should_block in [
             (base, 0, False),
             ({**base, 'issues': [issue],
-              'risk_assessment': {'severity': 'MEDIUM', 'recommendation': 'CAUTION'}}, 0, False),
+              'risk_assessment': {'severity': 'MEDIUM', 'recommendation': 'CAUTION'}}, 0, True),
             ({**base, 'issues': [{'id': 'E2', 'severity': 'HIGH'}],
               'risk_assessment': {'severity': 'HIGH', 'recommendation': 'DO_NOT_INSTALL'}}, 1, True),
             ({**base, 'analysis_completeness': {'is_complete': False, 'coverage_percent': 80}}, 1, True),

@@ -243,6 +243,8 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
         raise ValueError('Clone destination already exists: ' + str(target))
     if not base.is_dir() or not target.parent.is_dir():
         raise ValueError('Clone destination parent is missing')
+    if not target.is_relative_to(base) or target == base:
+        raise ValueError('Clone destination must remain within current workspace')
     scanner_info = scanner_executable(scanner)
     with tempfile.TemporaryDirectory(prefix='.secure-clone-', dir=target.parent) as temp:
         staged = Path(temp) / 'repository'
