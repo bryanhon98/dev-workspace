@@ -1,72 +1,67 @@
-# SkillSpector: minimal security gate and optional native hooks
+# Security-first SkillSpector workspace
 
-This repository uses **NVIDIA SkillSpector** as a scan-before-activation guard for agent skills in **Codex and Claude Code**. The scanner is not an agent, an audit database or a substitute for operating-system permissions. Historical per-skill approval JSON and raw scan archives are not required by the current installer.
+## One command per host
 
-## 1. Install the scanner on the actual device
-
-Follow [NVIDIA's official instructions](https://github.com/NVIDIA/SkillSpector). For CLI-only usage with uv:
+Run from this checkout on the device you want to configure:
 
 ```powershell
-uv tool install git+https://github.com/NVIDIA/skillspector.git
-skillspector --version
+python scripts/setup.py --host codex --setup-workspace
+python scripts/setup.py --host claude --setup-workspace
 ```
 
-Review the scanner's source and bootstrap trust; this command installs executable third-party software. The repository does **not** execute the command or install SkillSpector on your PC. The scanner version in the CLI is checked when installing skills. The installer does not claim to authenticate the scanner binary's provenance merely by its name.
+The command installs/verifies NVIDIA SkillSpector (using `uv tool install git+https://github.com/NVIDIA/skillspector.git` if missing), runs a real benign static-scan smoke test, adds a native `PreToolUse` hook **without replacing other hooks**, checks blocking and clone rewrite locally, then stages/scans/installs the complete 17-skill Tool Advisor baseline and finally updates global instructions. Setup fails closed if a required step fails. An existing scanner name/version is not an independently verified software-supply-chain signature.
 
-The primary security boundary is the **controlled installer**, which stages the actual contents and runs `skillspector scan ... --no-llm --format json --fail-on-incomplete --min-coverage 100`. It parses stdout to work on Windows. No persistent scan reports are written.
+**Restart each host and verify a live event.** Local self-tests cannot establish that the running Codex/Claude version loaded the hook. Codex settings: `~/.codex/hooks.json`; Claude Code: `~/.claude/settings.json`. Existing settings receive a `.before-dev-workspace.bak` backup on first modification. A conflicting managed hook requires manual reconciliation.
 
-For the original 17-skill baseline:
+## How the scripts divide responsibilities
+
+- `setup.py`: one setup entry point and hook registration; calls scanner bootstrap and Advisor last.
+- `host_profiles.py`: Codex/Claude-specific paths.
+- `skill_security_hook.py`: intercepts supported agent tool commands; rewrites simple HTTPS GitHub `git clone` to a controlled operation, blocks unsupported direct skill/plugin installation and edits to active capability directories.
+- `secure_operations.py`: **only SkillSpector scan implementation**; stages/verifies files, installs individual managed skills, updates them with rollback, and inspects staged GitHub clones.
+- `install_advisor.py`: 17-skill baseline manager, using the scanner from `secure_operations.py`; retains the existing snapshot/rollback system.
+- `advisor.py`, `knowledge.py`: unrelated project coordination and knowledge lookup.
+
+No separate `setup_security_hooks.py` or `install_selected_skill.py` is required.
+
+## New skills and updates
+
+Stage files outside live `~/.agents/skills` / `~/.claude/skills` paths **without executing any untrusted setup scripts**. Then use:
 
 ```powershell
-python scripts/setup.py --plan-advisor
-python scripts/setup.py --install-advisor --host codex
-python scripts/setup.py --install-advisor --host claude
-python scripts/setup.py --check-advisor --host codex
+python scripts/secure_operations.py install --host codex --name example --source .\incoming\example
+python scripts/secure_operations.py install --host codex --name example --source .\incoming\example --update
 ```
 
-For an additional user-selected skill, first download it into a **temporary inactive directory** (for example a subfolder inside a cloned Git repo), then:
+The update flag only works for a previously managed, unmodified installation. The worker keeps file hashes (not old scan reports) and rolls back an interrupted update. Direct `npx skills add`, `claude plugin install` or equivalent commands remain **blocked**: a hook cannot automatically inspect arbitrary third-party installer payloads before those installers execute. The agent should use controlled staging for supported skills. Unsupported plugin packaging is not automatically approved.
+
+For skills, the scanner uses `--no-llm --format json --fail-on-incomplete --min-coverage 100`. Require expected file coverage, no suppression, complete results and an allowed SAFE/LOW verdict. CAUTION, MEDIUM/HIGH/CRITICAL, DO_NOT_INSTALL, failed, suppressed, incomplete or changed-file scans block activation. No persistent vulnerability/audit ledger is created.
+
+## GitHub cloning
+
+For a simple supported agent tool call:
 
 ```powershell
-python scripts/install_selected_skill.py --host claude --name example --source .\incoming\example
+git clone https://github.com/owner/repo.git destination
 ```
 
-Replace `example` and the source path with the actual skill name and staged path. The single-skill installer refuses existing destinations and does not overwrite local modifications. For upgrades, reconcile/remove the existing skill separately only after preserving user data and confirming the desired replacement. Do not execute untrusted installation scripts as a staging step.
-
-**Policy:** complete SAFE scans pass; LOW/MEDIUM findings are reported; HIGH/CRITICAL or `DO_NOT_INSTALL` findings, malformed/failed scans, suppressed findings or incomplete coverage block. Static scanners may miss real malware or report false positives. Handle dangerous lower-severity behavior conservatively.
-
-## 2. Optional PreToolUse hooks
-
-On each device with Codex and/or Claude Code, opt in by inspecting the existing settings and running:
+The hook changes the **tool input**, not the repository itself, into a call to:
 
 ```powershell
-python scripts/setup_security_hooks.py --host codex --install
-python scripts/setup_security_hooks.py --host claude --install
-python scripts/setup_security_hooks.py --host codex --check
-python scripts/setup_security_hooks.py --host claude --check
+python scripts/secure_operations.py clone --url https://github.com/owner/repo.git --destination destination
 ```
 
-The setup script merges, rather than replaces, existing `PreToolUse` hook settings at:
+The worker clones to a temporary directory, identifies agent skills, invokes SkillSpector for each staged skill, and releases the checkout only when applicable checks pass. If no `SKILL.md` is found, the worker *attempts* a general-repo SkillSpector scan and reports limited/not-applicable coverage. This **does not certify arbitrary source code as harmless**. Complex Git commands, non-GitHub URLs and compound shell syntax are blocked with guidance rather than silently executed. User-run external terminal clones are not intercepted.
 
-- Codex: `~/.codex/hooks.json`
-- Claude Code: `~/.claude/settings.json`
+## Required live tests and limitations
 
-It checks existing hooks, refuses malformed configurations, and backs up any pre-existing settings to a `.before-dev-workspace.bak` file on first change. Repeated installs are idempotent. If an existing managed security hook differs, reconcile manually instead of silently overwriting it. These hooks are **not** enabled merely by updating this GitHub repository.
+1. Start a **new** Codex/Claude session and inspect hook registration.
+2. Confirm `npx skills add fake-example` is blocked before execution.
+3. Confirm a harmless simple HTTPS GitHub clone is redirected to staging.
+4. Confirm a benign staged skill installs after a real SkillSpector scan.
+5. Confirm CAUTION/MEDIUM, HIGH, scanner crash, incomplete scan and changed files block skill installation.
+6. Confirm an existing modified skill remains untouched after attempted update.
 
-The hook uses the current host's supported synchronous `PreToolUse` event and exit code 2 (stderr reason) to block recognized direct capability installations and writes to active skill/plugin paths. Its scope includes common CLI manager commands and file edits, while ordinary application repository clones remain allowed.
+Hooks cannot monitor arbitrary subprocesses, external terminals, manual installs, bypassed tools or disabled host hooks; an agent's operating-system permissions/sandbox are an independent protective boundary. SkillSpector is built for agent skills, not comprehensive malware analysis of generic Java/Node/Python repositories. The source repo being updated does **not** install hooks on your laptop until you run setup there.
 
-**Known interception limits:** Hooks cannot observe all hosted tools, process APIs, shell obfuscation, external terminals, post-install plugin manager operations, user actions, or arbitrary programs that manipulate the filesystem. Tool event names and hook support can change with host versions. An agent can still use tools not guarded by these matchers; scanner availability or a hook entry alone does not guarantee protection. Do not route risk-sensitive plugin installs through an unverified native manager simply because the hook allows them. Require a staged scan or explicit manual security decision for capabilities outside the controlled installers.
-
-## 3. Verification and rollback
-
-In a fresh session on **each installed host**, inspect registered hooks via the host's interface. Test:
-
-- An ordinary `git clone` to a temporary application directory (should be allowed).
-- A direct command `npx skills add ...` or `claude plugin install ...` (should be blocked before execution; use a harmless fake target rather than installing live code).
-- A tool write into `~/.agents/skills/...` or `~/.claude/skills/...` (should be blocked).
-- A staged benign skill (should scan and install).
-- A synthetic high-risk or incomplete scan (should refuse installation).
-- A previously modified installed skill (should not be overwritten).
-
-To revert the hook change: remove only the exact managed `skill_security_hook.py` entry from `PreToolUse` in the appropriate settings file, or restore the **verified pre-change** settings backup, preserving later custom changes. No global hooks are removed automatically. For installed skills, existing local file snapshots and receipts under the host's `dev-workspace-advisor` folder remain separate from historical scan logs. Never delete a user-modified skill just to simplify cleanup.
-
-Official documentation: [Codex hooks](https://learn.chatgpt.com/docs/hooks), [Claude Code hooks](https://code.claude.com/docs/en/hooks), [SkillSpector](https://github.com/NVIDIA/SkillSpector).
+Official sources: [NVIDIA SkillSpector](https://github.com/NVIDIA/SkillSpector), [Claude Code hooks](https://code.claude.com/docs/en/hooks), [Codex hooks](https://learn.chatgpt.com/docs/hooks).
