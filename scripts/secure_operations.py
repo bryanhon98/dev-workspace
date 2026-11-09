@@ -233,6 +233,23 @@ def _report_generic_repository(stage, scanner):
         return {'coverage': 'limited', 'note': 'Non-skill scan did not complete successfully'}
     return {'coverage': 'limited', 'note': 'SkillSpector is not a general repository safety guarantee'}
 
+def _clone_digest(root):
+    """Reject symlinks and detect any change in the staged checkout during inspection."""
+    digest = hashlib.sha256()
+    for item in sorted(root.rglob('*')):
+        if item.is_symlink():
+            raise ValueError('Cloned repository contains a symlink: ' + str(item))
+        if item.is_file():
+            rel = item.relative_to(root).as_posix()
+            digest.update(rel.encode('utf-8'))
+            digest.update(b'\\x00')
+            with item.open('rb') as stream:
+                for chunk in iter(lambda: stream.read(1048576), b''):
+                    digest.update(chunk)
+        elif not item.is_dir():
+            raise ValueError('Unsupported cloned repository file: ' + str(item))
+    return digest.digest()
+
 def clone_repository(url, destination=None, cwd=None, scanner=None):
     """Clone HTTPS GitHub source into staging; inspect before release to destination."""
     if not isinstance(url, str) or not _GITHUB_URL.fullmatch(url):
@@ -255,6 +272,7 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
                                 capture_output=True, text=True, timeout=300, env=environment)
         if result.returncode:
             raise ValueError('Git clone failed: ' + result.stderr[-1000:])
+        staged_hash = _clone_digest(staged)
         skill_dirs = sorted({p.parent for p in staged.rglob('SKILL.md')
                              if '.git' not in p.relative_to(staged).parts},
                             key=str)
@@ -273,6 +291,8 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
                     summary.append({'skill': folder.relative_to(staged).as_posix(), 'warnings': warnings})
         else:
             summary.append(_report_generic_repository(staged, scanner_info))
+        if _clone_digest(staged) != staged_hash:
+            raise ValueError('Cloned repository changed during inspection')
         if target.exists():
             raise ValueError('Destination created while clone was scanned')
         os.replace(staged, target)

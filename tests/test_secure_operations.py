@@ -97,5 +97,48 @@ class SecureOperationsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.mod.clone_repository('https://github.com/example/demo.git', '../outside', self.dir)
 
+
+    def _mock_clone(self, staged, with_skill=True, symlink=False):
+        def git(command, **kwargs):
+            destination = Path(command[-1])
+            destination.mkdir(parents=True)
+            if with_skill:
+                skill = destination / 'sample'
+                skill.mkdir()
+                (skill / 'SKILL.md').write_text('---\\nname: sample\\n---\\nSafe\\n')
+                if symlink:
+                    (skill / 'link').symlink_to(skill / 'SKILL.md')
+            else:
+                (destination / 'Main.java').write_text('class Main {}')
+            return __import__('subprocess').CompletedProcess(command, 0, '', '')
+        return git
+
+    def test_clone_stages_scans_and_releases_once(self):
+        url = 'https://github.com/example/skill-demo.git'
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \\
+             mock.patch.object(self.mod, 'scan_skill', return_value=[]) as scan:
+            result = self.mod.clone_repository(url, 'checked', self.dir)
+        self.assertTrue(result['cloned'])
+        self.assertEqual(scan.call_count, 1)
+        self.assertTrue((self.dir / 'checked/sample/SKILL.md').is_file())
+
+    def test_clone_scan_failure_does_not_release_source(self):
+        url = 'https://github.com/example/skill-demo.git'
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \\
+             mock.patch.object(self.mod, 'scan_skill', side_effect=ValueError('HIGH risk')):
+            with self.assertRaisesRegex(ValueError, 'HIGH risk'):
+                self.mod.clone_repository(url, 'blocked', self.dir)
+        self.assertFalse((self.dir / 'blocked').exists())
+
+    def test_generic_clone_reports_limited_coverage(self):
+        url = 'https://github.com/example/java-demo.git'
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None, with_skill=False)), \\
+             mock.patch.object(self.mod, '_report_generic_repository',
+                               return_value={'coverage': 'limited'}) as generic:
+            result = self.mod.clone_repository(url, 'java-repo', self.dir)
+        generic.assert_called_once()
+        self.assertEqual(result['checks'][0]['coverage'], 'limited')
+        self.assertTrue((self.dir / 'java-repo/Main.java').is_file())
+
 if __name__ == '__main__':
     unittest.main()
