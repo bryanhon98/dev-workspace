@@ -15,7 +15,7 @@ import host_profiles
 
 MATCHERS = {
     'claude': 'Bash|Write|Edit|MultiEdit|NotebookEdit',
-    'codex': 'Bash|apply_patch|Edit|Write|mcp__.*',
+    'codex': 'Bash|apply_patch|Edit|Write',
 }
 
 
