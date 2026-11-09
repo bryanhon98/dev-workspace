@@ -34,6 +34,7 @@ class AdvisorInstallTests(unittest.TestCase):
             patch = mock.patch.object(self.mod, method, return_value=return_value)
             patch.start()
             self.addCleanup(patch.stop)
+        self.real_scan = self.mod._scan
         patch = mock.patch.object(self.mod, '_scan', side_effect=self.fake_scan)
         patch.start()
         self.addCleanup(patch.stop)
@@ -208,9 +209,9 @@ class AdvisorInstallTests(unittest.TestCase):
                 with mock.patch.object(self.mod.subprocess, 'run', return_value=completed):
                     if should_block:
                         with self.assertRaises(ValueError):
-                            self.mod._scan(directory, {'path': '/trusted/scanner'}, ['SKILL.md'])
+                            self.real_scan(directory, {'path': '/trusted/scanner'}, ['SKILL.md'])
                     else:
-                        warnings = self.mod._scan(directory, {'path': '/trusted/scanner'}, ['SKILL.md'])
+                        warnings = self.real_scan(directory, {'path': '/trusted/scanner'}, ['SKILL.md'])
                         self.assertEqual(len(warnings), len(report['issues']))
 
     def test_new_revision_requires_fresh_scan(self):
