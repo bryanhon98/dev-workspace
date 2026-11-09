@@ -215,7 +215,12 @@ def _scanner_executable(value):
     candidate = value or shutil.which('skillspector')
     if not candidate:
         raise ValueError('SkillSpector is required: uv tool install git+https://github.com/NVIDIA/skillspector.git')
-    path = _path(candidate)
+    # uv tool installs may expose a symlink shim; resolve it for the scanner only.
+    # Skill source files still reject symlinks via _path/_files.
+    try:
+        path = Path(os.path.abspath(os.fspath(candidate))).resolve(strict=True)
+    except OSError as exc:
+        raise ValueError('SkillSpector executable is missing: ' + str(candidate)) from exc
     if not path.is_file():
         raise ValueError('SkillSpector executable is missing: ' + str(path))
     result = subprocess.run([str(path), '--version'], capture_output=True, text=True, timeout=30)
