@@ -1,11 +1,9 @@
 {
-  "schema_version": 2,
-  "bundle_version": "2.0.0",
+  "schema_version": 3,
+  "bundle_version": "3.0.0",
   "scanner": {
-    "revision": "cf5cac7ba5c756a6e0ebf52dc9763f49422f889f",
-    "version": "2.12.0",
-    "source_url": "https://github.com/NVIDIA/skillspector.git",
-    "constraints": "audits/skillspector-cf5cac7-20261018/dependency-constraints.txt"
+    "source_url": "https://github.com/NVIDIA/SkillSpector",
+    "install_command": "uv tool install git+https://github.com/NVIDIA/skillspector.git"
   },
   "components": [
     {
@@ -14,7 +12,6 @@
       "version": "1.0.0",
       "source": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/tool-advisor/audit.json",
       "exception": null
     },
     {
@@ -23,7 +20,6 @@
       "version": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "source": "https://github.com/mattpocock/skills/tree/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/skills/productivity/grilling",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/grilling/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/mattpocock/skills",
       "upstream_ref": "HEAD"
@@ -34,7 +30,6 @@
       "version": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
       "source": "https://github.com/vercel-labs/skills/tree/7a5e920bead4b1039a6d6df5d7e1163b7b09423a/skills/find-skills",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/find-skills/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/vercel-labs/skills",
       "upstream_ref": "HEAD"
@@ -45,7 +40,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/brainstorming",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/brainstorming/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -56,7 +50,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/dispatching-parallel-agents",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/dispatching-parallel-agents/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -67,7 +60,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/executing-plans",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/executing-plans/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -78,7 +70,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/finishing-a-development-branch",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/finishing-a-development-branch/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -89,7 +80,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/receiving-code-review",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/receiving-code-review/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -100,7 +90,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/requesting-code-review",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/requesting-code-review/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -111,7 +100,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/subagent-driven-development",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/subagent-driven-development/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -122,7 +110,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/systematic-debugging/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -133,7 +120,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/test-driven-development",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/test-driven-development/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -144,7 +130,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-git-worktrees",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/using-git-worktrees/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -155,7 +140,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/using-superpowers",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/using-superpowers/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -166,7 +150,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/verification-before-completion/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -177,7 +160,6 @@
       "version": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/writing-plans",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/writing-plans/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/obra/superpowers",
       "upstream_ref": "HEAD"
@@ -188,11 +170,9 @@
       "version": "14d398f44771be1fc49488ab1b8a348ed76ca172",
       "source": "https://github.com/0xNyk/council-of-high-intelligence/tree/14d398f44771be1fc49488ab1b8a348ed76ca172",
       "extra_files": [],
-      "audit_ref": "audits/advisor-ready-20261103/council/audit.json",
       "exception": null,
       "upstream_repository": "https://github.com/0xNyk/council-of-high-intelligence",
       "upstream_ref": "HEAD"
     }
-  ],
-  "approvals_ref": "skill-approvals.json"
+  ]
 }
