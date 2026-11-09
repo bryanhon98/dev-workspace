@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Show setup choices; explicitly install rules or the reviewed advisor bundle."""
+"""Show setup choices or perform security-first SkillSpector and Advisor setup."""
 import argparse
 import hashlib
 import json
@@ -135,7 +135,7 @@ def show_catalog(host='codex'):
     print('\n' + wording['catalog_prompt'])
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, ' + wording['host_name'] + ' can restore global rules with --install-rules and inspect/install selected skills.')
-    print('Advisor setup: --install-advisor selects the full baseline; --plan-advisor shows preparation gaps. --install-advisor-core explicitly installs only the three-skill core.')
+    print('Workspace setup: --setup-workspace verifies SkillSpector, configures hooks, then scans/installs the full Advisor baseline. --plan-advisor inspects preparation gaps; --install-advisor-core is partial.')
 
 
 MATCHERS = {
