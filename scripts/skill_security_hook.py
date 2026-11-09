@@ -42,8 +42,12 @@ def classify(payload):
     cmd = arg.get('command') or arg.get('shell_command') or arg.get('cmd') or ''
     if isinstance(cmd, list):
         cmd = ' '.join(map(str, cmd))
+    if tool == 'Bash' and not cmd:
+        return 'Missing Bash command'
     if isinstance(cmd, str) and cmd:
         normalized = cmd.replace('\\', '/')
+        if tool == 'apply_patch' and ACTIVE.search(normalized):
+            return 'Direct patching of active skill/plugin files is blocked'
         if any(p.search(normalized) for p in INSTALL):
             return 'Direct skill/plugin manager installation is blocked'
         if ACTIVE.search(normalized) and MUTATE.search(normalized):
