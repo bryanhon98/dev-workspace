@@ -16,6 +16,22 @@ Every worker brief contains:
 
 Avoid creating competing coordinators. A worker does not expand the agreed plan or choose a new skill combination. New roles or material scope changes return to the proposal/confirmation step. The host's ordinary safety and authorization rules continue to apply.
 
+## Native host delegation and skill binding
+
+Tool Advisor decides **which** roles and skills fit the confirmed work; the current Codex or Claude Code session executes available workers through its **actual native tools**. This policy is portable, but supported agent modes, permission scopes and skill-loading behavior must be checked in the active host. Do not invent spawn commands, build a parallel agent runtime, or claim that a host's team feature is enabled just because its documentation exists.
+
+For every task that benefits from delegation:
+
+1. Select **one accountable agent/worker role** and the smallest complementary combination of existing baseline instructions and task-specific skills. Do not spawn every available role or stack competing implementation controllers.
+2. Check the worker mechanism, tool permissions, skill availability and dependencies in the **current session/device**. A saved or globally listed skill elsewhere is not proof the worker can access it.
+3. Dispatch with the host's supported native agent/subagent/team tool, including the approved task, relevant context, selected skill names and exact installed sources, skill invocation/loading instructions, file ownership, dependencies and evidence to return.
+4. Ensure the worker actually **invokes the selected skill or reads its complete installed instructions** via a supported mechanism. A `skills` field or role label must not be assumed to preload instructions across host modes; record whether invocation was native or manual and treat unperformed loading as a gap.
+5. Capture the actual worker identity, outcome, files changed and checks performed. Keep worker reports separate from coordinator verification; the coordinator integrates results and independently checks acceptance evidence.
+
+Use concurrent workers only for genuinely independent tasks and isolated/non-overlapping writes. When native delegation is missing, disabled, unauthorized or unsuitable, the coordinator may execute sequentially using available skills; explicitly identify that fallback. A skill or agent definition does not launch a model by itself.
+
+Do not mirror a native team's live task list into an independently maintained second tracker. Preserve the existing project tracker as the source of task truth, and use the advisor ledger for proposal/confirmation and durable references or checkpoints only where the approved routing policy needs it. This paragraph refines tracking ownership; it does not weaken the original confirmation, installation-scan or permission gates.
+
 ## Verification and resume
 
 Mark started work as running, blocked work with its reason, and returned work as ready for review. A successful worker message is a claim to check. Inspect its outputs and acceptance evidence; run relevant integration or user-journey checks before marking done. Keep task IDs, actors and evidence paths accurate. Use another reviewer when available and warranted; identify self-review honestly.

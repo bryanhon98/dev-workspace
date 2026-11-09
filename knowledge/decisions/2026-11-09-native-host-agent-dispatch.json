@@ -1,0 +1,119 @@
+{
+  "id": "2026-11-09-native-host-agent-dispatch",
+  "recorded_at": "2026-11-09T10:41:00Z",
+  "task": "Clarify the portable Tool Advisor skill-to-agent workflow for Codex and Claude Code using host-native workers.",
+  "constraints": {
+    "scope": "Repository instruction and manual scenario updates only; no local-device installation, new runtime, changes to agent definitions or provider settings.",
+    "preserve": [
+      "one accountable coordinator",
+      "direct/focused/full routes",
+      "confirmed material combinations",
+      "existing task tracker",
+      "skill installation/permission/security gates"
+    ]
+  },
+  "device_alias": "github-connected-session",
+  "candidates": [
+    {
+      "identity": "Host-native worker dispatch",
+      "official_source_url": "https://github.com/bryanhon98/dev-workspace",
+      "skill_path": "skills/custom/tool-advisor/SKILL.md",
+      "observed_revision": "f75bc9c3e2f855027e1b2aeb299648a8669b1b29",
+      "upstream_revision": null,
+      "checked_time": "2026-11-09",
+      "review_depth": "Tool Advisor skill, execution and BUILD-FLOW source documents",
+      "fit": "Selected skills and roles can be assigned to actual host workers without an extra runtime",
+      "overlap": "Existing coordination and task tracking already covered; improve only the native invocation/loading boundary",
+      "prerequisites": [
+        "Host exposes authorized native worker tools",
+        "Worker can load selected installed skill"
+      ],
+      "costs": "No added service required; execution/token costs depend on host and workload",
+      "uncertainties": [
+        "Live Codex and Claude Code worker dispatch not tested in this session",
+        "Device-specific skill installation/discovery unverified"
+      ]
+    },
+    {
+      "identity": "Custom cross-host agent dispatcher",
+      "official_source_url": null,
+      "skill_path": null,
+      "observed_revision": null,
+      "upstream_revision": null,
+      "checked_time": "2026-11-09",
+      "review_depth": "Architecture alternative, not an implemented candidate",
+      "fit": "Not needed when host exposes supported agent tools",
+      "overlap": "Would duplicate native worker execution and risk ownership conflicts",
+      "prerequisites": [],
+      "costs": "Implementation and maintenance overhead; unmeasured",
+      "uncertainties": [
+        "No prototype or benchmark was conducted"
+      ]
+    }
+  ],
+  "decision": {
+    "status": "Source policy update; no live runtime activation",
+    "selected": "Keep Tool Advisor as the sole coordinator, using native workers through the active host and explicit skill loading/invocation evidence.",
+    "actions": [
+      "Preserve current discovery and confirmation policy",
+      "Make role-to-skill binding and native dispatch explicit",
+      "Verify worker skill access and invocation",
+      "Keep independent write ownership and acceptance verification",
+      "Use honest sequential fallback when no native workers",
+      "Do not build host-specific dispatch adapters or duplicate task trackers"
+    ],
+    "deferred": [
+      "Custom dispatcher",
+      "Automatic loading assumptions",
+      "New agent persona or blanket activation of all roles"
+    ]
+  },
+  "evidence": {
+    "source_refs": [
+      "skills/custom/tool-advisor/SKILL.md",
+      "skills/custom/tool-advisor/references/execution.md",
+      "knowledge/BUILD-FLOW.md",
+      "knowledge/ADVISOR.md",
+      "README.md",
+      "tests/tool-advisor-scenarios.md"
+    ],
+    "review_passes": [
+      {
+        "name": "Architecture and ownership",
+        "result": "One coordinator; host-native delegation is already the intended mechanism; custom adapter duplicates it."
+      },
+      {
+        "name": "Cross-host and safety compatibility",
+        "result": "Explicitly check real worker tools, skill loading, confirmation, ownership, tracking and fallback rather than assuming Codex and Claude behave identically."
+      }
+    ],
+    "checks": "Text and policy consistency review; manual routing scenarios recorded.",
+    "unperformed": [
+      "Fresh-session Codex native delegation",
+      "Fresh-session Claude Code native delegation",
+      "Live skill-loading proof in both hosts",
+      "Measured A/B improvement"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "user-provided architectural correction",
+      "text": "The repository is intended to support Codex and Claude Code, not only one host."
+    },
+    {
+      "kind": "user preference",
+      "text": "Use native agent invocation from the current session instead of building a custom execution adapter."
+    },
+    {
+      "kind": "explicit publication request",
+      "text": "Double-review the flow, then publish the update if sound."
+    }
+  ],
+  "revisit_when": [
+    "A host's native agent/skill-loading interface changes",
+    "Live tests show failed or duplicated skill invocation",
+    "Cross-host setup expands beyond instruction portability",
+    "Native task tracking conflicts with advisor ledger"
+  ],
+  "supersedes": []
+}

@@ -64,3 +64,22 @@ These are **manual routing regression expectations**, not evidence that optional
 | User asks for Claude-Mem globally on work repositories | Do not silently enable capture. Identify prior compatibility blocker, model processing/storage/telemetry/privacy, secure scope and explicit authorization before any plugin/worker install. |
 | Claude-Mem pilot explicitly approved for a personal sandbox repo | Verify privacy and installation gates, choose narrow capture scope, define opt-out/removal and side-by-side recall evaluation; do not mark improvement measured before tests. |
 | Summary or Claude-Mem recall contradicts Git-backed code | Treat repo/source evidence as canonical, label stale or uncertain memory and re-verify exact implementation. |
+
+## Native host agent assignment scenarios — 2026-11-09
+
+These are **manual policy consistency checks**, not executed Codex or Claude Code agent-team tests or evidence of improved output quality.
+
+| Scenario | Expected behavior |
+|---|---|
+| Simple typo fix in a known project | Direct route, use an available editor; no routine advisor discovery or mandatory spawned team. |
+| New substantial project with unconfirmed specialist combination | Select complementary skills and roles, show the concrete proposal, obtain actual confirmation before dispatch; reuse prior matching approval. |
+| Confirmed backend + frontend feature with independent files | Give each worker an accountable role, explicit skill sources and loading instructions, file ownership, tests and dependencies; dispatch through actual available host tools. |
+| Selected skill is listed globally but cannot be read by the worker | Do not claim it was loaded; resolve the availability gap or report a permitted alternative before relying on the skill. |
+| Claude Code Agent Teams, ordinary subagent or Codex worker has different skill-loading behavior | Verify supported invocation/loading in the current host instead of assuming a common `skills` config field has identical effects. |
+| Host exposes no genuine worker-spawning tool | Run authorized work sequentially or report a blocker; never simulate independent participants. |
+| Two specialists would edit the same shared file | Agree contracts and serialize writes or isolate ownership/worktrees; avoid conflicting parallel editing. |
+| Native team uses a shared task list and the project has an existing tracker | Keep one authoritative task source; advisor ledger records confirmations and evidence without a competing live plan. |
+| Worker says the assigned skill was used but returns no loading or outcome evidence | Mark skill use unverified and check the worker's actual outputs and acceptance tests before completion. |
+| Final result is ready for review | Require the agreed independent checks and integrate actual results; do not treat agent completion as automatic acceptance. |
+
+This update changes source instructions only. It does not install skills on either device, enable Claude Code Agent Teams, modify a model provider or demonstrate native workers in a live session.

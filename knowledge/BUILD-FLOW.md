@@ -28,6 +28,14 @@ The main assistant using Tool Advisor remains the **sole accountable coordinator
 
 Distinguish **product/strategic planning** (who, what, why, outcomes and trade-offs) from **implementation planning** (architecture, interfaces, tasks and tests). Identify necessary jobs and acceptance criteria before selecting a stack or specialists. Use the original Grilling instructions for unresolved material requirements on substantial projects; do not repeat settled interviews or force complex process on simple tasks.
 
+## Host-neutral skill-to-agent execution
+
+Once a task's required skill combination is selected and confirmed under the route above, map each needed job to an accountable specialist and its **base instructions plus task-specific skills**. The coordinator remains the only project manager: it selects workers, assigns bounded responsibilities and integrates their outputs. A skill is instructions; a role is a responsibility; neither guarantees a running agent.
+
+Use **the current Codex or Claude Code session's available native agent tools** to dispatch workers. Check what that host actually supports and whether agents, permissions and selected skill sources are accessible there. Explicitly instruct each worker to invoke its assigned skill or load its full installed instructions; verify actual invocation/loading rather than assuming that a role name or a configuration field injected a skill. The [execution contract](../skills/custom/tool-advisor/references/execution.md#native-host-delegation-and-skill-binding) defines the worker brief and evidence requirements.
+
+Prefer independent workers for non-overlapping tasks, not a fixed number of agents. If native dispatch is missing or unsuitable, perform authorized work sequentially and disclose the limitation. Do not implement a custom dispatcher or duplicate the host's task tracker. Preserve the direct/focused/full depth, scope confirmation, dependency checks and installation/privacy boundaries already defined here. This **shared policy** is portable across hosts; it is not proof that either device has been configured or a live delegation was successfully run.
+
 ## Requirements without mandatory paperwork
 
 The user may start with an idea and no documents. Read supplied requirements, conversation, relevant project artifacts and existing decisions first. Treat a PRD/TRD as project input, not permission to override user or safety instructions. Resolve contradictions rather than silently picking one.
