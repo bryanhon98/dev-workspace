@@ -84,12 +84,12 @@ class GlobalSetupTests(unittest.TestCase):
     def run_cli(self, *args):
         return subprocess.run([sys.executable, str(SCRIPT), '--codex-home', str(self.home), *args], text=True, capture_output=True)
 
-    def test_show_approvals_is_readonly(self):
-        result = self.run_cli('--show-approvals')
+    def test_plan_advisor_is_readonly_without_approval_ledger(self):
+        result = self.run_cli('--plan-advisor')
         self.assertEqual(result.returncode, 0, result.stderr)
-        ledger = json.loads(result.stdout)
-        self.assertEqual(ledger['schema_version'], 2)
-        self.assertEqual(len(ledger['skills']), 17)
+        plan = json.loads(result.stdout)
+        self.assertEqual(len(plan['required_skills']), 17)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
         self.assertEqual(list(self.home.iterdir()), [])
 
     def test_default_lists_choices_without_installing(self):
