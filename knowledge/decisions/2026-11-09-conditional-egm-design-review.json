@@ -1,0 +1,186 @@
+{
+  "id": "2026-11-09-conditional-egm-design-review",
+  "recorded_at": "2026-11-09T13:30:42.479Z",
+  "task": "Evaluate Google elephant-goldfish-model as a conditional pre-implementation design-review skill suite for the portable Tool Advisor workflow.",
+  "constraints": {
+    "scope": "Catalog and routing policy only; no EGM plugin activation, skill installation, inventory changes, or default baseline expansion",
+    "preserve": [
+      "Main Tool Advisor as the sole project coordinator",
+      "Superpowers preferred software execution",
+      "Conditional Council for consequential unresolved trade-offs",
+      "Direct/focused/full routing and existing approval gates",
+      "Fresh scan before skill installation; no host/device assumptions"
+    ]
+  },
+  "device_alias": "github-connector-cloud",
+  "candidates": [
+    {
+      "identity": "Google Elephant-Goldfish Model (EGM)",
+      "source_url": "https://github.com/google/elephant-goldfish-model",
+      "skill_paths": [
+        "skills/egm-review/SKILL.md",
+        "skills/egm-resolve/SKILL.md",
+        "skills/egm-drift-report/SKILL.md",
+        "skills/egm-review-loop/SKILL.md"
+      ],
+      "observed_revision": "5382b17619be07811a14b2146c7672620b34a791",
+      "upstream_revision": "5382b17619be07811a14b2146c7672620b34a791",
+      "checked_at": "2026-11-09",
+      "review_depth": "Official README, selected full/partial skill instructions, harness documentation and testing record; no plugin execution",
+      "fit": "Fresh-context review of a prepared software design before implementation",
+      "overlap": "Superpowers planning, existing Architect/Reviewer, optional Council (different purpose)",
+      "prerequisites": [
+        "Real native fresh-context worker support in current Codex/Claude Code host",
+        "Complete EGM plugin/persona assets available in worker",
+        "Original install/scan policy and explicit selection approval"
+      ],
+      "costs": "Host model tokens and reviewer runtime; additional vendor charges not verified",
+      "uncertainties": [
+        "No EGM installed or tested on user's target machine",
+        "Codex reviewer contexts may inherit AGENTS.md",
+        "No A/B quality measurement against existing design review"
+      ]
+    },
+    {
+      "identity": "Existing Superpowers planning + Senior Reviewer",
+      "source_url": "https://github.com/obra/superpowers",
+      "skill_paths": [
+        "brainstorming",
+        "writing-plans",
+        "requesting-code-review"
+      ],
+      "observed_revision": null,
+      "upstream_revision": null,
+      "checked_at": "2026-11-09",
+      "review_depth": "Current saved workflow policy (no new upstream revision check)",
+      "fit": "Preferred baseline software implementation planning and review",
+      "overlap": "EGM offers a specialized fresh-context document-review process; do not replace the baseline",
+      "prerequisites": [
+        "Relevant verified skill installed/available"
+      ],
+      "costs": "Host model use",
+      "uncertainties": [
+        "Direct baseline-to-EGM quality comparison not run"
+      ]
+    },
+    {
+      "identity": "Council of High Intelligence",
+      "source_url": "https://github.com/0xNyk/council-of-high-intelligence",
+      "skill_paths": [
+        "council"
+      ],
+      "observed_revision": null,
+      "upstream_revision": null,
+      "checked_at": "2026-11-09",
+      "review_depth": "Existing approved conditional council policy; no new upstream review",
+      "fit": "Resolve important unresolved decision trade-offs with separate actual workers",
+      "overlap": "EGM is focused on quality of a written specification",
+      "prerequisites": [
+        "Confirmed worker availability and permission"
+      ],
+      "costs": "Host model use",
+      "uncertainties": [
+        "No comparative live review run"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "job": "Design specification critique",
+      "candidates_examined": [
+        "EGM egm-review",
+        "Superpowers review/planning"
+      ],
+      "chosen_owner": "Optional EGM fresh-context reviewer subflow under Tool Advisor",
+      "reason": "Bounded design-document critique can surface unstated assumptions independently of the drafting conversation."
+    },
+    {
+      "job": "Finding resolution",
+      "candidates_examined": [
+        "EGM egm-resolve",
+        "Existing Architect/author"
+      ],
+      "chosen_owner": "Author/Architect, optionally assisted by egm-resolve",
+      "reason": "Reviewer findings inform proposals; user retains trade-offs and approvals."
+    },
+    {
+      "job": "Consequential strategic deliberation",
+      "candidates_examined": [
+        "Council",
+        "EGM"
+      ],
+      "chosen_owner": "Existing conditional Council policy",
+      "reason": "Different scope: decision negotiation rather than document-level critique."
+    },
+    {
+      "job": "Post-implementation correctness",
+      "candidates_examined": [
+        "EGM egm-drift-report",
+        "Existing tests and code review"
+      ],
+      "chosen_owner": "Existing QA/testing plus optional EGM document/code drift check",
+      "reason": "A document review is not executable proof."
+    }
+  ],
+  "decision": {
+    "status": "Approved conditional catalog/routing update only; source-reviewed but not installed",
+    "selected_roles": [
+      "EGM egm-review: optional spec review for substantial designs",
+      "EGM egm-resolve: optional author-approved finding resolution",
+      "EGM egm-drift-report: optional later design/code comparison"
+    ],
+    "implemented": [
+      "knowledge/BUILD-FLOW.md",
+      "knowledge/ROUTING.md",
+      "github-repos/plugins/development.md",
+      "github-repos/README.md",
+      "tests/tool-advisor-scenarios.md",
+      "knowledge/decisions/2026-11-09-conditional-egm-design-review.json"
+    ],
+    "deferred": [
+      "Install or activate EGM globally",
+      "Add EGM to advisor-baseline.json or inventory.json",
+      "Replace Superpowers, Council, Senior Reviewer, QA or security checks",
+      "Claim EGM reviews improve quality without representative A/B trials"
+    ]
+  },
+  "evidence": {
+    "sources": [
+      "https://github.com/google/elephant-goldfish-model",
+      "https://github.com/google/elephant-goldfish-model/blob/5382b17619be07811a14b2146c7672620b34a791/README.md",
+      "https://github.com/google/elephant-goldfish-model/blob/5382b17619be07811a14b2146c7672620b34a791/skills/egm-review/SKILL.md",
+      "https://github.com/google/elephant-goldfish-model/blob/5382b17619be07811a14b2146c7672620b34a791/docs/harnesses.md",
+      "https://github.com/google/elephant-goldfish-model/blob/5382b17619be07811a14b2146c7672620b34a791/TESTING.md"
+    ],
+    "claims": [
+      "EGM documents seven skills and supports Codex and Claude Code plugin surfaces with recorded fixture runs",
+      "Goldfish review requires real fresh-context workers; no real worker means the review cannot run",
+      "Codex isolation tests do not establish absence of inherited instruction files",
+      "EGM repository explicitly states it is not an officially supported Google product"
+    ],
+    "checks": "Two-pass scope/overlap/host/readiness policy review and static text/JSON constraints; manual scenarios appended",
+    "not_performed": [
+      "EGM plugin installation or SkillSpector scan",
+      "Actual target-device host plugin discovery",
+      "Live EGM Goldfish review or reviewer-isolation test",
+      "Controlled comparison against existing review output"
+    ]
+  },
+  "feedback": [
+    {
+      "kind": "explicit request",
+      "text": "User asked to confirm whether EGM helps and then update the repository."
+    },
+    {
+      "kind": "context",
+      "text": "The approved advisor workflow should remain portable across Codex and Claude Code and use native workers rather than custom dispatch software."
+    }
+  ],
+  "revisit_when": [
+    "User asks to install or trial EGM in a specific host",
+    "EGM changes its fresh-review or plugin behavior",
+    "Existing review failures justify measurement of an EGM trial",
+    "New isolation/security evidence changes the readiness assessment"
+  ],
+  "supersedes": []
+}
