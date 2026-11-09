@@ -141,7 +141,9 @@ The approved baseline stays at 17 skills. When installing it, `scripts/install_a
 4. Blocks HIGH/CRITICAL risk, `DO_NOT_INSTALL`, failed scans, suppressed findings and incomplete coverage; reports LOW/MEDIUM warnings. Static classification is imperfect: dangerous behavior may be missed or misclassified.
 5. Installs only after the entire selected batch passes, checks copied files, and rolls back changed active files on installation failure.
 
-No per-skill audits, scan JSON records or approval ledger are needed for this workflow. A small **local**, non-security-audit receipt and skill snapshots remain for installation integrity, migration and protection of local modifications. Older receipts are migrated on the next successful installation; `--check-advisor` on an old receipt reports that migration is needed, not that the old installation is insecure.
+No per-skill audits, scan JSON records or approval ledger are needed for this workflow. A small **local**, non-security-audit receipt and skill snapshots remain for installation integrity, migration and protection of local modifications.
+
+For a new task-specific skill selected by Tool Advisor, stage its directory outside active skill roots and run `python scripts/install_selected_skill.py --host claude --name <skill-name> --source <staged-skill-directory>` (use `--host codex` for Codex). This fresh-scans its source and refuses overwriting an existing skill; manually reconcile upgrades first. A hook-blocked marketplace command is **not** automatically safe simply because another installer exists. Older receipts are migrated on the next successful installation; `--check-advisor` on an old receipt reports that migration is needed, not that the old installation is insecure.
 
 Optional pre-tool hooks can be installed **separately on the target device**:
 
