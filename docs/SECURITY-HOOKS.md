@@ -9,7 +9,7 @@ python scripts/setup.py --host codex --setup-workspace
 python scripts/setup.py --host claude --setup-workspace
 ```
 
-The command installs/verifies NVIDIA SkillSpector (using `uv tool install git+https://github.com/NVIDIA/skillspector.git` if missing), runs a real benign static-scan smoke test, adds a native `PreToolUse` hook **without replacing other hooks**, checks blocking and clone rewrite locally, then stages/scans/installs the complete 17-skill Tool Advisor baseline and finally updates global instructions. Setup fails closed if a required step fails. An existing scanner name/version is not an independently verified software-supply-chain signature.
+The command installs/verifies NVIDIA SkillSpector (using a pinned official NVIDIA Git revision (currently `ea5aeef6b05c593959ad2125c09a528ffa5c55c9`) through `uv tool install` if missing), runs a real benign static-scan smoke test, adds a native `PreToolUse` hook **without replacing other hooks**, checks blocking and clone rewrite locally, then stages/scans/installs the complete 17-skill Tool Advisor baseline and finally updates global instructions. Setup fails closed if a required step fails. An existing scanner name/version is not an independently verified software-supply-chain signature.
 
 **Restart each host and verify a live event.** Local self-tests cannot establish that the running Codex/Claude version loaded the hook. Codex settings: `~/.codex/hooks.json`; Claude Code: `~/.claude/settings.json`. Existing settings receive a `.before-dev-workspace.bak` backup on first modification. A conflicting managed hook requires manual reconciliation.
 

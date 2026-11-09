@@ -49,20 +49,6 @@ def _json(path):
     return obj
 
 
-def _files(directory):
-    directory = _path(directory)
-    if not directory.is_dir():
-        raise ValueError('Missing payload directory: ' + str(directory))
-    result = {}
-    for file in sorted(directory.rglob('*')):
-        _path(file)
-        if file.is_file():
-            result[file.relative_to(directory).as_posix()] = file.read_bytes()
-        elif not file.is_dir():
-            raise ValueError('Unsupported payload file: ' + str(file))
-    return result
-
-
 def _source_clean(root, item):
     if not (root / '.git').exists():
         return

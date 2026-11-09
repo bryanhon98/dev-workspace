@@ -118,7 +118,8 @@ def ensure_scanner(value=None):
     uv = shutil.which('uv')
     if not uv:
         raise ValueError('SkillSpector missing; install uv then rerun setup')
-    command = [uv, 'tool', 'install', 'git+https://github.com/NVIDIA/skillspector.git']
+    command = [uv, 'tool', 'install',
+               'git+https://github.com/NVIDIA/skillspector.git@ea5aeef6b05c593959ad2125c09a528ffa5c55c9']
     result = subprocess.run(command, capture_output=True, text=True, timeout=300)
     if result.returncode:
         raise ValueError('Official SkillSpector installation failed: ' + result.stderr[-1000:])
