@@ -242,7 +242,7 @@ def _clone_digest(root):
         if item.is_file():
             rel = item.relative_to(root).as_posix()
             digest.update(rel.encode('utf-8'))
-            digest.update(b'\\x00')
+            digest.update(b'\x00')
             with item.open('rb') as stream:
                 for chunk in iter(lambda: stream.read(1048576), b''):
                     digest.update(chunk)

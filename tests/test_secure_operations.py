@@ -105,7 +105,7 @@ class SecureOperationsTests(unittest.TestCase):
             if with_skill:
                 skill = destination / 'sample'
                 skill.mkdir()
-                (skill / 'SKILL.md').write_text('---\\nname: sample\\n---\\nSafe\\n')
+                (skill / 'SKILL.md').write_text('---\nname: sample\n---\nSafe\n')
                 if symlink:
                     (skill / 'link').symlink_to(skill / 'SKILL.md')
             else:
@@ -115,7 +115,7 @@ class SecureOperationsTests(unittest.TestCase):
 
     def test_clone_stages_scans_and_releases_once(self):
         url = 'https://github.com/example/skill-demo.git'
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \\
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
              mock.patch.object(self.mod, 'scan_skill', return_value=[]) as scan:
             result = self.mod.clone_repository(url, 'checked', self.dir)
         self.assertTrue(result['cloned'])
@@ -124,7 +124,7 @@ class SecureOperationsTests(unittest.TestCase):
 
     def test_clone_scan_failure_does_not_release_source(self):
         url = 'https://github.com/example/skill-demo.git'
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \\
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
              mock.patch.object(self.mod, 'scan_skill', side_effect=ValueError('HIGH risk')):
             with self.assertRaisesRegex(ValueError, 'HIGH risk'):
                 self.mod.clone_repository(url, 'blocked', self.dir)
@@ -132,7 +132,7 @@ class SecureOperationsTests(unittest.TestCase):
 
     def test_generic_clone_reports_limited_coverage(self):
         url = 'https://github.com/example/java-demo.git'
-        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None, with_skill=False)), \\
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None, with_skill=False)), \
              mock.patch.object(self.mod, '_report_generic_repository',
                                return_value={'coverage': 'limited'}) as generic:
             result = self.mod.clone_repository(url, 'java-repo', self.dir)
