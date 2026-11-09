@@ -80,22 +80,22 @@ class SecurityHookTests(unittest.TestCase):
                                     'hooks': [{'type': 'command', 'command': 'echo keep'}]}]}}
                     path.write_text(json.dumps(original))
                     self.assertFalse(self.setup.configure_security_hook(path.parent, host, ROOT, install=False)['ready'])
-                    out = self.setup.apply(path.parent, host, ROOT, install=True)
+                    out = self.setup.configure_security_hook(path.parent, host, ROOT, install=True)
                     self.assertTrue(out['ready'])
                     self.assertTrue(out['changed'])
                     updated = json.loads(path.read_text())
                     self.assertEqual(updated['anotherSetting'], original['anotherSetting'])
                     self.assertEqual(len(updated['hooks']['PreToolUse']), 2)
-                    self.assertTrue(self.setup.apply(path.parent, host, ROOT, install=True)['ready'])
-                    self.assertTrue(self.setup.apply(path.parent, host, ROOT, install=False)['ready'])
+                    self.assertTrue(self.setup.configure_security_hook(path.parent, host, ROOT, install=True)['ready'])
+                    self.assertTrue(self.setup.configure_security_hook(path.parent, host, ROOT, install=False)['ready'])
 
     def test_invalid_settings_not_overwritten(self):
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
-            cfg = self.setup.config_file(home, 'claude')
+            cfg = self.setup.hook_config_file(home, 'claude')
             cfg.write_text('{invalid')
             with self.assertRaises(ValueError):
-                self.setup.apply(home, 'claude', ROOT, install=True)
+                self.setup.configure_security_hook(home, 'claude', ROOT, install=True)
             self.assertEqual(cfg.read_text(), '{invalid')
 
 

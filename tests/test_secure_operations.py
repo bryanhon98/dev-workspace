@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class SecureOperationsTests(unittest.TestCase):
     def setUp(self):
         spec = importlib.util.spec_from_file_location('secure_operations',
-                                                      ROOT / 'scripts/install_selected_skill.py')
+                                                      ROOT / 'scripts/secure_operations.py')
         self.mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.mod)
         tmp = tempfile.TemporaryDirectory()
@@ -56,7 +56,7 @@ class SecureOperationsTests(unittest.TestCase):
         self.assertEqual((existing / 'SKILL.md').read_text(), 'User data')
 
     def test_missing_scanner_blocks(self):
-        with mock.patch.object(self.mod, '_scanner_executable',
+        with mock.patch.object(self.mod, 'scanner_executable',
                                side_effect=ValueError('scanner missing')):
             with self.assertRaisesRegex(ValueError, 'scanner missing'):
                 self.mod.install_skill(self.source, self.skills, 'example')
