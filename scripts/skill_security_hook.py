@@ -34,7 +34,8 @@ def classify(payload):
     tool = str(payload.get('tool_name') or '')
     arg = payload.get('tool_input')
     if not isinstance(arg, dict):
-        return 'Missing tool arguments'
+        return ('Missing tool arguments' if tool in ('Bash', 'Write', 'Edit', 'MultiEdit',
+                                                  'NotebookEdit', 'apply_patch') else None)
     if tool in ('Write', 'Edit', 'MultiEdit', 'NotebookEdit', 'apply_patch'):
         path = str(arg.get('file_path') or arg.get('path') or '')
         if ACTIVE.search(path.replace('\\', '/')):
