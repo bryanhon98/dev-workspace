@@ -6,21 +6,19 @@ It supports software, design, research, media, business and automation. Its work
 
 ## Current status
 
-The complete **17-skill baseline is packaged**: Tool Advisor, Grilling, Find Skills, 13 Superpowers workflow skills and Council of High Intelligence. Installation checks upstream versions, scans the whole selected batch, retains documented warnings and verifies the installed files.
+The complete **17-skill baseline is packaged**: Tool Advisor, Grilling, Find Skills, 13 Superpowers workflow skills and Council of High Intelligence. Installation stages the selected skills and runs a fresh local SkillSpector scan before activation, with no mandatory historical scan or approval ledger.
 
 | Part | Status |
 |---|---|
 | Workflow, research library and saved decisions | Available in this repo |
-| All 17 baseline skill payloads | Packaged at approved versions with scan decisions |
+| All 17 baseline skill payloads | Packaged; every activation still requires a fresh scan |
 | Full setup command | Installs the baseline together after its checks pass |
 | Security policy | Warn and proceed for established low risk; block dangerous or unclassified findings |
 | Your device | Run setup and verify discovery in a fresh session |
 
-The bundle uses original upstream skills. Council has [documented host adaptations](audits/advisor-ready-20261103/council/adaptations.json) for portable asset lookup and actual independent workers. No extra model-provider account is required for the native-worker council. A host without worker support can install the files but cannot run independent council deliberation.
+The bundle uses original upstream skills. Council requires actual independent workers; without them, do not claim an independent panel. No separate model-provider account is required for its native-worker route.
 
-**Verified on Linux:** all 17 skills installed and discovered by Codex in a fresh isolated project; all 110 tests passed. No known main setup blocker remained in that test. Full project execution and council deliberation were not exercised.
-
-See the [verification record](audits/advisor-ready-20261103/verification.json) for the tested environment and limits. A download alone does not install or activate skills.
+Earlier isolated Codex baseline installs were tested, but **this simplified scanner gate and host hooks require fresh device-level verification**. GitHub source changes do not install or activate skills on your laptop.
 
 ## How the workflow works
 
@@ -98,9 +96,9 @@ python3 scripts/setup.py --check-advisor
 
 The installer stages and scans all 17 skills before activation. If a required component is blocked, it leaves the active bundle unchanged. `--install-advisor-core` is available only for an explicitly requested three-skill partial setup; `--check-advisor` reports that as incomplete workflow setup.
 
-Installation uses `~/.agents/skills`, managed Codex instructions and local receipts. It preserves unrelated instructions and refuses to overwrite locally modified managed content. Scanner bootstrap requires Python 3.12–3.14, Git and network access. An existing verified scanner can be supplied with `--scanner /path/to/skillspector`. Plugins, accounts and external model providers retain their own setup requirements; installing instruction files does not configure them automatically.
+Installation uses the target host's global skills directory and a **small local receipt plus file snapshots**, not shared scan/audit records. Install NVIDIA SkillSpector separately first using the official command below; the installer checks its CLI, stages and scans all selected skills, preserves unrelated instructions and refuses to overwrite locally modified files. An existing scanner can be specified with `--scanner /path/to/skillspector`. No scanner executable was installed on your device by this repository change.
 
-For a broader device setup, say **“Setup my Codex using this repo.”** That opens the inventory and asks about additional selections while preserving existing approvals. Plugins and MCPs remain a manual setup/login checklist.
+For a broader device setup, say **“Setup my Codex using this repo”** or **“Setup my Claude using this repo.”** Both use the same security policy. Plugins and MCPs may still require separate user authorization and setup.
 
 ## Start or resume a project
 
@@ -124,64 +122,50 @@ python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project sta
 
 An existing project tracker remains the task source. The advisor links relevant tasks and evidence rather than maintaining a competing plan. File checks and saved status do not replace checking actual outputs or demonstrating that the host can load the skills.
 
-## Lightweight skill approvals
+## Minimal SkillSpector security gate (Codex + Claude Code)
 
-The shared [skill-approvals.json](skill-approvals.json), required by
-`advisor-bundle.json`, summarizes each skill's
-approved version, date and review status. Historical approval timestamps remain
-`null` where no trustworthy original time is available; archived audits remain
-the supporting evidence. View the ledger with `python scripts/setup.py --show-approvals`.
+**Goal:** prevent unsafe agent skills from being activated, without creating a permanent scan-history or per-skill approval database. The actual installer is the enforcement point; optional native hooks provide extra interception for agent-issued install commands.
 
-**Updating:** stage the complete new revision into the packaged skill directory,
-then update that component's version and exact source URL in
-`advisor-bundle.json`. Commit the staged skill source before installation. A new version is **pending**, not automatically trusted.
-During `--install-advisor`, the pinned SkillSpector scans the whole staged
-payload. An entirely clean scan (zero findings, full coverage, no suppressions)
-automatically approves the changed version, writes a UTC approval timestamp,
-and records the device and installation time in a local receipt. Each accepted
-SkillSpector scan is also saved locally with an independent UTC `scanned_at`,
-a `device_alias`, the skill version, and `clean` or `reviewed-warnings`
-status. Check or install output includes these `scan_records`. The scan
-timestamp is distinct from `approved_at` in the shared approval ledger and
-`installed_at` in the local receipt. Previously archived scans retain their
-original metadata and unknown historical dates are not inferred.
-New or changed findings or incomplete coverage block automatic approval and
-require explicit review. The old historical audit is never rewritten as a shortcut.
+Install the official scanner on the **actual device** (Python 3.12+ and `uv` required; inspect current [NVIDIA instructions](https://github.com/NVIDIA/SkillSpector) first):
 
-Approvals are shared in GitHub; review and commit the updated ledger after
-successful installation. The device name stays in the **local** scan record and
-installation receipt (override with `ADVISOR_DEVICE_ALIAS` if desired). Upstream fetching and committing
-are not automatic: an update must first be staged from the intended source.
-An already approved revision can still install when upstream has advanced;
-installation reports available updates rather than silently replacing it.
-A newer revision with security findings needs explicit review and a newly
-triaged scan/audit record before its ledger entry can be set to
-`manual-reviewed` with `scan: triaged`.
-**No custom SHA-256 file hashes remain in the active skill installer, approval
-ledger, manifest or new device receipts.** The installer checks actual staged,
-installed and locally saved file copies directly, requires skill sources to be
-committed in Git, and uses exact Git revisions for version identity. A local
-snapshot protects modified installed skills during updates. Old scan and audit
-files are archived unchanged and are parsed for past warning decisions;
-archived hash fields are not consulted during setup. Original skill contents
-are unchanged by this migration.
+```powershell
+uv tool install git+https://github.com/NVIDIA/skillspector.git
+skillspector --version
+```
+
+The approved baseline stays at 17 skills. When installing it, `scripts/install_advisor.py`:
+
+1. Checks packaged skill sources and preserves existing user edits.
+2. Stages all selected skill files outside active skill locations.
+3. Invokes `skillspector scan <staged-skill> --no-llm --format json --fail-on-incomplete --min-coverage 100`, parsing **stdout** (Windows-compatible).
+4. Blocks HIGH/CRITICAL risk, `DO_NOT_INSTALL`, failed scans, suppressed findings and incomplete coverage; reports LOW/MEDIUM warnings. Static classification is imperfect: dangerous behavior may be missed or misclassified.
+5. Installs only after the entire selected batch passes, checks copied files, and rolls back changed active files on installation failure.
+
+No per-skill audits, scan JSON records or approval ledger are needed for this workflow. A small **local**, non-security-audit receipt and skill snapshots remain for installation integrity, migration and protection of local modifications. Older receipts are migrated on the next successful installation; `--check-advisor` on an old receipt reports that migration is needed, not that the old installation is insecure.
+
+Optional pre-tool hooks can be installed **separately on the target device**:
+
+```powershell
+python scripts/setup_security_hooks.py --host codex --install
+python scripts/setup_security_hooks.py --host claude --install
+python scripts/setup_security_hooks.py --host codex --check
+python scripts/setup_security_hooks.py --host claude --check
+```
+
+This merges a best-effort `PreToolUse` guard into `~/.codex/hooks.json` or `~/.claude/settings.json` and preserves existing hook entries. Existing modified hook entries are never overwritten silently. The guard blocks **recognized direct skill/plugin installation and writes to active capability directories** and instructs the agent to use staging/scanning. **It is not a universal filesystem or shell security boundary**: unsupported tools, shell nesting/obfuscation, manual installs, plugin managers that bypass hooks and users running commands outside the host can evade it. Review the [hook setup guide](docs/SECURITY-HOOKS.md) and run the live scenarios in both hosts before treating it as protection.
+
+Ordinary `git clone` of application code is allowed. Installing or enabling third-party agent skills/plugins must still use a trusted staged workflow, and installations outside `scripts/setup.py` need their own verified scan-before-activation enforcement. A clean static scan does not prove a repository is malware-free. Do not turn on an untrusted skill just because it passed a heuristic check.
 
 ## Installation policy
 
-The [current user policy](global/AGENTS.md#scan-before-installing-updating-or-restoring-skills) is:
+This is a simplified change from the prior historical approval mechanism:
 
-- Check for newer versions at setup/update time. Scan the exact selected version immediately before installation; explain incompatibilities rather than silently choosing an older copy.
-- Stage and scan the entire selected batch before deciding what to install, including available supporting files. Do not execute candidate code just to scan it.
-- Skip a separate manual source-code/security audit unless requested. Read skill instructions for correct use and inspect flagged context when needed to assess risk.
-- **Warn and proceed** for findings reasonably established as low risk or false positives.
-- **Block** dangerous behaviour or unresolved gaps that prevent a risk decision. Resolve missing scan inputs where possible; never hide findings or fabricate complete coverage.
-- Verify installed files and skill discovery. Report blocked components individually and do not call the workflow ready if a required baseline skill is missing.
-
-These rules replace the earlier blanket “block every finding” policy. Historical audits remain evidence, not automatic approval of changed files. The installer binds past warning decisions to approved revisions, finding signatures and coverage reports. It rescans during installation; changed findings need fresh triage. Credentials stay on the device; extra provider access or charges are not implied by setup approval.
-
-If upstream HEAD has changed, installation can retain the last approved revision and report available updates. A new update must be staged from the exact current revision and rescanned before approval. The Python command checks freshness; it does not autonomously rewrite skills or approve new findings. No repeat selection approval is needed for the unchanged baseline.
-
-Some accepted scans remain marked partial because of parser limits or optional/example references. Their exact limitations and targeted decisions are preserved in the [scan evidence](audits/advisor-ready-20261103/); they are not presented as clean scans or a guarantee of safety.
+- Keep the global SkillSpector prerequisite before skill activation, regardless of Tool Advisor.
+- Scan every staged skill update; do not execute candidate files or package install hooks before scanning.
+- Block risky and incomplete scans; surface warnings without generating a permanent audit archive.
+- Preserve device-local integrity snapshots, rollback, and the versioned Git source.
+- Re-check source revisions and permissions before adopting a different plugin or capability.
+- Nothing in this repo update installs security hooks or scanner software on the user's device automatically.
 
 ## How the repository learns
 
