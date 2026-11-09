@@ -90,13 +90,13 @@ python3 scripts/setup.py --plan-advisor
 Install the full baseline and check its files:
 
 ```sh
-python3 scripts/setup.py --install-advisor
+python3 scripts/setup.py --host codex --setup-workspace
 python3 scripts/setup.py --check-advisor
 ```
 
 The installer stages and scans all 17 skills before activation. If a required component is blocked, it leaves the active bundle unchanged. `--install-advisor-core` is available only for an explicitly requested three-skill partial setup; `--check-advisor` reports that as incomplete workflow setup.
 
-Installation uses the target host's global skills directory and a **small local receipt plus file snapshots**, not shared scan/audit records. Install NVIDIA SkillSpector separately first using the official command below; the installer checks its CLI, stages and scans all selected skills, preserves unrelated instructions and refuses to overwrite locally modified files. An existing scanner can be specified with `--scanner /path/to/skillspector`. No scanner executable was installed on your device by this repository change.
+Installation uses the target host's global skills directory and a **small local receipt plus file snapshots**, not shared scan/audit records. The preferred security-first setup installs/verifies NVIDIA SkillSpector automatically; the installer checks its CLI, stages and scans all selected skills, preserves unrelated instructions and refuses to overwrite locally modified files. An existing scanner can be specified with `--scanner /path/to/skillspector`. No scanner executable was installed on your device by this repository change.
 
 For a broader device setup, say **“Setup my Codex using this repo”** or **“Setup my Claude using this repo.”** Both use the same security policy. Plugins and MCPs may still require separate user authorization and setup.
 
@@ -122,52 +122,30 @@ python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project sta
 
 An existing project tracker remains the task source. The advisor links relevant tasks and evidence rather than maintaining a competing plan. File checks and saved status do not replace checking actual outputs or demonstrating that the host can load the skills.
 
-## Minimal SkillSpector security gate (Codex + Claude Code)
+## Security-first setup: one command (Codex + Claude Code)
 
-**Goal:** prevent unsafe agent skills from being activated, without creating a permanent scan-history or per-skill approval database. The actual installer is the enforcement point; optional native hooks provide extra interception for agent-issued install commands.
-
-Install the official scanner on the **actual device** (Python 3.12+ and `uv` required; inspect current [NVIDIA instructions](https://github.com/NVIDIA/SkillSpector) first):
+From a checkout of this repository on the target device:
 
 ```powershell
-uv tool install git+https://github.com/NVIDIA/skillspector.git
-skillspector --version
+python scripts/setup.py --host codex --setup-workspace
+python scripts/setup.py --host claude --setup-workspace
 ```
 
-The approved baseline stays at 17 skills. When installing it, `scripts/install_advisor.py`:
+Run the command for each host you actually use. It installs/verifies official SkillSpector (requires `uv` if missing), runs a real scanner smoke test, registers and locally tests the global security hook without removing existing hooks, **then** scans and installs Tool Advisor's complete 17-skill baseline and applies managed global rules. The scanner's existing executable name/version check is not independently authenticated supply-chain provenance. Restart each host and verify live hook events; source changes alone do not install anything on your PC.
 
-1. Checks packaged skill sources and preserves existing user edits.
-2. Stages all selected skill files outside active skill locations.
-3. Invokes `skillspector scan <staged-skill> --no-llm --format json --fail-on-incomplete --min-coverage 100`, parsing **stdout** (Windows-compatible).
-4. Blocks HIGH/CRITICAL risk, `DO_NOT_INSTALL`, failed scans, suppressed findings and incomplete coverage; reports LOW/MEDIUM warnings. Static classification is imperfect: dangerous behavior may be missed or misclassified.
-5. Installs only after the entire selected batch passes, checks copied files, and rolls back changed active files on installation failure.
+One security implementation lives in [`scripts/secure_operations.py`](scripts/secure_operations.py). It stages, calls SkillSpector, evaluates a complete static scan, verifies unchanged bytes and installs safely. `install_advisor.py` uses that implementation for the baseline. The hook handles recognized agent tool calls, redirects simple HTTPS GitHub clones to staged inspection, and blocks direct skill/plugin manager installations that cannot be safely staged. **The hook is not a filesystem sandbox, nor a universal installer.** It does not scan unsupported plugin packaging automatically.
 
-No per-skill audits, scan JSON records or approval ledger are needed for this workflow. A small **local**, non-security-audit receipt and skill snapshots remain for installation integrity, migration and protection of local modifications.
-
-For a new task-specific skill selected by Tool Advisor, stage its directory outside active skill roots and run `python scripts/install_selected_skill.py --host claude --name <skill-name> --source <staged-skill-directory>` (use `--host codex` for Codex). This fresh-scans its source and refuses overwriting an existing skill; manually reconcile upgrades first. A hook-blocked marketplace command is **not** automatically safe simply because another installer exists. Older receipts are migrated on the next successful installation; `--check-advisor` on an old receipt reports that migration is needed, not that the old installation is insecure.
-
-Optional pre-tool hooks can be installed **separately on the target device**:
+For one new skill, stage its source without executing any downloaded scripts, then run:
 
 ```powershell
-python scripts/setup_security_hooks.py --host codex --install
-python scripts/setup_security_hooks.py --host claude --install
-python scripts/setup_security_hooks.py --host codex --check
-python scripts/setup_security_hooks.py --host claude --check
+python scripts/secure_operations.py install --host codex --name example --source .\incoming\example
 ```
 
-This merges a best-effort `PreToolUse` guard into `~/.codex/hooks.json` or `~/.claude/settings.json` and preserves existing hook entries. Existing modified hook entries are never overwritten silently. The guard blocks **recognized direct skill/plugin installation and writes to active capability directories** and instructs the agent to use staging/scanning. **It is not a universal filesystem or shell security boundary**: unsupported tools, shell nesting/obfuscation, manual installs, plugin managers that bypass hooks and users running commands outside the host can evade it. Review the [hook setup guide](docs/SECURITY-HOOKS.md) and run the live scenarios in both hosts before treating it as protection.
+For a managed skill update, use the same command with `--update`. An unmanaged existing skill or one modified locally will not be silently overwritten. HIGH/CRITICAL, MEDIUM/CAUTION, DO_NOT_INSTALL, incomplete, suppressed, or failed skill scans block automatic activation. SAFE/LOW completed scans pass, with low findings reported.
 
-Ordinary `git clone` of application code is allowed. Installing or enabling third-party agent skills/plugins must still use a trusted staged workflow, and installations outside `scripts/setup.py` need their own verified scan-before-activation enforcement. A clean static scan does not prove a repository is malware-free. Do not turn on an untrusted skill just because it passed a heuristic check.
+For GitHub clones initiated through supported agent shell tools, simple `git clone https://github.com/owner/repo.git destination` is rewritten into a staged clone/inspection. If no agent skills are present, SkillSpector's general-repo result is explicitly limited or not applicable; **do not treat it as proof that normal Java or other application code is malware-free**. Compound/unsupported syntax is blocked with a controlled-command alternative. External terminals and some tools can bypass host hooks.
 
-## Installation policy
-
-This is a simplified change from the prior historical approval mechanism:
-
-- Keep the global SkillSpector prerequisite before skill activation, regardless of Tool Advisor.
-- Scan every staged skill update; do not execute candidate files or package install hooks before scanning.
-- Block risky and incomplete scans; surface warnings without generating a permanent audit archive.
-- Preserve device-local integrity snapshots, rollback, and the versioned Git source.
-- Re-check source revisions and permissions before adopting a different plugin or capability.
-- Nothing in this repo update installs security hooks or scanner software on the user's device automatically.
+No historical scan or approval database is required. Small installation receipts and file hashes are retained to detect local modifications and preserve rollback. See [security flow and limitations](docs/SECURITY-HOOKS.md).
 
 ## How the repository learns
 

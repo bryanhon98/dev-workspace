@@ -101,21 +101,20 @@ This update changes source instructions only. It does not install skills on eith
 | Code has drifted from a previously approved design | Consider `egm-drift-report` separately, only with installed/verified capability and an actual checked-in reference. |
 | User asks to install EGM just because it was cataloged | Cataloging is not consent; follow source verification, SkillSpector/package scope, host compatibility and installation approval rules. |
 
-## SkillSpector minimal gate and optional host hooks — 2026-11-10
+## SkillSpector security-first workflow — 2026-11-10
 
-These are **manual routing expectations**; automated synthetic tests are in `tests/test_advisor_install.py`, `tests/test_install_selected_skill.py` and `tests/test_skill_security_hook.py`. GitHub Actions does not prove the real scanner or hooks are installed on a user's device.
+These are manual expectations; automated tests cover the Python paths but do not replace live Windows Codex/Claude smoke tests.
 
 | Scenario | Expected behavior |
 |---|---|
-| Ordinary Git clone into an inactive project checkout | No mandatory SkillSpector scan just for browsing application code |
-| User chooses a new standalone skill | Stage outside active roots; scan complete original payload before activating |
-| New skill scan contains HIGH, CRITICAL, DO_NOT_INSTALL or incomplete coverage | Block and leave active skills unchanged |
-| New scan contains LOW/MEDIUM without blocking severity | Report warnings; do not produce per-skill audit/approval ledgers |
-| Reinstall selected 17-skill baseline | Fresh scanner gate applies to every selected skill; stop full activation on any failed scan |
-| Windows scanner emits JSON | Parse scanner stdout, not `--output` (unsupported on Windows in NVIDIA documentation) |
-| Existing skill was locally edited | Refuse overwriting it; protect local contents |
-| Old advisor receipt remains | Check signals migration required; next successful installation migrates it without needing historical audit JSON |
-| Claude Code or Codex hook is not installed | Do not claim hook interception; the controlled installers still block unsafe activation |
-| Agent attempts direct plugin manager install | Hook best-effort blocks recognized call; unsupported manager/tool path is a documented gap |
-| Agent uses obfuscated shell command or external filesystem tool | Do not claim universal protection; host hooks are not a security sandbox |
-| Historical scan JSON references are removed from repo | Only source control history remains; no runtime setup requires deleted per-skill audit files |
+| One-command setup | Scanner exists and is smoke tested; native hook is configured before the 17-skill baseline is scanned/activated |
+| New staged skill | Single shared SkillSpector worker scans before activation |
+| Managed skill update | Scanner checks changed candidate; unchanged installed files and stored hashes must match before replacement |
+| Modified/unmanaged skill | Refuse automatic overwrite |
+| Simple agent-issued HTTPS GitHub clone | Hook rewrites tool command to staged clone and SkillSpector inspection |
+| Compound/unsupported clone | Refuse direct operation; show safe controlled command |
+| Clone without agent skills | Attempt generic SkillSpector scan, report limited/not-applicable coverage, never claim general malware-free result |
+| Direct plugin/skill manager installation | Refuse if safe staging/inspection is not supported; do not claim a scan occurred |
+| CAUTION/MEDIUM or higher risk, incomplete/suppressed/failed scan | Block skill activation |
+| External terminals, disabled hooks, unsupported tools | No universal interception claim; rely on host sandbox/permissions |
+| Existing hooks/settings | Preserve user settings, backup on first change, do not silently overwrite modified hook entries |

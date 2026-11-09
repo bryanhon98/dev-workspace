@@ -46,7 +46,7 @@
       "restore_method": "official-uv-tool-install",
       "note": "Scanner is a prerequisite. Historical local observations do not establish current device readiness; no persistent scan/approval ledger required.",
       "purpose": "Must be installed and verified before any skill installation",
-      "setup_requirements": "Install the official NVIDIA CLI with uv tool install git+https://github.com/NVIDIA/skillspector.git; verify --version and a local static scan. The security gate checks installed CLI availability on the target device.",
+      "setup_requirements": "Run --setup-workspace to install/verify the official pinned NVIDIA SkillSpector CLI, smoke-test a real static scan, and register the host hook before Advisor installation.",
       "github_url": "https://github.com/NVIDIA/skillspector",
       "release_version": "2.12.0",
       "required_tools": [
@@ -202,7 +202,7 @@
         "at least two actual native workers",
         "loaded skill directory access"
       ],
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation. Bundled personas resolve relative to the loaded SKILL.md; no legacy alias is needed. External providers are optional and separately authorized.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation. Bundled personas resolve relative to the loaded SKILL.md; no legacy alias is needed. External providers are optional and separately authorized.",
       "sha256": {
         "LICENSE": "678df73993b4b6709cd80aed556263ef5cdcffd5e7d6a7d796c828bf36baa4c7",
         "SKILL.md": "14a448ab85bda321b850774aa482f43be79b7f834acf798012cdaa4f0898574b",
@@ -303,7 +303,7 @@
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
         "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
         "SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
@@ -353,7 +353,7 @@
         "Node.js/npm for optional CLI search",
         "web access to skills.sh"
       ],
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
         "LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
         "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
@@ -899,7 +899,7 @@
         "accessible research checkout and web/GitHub discovery",
         "host worker tools for optional parallel execution"
       ],
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
         "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
         "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
@@ -940,7 +940,7 @@
         "scripts/stop-server.sh": "0b5ccbbd57f62d3ed88993f7940b5ee0e5c0fc9b21c550c623da4f6292e47daf",
         "visual-companion.md": "6ffcb038b53254bd31debaa15e12dcd4ff24bd63d690e0b644ac6396701cf2e2"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -970,7 +970,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1002,7 +1002,7 @@
         "scripts/task-done": "d0d4f2397c85a4426443ea955e699ef12568b41b408ec6122d4ec2433ee3a5f6",
         "scripts/task-start": "f833693c8fce3700fc9f841562d80f8015cd40f652c168a3405ac3e46947a1fe"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1032,7 +1032,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1062,7 +1062,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1093,7 +1093,7 @@
         "SKILL.md": "2180e14a448e9410bec88e6646a2d1f0ce7fdd58de27388c1e052e929679d2bc",
         "code-reviewer.md": "82e370be6b3447523816286195571e4216ba56ba1ad6ad0e87862294c4c78dcb"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1136,7 +1136,7 @@
         "scripts/task-brief": "cc563538e09abf719b34ddf4b2fa7a65cf3b301729039dbfa923cb060f729146",
         "task-reviewer-prompt.md": "bfed55c8f19d0ff6ed57b0fe09127c92890e9311c6c73917129598826bf9ebe8"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1176,7 +1176,7 @@
         "test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
         "test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1207,7 +1207,7 @@
         "SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
         "writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1237,7 +1237,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1274,7 +1274,7 @@
         "references/muse-tools.md": "5a1da5c575fe18456ca71cd47ebfd8a38c745f8d82a67fe64d5b83080000eeb3",
         "references/pi-tools.md": "703dbc83d23ecab9c6f388460c38abc482e9dee2fe6772a8c7a255152ad3a4d5"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1304,7 +1304,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"
@@ -1334,7 +1334,7 @@
         "LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
         "SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
       },
-      "setup_requirements": "Use --install-advisor: checks official HEAD, scans the whole approved batch, retains documented warnings, and verifies hashes. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "required_tools": [
         "skillspector",
         "host tools required by the selected task"

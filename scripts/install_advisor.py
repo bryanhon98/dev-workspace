@@ -22,13 +22,9 @@ SCANNER_SOURCE = 'https://github.com/nvidia/skillspector'
 SHARED_LICENSE = {'source': 'skills/external/matt-pocock/LICENSE', 'destination': 'LICENSE'}
 
 
-def _path(value):
-    path = Path(os.path.abspath(os.fspath(value)))
-    for part in [*reversed(path.parents), path]:
-        if part.is_symlink():
-            raise ValueError('Refusing symlink path: ' + str(part))
-    return path
-
+from secure_operations import (safe_path as _path, file_snapshot as _files,
+                               scanner_executable as _scanner_executable,
+                               scan_skill as _scan)
 
 def _relative(value):
     if not isinstance(value, str) or not value or '\\' in value:
@@ -51,20 +47,6 @@ def _json(path):
     if not isinstance(obj, dict):
         raise ValueError('Expected JSON object: ' + str(path))
     return obj
-
-
-def _files(directory):
-    directory = _path(directory)
-    if not directory.is_dir():
-        raise ValueError('Missing payload directory: ' + str(directory))
-    result = {}
-    for file in sorted(directory.rglob('*')):
-        _path(file)
-        if file.is_file():
-            result[file.relative_to(directory).as_posix()] = file.read_bytes()
-        elif not file.is_dir():
-            raise ValueError('Unsupported payload file: ' + str(file))
-    return result
 
 
 def _source_clean(root, item):
@@ -209,77 +191,6 @@ def _preflight_targets(skills, components, receipt, state):
         if not target.exists() and snapshot.exists():
             raise ValueError('Orphaned skill snapshot: ' + name)
     return snapshots
-
-
-def _scanner_executable(value):
-    candidate = value or shutil.which('skillspector')
-    if not candidate:
-        raise ValueError('SkillSpector is required: uv tool install git+https://github.com/NVIDIA/skillspector.git')
-    # uv tool installs may expose a symlink shim; resolve it for the scanner only.
-    # Skill source files still reject symlinks via _path/_files.
-    try:
-        path = Path(os.path.abspath(os.fspath(candidate))).resolve(strict=True)
-    except OSError as exc:
-        raise ValueError('SkillSpector executable is missing: ' + str(candidate)) from exc
-    if not path.is_file():
-        raise ValueError('SkillSpector executable is missing: ' + str(path))
-    result = subprocess.run([str(path), '--version'], capture_output=True, text=True, timeout=30)
-    if result.returncode or not re.fullmatch(r'SkillSpector v[0-9][^\s]*', result.stdout.strip()):
-        raise ValueError('SkillSpector executable/version check failed')
-    return {'path': str(path), 'version': result.stdout.strip()}
-
-
-def _scan(stage, scanner, expected_files):
-    command = [scanner['path'], 'scan', str(stage), '--no-llm', '--format', 'json',
-               '--fail-on-incomplete', '--min-coverage', '100']
-    environment = {**os.environ, 'LANGSMITH_TRACING': 'false', 'LANGCHAIN_TRACING_V2': 'false'}
-    try:
-        result = subprocess.run(command, capture_output=True, text=True, timeout=300, env=environment)
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        raise ValueError('SkillSpector scan failed: ' + str(exc)) from exc
-    if result.returncode not in (0, 1):
-        raise ValueError('SkillSpector execution error: ' + result.stderr[-1000:])
-    try:
-        report = json.loads(result.stdout)
-    except (ValueError, TypeError) as exc:
-        raise ValueError('SkillSpector did not return valid JSON') from exc
-    if not isinstance(report, dict):
-        raise ValueError('Malformed SkillSpector report')
-    complete = report.get('analysis_completeness')
-    metadata = report.get('metadata', {})
-    if (not isinstance(complete, dict) or complete.get('is_complete') is not True
-            or complete.get('coverage_percent') != 100
-            or not isinstance(metadata, dict) or metadata.get('llm_requested') is not False):
-        raise ValueError('Incomplete or non-static SkillSpector scan')
-    if (report.get('suppressed_count', 0) or report.get('suppressed', [])
-            or report.get('execution_successful') is False):
-        raise ValueError('Suppressed findings or unsuccessful scan are not allowed')
-    present = report.get('components')
-    if (not isinstance(present, list) or
-            set(x.get('path') for x in present if isinstance(x, dict)) != set(expected_files)):
-        raise ValueError('SkillSpector component coverage mismatch')
-    issues = report.get('issues')
-    risk = report.get('risk_assessment')
-    if not isinstance(issues, list) or not isinstance(risk, dict):
-        raise ValueError('Missing SkillSpector risk assessment or findings')
-    severity = risk.get('severity')
-    recommendation = risk.get('recommendation')
-    if severity not in ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') or (
-        recommendation not in ('SAFE', 'CAUTION', 'DO_NOT_INSTALL')
-    ):
-        raise ValueError('Unknown scanner severity or recommendation')
-    if any(not isinstance(x, dict) or x.get('severity') not in
-           ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for x in issues):
-        raise ValueError('Malformed individual scan findings')
-    blocked = severity in ('HIGH', 'CRITICAL') or recommendation == 'DO_NOT_INSTALL' or any(
-        x['severity'] in ('HIGH', 'CRITICAL') for x in issues)
-    if blocked:
-        raise ValueError('SkillSpector blocked risky skill: ' + stage.name +
-                         ' (' + severity + ', ' + recommendation + ')')
-    if result.returncode == 1:
-        raise ValueError('SkillSpector scan exited unsuccessfully: ' + stage.name)
-    return [{'skill': stage.name, 'severity': x['severity'], 'finding': str(x.get('id', '?'))}
-            for x in issues]
 
 
 def _verify_upstream(components):

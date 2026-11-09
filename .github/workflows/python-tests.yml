@@ -24,3 +24,19 @@ jobs:
           python-version: '3.12'
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
+
+  scanner-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uv and pinned NVIDIA SkillSpector
+        run: |
+          python -m pip install uv
+          uv tool install git+https://github.com/NVIDIA/skillspector.git@ea5aeef6b05c593959ad2125c09a528ffa5c55c9
+      - name: Exercise real SkillSpector JSON contract
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          python -c "import sys; sys.path.insert(0, 'scripts'); from secure_operations import scanner_executable, verify_scanner_sample; print(verify_scanner_sample(scanner_executable(None)))"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Show setup choices; explicitly install rules or the reviewed advisor bundle."""
+"""Show setup choices or perform security-first SkillSpector and Advisor setup."""
 import argparse
 import hashlib
 import json
@@ -8,6 +8,8 @@ from pathlib import Path
 import re
 import sys
 import tempfile
+import shlex
+import subprocess
 
 # Add scripts directory to path for local imports when run directly
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -133,7 +135,126 @@ def show_catalog(host='codex'):
     print('\n' + wording['catalog_prompt'])
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, ' + wording['host_name'] + ' can restore global rules with --install-rules and inspect/install selected skills.')
-    print('Advisor setup: --install-advisor selects the full baseline; --plan-advisor shows preparation gaps. --install-advisor-core explicitly installs only the three-skill core.')
+    print('Workspace setup: --setup-workspace verifies SkillSpector, configures hooks, then scans/installs the full Advisor baseline. --plan-advisor inspects preparation gaps; --install-advisor-core is partial.')
+
+
+MATCHERS = {
+    'claude': 'Bash|PowerShell|Write|Edit|MultiEdit|NotebookEdit',
+    'codex': 'Bash|apply_patch|Edit|Write',
+}
+
+
+def _command(script):
+    parts = [sys.executable, str(script)]
+    if os.name == 'nt':
+        return subprocess.list2cmdline(parts)
+    return shlex.join(parts)
+
+
+def _hook_entry(script, host):
+    return {'matcher': MATCHERS[host],
+            'hooks': [{'type': 'command', 'command': _command(script), 'timeout': 600}]}
+
+
+def hook_config_file(home, host):
+    return Path(home) / ('settings.json' if host == 'claude' else 'hooks.json')
+
+
+def configure_security_hook(home, host, repo, install=False):
+    host_profiles.resolve(host)
+    script = Path(repo).resolve() / 'scripts' / 'skill_security_hook.py'
+    if not script.is_file():
+        raise ValueError('Security hook script is missing: ' + str(script))
+    target = hook_config_file(home, host)
+    if target.exists():
+        try:
+            obj = json.loads(target.read_text(encoding='utf-8'))
+        except (ValueError, OSError) as exc:
+            raise ValueError('Existing hooks settings are not valid JSON') from exc
+    else:
+        obj = {}
+    if not isinstance(obj, dict):
+        raise ValueError('Hooks settings must be an object')
+    hooks = obj.get('hooks', {})
+    if not isinstance(hooks, dict):
+        raise ValueError('Existing hooks structure is invalid')
+    entries = hooks.get('PreToolUse', [])
+    if not isinstance(entries, list):
+        raise ValueError('Existing PreToolUse entries are invalid')
+    desired = _hook_entry(script, host)
+    for entry in entries:
+        if (isinstance(entry, dict) and any(
+                'skill_security_hook.py' in str(h.get('command', ''))
+                for h in entry.get('hooks', []) if isinstance(h, dict))):
+            if entry != desired:
+                raise ValueError('Existing security hook differs; reconcile it manually')
+            return {'ready': True, 'changed': False, 'path': str(target)}
+    if not install:
+        return {'ready': False, 'changed': False, 'path': str(target)}
+    hooks['PreToolUse'] = [*entries, desired]
+    obj['hooks'] = hooks
+    target.parent.mkdir(parents=True, exist_ok=True)
+    # Never overwrite an existing user hook after it changed during inspection.
+    before = target.read_bytes() if target.exists() else None
+    if before is not None:
+        backup = target.with_name(target.name + '.before-dev-workspace.bak')
+        if backup.exists():
+            raise ValueError('Existing settings backup present; reconcile before modifying hooks')
+        backup.write_bytes(before)
+    temporary = target.with_suffix(target.suffix + '.dev-workspace.tmp')
+    if temporary.exists():
+        raise ValueError('Temporary hook config exists; reconcile before modifying')
+    try:
+        temporary.write_text(json.dumps(obj, indent=2) + '\n', encoding='utf-8')
+        os.replace(temporary, target)
+    finally:
+        temporary.unlink(missing_ok=True)
+    return {'ready': True, 'changed': True, 'path': str(target)}
+
+
+
+
+def verify_security_hook(repo):
+    """Test hook blocking and command rewrites locally; live host needs a new session."""
+    script = Path(repo) / 'scripts' / 'skill_security_hook.py'
+    checks = [
+        ({'hook_event_name': 'PreToolUse', 'tool_name': 'Bash',
+          'tool_input': {'command': 'npx skills add unsafe-example'}}, 2),
+        ({'hook_event_name': 'PreToolUse', 'tool_name': 'Bash',
+          'tool_input': {'command': 'git clone https://github.com/example/repo.git sample'}}, 0),
+    ]
+    for event, code in checks:
+        result = subprocess.run([sys.executable, str(script)], input=json.dumps(event),
+                                text=True, capture_output=True, timeout=15)
+        if result.returncode != code:
+            raise ValueError('Security hook self-test failed: ' + result.stderr[-500:])
+        if code == 0:
+            try:
+                edited = json.loads(result.stdout)['hookSpecificOutput']['updatedInput']['command']
+            except (ValueError, KeyError, TypeError) as exc:
+                raise ValueError('Security hook did not rewrite Git clone safely') from exc
+            if 'secure_operations.py' not in edited or ' clone ' not in edited:
+                raise ValueError('Security hook clone rewrite is not controlled')
+    return True
+
+def setup_workspace(host, home, skills_root, scanner=None):
+    """Security first, Tool Advisor last; no active skill before a complete scan."""
+    from secure_operations import ensure_scanner, verify_scanner_sample
+    from install_advisor import install_bundle, require_baseline
+    require_baseline(ROOT)
+    scanner_info = ensure_scanner(scanner)
+    verify_scanner_sample(scanner_info)
+    hook = configure_security_hook(home, host, ROOT, install=True)
+    if not hook['ready']:
+        raise ValueError('Security hook could not be configured')
+    verify_security_hook(ROOT)
+    result = install_bundle(ROOT, skills_root, home,
+                            scanner=Path(scanner_info['path']), host=host)
+    install(home, saved_rules(host), host)
+    return {'ready': result.get('ready', False), 'scanner': scanner_info,
+            'security_hook': hook, 'advisor': result,
+            'live_host_verified': False,
+            'note': 'Restart the target host and test a real hook event on the device'}
 
 
 def main():
@@ -153,14 +274,21 @@ def main():
     action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only tool-advisor, grilling and find-skills')
     action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
+    action.add_argument('--setup-workspace', action='store_true', help='Security-first setup of SkillSpector hooks, global rules and the full 17-skill baseline')
     args = parser.parse_args()
     host = args.host
     home = args.home or args.codex_home or host_profiles.home_dir(host)
     skills_root = args.skills_root or host_profiles.default_skills_root(host)
     wording = host_profiles.wording(host)
     try:
-        if args.scanner and not (args.install_advisor or args.install_advisor_core):
-            raise ValueError('--scanner is only used with --install-advisor or --install-advisor-core')
+        if args.scanner and not (args.setup_workspace or args.install_advisor or args.install_advisor_core):
+            raise ValueError('--scanner applies only to workspace or advisor installation')
+        if args.setup_workspace:
+            result = setup_workspace(host, home, skills_root, scanner=args.scanner)
+            print(json.dumps(result, indent=2))
+            print('Security configured locally; restart ' + wording['host_name'] +
+                  ' and verify live hook behavior before relying on it.')
+            return 0 if result['ready'] else 1
         if args.plan_advisor:
             from install_advisor import baseline_plan
             print(json.dumps(baseline_plan(ROOT), indent=2))

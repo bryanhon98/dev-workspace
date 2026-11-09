@@ -23,7 +23,7 @@ INSTRUCTION_FILES = {
     'claude': ('CLAUDE.md',),
 }
 
-# Where managed state (receipts, scanner venv, scan reports) lives.
+# Where managed Advisor state (receipts and rollback snapshots) lives.
 STATE_DIR = {
     'codex': '.codex',
     'claude': '.claude',
