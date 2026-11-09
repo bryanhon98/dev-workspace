@@ -207,7 +207,7 @@ class GlobalSetupTests(unittest.TestCase):
         result = self.run_cli('--install-rules')
         self.assertEqual(result.returncode, 0, result.stderr)
         target = self.home / 'AGENTS.md'
-        target.write_text(target.read_text().replace('## SkillSpector must be ready first', 'Changed locally:'))
+        target.write_text(target.read_text().replace('## Global SkillSpector security gate (before Tool Advisor)', 'Changed locally:'))
         self.assertEqual(self.run_cli('--check').returncode, 1)
 
     def test_reinstalls_after_user_clears_instruction_file(self):
@@ -216,7 +216,7 @@ class GlobalSetupTests(unittest.TestCase):
         target.write_text('')
         self.assertEqual(self.run_cli('--check').returncode, 1)
         self.assertEqual(self.run_cli('--install-rules').returncode, 0)
-        self.assertIn('## SkillSpector must be ready first', target.read_text())
+        self.assertIn('## Global SkillSpector security gate (before Tool Advisor)', target.read_text())
         self.assertEqual(self.run_cli('--check').returncode, 0)
 
 if __name__ == '__main__':
