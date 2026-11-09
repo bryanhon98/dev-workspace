@@ -83,3 +83,20 @@ These are **manual policy consistency checks**, not executed Codex or Claude Cod
 | Final result is ready for review | Require the agreed independent checks and integrate actual results; do not treat agent completion as automatic acceptance. |
 
 This update changes source instructions only. It does not install skills on either device, enable Claude Code Agent Teams, modify a model provider or demonstrate native workers in a live session.
+
+## Optional EGM design-review routing scenarios — 2026-11-09
+
+**Manual policy walkthroughs only.** No EGM plugin installation, security scan, real fresh-context worker invocation, or comparative result benchmark was performed as part of this documentation update.
+
+| Scenario | Expected routing |
+|---|---|
+| Fix a spelling mistake or contained regression | Use existing direct/focused workflow; do not trigger EGM or Council. |
+| Major cross-service payment design with a written specification | Consider EGM `egm-review` as a dedicated independent design-document critique before implementation; verify availability and approval first. |
+| No design artifact yet | PD/Architect prepare one when justified; do not invoke `egm-review` on an invented or non-existent file. |
+| Design has findings | Use author/Architect and optional `egm-resolve` for agreed changes; fresh reviewers do not decide architecture or silently authorize edits. |
+| Contested strategic choice also qualifies for Council | Distinguish specification clarity from decision deliberation; select a suitable single review path unless a second adds distinct, justified value. |
+| Host cannot spawn true fresh Goldfish workers | Do not claim EGM ran; mark unavailable, report the gap and use the existing regular review route. |
+| Codex fresh worker receives project `AGENTS.md` | Disclose inherited instruction-file context; do not claim complete isolation solely because conversation history is absent. |
+| QA signs off on implementation | EGM is not executable testing; continue actual integration/security/regression checks independently. |
+| Code has drifted from a previously approved design | Consider `egm-drift-report` separately, only with installed/verified capability and an actual checked-in reference. |
+| User asks to install EGM just because it was cataloged | Cataloging is not consent; follow source verification, SkillSpector/package scope, host compatibility and installation approval rules. |
