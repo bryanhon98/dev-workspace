@@ -2,7 +2,7 @@
 
 Describe what you want to achieve. This repository guides an assistant to understand the task, find suitable skills and tools, compare them with what is already installed, coordinate the work, and remember useful outcomes for next time.
 
-It supports software, design, research, media, business and automation. It also keeps a portable record of your Codex setup. You do not need to know the names of every specialist before asking for help.
+It supports software, design, research, media, business and automation. Its workflow policy is intended for **both Codex and Claude Code**, while the saved setup and installer currently have Codex-specific validation. Claude Code activation and native delegation must be checked in an actual Claude session; a repository file alone does not install or enable an agent. You do not need to know the names of every specialist before asking for help.
 
 ## Current status
 
@@ -59,6 +59,8 @@ The [initial six-case routing evaluation](audits/advisor-routing-20261103/README
 | Project specialists | Provide the particular design, technical or domain guidance the task needs |
 
 A **skill is a set of instructions**. A **subagent is a separate AI worker** that can apply those instructions. Loading a skill does not create another worker. Use original selected skills rather than silently replacing them with invented substitutes; disclose host adaptations or unavailable dependencies.
+
+**Native dispatch across Codex and Claude Code:** Tool Advisor selects the skills, accountable agents and task dependencies; the **current session** invokes real agents using whatever native worker tools it supports. Each worker receives the actual skill source/loading instructions and bounded acceptance checks. Do not assume preloading across different agent modes or treat a named skill as executed. When delegation is unavailable, report it and use proportionate sequential work rather than building another dispatcher. See the [host-neutral execution policy](knowledge/BUILD-FLOW.md#host-neutral-skill-to-agent-execution).
 
 For agreed independent reviews, a separate worker applies the selected review instructions. Coordinator-only review must be labelled self-review. Separate workers may still use the same underlying model.
 
