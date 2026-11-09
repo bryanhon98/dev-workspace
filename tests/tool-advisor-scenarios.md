@@ -100,3 +100,22 @@ This update changes source instructions only. It does not install skills on eith
 | QA signs off on implementation | EGM is not executable testing; continue actual integration/security/regression checks independently. |
 | Code has drifted from a previously approved design | Consider `egm-drift-report` separately, only with installed/verified capability and an actual checked-in reference. |
 | User asks to install EGM just because it was cataloged | Cataloging is not consent; follow source verification, SkillSpector/package scope, host compatibility and installation approval rules. |
+
+## SkillSpector minimal gate and optional host hooks — 2026-11-10
+
+These are **manual routing expectations**; automated synthetic tests are in `tests/test_advisor_install.py`, `tests/test_install_selected_skill.py` and `tests/test_skill_security_hook.py`. GitHub Actions does not prove the real scanner or hooks are installed on a user's device.
+
+| Scenario | Expected behavior |
+|---|---|
+| Ordinary Git clone into an inactive project checkout | No mandatory SkillSpector scan just for browsing application code |
+| User chooses a new standalone skill | Stage outside active roots; scan complete original payload before activating |
+| New skill scan contains HIGH, CRITICAL, DO_NOT_INSTALL or incomplete coverage | Block and leave active skills unchanged |
+| New scan contains LOW/MEDIUM without blocking severity | Report warnings; do not produce per-skill audit/approval ledgers |
+| Reinstall selected 17-skill baseline | Fresh scanner gate applies to every selected skill; stop full activation on any failed scan |
+| Windows scanner emits JSON | Parse scanner stdout, not `--output` (unsupported on Windows in NVIDIA documentation) |
+| Existing skill was locally edited | Refuse overwriting it; protect local contents |
+| Old advisor receipt remains | Check signals migration required; next successful installation migrates it without needing historical audit JSON |
+| Claude Code or Codex hook is not installed | Do not claim hook interception; the controlled installers still block unsafe activation |
+| Agent attempts direct plugin manager install | Hook best-effort blocks recognized call; unsupported manager/tool path is a documented gap |
+| Agent uses obfuscated shell command or external filesystem tool | Do not claim universal protection; host hooks are not a security sandbox |
+| Historical scan JSON references are removed from repo | Only source control history remains; no runtime setup requires deleted per-skill audit files |
