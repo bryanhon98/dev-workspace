@@ -38,7 +38,7 @@ class WorkspaceBootstrapTests(unittest.TestCase):
             self.assertFalse(result['ready'])
             self.assertFalse(result['live_host_verified'])
             self.assertFalse(result['core_skills_installed'])
-            self.assertEqual(events, ['baseline', 'scanner', 'sample', 'hook', 'hook-test'])
+            self.assertEqual(events, ['scanner', 'sample', 'hook', 'hook-test'])
             self.assertTrue(register.call_args.kwargs['install'])
             advisor.install_bundle.assert_not_called()
 
@@ -65,15 +65,15 @@ class WorkspaceBootstrapTests(unittest.TestCase):
                  mock.patch.object(setup, 'install', side_effect=lambda *args: events.append('rules')):
                 with self.assertRaisesRegex(ValueError, 'acknowledge-live-hook-test'):
                     setup.setup_workspace('codex', home, skills, finish=True)
-                self.assertEqual(events, ['baseline'])
+                self.assertEqual(events, [])
                 events.clear()
                 result = setup.setup_workspace('codex', home, skills, finish=True,
                                                live_hook_test_acknowledged=True)
             self.assertTrue(result['ready'])
             self.assertTrue(result['live_host_test_acknowledged'])
             self.assertFalse(result['live_host_verified_automatically'])
-            self.assertEqual(events, ['baseline', 'scanner', 'sample',
-                                      'hook', 'hook-test', 'advisor', 'rules'])
+            self.assertEqual(events, ['scanner', 'sample', 'hook', 'hook-test',
+                                      'baseline', 'advisor', 'rules'])
             self.assertFalse(register.call_args.kwargs['install'])
             self.assertEqual(advisor.install_bundle.call_args.kwargs['selected_names'],
                              ['tool-advisor', 'grilling', 'find-skills'])
