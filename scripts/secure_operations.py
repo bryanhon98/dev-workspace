@@ -112,9 +112,9 @@ def approve_medium(review, trusted_core=False):
                 ) if name in detected
             ]
             reason = ('The skill can ' + ', '.join(capabilities) +
-                      ' but has not declared these capabilities.'
-                      if capabilities else
-                      'The skill uses undeclared capabilities.')
+                      ' but has not declared ' +
+                      ('this capability.' if len(capabilities) == 1 else 'these capabilities.')
+                      if capabilities else 'The skill uses undeclared capabilities.')
         else:
             reason = _single_line(
                 issue.get('finding') or issue.get('pattern') or
@@ -125,10 +125,13 @@ def approve_medium(review, trusted_core=False):
         print('Reason: SkillSpector recommends additional review for this skill.',
               flush=True)
     print('After approval, ' + title + ' can:', flush=True)
-    expected_ledger_finding = (
-        len(review.issues) == 1 and str(review.issues[0].get('id')) == 'LP3' and
-        'file_write' in str(review.issues[0].get('finding') or
-                            review.issues[0].get('pattern') or ''))
+    expected_ledger_finding = False
+    if len(review.issues) == 1 and str(review.issues[0].get('id')) == 'LP3':
+        detail = str(review.issues[0].get('finding') or
+                     review.issues[0].get('pattern') or '')
+        match = re.search(r'code capabilities were detected:\s*([a-z_, ]+)', detail)
+        expected_ledger_finding = bool(
+            match and match.group(1).strip().rstrip('.') == 'file_write')
     features = (_MEDIUM_FEATURES.get(review.skill)
                 if trusted_core and expected_ledger_finding else None)
     if features is None:
