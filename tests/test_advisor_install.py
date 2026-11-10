@@ -123,6 +123,34 @@ class AdvisorInstallTests(unittest.TestCase):
         self.assertEqual(self.mod.retire_optional_skills(self.repo, self.skills, self.home)['archived_skills'], [])
         self.assertTrue(self.install(selected=list(self.mod.CORE_NAMES))['baseline_ready'])
 
+    def test_core_plan_ignores_missing_optional_source(self):
+        self.add_component('council')
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': ['tool-advisor'],
+            'optional_skills': ['council']})
+        shutil.rmtree(self.repo / 'skills/council')
+        plan = self.mod.baseline_plan(self.repo)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
+        self.assertEqual(plan['optional_skills'], ['council'])
+
+    def test_retirement_allows_outdated_core_before_fresh_reinstall(self):
+        for name in ('grilling', 'find-skills', 'council'):
+            self.add_component(name)
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': list(self.mod.CORE_NAMES),
+            'optional_skills': ['council']})
+        self.install()
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        source.write_text(source.read_text() + 'new core instructions\n')
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.write('advisor-bundle.json', self.manifest)
+        migrated = self.mod.retire_optional_skills(self.repo, self.skills, self.home)
+        self.assertTrue(migrated['ready'])
+        self.assertTrue((pathlib.Path(migrated['archive']) / 'skills/council/SKILL.md').is_file())
+        refreshed = self.install(selected=list(self.mod.CORE_NAMES))
+        self.assertTrue(refreshed['baseline_ready'])
+        self.assertTrue(self.check()['ready'])
+
     def test_retire_optional_refuses_modified_files_and_preserves_receipt(self):
         for name in ('grilling', 'find-skills', 'council'):
             self.add_component(name)
