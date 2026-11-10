@@ -47,6 +47,7 @@ class WorkspaceBootstrapTests(unittest.TestCase):
         scanner = mock.Mock()
         scanner.ensure_scanner.side_effect = ValueError('scanner unavailable')
         advisor = mock.Mock()
+        advisor.require_baseline.return_value = {'required_skills': ['tool-advisor', 'grilling', 'find-skills']}
         with tempfile.TemporaryDirectory() as root, \
              mock.patch.dict('sys.modules',
                              {'secure_operations': scanner, 'install_advisor': advisor}), \
