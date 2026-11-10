@@ -38,7 +38,7 @@ Replace `codex` with `claude` for Claude Code. The acknowledgment is **user-atte
 not an automated claim that the host enforced the hook. Finishing re-checks the scanner
 and installed hook configuration without rewriting the approved hook; an outdated/missing
 hook blocks completion. SkillSpector still scans all core payloads independently.
-If the scanner flags a MEDIUM/HIGH finding, the install remains blocked.
+If the scanner reports a MEDIUM finding, installation pauses for an explicit one-time local terminal decision explaining the reason and features enabled. HIGH/CRITICAL, DO_NOT_INSTALL and incomplete scans still block.
 
 ### Portable launchers and migration
 
@@ -108,7 +108,7 @@ python scripts/secure_operations.py install --host codex --name example --source
 
 The update flag only works for a previously managed, unmodified installation. The worker keeps file hashes (not old scan reports) and rolls back an interrupted update. Direct `npx skills add`, `claude plugin install` or equivalent commands remain **blocked**: a hook cannot automatically inspect arbitrary third-party installer payloads before those installers execute. The agent should use controlled staging for supported skills. Unsupported plugin packaging is not automatically approved.
 
-For skills, the scanner uses `--no-llm --format json --fail-on-incomplete --min-coverage 100`. Require expected file coverage, no suppression, complete results and an allowed SAFE/LOW verdict. CAUTION, MEDIUM/HIGH/CRITICAL, DO_NOT_INSTALL, failed, suppressed, incomplete or changed-file scans block activation. No persistent vulnerability/audit ledger is created.
+For skills, the scanner uses `--no-llm --format json --fail-on-incomplete --min-coverage 100`. Require expected file coverage, no suppression, complete results and trustworthy risk data. LOW/SAFE without higher individual findings proceeds automatically. MEDIUM findings (or CAUTION recommendations) require an interactive approval on every install/update, without saving that approval. HIGH/CRITICAL, DO_NOT_INSTALL, failed, suppressed, incomplete, or changed-file scans block activation. Scan and compare all selected core skills before any approval prompt or activation. No persistent vulnerability/approval ledger is created.
 
 ## GitHub cloning
 
@@ -132,7 +132,7 @@ The worker clones to a temporary directory, identifies agent skills, invokes Ski
 2. Confirm `npx skills add fake-example` is blocked before execution.
 3. Confirm a harmless simple HTTPS GitHub clone is redirected to staging.
 4. Confirm a benign staged skill installs after a real SkillSpector scan.
-5. Confirm CAUTION/MEDIUM, HIGH, scanner crash, incomplete scan and changed files block skill installation.
+5. Confirm CAUTION/MEDIUM requires local terminal consent and rejects by default; HIGH, scanner crash, incomplete scan and changed files block skill installation.
 6. Confirm an existing modified skill remains untouched after attempted update.
 
 Hooks cannot monitor arbitrary subprocesses, external terminals, manual installs, bypassed tools or disabled host hooks; an agent's operating-system permissions/sandbox are an independent protective boundary. SkillSpector is built for agent skills, not comprehensive malware analysis of generic Java/Node/Python repositories. The source repo being updated does **not** install hooks on your laptop until you run setup there.
