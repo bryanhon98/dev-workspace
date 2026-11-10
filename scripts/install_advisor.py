@@ -396,17 +396,15 @@ def retire_optional_skills(repo_root, skills_root, home, host='codex'):
         updated['selected_names'] = [name for name in plan['required_skills']]
         updated['optional_retired_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
         _save_json(receipt_file, updated)
-        _, expected, _ = _bundle(root, plan['required_skills'])
-        for component in expected:
-            name = component['name']
-            installed = old[name]
-            if (installed.get('version') != component['version']
-                    or installed.get('source') != component['source']
-                    or _files(skills / name) != component['installed_files']
-                    or _files(state / 'snapshots' / name) != component['installed_files']):
-                raise ValueError('Core verification after retirement failed: ' + name)
+        verified_receipt = _read_receipt(receipt_file, root, skills)
+        if (verified_receipt.get('selected_names') != plan['required_skills']
+                or {item['name'] for item in verified_receipt['components']} != required):
+            raise ValueError('Core receipt migration verification failed')
+        for name in required:
+            if _files(skills / name) != _files(state / 'snapshots' / name):
+                raise ValueError('Managed core skill was modified during migration: ' + name)
         return {'ready': True, 'archived_skills': extras, 'changed': True,
-                'archive': str(archive), 'note': 'Files are recoverable in this local archive; no untracked skills were touched.'}
+                'archive': str(archive), 'note': 'Archived optional skills only. Run --setup-workspace to freshly scan and update the three core skills; current core readiness is not implied.'}
     except Exception:
         receipt_file.write_bytes(original)
         if archive is not None:
