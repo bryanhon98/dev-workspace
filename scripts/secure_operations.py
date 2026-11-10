@@ -100,8 +100,21 @@ def approve_medium(review, trusted_core=False):
     for issue in review.issues:
         issue_id = _single_line(issue.get('id', '?'), 30)
         if issue_id == 'LP3':
-            reason = ('The skill can modify local files but has not declared '
-                      'this capability in its configuration.')
+            detected = _single_line(issue.get('finding') or issue.get('pattern') or '')
+            capabilities = [
+                plain for name, plain in (
+                    ('file_write', 'modify local files'),
+                    ('file_read', 'read local files'),
+                    ('network', 'access the network'),
+                    ('shell', 'execute shell commands'),
+                    ('env', 'read environment settings'),
+                    ('mcp', 'use MCP tools'),
+                ) if name in detected
+            ]
+            reason = ('The skill can ' + ', '.join(capabilities) +
+                      ' but has not declared these capabilities.'
+                      if capabilities else
+                      'The skill uses undeclared capabilities.')
         else:
             reason = _single_line(
                 issue.get('finding') or issue.get('pattern') or
@@ -112,7 +125,12 @@ def approve_medium(review, trusted_core=False):
         print('Reason: SkillSpector recommends additional review for this skill.',
               flush=True)
     print('After approval, ' + title + ' can:', flush=True)
-    features = _MEDIUM_FEATURES.get(review.skill) if trusted_core else None
+    expected_ledger_finding = (
+        len(review.issues) == 1 and str(review.issues[0].get('id')) == 'LP3' and
+        'file_write' in str(review.issues[0].get('finding') or
+                            review.issues[0].get('pattern') or ''))
+    features = (_MEDIUM_FEATURES.get(review.skill)
+                if trusted_core and expected_ledger_finding else None)
     if features is None:
         reported = ' '.join(_single_line(issue.get('finding') or issue.get('pattern') or '')
                             for issue in review.issues)
