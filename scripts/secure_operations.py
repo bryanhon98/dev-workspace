@@ -54,6 +54,107 @@ def scanner_executable(value):
     return {'path': str(path), 'version': result.stdout.strip()}
 
 
+class MediumApprovalRequired(ValueError):
+    """A complete, static scan needs an explicit one-time local review."""
+
+    def __init__(self, skill, risk, issues):
+        self.skill = skill
+        self.risk = risk
+        self.issues = issues
+        self.warnings = [
+            {'skill': skill, 'severity': issue['severity'],
+             'finding': str(issue.get('id', '?'))} for issue in issues
+        ]
+        super().__init__(
+            'MEDIUM security review required for ' + skill +
+            '. Run the install directly in an interactive terminal to approve or reject.')
+
+
+_MEDIUM_FEATURES = {
+    'tool-advisor': (
+        'Save project plans and decisions locally.',
+        'Track tasks and their progress.',
+        'Resume saved workflows.',
+        'Update local workflow records when invoked.',
+    )
+}
+
+
+def _single_line(value, limit=190):
+    return re.sub(r'[\x00-\x1f\x7f]+', ' ', str(value)).strip()[:limit]
+
+
+def approve_medium(review, trusted_core=False):
+    """Ask for each attempt; no approval cache or automatic yes option.
+
+    A TTY is not proof of a human: the user must never delegate the decision
+    to an agent, and an agent with OS privileges can still emulate input.
+    """
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        raise ValueError('MEDIUM review requires your interactive terminal. '
+                         'Run the installer in PowerShell or Terminal yourself '
+                         'and do not delegate the decision to an agent.')
+
+    title = review.skill.replace('-', ' ').title()
+    print('\n=== ' + title + ' — Security Review [MEDIUM] ===', flush=True)
+    for issue in review.issues:
+        issue_id = _single_line(issue.get('id', '?'), 30)
+        if issue_id == 'LP3':
+            detected = _single_line(issue.get('finding') or issue.get('pattern') or '')
+            capabilities = [
+                plain for name, plain in (
+                    ('file_write', 'modify local files'),
+                    ('file_read', 'read local files'),
+                    ('network', 'access the network'),
+                    ('shell', 'execute shell commands'),
+                    ('env', 'read environment settings'),
+                    ('mcp', 'use MCP tools'),
+                ) if name in detected
+            ]
+            reason = ('The skill can ' + ', '.join(capabilities) +
+                      ' but has not declared ' +
+                      ('this capability.' if len(capabilities) == 1 else 'these capabilities.')
+                      if capabilities else 'The skill uses undeclared capabilities.')
+        else:
+            reason = _single_line(
+                issue.get('finding') or issue.get('pattern') or
+                issue.get('explanation') or 'The scanner identified a security concern.')
+        print('Reason: ' + reason, flush=True)
+        print('Finding: ' + issue_id + ' (technical reference)', flush=True)
+    if not review.issues:
+        print('Reason: SkillSpector recommends additional review for this skill.',
+              flush=True)
+    print('After approval, ' + title + ' can:', flush=True)
+    expected_ledger_finding = False
+    if len(review.issues) == 1 and str(review.issues[0].get('id')) == 'LP3':
+        detail = str(review.issues[0].get('finding') or
+                     review.issues[0].get('pattern') or '')
+        match = re.search(r'code capabilities were detected:\s*([a-z_, ]+)', detail)
+        expected_ledger_finding = bool(
+            match and match.group(1).strip().rstrip('.') == 'file_write')
+    features = (_MEDIUM_FEATURES.get(review.skill)
+                if trusted_core and expected_ledger_finding else None)
+    if features is None:
+        reported = ' '.join(_single_line(issue.get('finding') or issue.get('pattern') or '')
+                            for issue in review.issues)
+        if 'file_write' in reported:
+            features = ('Create or update local files when invoked, subject to host permissions.',)
+        else:
+            features = ('Run its documented features, including the behavior reported above, '
+                        'subject to existing host permissions.',)
+    for feature in features:
+        print('  - ' + feature, flush=True)
+    print('Approval does not grant new host permissions or enable background tasks.',
+          flush=True)
+    try:
+        response = input('Approve these capabilities? [y/N]: ').strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        raise ValueError('MEDIUM approval cancelled; no skill installed') from None
+    if response not in ('y', 'yes'):
+        raise ValueError('MEDIUM approval rejected; no skill installed')
+    return review.warnings
+
+
 def scan_skill(stage, scanner, expected_files):
     command = [scanner['path'], 'scan', str(stage), '--no-llm', '--format', 'json',
                '--fail-on-incomplete', '--min-coverage', '100']
@@ -96,11 +197,18 @@ def scan_skill(stage, scanner, expected_files):
     if any(not isinstance(x, dict) or x.get('severity') not in
            ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for x in issues):
         raise ValueError('Malformed individual scan findings')
-    blocked = severity in ('MEDIUM', 'HIGH', 'CRITICAL') or recommendation != 'SAFE' or any(
-        x['severity'] in ('MEDIUM', 'HIGH', 'CRITICAL') for x in issues)
-    if blocked:
-        raise ValueError('SkillSpector blocked risky skill: ' + stage.name +
+    hard_block = (severity in ('HIGH', 'CRITICAL') or
+                  recommendation == 'DO_NOT_INSTALL' or
+                  any(x['severity'] in ('HIGH', 'CRITICAL') for x in issues))
+    if hard_block:
+        raise ValueError('SkillSpector blocked high-risk skill: ' + stage.name +
                          ' (' + severity + ', ' + recommendation + ')')
+    needs_review = (severity == 'MEDIUM' or recommendation == 'CAUTION' or
+                    any(x['severity'] == 'MEDIUM' for x in issues))
+    if needs_review:
+        raise MediumApprovalRequired(stage.name,
+                                     {'severity': severity, 'recommendation': recommendation},
+                                     issues)
     if result.returncode == 1:
         raise ValueError('SkillSpector scan exited unsuccessfully: ' + stage.name)
     return [{'skill': stage.name, 'severity': x['severity'], 'finding': str(x.get('id', '?'))}
@@ -180,11 +288,21 @@ def install_skill(source, skills_root, name, scanner=None, update=False):
         shutil.copytree(source, staged)
         if file_snapshot(staged) != original:
             raise ValueError('Source changed during staging')
-        warnings = scan_skill(staged, scanner_info, original)
+        review = None
+        try:
+            warnings = scan_skill(staged, scanner_info, original)
+        except MediumApprovalRequired as pending:
+            review = pending
+            warnings = pending.warnings
         if file_snapshot(staged) != original or file_snapshot(source) != original:
             raise ValueError('Skill changed during scan')
         if update and _digests(file_snapshot(target)) != known['files']:
             raise ValueError('Existing skill changed during scan')
+        if review is not None:
+            # Approval is ephemeral and follows scan + unchanged-byte checks.
+            approve_medium(review)
+            if file_snapshot(staged) != original or file_snapshot(source) != original:
+                raise ValueError('Skill changed during security review')
         backup = tempdir / 'backup'
         replaced = False
         installed = False

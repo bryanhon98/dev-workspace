@@ -24,7 +24,8 @@ SHARED_LICENSE = {'source': 'skills/external/matt-pocock/LICENSE', 'destination'
 
 from secure_operations import (safe_path as _path, file_snapshot as _files,
                                scanner_executable as _scanner_executable,
-                               scan_skill as _scan)
+                               scan_skill as _scan,
+                               MediumApprovalRequired, approve_medium)
 
 def _relative(value):
     if not isinstance(value, str) or not value or '\\' in value:
@@ -113,16 +114,11 @@ def baseline_plan(repo_root):
     root = _path(repo_root)
     base = _json(root / 'advisor-baseline.json')
     required = base.get('required_skills')
-    optional = base.get('optional_skills', [])
     if (base.get('schema_version') != 1
             or not isinstance(required, list) or not required
             or any(not isinstance(n, str) for n in required)
-            or len(required) != len(set(required))
-            or not isinstance(optional, list)
-            or any(not isinstance(n, str) for n in optional)
-            or len(optional) != len(set(optional))
-            or set(required) & set(optional)):
-        raise ValueError('Invalid advisor baseline: required and optional skill lists must be disjoint')
+            or len(required) != len(set(required))):
+        raise ValueError('Invalid advisor baseline: required skills must be unique names')
     prepared = False
     error = None
     missing = []
@@ -133,7 +129,7 @@ def baseline_plan(repo_root):
         prepared = not missing
     except (OSError, ValueError, KeyError, TypeError) as exc:
         error = str(exc)
-    return {'required_skills': required, 'optional_skills': optional,
+    return {'required_skills': required,
             'missing_payloads': missing, 'payloads_prepared': prepared,
             'pending_clean_approval': [], 'audit_error': error,
             'device_verified': False,
@@ -262,7 +258,8 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
             for directory in (payloads, backups, saved_backups):
                 directory.mkdir()
             warnings = []
-            # Scan the complete selected batch before changing any active skill.
+            pending_reviews = []
+            # Scan every selected payload before asking for approval or activation.
             for c in components:
                 name = c['name']
                 staged = payloads / name
@@ -273,7 +270,11 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                     shutil.copyfile(_inside(root, extra['source']), target)
                 if _files(staged) != c['installed_files']:
                     raise ValueError('Staged skill changed before scan: ' + name)
-                warnings.extend(_scan(staged, scanner_meta, c['installed_files']))
+                try:
+                    warnings.extend(_scan(staged, scanner_meta, c['installed_files']))
+                except MediumApprovalRequired as review:
+                    pending_reviews.append(review)
+                    warnings.extend(review.warnings)
                 if _files(staged) != c['installed_files']:
                     raise ValueError('Staged skill changed during scan: ' + name)
             if _bundle(root, selected_names)[1] != components:
@@ -282,6 +283,19 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 raise ValueError('Installed files changed during scan')
             if (receipt_file.read_bytes() if receipt_file.exists() else None) != old_receipt_bytes:
                 raise ValueError('Receipt changed during scan')
+            # Never activate any skill until all security reviews are accepted.
+            for review in pending_reviews:
+                approve_medium(review, trusted_core=True)
+            if pending_reviews:
+                if _bundle(root, selected_names)[1] != components:
+                    raise ValueError('Skill source changed during security review')
+                for c in components:
+                    if _files(payloads / c['name']) != c['installed_files']:
+                        raise ValueError('Staged skill changed during security review: ' + c['name'])
+                if _preflight_targets(skills, components, old, state) != preflight:
+                    raise ValueError('Installed files changed during security review')
+                if (receipt_file.read_bytes() if receipt_file.exists() else None) != old_receipt_bytes:
+                    raise ValueError('Receipt changed during security review')
             receipt = {
                 'schema_version': 3, 'bundle_version': manifest['bundle_version'],
                 'installed_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
@@ -351,7 +365,11 @@ def retire_optional_skills(repo_root, skills_root, home, host='codex'):
     root, skills, home = map(_path, (repo_root, skills_root, home))
     plan = require_baseline(root)
     required = set(plan['required_skills'])
-    optional = set(plan['optional_skills'])
+    # Legacy optional entries remain in the saved bundle/library for migration.
+    # They are not part of the three-skill installation baseline.
+    saved = _json(root / 'advisor-bundle.json').get('components', [])
+    archived_candidates = {x['name'] for x in saved if isinstance(x, dict) and
+                           isinstance(x.get('name'), str)} - required
     state = _path(home / host_profiles.state_subdir(host))
     receipt_file = state / 'receipt.json'
     receipt = _read_receipt(receipt_file, root, skills)
@@ -363,8 +381,8 @@ def retire_optional_skills(repo_root, skills_root, home, host='codex'):
     extras = sorted(set(old) - required)
     if not extras:
         return {'ready': True, 'archived_skills': [], 'changed': False}
-    if not set(extras).issubset(optional):
-        raise ValueError('Receipt includes non-baseline managed skills; manual reconciliation required')
+    if not set(extras).issubset(archived_candidates):
+        raise ValueError('Receipt includes unrecognized managed skills; manual reconciliation required')
     lock = state / 'install.lock'
     try:
         fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)

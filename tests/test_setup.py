@@ -89,7 +89,7 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         plan = json.loads(result.stdout)
         self.assertEqual(plan['required_skills'], ['tool-advisor', 'grilling', 'find-skills'])
-        self.assertEqual(len(plan['optional_skills']), 14)
+        self.assertNotIn('optional_skills', plan)
         self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
         self.assertEqual(list(self.home.iterdir()), [])
 
@@ -98,7 +98,8 @@ class GlobalSetupTests(unittest.TestCase):
         baseline = json.loads((root / 'advisor-baseline.json').read_text(encoding='utf-8'))
         self.assertEqual(baseline['required_skills'],
                          ['tool-advisor', 'grilling', 'find-skills'])
-        self.assertIn('using-superpowers', baseline['optional_skills'])
+        self.assertNotIn('optional_skills', baseline)
+        self.assertIn('using-superpowers', (root / 'advisor-bundle.json').read_text(encoding='utf-8'))
         for relative in ('AGENTS.md', 'global/AGENTS.md', 'global/CLAUDE.md',
                          'knowledge/BUILD-FLOW.md', 'knowledge/ADVISOR.md',
                          'knowledge/ROUTING.md'):
@@ -194,8 +195,9 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         plan = json.loads(result.stdout)
         self.assertNotIn('council', plan['required_skills'])
-        self.assertIn('council', plan['optional_skills'])
-        self.assertIn('subagent-driven-development', plan['optional_skills'])
+        self.assertNotIn('optional_skills', plan)
+        self.assertIn('council', (SCRIPT.parent.parent / 'advisor-bundle.json').read_text(encoding='utf-8'))
+        self.assertIn('subagent-driven-development', (SCRIPT.parent.parent / 'advisor-bundle.json').read_text(encoding='utf-8'))
         self.assertFalse(plan['device_verified'])
         self.assertEqual(list(self.home.iterdir()), [])
 

@@ -47,6 +47,77 @@ class SecureOperationsTests(unittest.TestCase):
                 self.mod.install_skill(self.source, self.skills, 'example')
         self.assertFalse((self.skills / 'example').exists())
 
+    def test_medium_review_reason_features_and_default_reject(self):
+        review = self.mod.MediumApprovalRequired('tool-advisor',
+            {'severity': 'LOW', 'recommendation': 'SAFE'},
+            [{'id': 'LP3', 'severity': 'MEDIUM',
+              'finding': 'Skill declares no tool scope but code capabilities were detected: file_write.'}])
+        with mock.patch.object(self.mod.sys, 'stdin', mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch.object(self.mod.sys, 'stdout', mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch('builtins.input', return_value='') as choice, \
+             mock.patch('builtins.print') as display:
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.mod.approve_medium(review, trusted_core=True)
+        output = '\n'.join(str(call) for call in display.call_args_list)
+        self.assertIn('can modify local files', output)
+        self.assertIn('Save project plans and decisions', output)
+        self.assertIn('Track tasks', output)
+        choice.assert_called_once()
+
+    def test_medium_review_needs_local_terminal(self):
+        review = self.mod.MediumApprovalRequired('tool-advisor',
+            {'severity': 'LOW', 'recommendation': 'SAFE'},
+            [{'id': 'LP3', 'severity': 'MEDIUM'}])
+        with mock.patch.object(self.mod.sys, 'stdin', mock.Mock(isatty=mock.Mock(return_value=False))), \
+             mock.patch('builtins.input') as prompt:
+            with self.assertRaisesRegex(ValueError, 'interactive terminal'):
+                self.mod.approve_medium(review)
+            prompt.assert_not_called()
+
+    def test_medium_review_can_approve_for_one_install_only(self):
+        review = self.mod.MediumApprovalRequired('example',
+            {'severity': 'MEDIUM', 'recommendation': 'CAUTION'},
+            [{'id': 'LP3', 'severity': 'MEDIUM'}])
+        with mock.patch.object(self.mod, 'scan_skill', side_effect=review), \
+             mock.patch.object(self.mod, 'approve_medium',
+                               return_value=review.warnings) as approve:
+            out = self.mod.install_skill(self.source, self.skills, 'example')
+        self.assertTrue(out['installed'])
+        approve.assert_called_once()
+        self.assertFalse((self.skills.parent / 'dev-workspace-security/approvals.json').exists())
+        with mock.patch.object(self.mod, 'scan_skill', side_effect=review), \
+             mock.patch.object(self.mod, 'approve_medium',
+                               side_effect=ValueError('MEDIUM approval rejected')):
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.mod.install_skill(self.source, self.skills, 'example', update=True)
+        self.assertTrue((self.skills / 'example/SKILL.md').is_file())
+
+    def test_medium_reject_does_not_install(self):
+        review = self.mod.MediumApprovalRequired('example',
+            {'severity': 'LOW', 'recommendation': 'SAFE'},
+            [{'id': 'LP3', 'severity': 'MEDIUM'}])
+        with mock.patch.object(self.mod, 'scan_skill', side_effect=review), \
+             mock.patch.object(self.mod, 'approve_medium',
+                               side_effect=ValueError('MEDIUM approval rejected')):
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.mod.install_skill(self.source, self.skills, 'example')
+        self.assertFalse((self.skills / 'example').exists())
+
+    def test_high_is_not_reviewable(self):
+        report = {
+            'metadata': {'llm_requested': False},
+            'analysis_completeness': {'is_complete': True, 'coverage_percent': 100},
+            'execution_successful': True, 'suppressed_count': 0, 'suppressed': [],
+            'components': [{'path': 'SKILL.md'}],
+            'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE'},
+            'issues': [{'id': 'danger', 'severity': 'HIGH'}]}
+        completed = __import__('subprocess').CompletedProcess([], 0,
+                    __import__('json').dumps(report), '')
+        with mock.patch.object(self.mod.subprocess, 'run', return_value=completed):
+            with self.assertRaisesRegex(ValueError, 'high-risk'):
+                self.mod.scan_skill(self.source, {'path': 'scanner'},
+                                    {'SKILL.md': (self.source / 'SKILL.md').read_bytes()})
+
     def test_existing_skill_is_not_overwritten(self):
         existing = self.skills / 'example'
         existing.mkdir(parents=True)
