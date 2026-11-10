@@ -40,6 +40,40 @@ and installed hook configuration without rewriting the approved hook; an outdate
 hook blocks completion. SkillSpector still scans all core payloads independently.
 If the scanner reports a MEDIUM finding, installation pauses for an explicit one-time local terminal decision explaining the reason and features enabled. HIGH/CRITICAL, DO_NOT_INSTALL and incomplete scans still block.
 
+### MEDIUM findings: one-time feature approval
+
+This is **different** from approving the PreToolUse hook in the Codex UI.
+The hook approval allows the hook itself to run; a MEDIUM review decides
+whether a **specific scanned skill operation** can be installed or updated.
+
+Run the finish step in your own ordinary PowerShell/Terminal session. If the
+scanner produces an LP3 `file_write` MEDIUM finding for the bundled Tool Advisor,
+the installer displays a concise review:
+
+```text
+Tool Advisor — Security Review [MEDIUM]
+Reason: The skill can modify local files but has not declared this capability.
+Finding: LP3 (technical reference)
+After approval, Tool Advisor can:
+  - Save project plans and decisions locally.
+  - Track tasks and their progress.
+  - Resume saved workflows.
+  - Update local workflow records when invoked.
+Approve these capabilities? [y/N]:
+```
+
+Entering `y` or `yes` allows **only this installation attempt** to continue.
+Any other input cancels; no changes to active skills are made. No approval
+record or reusable approval flag is created. Normal installer snapshots and
+file-integrity hashes are retained to protect existing user modifications;
+these are not approval signatures or cross-device approval records.
+
+The prompt requires an interactive terminal, but a TTY **cannot authenticate
+a human**. Do not ask an AI agent to answer the prompt; the agent could be
+capable of emulating terminal input. A high-risk or incomplete scan never
+offers this approval. All selected core skills must pass scans before
+the first approval prompt appears.
+
 ### Portable launchers and migration
 
 - **Codex Windows:** the hook command uses PowerShell's `&` call operator with
