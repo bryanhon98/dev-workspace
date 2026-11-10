@@ -148,14 +148,14 @@ class NativeApprovalMcpTests(unittest.TestCase):
                                          review, warnings)
             kwargs['approval_handler'](medium)
             return {'ready': True, 'components': list(names)}
-        with mock.patch.object(self.mcp.install_advisor, 'require_baseline', return_value=required), \\
+        with mock.patch.object(self.mcp.install_advisor, 'require_baseline', return_value=required), \
              mock.patch.object(self.mcp.install_advisor, '_bundle',
-                               return_value=({'schema_version': 3}, bundle, None)), \\
-             mock.patch.object(self.mcp.security, 'scan_skill', side_effect=scan), \\
+                               return_value=({'schema_version': 3}, bundle, None)), \
+             mock.patch.object(self.mcp.security, 'scan_skill', side_effect=scan), \
              mock.patch.object(self.mcp.install_advisor, 'install_bundle',
-                               side_effect=fake_install), \\
-             mock.patch('setup.configure_security_hook', return_value={'ready': True}), \\
-             mock.patch('setup.verify_security_hook', return_value=True), \\
+                               side_effect=fake_install), \
+             mock.patch('setup.configure_security_hook', return_value={'ready': True}), \
+             mock.patch('setup.verify_security_hook', return_value=True), \
              mock.patch('setup.install', return_value=True) as rules:
             preview = self.mcp.inspect({'target': 'core', 'host': 'codex'})
             self.assertTrue(preview['requires_approval'])
