@@ -133,6 +133,46 @@ def generated():
     return output
 
 
+
+def saved_github_records(library_dir):
+    """Index linked GitHub project headings across saved category and research notes.
+
+    This is a local, read-only candidate index, not verification of upstream code.
+    """
+    found = {}
+    for path in sorted(library_dir.rglob('*.md')):
+        if path.name in {'README.md', 'not-selected.md'} or path.is_symlink():
+            continue
+        content = path.read_text(encoding='utf-8')
+        for section in re.split(r'(?=^#{2,3}\s)', content, flags=re.MULTILINE):
+            heading = section.split('\n', 1)[0]
+            match = re.match(
+                r'^#{2,3}\s+\[([^\]]+)\]\(https://github\.com/([\w.-]+)/([\w.-]+)(?:/[^)]*)?\)',
+                heading, flags=re.IGNORECASE)
+            if not match:
+                continue
+            name, owner, repo_name = match.groups()
+            repo = f'{owner}/{repo_name.removesuffix(".git")}'.lower()
+            document = (Path('github-repos') / path.relative_to(library_dir)).as_posix()
+            if repo not in found:
+                found[repo] = {
+                    'id': 'saved-github:' + repo,
+                    'name': name,
+                    'collection': 'saved-github',
+                    'evidence_status': 'saved-library-research; not-installed-or-security-approved',
+                    'purpose': section.split('\n', 1)[-1].strip()[:1200],
+                    'source': 'https://github.com/' + repo,
+                    'details': document,
+                    'catalog_files': [document],
+                    '_text': '',
+                }
+            entry = found[repo]
+            if document not in entry['catalog_files']:
+                entry['catalog_files'].append(document)
+            entry['_text'] += '\n' + section[:2400]
+    return list(found.values())
+
+
 def decision_records(directory):
     records = []
     for path in sorted(directory.glob('*.json')):
@@ -169,6 +209,7 @@ def search(query, limit):
                         'purpose': e.get('purpose', ''), 'source': 'https://github.com/' + e['repo'],
                         'details': 'github-repos/reviews.json', 'version': e.get('sha'),
                         'prior_decision': e.get('catalog_decision'), '_text': json.dumps(e, ensure_ascii=False)})
+    records.extend(saved_github_records(ROOT / 'github-repos'))
     for e in report_sources():
         if e['outcome'] in {'skipped', 'blocked'}:
             continue

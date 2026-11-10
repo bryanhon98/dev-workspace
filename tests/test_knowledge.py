@@ -48,6 +48,46 @@ class KnowledgeTests(unittest.TestCase):
         kinds = {r['collection'] for r in result['results']}
         self.assertTrue({'inventory', 'reviews', 'reels'} <= kinds)
 
+    def test_saved_github_markdown_entries_are_searchable(self):
+        for query, repo in [('astryx', 'meta/astryx'),
+                            ('playwright', 'microsoft/playwright')]:
+            with self.subTest(query=query):
+                result = self.run_cli('search', query, '--limit', '100')
+                matches = [entry for entry in result['results']
+                           if entry['id'] == 'saved-github:' + repo]
+                self.assertEqual(len(matches), 1)
+                self.assertEqual(matches[0]['collection'], 'saved-github')
+                self.assertEqual(matches[0]['source'], 'https://github.com/' + repo)
+                self.assertIn('not-installed-or-security-approved',
+                              matches[0]['evidence_status'])
+                self.assertTrue(matches[0]['details'].startswith('github-repos/'))
+
+    def test_saved_github_parser_deduplicates_and_skips_rejected(self):
+        spec = importlib.util.spec_from_file_location('knowledge', SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as tmp:
+            library = Path(tmp)
+            (library / 'references').mkdir()
+            (library / 'research').mkdir()
+            (library / 'references/design.md').write_text(
+                '## [Astryx](https://github.com/meta/astryx)\n\n'
+                'React design-system components.\n', encoding='utf-8')
+            (library / 'research/more.md').write_text(
+                '## Design tools\n\n'
+                '### [Astryx, alternate case](https://github.com/Meta/astryx)\n\n'
+                'Same saved repository, different research note.\n', encoding='utf-8')
+            (library / 'not-selected.md').write_text(
+                '## [Not selected](https://github.com/example/excluded)\n',
+                encoding='utf-8')
+            records = module.saved_github_records(library)
+            self.assertEqual(len(records), 1)
+            entry = records[0]
+            self.assertEqual(entry['id'], 'saved-github:meta/astryx')
+            self.assertEqual(len(entry['catalog_files']), 2)
+            self.assertIn('React design-system', entry['_text'])
+            self.assertIn('alternate case', entry['_text'])
+
     def test_report_only_evidence_is_searchable(self):
         result = self.run_cli('search', 'De9EKndgQoE', '--limit', '100')
         self.assertIn('report:reel_De9EKndgQoE', {r['id'] for r in result['results']})
