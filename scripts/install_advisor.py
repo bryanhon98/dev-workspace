@@ -396,10 +396,15 @@ def retire_optional_skills(repo_root, skills_root, home, host='codex'):
         updated['selected_names'] = [name for name in plan['required_skills']]
         updated['optional_retired_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
         _save_json(receipt_file, updated)
-        verified = check_bundle(root, skills, home, host=host)
-        if not verified.get('ready') or not verified.get('baseline_ready'):
-            raise ValueError('Core verification after retirement failed: ' +
-                             ', '.join(verified.get('errors', ['baseline not ready'])))
+        _, expected, _ = _bundle(root, plan['required_skills'])
+        for component in expected:
+            name = component['name']
+            installed = old[name]
+            if (installed.get('version') != component['version']
+                    or installed.get('source') != component['source']
+                    or _files(skills / name) != component['installed_files']
+                    or _files(state / 'snapshots' / name) != component['installed_files']):
+                raise ValueError('Core verification after retirement failed: ' + name)
         return {'ready': True, 'archived_skills': extras, 'changed': True,
                 'archive': str(archive), 'note': 'Files are recoverable in this local archive; no untracked skills were touched.'}
     except Exception:
