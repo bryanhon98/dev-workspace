@@ -114,12 +114,15 @@ def baseline_plan(repo_root):
     base = _json(root / 'advisor-baseline.json')
     required = base.get('required_skills')
     optional = base.get('optional_skills', [])
-    if (base.get('schema_version') != 1 or required != list(CORE_NAMES)
+    if (base.get('schema_version') != 1
+            or not isinstance(required, list) or not required
+            or any(not isinstance(n, str) for n in required)
+            or len(required) != len(set(required))
             or not isinstance(optional, list)
             or any(not isinstance(n, str) for n in optional)
             or len(optional) != len(set(optional))
             or set(required) & set(optional)):
-        raise ValueError('Invalid advisor baseline: expected three core skills and distinct optional skills')
+        raise ValueError('Invalid advisor baseline: required and optional skill lists must be disjoint')
     prepared = False
     error = None
     missing = []
@@ -138,7 +141,8 @@ def baseline_plan(repo_root):
 
 
 def require_core_only(repo_root):
-    return require_baseline(repo_root)['required_skills']
+    _bundle(_path(repo_root), CORE_NAMES)
+    return list(CORE_NAMES)
 
 
 def require_baseline(repo_root):
@@ -169,7 +173,7 @@ def _read_receipt(path, root, skills, allow_relocation=False):
 def _preflight_targets(skills, components, receipt, state):
     old = {x['name']: x for x in receipt['components']} if receipt else {}
     if set(old) - {c['name'] for c in components}:
-        raise ValueError('Removing managed skills requires separate migration')
+        raise ValueError('Existing managed optional skills must be archived first using --retire-optional-advisor-skills; no skills were removed')
     snapshots = {}
     for c in components:
         name = c['name']
