@@ -64,6 +64,68 @@ class SecureOperationsTests(unittest.TestCase):
         self.assertIn('Track tasks', output)
         choice.assert_called_once()
 
+    def test_rp1_repeated_findings_grouped_and_explained(self):
+        issues = [
+            {'id': 'RP1', 'severity': 'MEDIUM', 'finding': 'npx skills',
+             'explanation': 'npx commands without a version suffix create rug-pull risk.'}
+            for _ in range(12)
+        ]
+        review = self.mod.MediumApprovalRequired(
+            'find-skills', {'severity': 'LOW', 'recommendation': 'SAFE'}, issues)
+        self.assertEqual(len(review.warnings), 12)
+        with mock.patch.object(self.mod.sys, 'stdin',
+                               mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch.object(self.mod.sys, 'stdout',
+                               mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch('builtins.input', return_value='n'), \
+             mock.patch('builtins.print') as display:
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.mod.approve_medium(review, trusted_core=True)
+        lines = [str(call.args[0]) for call in display.call_args_list
+                 if call.args]
+        text = '\\n'.join(lines)
+        self.assertIn('12 occurrence(s) in 1 distinct group(s)', text)
+        self.assertEqual(text.count('Reason:'), 1)
+        self.assertEqual(text.count('Finding:'), 1)
+        self.assertIn('could fetch changed executable code', text)
+        self.assertIn('Search for available agent skills', text)
+        self.assertIn('controlled security workflow', text)
+        self.assertIn('Direct skill installation remains subject to the security hook', text)
+        self.assertNotIn('Reason: npx skills', text)
+
+    def test_different_findings_not_silently_combined(self):
+        groups = self.mod._review_groups([
+            {'id': 'RP1', 'severity': 'MEDIUM', 'finding': 'npx skills'},
+            {'id': 'RP1', 'severity': 'MEDIUM', 'finding': 'uvx tool'},
+            {'id': 'LP3', 'severity': 'MEDIUM',
+             'finding': 'code capabilities were detected: file_write'}])
+        self.assertEqual(len(groups), 3)
+        self.assertEqual([x['count'] for x in groups], [1, 1, 1])
+
+    def test_unknown_finding_prefers_explanation_over_short_matched_command(self):
+        groups = self.mod._review_groups([{
+            'id': 'TEST', 'severity': 'MEDIUM',
+            'finding': 'short pattern',
+            'explanation': 'This instruction could access remote network services.'}])
+        self.assertEqual(groups[0]['reason'],
+                         'This instruction could access remote network services.')
+
+    def test_find_skills_unexpected_finding_uses_generic_feature_summary(self):
+        review = self.mod.MediumApprovalRequired(
+            'find-skills', {'severity': 'MEDIUM', 'recommendation': 'CAUTION'},
+            [{'id': 'E2', 'severity': 'MEDIUM', 'finding': 'Unexpected network access'}])
+        with mock.patch.object(self.mod.sys, 'stdin',
+                               mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch.object(self.mod.sys, 'stdout',
+                               mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch('builtins.input', return_value='n'), \
+             mock.patch('builtins.print') as display:
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.mod.approve_medium(review, trusted_core=True)
+        text = '\\n'.join(str(c.args[0]) for c in display.call_args_list if c.args)
+        self.assertNotIn('Search for available agent skills', text)
+        self.assertIn('Unexpected network access', text)
+
     def test_medium_review_needs_local_terminal(self):
         review = self.mod.MediumApprovalRequired('tool-advisor',
             {'severity': 'LOW', 'recommendation': 'SAFE'},
