@@ -5,34 +5,5 @@
     "grilling",
     "find-skills"
   ],
-  "selection": "Only Tool Advisor, Grilling, and Find Skills are installed by default. Other saved skills remain in the searchable library/bundle for task-specific selection and legacy migration; they have no special baseline status.",
-  "sources": {
-    "superpowers": {
-      "url": "https://github.com/obra/superpowers",
-      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "skills": [
-        "brainstorming",
-        "dispatching-parallel-agents",
-        "executing-plans",
-        "finishing-a-development-branch",
-        "receiving-code-review",
-        "requesting-code-review",
-        "subagent-driven-development",
-        "systematic-debugging",
-        "test-driven-development",
-        "using-git-worktrees",
-        "using-superpowers",
-        "verification-before-completion",
-        "writing-plans"
-      ],
-      "status": "packaged-static-scan-triaged"
-    },
-    "council": {
-      "url": "https://github.com/0xNyk/council-of-high-intelligence",
-      "saved_revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
-      "status": "packaged-static-scan-triaged-with-documented-host-adaptations",
-      "revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
-      "previous_saved_revision": "bb42b4b58fd86b9058f2b3385d692937280d901c"
-    }
-  }
+  "selection": "Only Tool Advisor, Grilling, and Find Skills are installed by default. Other saved skills remain in the searchable library/bundle for task-specific selection and legacy migration; they have no special baseline status."
 }
