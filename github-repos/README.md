@@ -7,18 +7,23 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | Category | Saved options |
 |---|---|
 | [Engineering and security skills](skills/engineering.md) | Matt Pocock — architecture subset; Addy Osmani — performance subset; Anthropic — MCP Builder only; Cloudflare Security Audit |
-| [Design and motion skills](skills/design.md) | Vercel Agent Skills; UI/UX Pro Max; Taste — BrandKit and Image-to-Code only; Emil Kowalski — motion subset; Extract Design System; Ian Xiaohei Illustrations |
+| [Design and motion skills](skills/design.md) | Vercel Agent Skills; UI/UX Pro Max; Taste — BrandKit and Image-to-Code only; Emil Kowalski — motion subset; Extract Design System; Ian Xiaohei Illustrations; Stageshow; Impeccable (restricted); Dimensional Drawing; Oil UI; Brand Identity |
 | [Marketing and writing skills](skills/marketing-and-writing.md) | Corey Haines Marketing Skills; Humanizer; Claude SEO; Instagram Agent Skills |
 | [Knowledge and image investigation skills](skills/knowledge-and-investigation.md) | Geo-Sleuth; Obsidian Skills |
 | [Design references](references/design.md) | Awesome Design MD; Meta Astryx (React design system) |
 | [Development plugins](plugins/development.md) | Claudex Loop |
 | [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
+| [Design-inspiration MCP tools](mcp/design-inspiration.md) | Awwwards MCP — site reference, motion and optional browser evidence (not a skill) |
 | [Model routing software](tools/model-routing.md) | Claude Code Router |
 | [Agent orchestration software](tools/agent-orchestration.md) | Paperclip (library only) |
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
 
 ## Later user-saved library additions
+
+**10 November 2026 — Instagram product-design Reel:** [five newly verified skill candidates](skills/design.md#stageshow--benji-taylor) (Stageshow, Impeccable, Dimensional Drawing, Oil UI and Brand Identity) and [one MCP research candidate](mcp/design-inspiration.md#awwwards-mcp--insane0777) added to the existing library. **Emil Kowalski's motion subset and the Taste family were already saved**, so no duplicate catalog items or automatic changes to the user's prior Taste child-skill selection were made. Impeccable's documented sandbox/permission-bypass fallback is a **material security blocker for a default install**; the MCP is a separate executable integration and also requires its own approval. No skills or MCP servers were installed, executed, security scanned, enabled or added to the three-skill Tool Advisor baseline.
+
+
 
 [Meta Astryx](references/design.md) was saved on 10 November 2026 as an optional React 19+ design-system/component-library reference. It is not an agent skill, has not been installed or security-scanned, and remains outside the setup inventory and baseline.
 
