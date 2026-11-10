@@ -315,8 +315,14 @@ def _write_json_atomic(path, obj):
         if os.path.exists(temp):
             os.unlink(temp)
 
-def install_skill(source, skills_root, name, scanner=None, update=False):
-    """Stage, scan, then install/update exactly the inspected skill bytes."""
+def install_skill(source, skills_root, name, scanner=None, update=False,
+                  approval_handler=None, scan_validator=None):
+    """Stage, scan, then install/update exactly the inspected skill bytes.
+
+    Native MCP callers supply a trusted per-call validator and an approval
+    callback. Public CLI calls continue to require an interactive TTY for
+    MEDIUM reports; no CLI bypass flag exists.
+    """
     if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name):
         raise ValueError('Invalid skill name')
     source, root = safe_path(source), safe_path(skills_root)
@@ -354,11 +360,16 @@ def install_skill(source, skills_root, name, scanner=None, update=False):
             raise ValueError('Skill changed during scan')
         if update and _digests(file_snapshot(target)) != known['files']:
             raise ValueError('Existing skill changed during scan')
+        if scan_validator is not None:
+            scan_validator(name, original, review, warnings)
         if review is not None:
-            # Approval is ephemeral and follows scan + unchanged-byte checks.
-            approve_medium(review)
+            # A host-native tool call invokes the supplied handler only after
+            # the host's permission gate. An ordinary CLI prompts locally.
+            (approval_handler or approve_medium)(review)
             if file_snapshot(staged) != original or file_snapshot(source) != original:
                 raise ValueError('Skill changed during security review')
+            if update and _digests(file_snapshot(target)) != known['files']:
+                raise ValueError('Existing skill changed during security review')
         backup = tempdir / 'backup'
         replaced = False
         installed = False
