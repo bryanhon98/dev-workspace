@@ -76,12 +76,71 @@ _MEDIUM_FEATURES = {
         'Track tasks and their progress.',
         'Resume saved workflows.',
         'Update local workflow records when invoked.',
-    )
+    ),
+    'find-skills': (
+        'Search for available agent skills and assess relevant candidates.',
+        'Compare skill sources and recommend suitable options.',
+        'Suggest installing selected skills through the controlled security workflow.',
+    ),
 }
 
 
 def _single_line(value, limit=190):
     return re.sub(r'[\x00-\x1f\x7f]+', ' ', str(value)).strip()[:limit]
+
+
+def _issue_reason(issue):
+    """Present a meaningful explanation rather than raw matched command text."""
+    issue_id = _single_line(issue.get('id', '?'), 30)
+    matched = _single_line(
+        issue.get('finding') or issue.get('pattern') or issue.get('matched_text') or '')
+    if issue_id == 'LP3':
+        capabilities = [
+            plain for name, plain in (
+                ('file_write', 'modify local files'),
+                ('file_read', 'read local files'),
+                ('network', 'access the network'),
+                ('shell', 'execute shell commands'),
+                ('env', 'read environment settings'),
+                ('mcp', 'use MCP tools'),
+            ) if name in matched
+        ]
+        if capabilities:
+            suffix = 'this capability' if len(capabilities) == 1 else 'these capabilities'
+            return ('The skill can ' + ', '.join(capabilities) +
+                    ' but has not declared ' + suffix + '.')
+        return 'The skill uses capabilities that it has not declared.'
+    if issue_id == 'RP1':
+        lower = matched.lower()
+        if 'npx' in lower:
+            return ('References an external npm command without a fixed version; '
+                    'running it could fetch changed executable code.')
+        if 'uvx' in lower or 'uv tool run' in lower or 'pip' in lower:
+            return ('References an external Python tool without a fixed version; '
+                    'running it could fetch changed executable code.')
+        if 'docker' in lower:
+            return ('References a container image without a fixed version; '
+                    'running it could use changed executable code.')
+        return ('References external software without fixed versions; '
+                'running it could fetch changed executable code.')
+    explanation = issue.get('explanation')
+    return _single_line(explanation or issue.get('finding') or
+                        issue.get('pattern') or 'The scanner identified a security concern.')
+
+
+def _review_groups(issues):
+    """Group equivalent reports without losing distinct risks or individual warnings."""
+    groups = {}
+    for issue in issues:
+        issue_id = _single_line(issue.get('id', '?'), 30)
+        severity = _single_line(issue.get('severity', '?'), 20)
+        reason = _issue_reason(issue)
+        key = (issue_id, severity, reason)
+        if key not in groups:
+            groups[key] = {'id': issue_id, 'severity': severity,
+                           'reason': reason, 'count': 0}
+        groups[key]['count'] += 1
+    return list(groups.values())
 
 
 def approve_medium(review, trusted_core=False):
@@ -97,31 +156,15 @@ def approve_medium(review, trusted_core=False):
 
     title = review.skill.replace('-', ' ').title()
     print('\n=== ' + title + ' — Security Review [MEDIUM] ===', flush=True)
-    for issue in review.issues:
-        issue_id = _single_line(issue.get('id', '?'), 30)
-        if issue_id == 'LP3':
-            detected = _single_line(issue.get('finding') or issue.get('pattern') or '')
-            capabilities = [
-                plain for name, plain in (
-                    ('file_write', 'modify local files'),
-                    ('file_read', 'read local files'),
-                    ('network', 'access the network'),
-                    ('shell', 'execute shell commands'),
-                    ('env', 'read environment settings'),
-                    ('mcp', 'use MCP tools'),
-                ) if name in detected
-            ]
-            reason = ('The skill can ' + ', '.join(capabilities) +
-                      ' but has not declared ' +
-                      ('this capability.' if len(capabilities) == 1 else 'these capabilities.')
-                      if capabilities else 'The skill uses undeclared capabilities.')
-        else:
-            reason = _single_line(
-                issue.get('finding') or issue.get('pattern') or
-                issue.get('explanation') or 'The scanner identified a security concern.')
-        print('Reason: ' + reason, flush=True)
-        print('Finding: ' + issue_id + ' (technical reference)', flush=True)
-    if not review.issues:
+    groups = _review_groups(review.issues)
+    if groups:
+        print('Findings: ' + str(len(review.issues)) + ' occurrence(s) in ' +
+              str(len(groups)) + ' distinct group(s).', flush=True)
+        for group in groups:
+            print('Reason: ' + group['reason'], flush=True)
+            print('Finding: ' + group['id'] + ' — ' +
+                  str(group['count']) + ' occurrence(s) (technical reference)', flush=True)
+    else:
         print('Reason: SkillSpector recommends additional review for this skill.',
               flush=True)
     print('After approval, ' + title + ' can:', flush=True)
@@ -132,8 +175,17 @@ def approve_medium(review, trusted_core=False):
         match = re.search(r'code capabilities were detected:\s*([a-z_, ]+)', detail)
         expected_ledger_finding = bool(
             match and match.group(1).strip().rstrip('.') == 'file_write')
+    expected_find_skills_finding = (
+        bool(review.issues) and all(
+            str(issue.get('id')) == 'RP1' and
+            'npx skills' in str(issue.get('finding') or
+                                issue.get('pattern') or '').lower()
+            for issue in review.issues))
+    trusted_features = (
+        (review.skill == 'tool-advisor' and expected_ledger_finding) or
+        (review.skill == 'find-skills' and expected_find_skills_finding))
     features = (_MEDIUM_FEATURES.get(review.skill)
-                if trusted_core and expected_ledger_finding else None)
+                if trusted_core and trusted_features else None)
     if features is None:
         reported = ' '.join(_single_line(issue.get('finding') or issue.get('pattern') or '')
                             for issue in review.issues)
@@ -144,6 +196,10 @@ def approve_medium(review, trusted_core=False):
                         'subject to existing host permissions.',)
     for feature in features:
         print('  - ' + feature, flush=True)
+    if review.skill == 'find-skills' and expected_find_skills_finding:
+        print('Note: Running unpinned npx commands can fetch executable code. '
+              'Direct skill installation remains subject to the security hook.',
+              flush=True)
     print('Approval does not grant new host permissions or enable background tasks.',
           flush=True)
     try:
