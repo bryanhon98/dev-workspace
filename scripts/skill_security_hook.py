@@ -68,6 +68,13 @@ def decide(payload):
         normalized = command.replace('\\', '/')
         if tool == 'apply_patch' and ACTIVE.search(normalized):
             return 'Direct patching of active skill/plugin directories is blocked', None
+        # The MCP server is an installation entrypoint, not a shell command.
+        # Host-native permission checks happen only on an MCP tool call.
+        # MCP registration itself remains allowed.
+        if ('native_approval_mcp' in normalized.lower() and
+                not re.search(r'\b(?:codex|claude)\s+mcp\s+add\b', normalized, re.I)):
+            return ('The security MCP server must be invoked as an MCP tool, '
+                    'not directly from an agent shell command'), None
         if any(p.search(normalized) for p in INSTALL):
             return ('Direct skill/plugin manager install or update blocked; use '
                     'secure_operations.py install --source <staged-dir> --name <skill-name> '
