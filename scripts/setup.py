@@ -135,7 +135,7 @@ def show_catalog(host='codex'):
     print('\n' + wording['catalog_prompt'])
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, ' + wording['host_name'] + ' can restore global rules with --install-rules and inspect/install selected skills.')
-    print('Workspace setup: --setup-workspace verifies SkillSpector, configures hooks, then scans/installs the full Advisor baseline. --plan-advisor inspects preparation gaps; --install-advisor-core is partial.')
+    print('Workspace setup: --setup-workspace verifies SkillSpector, configures hooks, then scans/installs the three core Advisor skills. Optional skills are discovered and selected per task. --plan-advisor inspects preparation gaps.')
 
 
 MATCHERS = {
@@ -241,7 +241,7 @@ def setup_workspace(host, home, skills_root, scanner=None):
     """Security first, Tool Advisor last; no active skill before a complete scan."""
     from secure_operations import ensure_scanner, verify_scanner_sample
     from install_advisor import install_bundle, require_baseline
-    require_baseline(ROOT)
+    core = require_baseline(ROOT)['required_skills']
     scanner_info = ensure_scanner(scanner)
     verify_scanner_sample(scanner_info)
     hook = configure_security_hook(home, host, ROOT, install=True)
@@ -249,7 +249,8 @@ def setup_workspace(host, home, skills_root, scanner=None):
         raise ValueError('Security hook could not be configured')
     verify_security_hook(ROOT)
     result = install_bundle(ROOT, skills_root, home,
-                            scanner=Path(scanner_info['path']), host=host)
+                            scanner=Path(scanner_info['path']),
+                            selected_names=core, host=host)
     install(home, saved_rules(host), host)
     return {'ready': result.get('ready', False), 'scanner': scanner_info,
             'security_hook': hook, 'advisor': result,
@@ -270,11 +271,13 @@ def main():
     action = parser.add_mutually_exclusive_group()
     action.add_argument('--check', action='store_true', help='Verify installed global rules without writing')
     action.add_argument('--install-rules', action='store_true', help='Restore setup rules globally')
-    action.add_argument('--plan-advisor', action='store_true', help='List all required baseline skills and payload preparation gaps without writing')
-    action.add_argument('--install-advisor-core', action='store_true', help='Explicit partial setup: install only tool-advisor, grilling and find-skills')
-    action.add_argument('--install-advisor', action='store_true', help='Install the full approved baseline; block partial setup')
+    action.add_argument('--plan-advisor', action='store_true', help='List the three mandatory core skills and optional candidates without writing')
+    action.add_argument('--install-advisor-core', action='store_true', help='Legacy alias: install the same three core skills as --install-advisor')
+    action.add_argument('--install-advisor', action='store_true', help='Install the three mandatory Advisor core skills only')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
-    action.add_argument('--setup-workspace', action='store_true', help='Security-first setup of SkillSpector hooks, global rules and the full 17-skill baseline')
+    action.add_argument('--setup-workspace', action='store_true', help='Security-first setup of SkillSpector hooks, global rules and three core skills')
+    action.add_argument('--retire-optional-advisor-skills', action='store_true',
+                        help='Explicitly archive previously managed non-core skills on this device, without deleting or installing anything')
     args = parser.parse_args()
     host = args.host
     home = args.home or args.codex_home or host_profiles.home_dir(host)
@@ -289,6 +292,11 @@ def main():
             print('Security configured locally; restart ' + wording['host_name'] +
                   ' and verify live hook behavior before relying on it.')
             return 0 if result['ready'] else 1
+        if args.retire_optional_advisor_skills:
+            from install_advisor import retire_optional_skills
+            result = retire_optional_skills(ROOT, skills_root, home, host=host)
+            print(json.dumps(result, indent=2))
+            return 0 if result['ready'] else 1
         if args.plan_advisor:
             from install_advisor import baseline_plan
             print(json.dumps(baseline_plan(ROOT), indent=2))
@@ -300,12 +308,12 @@ def main():
                 result = check_bundle(ROOT, skills_root, home, host=host)
                 plan = baseline_plan(ROOT)
                 result['baseline'] = plan
-                if not result.get('full_bundle_ready', False):
+                if not result.get('baseline_ready', False):
                     result['ready'] = False
-                    result.setdefault('errors', []).append('Installed receipt does not cover the full baseline.')
+                    result.setdefault('errors', []).append('Installed receipt does not cover the required three core skills.')
                 if not plan['payloads_prepared']:
                     result['ready'] = False
-                    result.setdefault('errors', []).append('Full baseline payload preparation is incomplete.')
+                    result.setdefault('errors', []).append('Core baseline payload preparation is incomplete.')
                 if not check(home, rules, host):
                     result['ready'] = False
                     result.setdefault('errors', []).append('Managed global instructions are missing or differ from this checkout.')
@@ -320,15 +328,11 @@ def main():
                 match = re.fullmatch(re.escape(host_profiles.marker_start(host).encode()) + rb'\n<!-- content-sha256: ([a-f0-9]{64}) -->\n(.*)' + re.escape(host_profiles.marker_end(host).encode()), current, re.DOTALL)
                 if not match or hashlib.sha256(match[2]).hexdigest().encode() != match[1]:
                     raise ValueError('Managed rules changed locally; reconcile them before advisor installation')
-            selected_names = None
-            if args.install_advisor:
-                require_baseline(ROOT)
-            else:
-                selected_names = require_core_only(ROOT)
+            selected_names = require_baseline(ROOT)['required_skills']
             result = install_bundle(ROOT, skills_root, home, scanner=args.scanner,
                                     selected_names=selected_names, host=host)
-            result['setup_scope'] = 'full-baseline' if args.install_advisor else 'explicit-partial-core'
-            result['full_baseline_files_ready'] = bool(args.install_advisor)
+            result['setup_scope'] = 'core-baseline'
+            result['core_baseline_files_ready'] = result.get('baseline_ready', False)
             try:
                 install(home, rules, host)
             except (OSError, ValueError) as exc:
