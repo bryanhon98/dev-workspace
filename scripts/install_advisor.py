@@ -285,7 +285,7 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 raise ValueError('Receipt changed during scan')
             # Never activate any skill until all security reviews are accepted.
             for review in pending_reviews:
-                approve_medium(review)
+                approve_medium(review, trusted_core=True)
             if pending_reviews:
                 if _bundle(root, selected_names)[1] != components:
                     raise ValueError('Skill source changed during security review')
