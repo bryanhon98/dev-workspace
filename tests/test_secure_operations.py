@@ -57,7 +57,7 @@ class SecureOperationsTests(unittest.TestCase):
              mock.patch('builtins.input', return_value='') as choice, \
              mock.patch('builtins.print') as display:
             with self.assertRaisesRegex(ValueError, 'rejected'):
-                self.mod.approve_medium(review)
+                self.mod.approve_medium(review, trusted_core=True)
         output = '\n'.join(str(call) for call in display.call_args_list)
         self.assertIn('can modify local files', output)
         self.assertIn('Save project plans and decisions', output)
