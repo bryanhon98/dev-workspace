@@ -62,6 +62,35 @@ After approval, Tool Advisor can:
 Approve these capabilities? [y/N]:
 ```
 
+If SkillSpector reports repeated instances of the same issue, the installer
+groups them by finding code, severity and the plain-English meaning. Individual
+scan findings still remain distinct in the returned warning records:
+
+```text
+Find Skills — Security Review [MEDIUM]
+Findings: 12 occurrence(s) in 1 distinct group(s).
+Reason: References an external npm command without a fixed version;
+        running it could fetch changed executable code.
+Finding: RP1 — 12 occurrence(s) (technical reference)
+After approval, Find Skills can:
+  - Search for available agent skills and assess relevant candidates.
+  - Compare skill sources and recommend suitable options.
+  - Suggest installing selected skills through the controlled security workflow.
+Note: Running unpinned npx commands can fetch executable code.
+      Direct skill installation remains subject to the security hook.
+Approve these capabilities? [y/N]:
+```
+
+**Host-native buttons:** the current standalone Python installer cannot create
+Approve/Reject buttons inside the Codex Desktop or Claude Code conversation.
+Claude Code supports `PreToolUse` `ask` permission decisions, whereas Codex
+does not currently support `ask` from a `PreToolUse` hook. A future native-UI
+integration would need a separately verified host-specific permission mechanism
+(such as a configured approval-gated MCP tool), and its approval would need to
+be tied to the actual scan result rather than a model-supplied answer.
+Until that integration is verified, the installer remains terminal-only and
+fails closed in non-interactive sessions.
+
 Entering `y` or `yes` allows **only this installation attempt** to continue.
 Any other input cancels; no changes to active skills are made. No approval
 record or reusable approval flag is created. Normal installer snapshots and
