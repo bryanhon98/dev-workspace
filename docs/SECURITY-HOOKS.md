@@ -40,6 +40,8 @@ and installed hook configuration without rewriting the approved hook; an outdate
 hook blocks completion. SkillSpector still scans all core payloads independently.
 If the scanner reports a MEDIUM finding, installation pauses for an explicit one-time local terminal decision explaining the reason and features enabled. HIGH/CRITICAL, DO_NOT_INSTALL and incomplete scans still block.
 
+For interactive **Codex / Claude agent sessions**, the optional [native MCP approval workflow](NATIVE-APPROVAL.md) can request host-managed human permission for the MEDIUM install operation after a read-only scan. Do not substitute a chat reply or auto-approved tool call for the host's decision. The terminal flow below remains available for direct PowerShell use.
+
 ### MEDIUM findings: one-time feature approval
 
 This is **different** from approving the PreToolUse hook in the Codex UI.
