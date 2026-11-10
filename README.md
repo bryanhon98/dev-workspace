@@ -53,7 +53,7 @@ The [initial six-case routing evaluation](audits/advisor-routing-20261103/README
 | [Tool Advisor](skills/custom/tool-advisor/SKILL.md) | Custom instructions connecting interview, discovery, selection, tracking and verification |
 | [Grilling — Matt Pocock](https://github.com/mattpocock/skills) | Clarifies requirements through questions |
 | [Find Skills — Vercel](https://github.com/vercel-labs/skills) | Helps discover relevant skills |
-| [Superpowers](https://github.com/obra/superpowers) | Preferred software execution, review and verification methods |
+| [Superpowers](https://github.com/obra/superpowers) | Optional software execution, review and verification candidates; compare before selecting |
 | [Council of High Intelligence](https://github.com/0xNyk/council-of-high-intelligence) | Optional structured deliberation for important decisions after scope is clear |
 | Project specialists | Provide the particular design, technical or domain guidance the task needs |
 
