@@ -92,6 +92,8 @@ Install the three-skill core baseline and check its files:
 
 ```sh
 python3 scripts/setup.py --host codex --setup-workspace
+# Approve/restart the host and observe a live blocked-command test
+python3 scripts/setup.py --host codex --finish-workspace --acknowledge-live-hook-test
 python3 scripts/setup.py --check-advisor
 ```
 
@@ -104,6 +106,8 @@ Changing the GitHub baseline **does not uninstall anything from your Windows or 
 ```powershell
 python scripts/setup.py --host codex --retire-optional-advisor-skills
 python scripts/setup.py --host codex --setup-workspace
+# Approve/restart the host and observe a live blocked-command test
+python scripts/setup.py --host codex --finish-workspace --acknowledge-live-hook-test
 python scripts/setup.py --host codex --check-advisor
 ```
 
@@ -135,30 +139,51 @@ python3 /path/to/dev-workspace/scripts/advisor.py --project /path/to/project sta
 
 An existing project tracker remains the task source. The advisor links relevant tasks and evidence rather than maintaining a competing plan. File checks and saved status do not replace checking actual outputs or demonstrating that the host can load the skills.
 
-## Security-first setup: one command (Codex + Claude Code)
+## Security-first setup: manual approval, then finish (Codex + Claude Code)
 
-From a checkout of this repository on the target device:
+Prepare SkillSpector, configure/migrate the host-specific security hook and test it
+locally **without installing core skills**:
 
 ```powershell
 python scripts/setup.py --host codex --setup-workspace
-python scripts/setup.py --host claude --setup-workspace
+# Or use --host claude for Claude Code
 ```
 
-Run the command for each host you actually use. It installs/verifies official SkillSpector (requires `uv` if missing), runs a real scanner smoke test, registers and locally tests the global security hook without removing existing hooks, **then** scans and installs Tool Advisor's three core skills and applies managed global rules. The scanner's existing executable name/version check is not independently authenticated supply-chain provenance. Restart each host and verify live hook events; source changes alone do not install anything on your PC.
+The first stage reports `prepared: true` and `ready: false`. Open the host's
+hook review/trust UI (Codex **Review hooks** / Claude Code's supported controls).
+Approve the specific local `skill_security_hook.py` entry yourself, restart the
+host, and verify that a harmless command works and
+`Get-Location # npx skills add fake-example` (Windows) or
+`pwd # npx skills add fake-example` (macOS) is **blocked before execution**.
+The trailing text is a comment: no npm installation occurs. A hook failure or an
+executed probe means you must **not** continue.
 
-One security implementation lives in [`scripts/secure_operations.py`](scripts/secure_operations.py). It stages, calls SkillSpector, evaluates a complete static scan, verifies unchanged bytes and installs safely. `install_advisor.py` uses that implementation for the baseline. The hook handles recognized agent tool calls, redirects simple HTTPS GitHub clones to staged inspection, and blocks direct skill/plugin manager installations that cannot be safely staged. **The hook is not a filesystem sandbox, nor a universal installer.** It does not scan unsupported plugin packaging automatically.
-
-For one new skill, stage its source without executing any downloaded scripts, then run:
+After you personally verify the live block:
 
 ```powershell
-python scripts/secure_operations.py install --host codex --name example --source .\incoming\example
+python scripts/setup.py --host codex --finish-workspace --acknowledge-live-hook-test
+python scripts/setup.py --host codex --check-advisor
 ```
 
-For a managed skill update, use the same command with `--update`. An unmanaged existing skill or one modified locally will not be silently overwritten. HIGH/CRITICAL, MEDIUM/CAUTION, DO_NOT_INSTALL, incomplete, suppressed, or failed skill scans block automatic activation. SAFE/LOW completed scans pass, with low findings reported.
+The finish step rechecks the scanner and hook config and then scans/installs
+the three mandatory core skills and applies global instructions. Its
+`--acknowledge-live-hook-test` flag is a **user attestation**, not automatic
+host-verification or hook approval. A changed hook may need reapproval.
+The shared Python policy stays the same, but launchers differ: PowerShell
+on Codex Windows, POSIX shell on Codex macOS, and Claude Code exec-form
+command/args on Windows/macOS (requires Claude Code 2.1.295+ for
+`onFailure: "block"`). See [security hooks](docs/SECURITY-HOOKS.md)
+for host-specific limitations, backups, migration and verification.
 
-For GitHub clones initiated through supported agent shell tools, simple `git clone https://github.com/owner/repo.git destination` is rewritten into a staged clone/inspection. If no agent skills are present, SkillSpector's general-repo result is explicitly limited or not applicable; **do not treat it as proof that normal Java or other application code is malware-free**. Compound/unsupported syntax is blocked with a controlled-command alternative. External terminals and some tools can bypass host hooks.
+One security implementation lives in
+[`scripts/secure_operations.py`](scripts/secure_operations.py): staged source
+scanning, verdict validation, unchanged-byte verification and controlled
+installation. The hook blocks recognized direct skill/plugin installation
+commands and routes supported simple GitHub clones through staged inspection.
+It is **not** an OS-wide security boundary; external terminals and some agent
+execution paths are outside its reach. SkillSpector's static scan is not a
+general-purpose malware audit of arbitrary application repositories.
 
-No historical scan or approval database is required. Small installation receipts and file hashes are retained to detect local modifications and preserve rollback. See [security flow and limitations](docs/SECURITY-HOOKS.md).
 
 ## How the repository learns
 

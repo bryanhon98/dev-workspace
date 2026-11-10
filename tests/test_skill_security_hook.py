@@ -1,7 +1,11 @@
 """Regression tests for the optional host hooks and capability-activation guard."""
 import importlib.util
 import json
+import os
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -88,6 +92,82 @@ class SecurityHookTests(unittest.TestCase):
                     self.assertEqual(len(updated['hooks']['PreToolUse']), 2)
                     self.assertTrue(self.setup.configure_security_hook(path.parent, host, ROOT, install=True)['ready'])
                     self.assertTrue(self.setup.configure_security_hook(path.parent, host, ROOT, install=False)['ready'])
+
+    def test_host_specific_launchers(self):
+        script = ROOT / 'scripts' / 'skill_security_hook.py'
+        windows = self.setup._command(script, windows=True)
+        self.assertTrue(windows.startswith("& '"))
+        self.assertIn("'; exit $LASTEXITCODE", windows)
+        self.assertIn(str(script).replace("'", "''"), windows)
+        posix = self.setup._command(script, windows=False)
+        self.assertNotIn("$LASTEXITCODE", posix)
+        self.assertIn('skill_security_hook.py', posix)
+        claude = self.setup._hook_entry(script, 'claude')
+        self.assertEqual(claude['hooks'][0]['command'], sys.executable)
+        self.assertEqual(claude['hooks'][0]['args'], [str(script)])
+        self.assertEqual(claude['hooks'][0]['onFailure'], 'block')
+        self.assertIn('PowerShell', claude['matcher'])
+        codex = self.setup._hook_entry(script, 'codex')
+        self.assertNotIn('args', codex['hooks'][0])
+
+    def test_migrates_only_legacy_managed_entry_with_distinct_backup(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            config = self.setup.hook_config_file(home, 'codex')
+            legacy = {'someSetting': 'preserve', 'hooks': {'PreToolUse': [
+                {'matcher': 'Other', 'hooks': [
+                    {'type': 'command', 'command': 'echo unrelated'}]},
+                {'matcher': 'Bash|apply_patch|Edit|Write', 'hooks': [
+                    {'type': 'command', 'command': '"python.exe" "skill_security_hook.py"', 'timeout': 600}]}
+            ]}}
+            config.write_text(json.dumps(legacy))
+            old_bytes = config.read_bytes()
+            plan = self.setup.configure_security_hook(home, 'codex', ROOT, install=False)
+            self.assertFalse(plan['ready'])
+            self.assertTrue(plan['needs_migration'])
+            changed = self.setup.configure_security_hook(home, 'codex', ROOT, install=True)
+            self.assertTrue(changed['ready'])
+            self.assertTrue(changed['changed'])
+            self.assertTrue(changed['approval_required'])
+            after = json.loads(config.read_text())
+            self.assertEqual(after['someSetting'], 'preserve')
+            self.assertEqual(after['hooks']['PreToolUse'][0], legacy['hooks']['PreToolUse'][0])
+            self.assertEqual(len(after['hooks']['PreToolUse']), 2)
+            self.assertEqual(after['hooks']['PreToolUse'][1],
+                             self.setup._hook_entry(ROOT / 'scripts' / 'skill_security_hook.py', 'codex'))
+            backups = list(home.glob('hooks.json.before-dev-workspace-*.bak'))
+            self.assertEqual(len(backups), 1)
+            self.assertEqual(backups[0].read_bytes(), old_bytes)
+            self.assertFalse(self.setup.configure_security_hook(home, 'codex', ROOT, install=True)['changed'])
+            self.assertEqual(len(list(home.glob('hooks.json.before-dev-workspace-*.bak'))), 1)
+
+    def test_rejects_duplicate_managed_hooks(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            target = self.setup.hook_config_file(home, 'codex')
+            item = {'matcher': 'Bash', 'hooks': [
+                {'type': 'command', 'command': 'python skill_security_hook.py'}]}
+            target.write_text(json.dumps({'hooks': {'PreToolUse': [item, item]}}))
+            before = target.read_bytes()
+            with self.assertRaisesRegex(ValueError, 'Duplicate'):
+                self.setup.configure_security_hook(home, 'codex', ROOT, install=True)
+            self.assertEqual(target.read_bytes(), before)
+
+    @unittest.skipUnless(sys.platform == 'win32', 'PowerShell launcher requires Windows')
+    def test_real_windows_powershell_hook_launcher_with_spaces(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'path with spaces'
+            directory.mkdir()
+            script = directory / 'skill_security_hook.py'
+            shutil.copy2(ROOT / 'scripts' / 'skill_security_hook.py', script)
+            command = self.setup._command(script, windows=True)
+            for value, expected in [('Get-Location', 0), ('npx skills add fake-example', 2)]:
+                payload = json.dumps(self.event('Bash', command=value))
+                result = subprocess.run(
+                    ['powershell.exe', '-NoProfile', '-Command', command],
+                    input=payload, capture_output=True, text=True, timeout=20)
+                self.assertEqual(result.returncode, expected,
+                                 f'{value}: {result.stdout} {result.stderr}')
 
     def test_invalid_settings_not_overwritten(self):
         with tempfile.TemporaryDirectory() as tmp:

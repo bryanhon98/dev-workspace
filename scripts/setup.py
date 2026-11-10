@@ -135,7 +135,7 @@ def show_catalog(host='codex'):
     print('\n' + wording['catalog_prompt'])
     print('Plugins and MCPs are a manual setup checklist. No software or instructions were installed.')
     print('After choosing, ' + wording['host_name'] + ' can restore global rules with --install-rules and inspect/install selected skills.')
-    print('Workspace setup: --setup-workspace verifies SkillSpector, configures hooks, then scans/installs the three core Advisor skills. Optional skills are discovered and selected per task. --plan-advisor inspects preparation gaps.')
+    print('Workspace setup: --setup-workspace verifies SkillSpector and registers the security hook. After UI approval and a real blocked-command test, --finish-workspace --acknowledge-live-hook-test scans/installs three core Advisor skills and global rules. Optional skills are chosen per task. --plan-advisor inspects preparation gaps.')
 
 
 MATCHERS = {
@@ -144,16 +144,30 @@ MATCHERS = {
 }
 
 
-def _command(script):
+def _command(script, windows=None):
+    """Shell-form launcher for Codex; Windows Codex runs it via PowerShell.
+
+    Keep the Python exit status intact so an exit-2 policy denial remains a denial.
+    """
+    if windows is None:
+        windows = os.name == 'nt'
     parts = [sys.executable, str(script)]
-    if os.name == 'nt':
-        return subprocess.list2cmdline(parts)
+    if windows:
+        def quote_ps(value):
+            return "'" + value.replace("'", "''") + "'"
+        return '& ' + ' '.join(quote_ps(part) for part in parts) + '; exit $LASTEXITCODE'
     return shlex.join(parts)
 
 
 def _hook_entry(script, host):
-    return {'matcher': MATCHERS[host],
-            'hooks': [{'type': 'command', 'command': _command(script), 'timeout': 600}]}
+    if host == 'claude':
+        # Claude Code supports exec-form hooks: no Bash/PowerShell path parsing.
+        # onFailure=block requires Claude Code >= 2.1.295.
+        handler = {'type': 'command', 'command': sys.executable,
+                   'args': [str(script)], 'onFailure': 'block', 'timeout': 600}
+    else:
+        handler = {'type': 'command', 'command': _command(script), 'timeout': 600}
+    return {'matcher': MATCHERS[host], 'hooks': [handler]}
 
 
 def hook_config_file(home, host):
@@ -161,6 +175,7 @@ def hook_config_file(home, host):
 
 
 def configure_security_hook(home, host, repo, install=False):
+    """Register or migrate only our managed hook; never approve it for the user."""
     host_profiles.resolve(host)
     script = Path(repo).resolve() / 'scripts' / 'skill_security_hook.py'
     if not script.is_file():
@@ -182,35 +197,58 @@ def configure_security_hook(home, host, repo, install=False):
     if not isinstance(entries, list):
         raise ValueError('Existing PreToolUse entries are invalid')
     desired = _hook_entry(script, host)
-    for entry in entries:
-        if (isinstance(entry, dict) and any(
-                'skill_security_hook.py' in str(h.get('command', ''))
-                for h in entry.get('hooks', []) if isinstance(h, dict))):
-            if entry != desired:
-                raise ValueError('Existing security hook differs; reconcile it manually')
+
+    def is_managed(entry):
+        if not isinstance(entry, dict):
+            return False
+        handlers = entry.get('hooks', [])
+        return isinstance(handlers, list) and any(
+            isinstance(h, dict) and 'skill_security_hook.py' in
+            (str(h.get('command', '')) + ' ' + str(h.get('args', '')))
+            for h in handlers)
+
+    matches = [i for i, entry in enumerate(entries) if is_managed(entry)]
+    if len(matches) > 1:
+        raise ValueError('Duplicate managed security hooks; reconcile manually')
+    if matches:
+        position = matches[0]
+        if not isinstance(entries[position].get('hooks'), list) or len(entries[position]['hooks']) != 1:
+            raise ValueError('Managed hook shares entry with other hooks; reconcile manually')
+        if entries[position] == desired:
             return {'ready': True, 'changed': False, 'path': str(target)}
     if not install:
-        return {'ready': False, 'changed': False, 'path': str(target)}
-    hooks['PreToolUse'] = [*entries, desired]
+        return {'ready': False, 'changed': False, 'path': str(target),
+                'needs_migration': bool(matches)}
+    updated = list(entries)
+    if matches:
+        updated[matches[0]] = desired
+    else:
+        updated.append(desired)
+    hooks['PreToolUse'] = updated
     obj['hooks'] = hooks
+
     target.parent.mkdir(parents=True, exist_ok=True)
-    # Never overwrite an existing user hook after it changed during inspection.
     before = target.read_bytes() if target.exists() else None
     if before is not None:
-        backup = target.with_name(target.name + '.before-dev-workspace.bak')
-        if backup.exists():
-            raise ValueError('Existing settings backup present; reconcile before modifying hooks')
-        backup.write_bytes(before)
+        # Never overwrite existing backups from earlier setup attempts.
+        fd, backup = tempfile.mkstemp(
+            prefix=target.name + '.before-dev-workspace-', suffix='.bak',
+            dir=target.parent)
+        with os.fdopen(fd, 'wb') as stream:
+            stream.write(before)
     temporary = target.with_suffix(target.suffix + '.dev-workspace.tmp')
     if temporary.exists():
         raise ValueError('Temporary hook config exists; reconcile before modifying')
     try:
         temporary.write_text(json.dumps(obj, indent=2) + '\n', encoding='utf-8')
+        # Refuse to overwrite a concurrent settings edit.
+        if (target.read_bytes() if target.exists() else None) != before:
+            raise ValueError('Hook settings changed during setup; retry after inspection')
         os.replace(temporary, target)
     finally:
         temporary.unlink(missing_ok=True)
-    return {'ready': True, 'changed': True, 'path': str(target)}
-
+    return {'ready': True, 'changed': True, 'path': str(target),
+            'approval_required': True}
 
 
 
@@ -237,25 +275,40 @@ def verify_security_hook(repo):
                 raise ValueError('Security hook clone rewrite is not controlled')
     return True
 
-def setup_workspace(host, home, skills_root, scanner=None):
-    """Security first, Tool Advisor last; no active skill before a complete scan."""
+def setup_workspace(host, home, skills_root, scanner=None,
+                    finish=False, live_hook_test_acknowledged=False):
+    """Stage 1: register the hook; Stage 2: user-approved, verified core setup.
+
+    An acknowledged live test is a user attestation, not a programmatic check
+    that the host honored a denial. Do not infer host approval from config bytes.
+    """
     from secure_operations import ensure_scanner, verify_scanner_sample
-    from install_advisor import install_bundle, require_baseline
-    core = require_baseline(ROOT)['required_skills']
+    if finish and not live_hook_test_acknowledged:
+        raise ValueError('Finish requires --acknowledge-live-hook-test after real host blocking verification')
     scanner_info = ensure_scanner(scanner)
     verify_scanner_sample(scanner_info)
-    hook = configure_security_hook(home, host, ROOT, install=True)
+    hook = configure_security_hook(home, host, ROOT, install=not finish)
     if not hook['ready']:
-        raise ValueError('Security hook could not be configured')
+        raise ValueError('Security hook missing or outdated; rerun --setup-workspace and approve it')
     verify_security_hook(ROOT)
+    if not finish:
+        return {'prepared': True, 'ready': False,
+                'scanner': scanner_info, 'security_hook': hook,
+                'core_skills_installed': False, 'live_host_verified': False,
+                'next': 'Approve the hook in the target host UI, restart the host, '
+                        'verify a real allow and deny, then run --finish-workspace '
+                        '--acknowledge-live-hook-test. No host approval was automated.'}
+    from install_advisor import install_bundle, require_baseline
+    core = require_baseline(ROOT)['required_skills']
     result = install_bundle(ROOT, skills_root, home,
                             scanner=Path(scanner_info['path']),
                             selected_names=core, host=host)
     install(home, saved_rules(host), host)
-    return {'ready': result.get('ready', False), 'scanner': scanner_info,
-            'security_hook': hook, 'advisor': result,
-            'live_host_verified': False,
-            'note': 'Restart the target host and test a real hook event on the device'}
+    return {'prepared': True, 'ready': result.get('ready', False),
+            'scanner': scanner_info, 'security_hook': hook, 'advisor': result,
+            'live_host_test_acknowledged': True,
+            'live_host_verified_automatically': False,
+            'note': 'User attested to a live host test; this script cannot independently verify UI approval'}
 
 
 def main():
@@ -275,22 +328,31 @@ def main():
     action.add_argument('--install-advisor-core', action='store_true', help='Legacy alias: install the same three core skills as --install-advisor')
     action.add_argument('--install-advisor', action='store_true', help='Install the three mandatory Advisor core skills only')
     action.add_argument('--check-advisor', action='store_true', help='Check advisor files, receipts and rules without writing')
-    action.add_argument('--setup-workspace', action='store_true', help='Security-first setup of SkillSpector hooks, global rules and three core skills')
+    action.add_argument('--setup-workspace', action='store_true', help='Prepare SkillSpector and register hook; then approve and live-test in host UI')
+    action.add_argument('--finish-workspace', action='store_true', help='After host hook approval and live blocking test, scan/install three core skills and global rules')
     action.add_argument('--retire-optional-advisor-skills', action='store_true',
                         help='Explicitly archive previously managed non-core skills on this device, without deleting or installing anything')
+    parser.add_argument('--acknowledge-live-hook-test', action='store_true',
+                        help='Explicitly attest that the user approved the hook and verified a live block in the target host')
     args = parser.parse_args()
     host = args.host
     home = args.home or args.codex_home or host_profiles.home_dir(host)
     skills_root = args.skills_root or host_profiles.default_skills_root(host)
     wording = host_profiles.wording(host)
     try:
-        if args.scanner and not (args.setup_workspace or args.install_advisor or args.install_advisor_core):
+        if args.scanner and not (args.setup_workspace or args.finish_workspace or args.install_advisor or args.install_advisor_core):
             raise ValueError('--scanner applies only to workspace or advisor installation')
-        if args.setup_workspace:
-            result = setup_workspace(host, home, skills_root, scanner=args.scanner)
+        if args.acknowledge_live_hook_test and not args.finish_workspace:
+            raise ValueError('--acknowledge-live-hook-test requires --finish-workspace')
+        if args.setup_workspace or args.finish_workspace:
+            result = setup_workspace(host, home, skills_root, scanner=args.scanner,
+                                     finish=args.finish_workspace,
+                                     live_hook_test_acknowledged=args.acknowledge_live_hook_test)
             print(json.dumps(result, indent=2))
-            print('Security configured locally; restart ' + wording['host_name'] +
-                  ' and verify live hook behavior before relying on it.')
+            if args.setup_workspace:
+                print('Hook prepared. Approve it in ' + wording['host_name'] +
+                      ', restart, and verify live blocking before finishing setup.')
+                return 0 if result['prepared'] else 1
             return 0 if result['ready'] else 1
         if args.retire_optional_advisor_skills:
             from install_advisor import retire_optional_skills
