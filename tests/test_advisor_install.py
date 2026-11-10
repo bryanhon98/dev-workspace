@@ -291,8 +291,13 @@ class AdvisorInstallTests(unittest.TestCase):
             return []
         self.mod._scan.side_effect = scan
         def approve(review):
-            self.assertFalse((self.skills / 'tool-advisor').exists())
-            self.assertFalse((self.skills / 'grilling').exists())
+            # First approval precedes activation; reinstall reviews the
+            # already installed bytes without deleting or changing them.
+            if not (self.skills / 'tool-advisor').exists():
+                self.assertFalse((self.skills / 'grilling').exists())
+            else:
+                self.assertEqual((self.skills / 'tool-advisor/SKILL.md').read_bytes(),
+                                 (self.repo / 'skills/tool-advisor/SKILL.md').read_bytes())
             sequence.append('approval:' + review.skill)
             return review.warnings
         with mock.patch.object(self.mod, 'approve_medium', side_effect=approve):
