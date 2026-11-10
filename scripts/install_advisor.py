@@ -345,6 +345,75 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
         lock.unlink(missing_ok=True)
 
 
+
+def retire_optional_skills(repo_root, skills_root, home, host='codex'):
+    """Explicitly archive previously managed optional skills; never delete user data."""
+    root, skills, home = map(_path, (repo_root, skills_root, home))
+    plan = require_baseline(root)
+    required = set(plan['required_skills'])
+    optional = set(plan['optional_skills'])
+    state = _path(home / host_profiles.state_subdir(host))
+    receipt_file = state / 'receipt.json'
+    receipt = _read_receipt(receipt_file, root, skills)
+    if receipt is None or receipt.get('schema_version') != 3:
+        raise ValueError('A current managed receipt is required to retire optional skills')
+    old = {item['name']: item for item in receipt['components']}
+    if not required.issubset(old):
+        raise ValueError('Cannot retire skills from an incomplete core installation')
+    extras = sorted(set(old) - required)
+    if not extras:
+        return {'ready': True, 'archived_skills': [], 'changed': False}
+    if not set(extras).issubset(optional):
+        raise ValueError('Receipt includes non-baseline managed skills; manual reconciliation required')
+    lock = state / 'install.lock'
+    try:
+        fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    except FileExistsError as exc:
+        raise ValueError('An advisor installation is already in progress') from exc
+    os.close(fd)
+    archive = None
+    moved_skills, moved_snapshots = [], []
+    original = receipt_file.read_bytes()
+    try:
+        for name in old:
+            active = _path(skills / name)
+            snapshot = _path(state / 'snapshots' / name)
+            if not active.is_dir() or not snapshot.is_dir() or _files(active) != _files(snapshot):
+                raise ValueError('Managed skill is missing or modified; refusing retirement: ' + name)
+        archive_root = state / 'retired-optional'
+        archive_root.mkdir(parents=True, exist_ok=True)
+        archive = Path(tempfile.mkdtemp(prefix='retired-', dir=archive_root))
+        (archive / 'skills').mkdir()
+        (archive / 'snapshots').mkdir()
+        (archive / 'receipt-before.json').write_bytes(original)
+        for name in extras:
+            os.replace(skills / name, archive / 'skills' / name)
+            moved_skills.append(name)
+            os.replace(state / 'snapshots' / name, archive / 'snapshots' / name)
+            moved_snapshots.append(name)
+        updated = dict(receipt)
+        updated['components'] = [item for item in receipt['components'] if item['name'] in required]
+        updated['selected_names'] = [name for name in plan['required_skills']]
+        updated['optional_retired_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        _save_json(receipt_file, updated)
+        verified = check_bundle(root, skills, home, host=host)
+        if not verified.get('ready') or not verified.get('baseline_ready'):
+            raise ValueError('Core verification after retirement failed: ' +
+                             ', '.join(verified.get('errors', ['baseline not ready'])))
+        return {'ready': True, 'archived_skills': extras, 'changed': True,
+                'archive': str(archive), 'note': 'Files are recoverable in this local archive; no untracked skills were touched.'}
+    except Exception:
+        receipt_file.write_bytes(original)
+        if archive is not None:
+            for name in reversed(moved_snapshots):
+                os.replace(archive / 'snapshots' / name, state / 'snapshots' / name)
+            for name in reversed(moved_skills):
+                os.replace(archive / 'skills' / name, skills / name)
+        raise
+    finally:
+        lock.unlink(missing_ok=True)
+
+
 def check_bundle(repo_root, skills_root, home, host='codex'):
     try:
         root, skills, home = map(_path, (repo_root, skills_root, home))
