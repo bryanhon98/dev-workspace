@@ -43,6 +43,7 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 ## How this connects to setup
 
 - These files save GitHub links and research, not upstream payloads. Parent collections appear once; the notes name selected children.
+- **Searchability:** `python3 scripts/knowledge.py search "react design system" --limit 30` indexes entries with linked GitHub repository headings (`##` or `###`) across category and research Markdown files, including saved entries absent from `reviews.json`. Search also covers the Reel library, inventory, prior decisions and historical reviews. Open the returned `details` path and verify upstream before recommending. Catalog entries without a linked section heading may not be returned. An indexed candidate is not installed or approved.
 - `inventory.json` remains the actual setup catalog. Research choices are not automatically added to it or installed by selecting all existing inventory skills.
 - After you select a new candidate, inspect the exact source and dependencies, run SkillSpector for its skills, verify the target-device installation, then update the inventory and device log. Research does not satisfy that installation gate.
 - Plugins/MCPs may need manual installation, credentials or another runtime. No authentication state, session index or private vault belongs in this backup.
