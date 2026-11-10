@@ -113,34 +113,38 @@ def baseline_plan(repo_root):
     root = _path(repo_root)
     base = _json(root / 'advisor-baseline.json')
     required = base.get('required_skills')
-    if base.get('schema_version') != 1 or not isinstance(required, list) or not required or (
-            len(required) != len(set(required)) or any(not isinstance(n, str) for n in required)):
-        raise ValueError('Invalid advisor baseline')
+    optional = base.get('optional_skills', [])
+    if (base.get('schema_version') != 1 or required != list(CORE_NAMES)
+            or not isinstance(optional, list)
+            or any(not isinstance(n, str) for n in optional)
+            or len(optional) != len(set(optional))
+            or set(required) & set(optional)):
+        raise ValueError('Invalid advisor baseline: expected three core skills and distinct optional skills')
     prepared = False
     error = None
     missing = []
     try:
-        manifest, components, _ = _bundle(root)
+        manifest, components, _ = _bundle(root, required)
         actual = {c['name'] for c in components}
         missing = [x for x in required if x not in actual]
         prepared = not missing
     except (OSError, ValueError, KeyError, TypeError) as exc:
         error = str(exc)
-    return {'required_skills': required, 'missing_payloads': missing,
-            'payloads_prepared': prepared, 'pending_clean_approval': [],
-            'audit_error': error, 'device_verified': False,
-            'note': 'Source payload check only. Every installation still requires a fresh complete local scanner pass.'}
+    return {'required_skills': required, 'optional_skills': optional,
+            'missing_payloads': missing, 'payloads_prepared': prepared,
+            'pending_clean_approval': [], 'audit_error': error,
+            'device_verified': False,
+            'note': 'Only the three core skill payloads are required. Task-specific skills must be selected and freshly scanned before activation.'}
 
 
 def require_core_only(repo_root):
-    _bundle(_path(repo_root), CORE_NAMES)
-    return list(CORE_NAMES)
+    return require_baseline(repo_root)['required_skills']
 
 
 def require_baseline(repo_root):
     result = baseline_plan(repo_root)
     if not result['payloads_prepared']:
-        raise ValueError('Full advisor baseline is not ready: ' +
+        raise ValueError('Core advisor baseline is not ready: ' +
                          (', '.join(result['missing_payloads']) or str(result['audit_error'])))
     return result
 
@@ -328,6 +332,8 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
             'ready': True, 'receipt': str(receipt_file), 'components': [c['name'] for c in components],
             'scanner': scanner_meta, 'warnings': warnings, 'updates_available': updates,
             'full_bundle_ready': len(components) == len(manifest['components']),
+            'baseline_ready': set(require_baseline(root)['required_skills']).issubset(
+                {c['name'] for c in components}),
             'legacy_receipt_migrated': old is not None and old.get('schema_version') != 3,
             'live_invocation_verified': False
         }
@@ -356,8 +362,11 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
             if (_files(skills / c['name']) != c['installed_files'] or
                     _files(state / 'snapshots' / c['name']) != c['installed_files']):
                 raise ValueError('Installed skill differs from saved source: ' + c['name'])
+        required = set(require_baseline(root)['required_skills'])
         return {'ready': True, 'errors': [], 'components': list(indexed),
                 'full_bundle_ready': len(components) == len(manifest['components']),
+                'baseline_ready': required.issubset(indexed),
+                'extra_managed_skills': sorted(set(indexed) - required),
                 'live_invocation_verified': False}
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {'ready': False, 'errors': [str(exc)], 'live_invocation_verified': False}
