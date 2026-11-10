@@ -290,7 +290,8 @@ class AdvisorInstallTests(unittest.TestCase):
                     [{'id': 'LP3', 'severity': 'MEDIUM'}])
             return []
         self.mod._scan.side_effect = scan
-        def approve(review):
+        def approve(review, **kwargs):
+            self.assertTrue(kwargs.get('trusted_core'))
             # First approval precedes activation; reinstall reviews the
             # already installed bytes without deleting or changing them.
             if not (self.skills / 'tool-advisor').exists():
