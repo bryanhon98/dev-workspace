@@ -144,10 +144,10 @@ def saved_github_records(library_dir):
         if path.name in {'README.md', 'not-selected.md'} or path.is_symlink():
             continue
         content = path.read_text(encoding='utf-8')
-        for section in re.split(r'(?=^#{2,3}\\s)', content, flags=re.MULTILINE):
-            heading = section.split('\\n', 1)[0]
+        for section in re.split(r'(?=^#{2,3}\s)', content, flags=re.MULTILINE):
+            heading = section.split('\n', 1)[0]
             match = re.match(
-                r'^#{2,3}\\s+\\[([^\\]]+)\\]\\(https://github\\.com/([\\w.-]+)/([\\w.-]+)(?:/[^)]*)?\\)',
+                r'^#{2,3}\s+\[([^\]]+)\]\(https://github\.com/([\w.-]+)/([\w.-]+)(?:/[^)]*)?\)',
                 heading, flags=re.IGNORECASE)
             if not match:
                 continue
@@ -160,7 +160,7 @@ def saved_github_records(library_dir):
                     'name': name,
                     'collection': 'saved-github',
                     'evidence_status': 'saved-library-research; not-installed-or-security-approved',
-                    'purpose': section.split('\\n', 1)[-1].strip()[:1200],
+                    'purpose': section.split('\n', 1)[-1].strip()[:1200],
                     'source': 'https://github.com/' + repo,
                     'details': document,
                     'catalog_files': [document],
@@ -169,7 +169,7 @@ def saved_github_records(library_dir):
             entry = found[repo]
             if document not in entry['catalog_files']:
                 entry['catalog_files'].append(document)
-            entry['_text'] += '\\n' + section[:2400]
+            entry['_text'] += '\n' + section[:2400]
     return list(found.values())
 
 
