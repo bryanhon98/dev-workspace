@@ -126,6 +126,57 @@ class NativeApprovalMcpTests(unittest.TestCase):
                     self.args(review_id=preview['review_id'],
                               summary='Nothing dangerous here'), approved_tool=False)
 
+    def test_core_review_and_host_gated_activation_requires_existing_hook(self):
+        names = ('tool-advisor', 'grilling', 'find-skills')
+        required = {'required_skills': list(names)}
+        bundle = [{'name': name, 'installed_files': {
+            'SKILL.md': ('---\nname: ' + name + '\n---\n').encode('utf-8')}}
+                  for name in names]
+        medium = self.mcp.security.MediumApprovalRequired(
+            'find-skills', {'severity': 'LOW', 'recommendation': 'SAFE'},
+            [{'id': 'RP1', 'severity': 'MEDIUM', 'finding': 'npx skills'}])
+        def scan(stage, scanner, expected):
+            if stage.name == 'find-skills':
+                raise medium
+            return []
+        def fake_install(*args, **kwargs):
+            self.assertEqual(kwargs['selected_names'], list(names))
+            for item in bundle:
+                review = medium if item['name'] == 'find-skills' else None
+                warnings = medium.warnings if review else []
+                kwargs['scan_validator'](item['name'], item['installed_files'],
+                                         review, warnings)
+            kwargs['approval_handler'](medium)
+            return {'ready': True, 'components': list(names)}
+        with mock.patch.object(self.mcp.install_advisor, 'require_baseline', return_value=required), \\
+             mock.patch.object(self.mcp.install_advisor, '_bundle',
+                               return_value=({'schema_version': 3}, bundle, None)), \\
+             mock.patch.object(self.mcp.security, 'scan_skill', side_effect=scan), \\
+             mock.patch.object(self.mcp.install_advisor, 'install_bundle',
+                               side_effect=fake_install), \\
+             mock.patch('setup.configure_security_hook', return_value={'ready': True}), \\
+             mock.patch('setup.verify_security_hook', return_value=True), \\
+             mock.patch('setup.install', return_value=True) as rules:
+            preview = self.mcp.inspect({'target': 'core', 'host': 'codex'})
+            self.assertTrue(preview['requires_approval'])
+            self.assertEqual([x['name'] for x in preview['components']], list(names))
+            args = {'target': 'core', 'host': 'codex',
+                    'review_id': preview['review_id'], 'summary': preview['summary']}
+            with self.assertRaisesRegex(ValueError, 'host-native'):
+                self.mcp.activate(args, approved_tool=False)
+            result = self.mcp.activate(args, approved_tool=True)
+            self.assertTrue(result['installed'])
+            rules.assert_called_once()
+
+    def test_mcp_bad_call_is_error_and_not_a_successful_install(self):
+        reply = self.mcp.dispatch({
+            'method': 'tools/call',
+            'params': {'name': 'install_reviewed', 'arguments': {
+                'target': 'skill', 'host': 'codex', 'source': str(self.source),
+                'name': 'example', 'review_id': 'bad', 'summary': 'fake'}}})
+        self.assertTrue(reply['isError'])
+        self.assertFalse((self.destination / 'example').exists())
+
     def test_mcp_protocol_exposes_tools_and_human_required_flag(self):
         process = subprocess.run(
             [sys.executable, str(ROOT / 'scripts/native_approval_mcp.py')],
