@@ -118,7 +118,7 @@ def baseline_plan(repo_root):
             or not isinstance(required, list) or not required
             or any(not isinstance(n, str) for n in required)
             or len(required) != len(set(required))):
-        raise ValueError('Invalid advisor baseline: required and optional skill lists must be disjoint')
+        raise ValueError('Invalid advisor baseline: required skills must be unique names')
     prepared = False
     error = None
     missing = []
