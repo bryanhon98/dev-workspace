@@ -183,6 +183,20 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertFalse(plan['device_verified'])
         self.assertEqual(list(self.home.iterdir()), [])
 
+    def test_optional_retirement_requires_explicit_flag(self):
+        installer = mock.Mock()
+        installer.retire_optional_skills.return_value = {
+            'ready': True, 'archived_skills': ['council'], 'changed': True}
+        output = io.StringIO()
+        with mock.patch.dict(sys.modules, {'install_advisor': installer}), \
+             mock.patch.object(sys, 'argv', [str(SCRIPT), '--retire-optional-advisor-skills',
+                 '--codex-home', str(self.home), '--skills-root', str(self.home / 'skills')]), \
+             contextlib.redirect_stdout(output):
+            self.assertEqual(self.mod.main(), 0)
+        installer.retire_optional_skills.assert_called_once_with(
+            self.mod.ROOT, self.home / 'skills', self.home, host='codex')
+        self.assertIn('council', output.getvalue())
+
     def test_rules_include_checkout_locator_for_other_projects(self):
         result = self.run_cli('--install-rules')
         self.assertEqual(result.returncode, 0, result.stderr)
