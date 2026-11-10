@@ -231,7 +231,8 @@ def _save_json(path, obj):
             os.unlink(tmp)
 
 
-def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=None, host='codex'):
+def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=None,
+                   host='codex', approval_handler=None, scan_validator=None):
     root, skills, home = map(_path, (repo_root, skills_root, home))
     manifest, components, _ = _bundle(root, selected_names)
     state = _path(home / host_profiles.state_subdir(host))
@@ -275,6 +276,11 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 except MediumApprovalRequired as review:
                     pending_reviews.append(review)
                     warnings.extend(review.warnings)
+                if scan_validator is not None:
+                    matched_review = next((r for r in pending_reviews if r.skill == name), None)
+                    scan_validator(name, c['installed_files'], matched_review,
+                                   matched_review.warnings if matched_review else
+                                   [w for w in warnings if w.get('skill') == name])
                 if _files(staged) != c['installed_files']:
                     raise ValueError('Staged skill changed during scan: ' + name)
             if _bundle(root, selected_names)[1] != components:
@@ -285,7 +291,10 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 raise ValueError('Receipt changed during scan')
             # Never activate any skill until all security reviews are accepted.
             for review in pending_reviews:
-                approve_medium(review, trusted_core=True)
+                if approval_handler is None:
+                    approve_medium(review, trusted_core=True)
+                else:
+                    approval_handler(review)
             if pending_reviews:
                 if _bundle(root, selected_names)[1] != components:
                     raise ValueError('Skill source changed during security review')

@@ -97,6 +97,8 @@ python3 scripts/setup.py --host codex --finish-workspace --acknowledge-live-hook
 python3 scripts/setup.py --check-advisor
 ```
 
+For **agent-assisted MEDIUM approvals inside Codex/Claude**, see [native MCP approval setup](docs/NATIVE-APPROVAL.md). This uses the host's own permission prompt, not an AI-generated approval string; the existing PowerShell prompt remains the fallback.
+
 The installer stages and scans the **three mandatory core skills** together before activation. If a required component is blocked, it leaves the active core bundle unchanged. `--install-advisor-core` is now a legacy alias of `--install-advisor`; `--check-advisor` checks core readiness, not whether every optional skill is installed. **Previously managed 17-skill devices require explicit safe migration** (below), not silent deletion.
 
 ### Existing devices with 17 installed skills

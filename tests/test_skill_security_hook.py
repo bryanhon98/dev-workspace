@@ -57,6 +57,16 @@ class SecurityHookTests(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 self.assertIsNotNone(self.guard.classify(self.event('Bash', command=cmd)))
 
+    def test_native_mcp_direct_invocation_is_blocked_but_registration_allowed(self):
+        self.assertIsNotNone(self.guard.classify(self.event(
+            'PowerShell', command='python scripts/native_approval_mcp.py')))
+        self.assertIsNotNone(self.guard.classify(self.event(
+            'Bash', command='python scripts/native_approval_mcp.py --stdio')))
+        self.assertIsNone(self.guard.classify(self.event(
+            'PowerShell', command='codex mcp add skill_security -- python scripts/native_approval_mcp.py')))
+        self.assertIsNone(self.guard.classify(self.event(
+            'PowerShell', command='claude mcp add --scope user --transport stdio skill_security -- python scripts/native_approval_mcp.py')))
+
     def test_file_tool_writes_to_active_skill_dir_blocked(self):
         self.assertIsNotNone(self.guard.classify(
             self.event('Write', file_path='C:\\Users\\Example\\.claude\\skills\\new\\SKILL.md',
