@@ -50,7 +50,13 @@ class KnowledgeTests(unittest.TestCase):
 
     def test_saved_github_markdown_entries_are_searchable(self):
         for query, repo in [('astryx', 'meta/astryx'),
-                            ('playwright', 'microsoft/playwright')]:
+                            ('playwright', 'microsoft/playwright'),
+                            ('stageshow', 'benjitaylor/skills'),
+                            ('impeccable', 'pbakaus/impeccable'),
+                            ('dimensional', 'enesozturk/dimensional-drawing'),
+                            ('oil-ui', 'oil-oil/oil-ui'),
+                            ('brand identity', 'fatihaydost/brand-identity-skill'),
+                            ('awwwards-mcp', 'insane0777/awwwards-mcp')]:
             with self.subTest(query=query):
                 result = self.run_cli('search', query, '--limit', '100')
                 matches = [entry for entry in result['results']

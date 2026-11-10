@@ -82,3 +82,56 @@ Choose one primary design director: awwwards overlaps Taste, UI/UX Pro Max and o
 **Requirements:** Node20+ for helpers; Playwright, Chromium and axe-core for browser checks; image-capable model for visual assessment. The documented skills CLI requires Node22.20+. MIT; model usage and optional deployment services remain separate.
 
 Checked revision: `add880bd6ec9f5592a1482846fc0dd282c9161bc` · [README](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/README.md) · [awwwards instructions](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/awwwards/SKILL.md) · [jury instructions](https://github.com/juliobsz/skills/blob/add880bd6ec9f5592a1482846fc0dd282c9161bc/jury/SKILL.md). Read instructions for fit; no candidate scripts executed, installation scan or runtime quality comparison performed.
+
+
+## [Stageshow — Benji Taylor](https://github.com/benjitaylor/skills)
+
+**Status:** New saved research candidate from user-provided Instagram Reel, verified 2026-11-10. **Skill + React demo kit; not installed, scanned, or approved.** Select only the `stageshow` child, not the entire repository.
+
+**Distinct job:** Build believable *faux product UI* for marketing stills, motion/cursor walkthroughs, hero demonstrations and bento feature grids. It includes composed reference examples, React parts and local frame-by-frame filming/QA checks. A useful specialist for a product landing page, not a general app design director, actual product screenshot generator or 3D asset modeler.
+
+**Overlap and choice:** Complement Oil UI's overall design direction and Emil Kowalski's interaction guidance; use Stageshow only when the page needs a *mocked* UI demo. Validate brand/source rights: do not represent mock screens as an actual product feature. Runtime for preview: Node >=20.19, React/Vite/Playwright-core and local browser; optional filming/preview dependencies. The kit has a per-skill MIT licence; use normal model/tool resources.
+
+**Evidence:** Official [Benji article](https://benji.org/stageshow) · [skill instructions](https://github.com/benjitaylor/skills/blob/299140fafd08df55a9c234e610c3f64af3f45531/stageshow/SKILL.md) · [preview requirements](https://github.com/benjitaylor/skills/blob/299140fafd08df55a9c234e610c3f64af3f45531/stageshow/README.md). Checked repository revision `299140fafd08df55a9c234e610c3f64af3f45531`. No demo rendered or source scripts executed.
+
+## [Impeccable — Paul Bakaus](https://github.com/pbakaus/impeccable)
+
+**Status:** New saved research candidate, verified 2026-11-10; **not installed, scanned, approved or added to the core baseline**. Design workflow/CLI with skill and hooks; not merely one static instruction file.
+
+**Distinct job:** Iteratively improve an existing interface using named design moves (`critique`, `polish`, `audit`, `bolder`, `layout`, etc.). Provides a deterministic anti-pattern detector and browser-based design iteration. Especially useful for auditing a UI already built, rather than choosing the original design direction.
+
+**Security blocker to resolve before installation:** Its README documents a `live`/Apply fallback that invokes Codex or Claude Code with approvals, permissions **and sandbox disabled** when no chat session is polling. It also offers an installer that registers hooks and an engine binary that can be downloaded on demand. This is **not compatible with blind auto-installation** under the user's scan-first security rules. Prior to any trial, inspect the complete exact package, installer, hooks, binary and process-launch code; disable or avoid the privileged fallback; independently verify compatibility with the existing SkillSpector hook. A CLI or live-mode operation may require protections outside SkillSpector's skill-file coverage. Catalog save is **not an approval** of the dangerous fallback.
+
+**Overlap:** Hallmark's audit, UI/UX Pro Max, Taste and Oil UI's redesign work. Start with a narrowly scoped *read-only critique* only after reviewing the actual runtime behavior. Apache-2.0 source license; the model/tools/runtime still have their own costs.
+
+**Evidence:** [README and explicitly documented bypass fallback](https://github.com/pbakaus/impeccable/blob/ec229b48547f24685ffb22aa51c462c5ae27908c/README.md) · [Apache-2.0 licence](https://github.com/pbakaus/impeccable/blob/ec229b48547f24685ffb22aa51c462c5ae27908c/LICENSE). Checked revision `ec229b48547f24685ffb22aa51c462c5ae27908c`. No installer, hook or binary executed or security-approved.
+
+## [Dimensional Drawing — Enes Ozturk](https://github.com/enesozturk/dimensional-drawing)
+
+**Status:** New saved design-documentation skill candidate, verified 2026-11-10; not installed/scanned.
+
+**Distinct job:** Produce a one-page monochrome UI *technical drawing* from an existing component, screenshot or source: spacing, radius, layout slots, layers and responsive positioning. Unspecified dimensions must remain TBD rather than invented. Outputs a self-contained HTML/SVG spec sheet useful for component handover and design-system documentation. Separate `dimensional-drawing-motion` child creates an animated drawing, not a required dependency of the static sheet.
+
+**Overlap and costs:** Complementary to visual design and implementation skills, rather than an alternative overall art director. Actual geometry must come from source/DOM measurements, not guessed from a screenshot. Animated child prioritizes Claude Motion; its headless alternative requires Node >=18, Playwright/Chromium and ffmpeg, so verify Codex/Windows host fit before selecting. MIT; normal runtime/model costs.
+
+**Evidence:** [static skill](https://github.com/enesozturk/dimensional-drawing/blob/5c457437c8c83524308aad3b7443e81adcc13153/skills/dimensional-drawing/SKILL.md) · [README including motion requirements](https://github.com/enesozturk/dimensional-drawing/blob/5c457437c8c83524308aad3b7443e81adcc13153/README.md). Checked revision `5c457437c8c83524308aad3b7443e81adcc13153`. Not run.
+
+## [Oil UI — open-source design directions](https://github.com/oil-oil/oil-ui)
+
+**Status:** New saved optional skill, verified 2026-11-10; not installed/scanned. Distinguish free MIT version from paid **Oil UI Pro**.
+
+**Distinct job:** Explore clearly different visual design directions, show multiple candidates side by side, select one with the user, then refine against desktop/mobile screenshots. Also supports a single suggested direction by default. Most suitable for early UI art direction when the user wants meaningful alternatives instead of palette swaps.
+
+**Overlap and choice:** Compare against existing UI/UX Pro Max, Taste, Hallmark and juliobsz's `awwwards`. **Choose one primary design director** for a task rather than stacking incompatible design recipes. Free edition has limits on production polishing/complex existing projects relative to paid Pro. Its primary `SKILL.md` instructions are in Chinese, although the README provides English explanations; check effective language/context and host compatibility before use. Optional compare-page Python 3.10+ tooling and browser-based QA; update-check script exists. MIT; normal agent runtime/model costs.
+
+**Evidence:** [README comparison and Pro differences](https://github.com/oil-oil/oil-ui/blob/40ae49ab89bc496459bcea9c360c28d599358297/README.md) · [SKILL.md](https://github.com/oil-oil/oil-ui/blob/40ae49ab89bc496459bcea9c360c28d599358297/SKILL.md) · [MIT license](https://github.com/oil-oil/oil-ui/blob/40ae49ab89bc496459bcea9c360c28d599358297/LICENSE). Checked revision `40ae49ab89bc496459bcea9c360c28d599358297`. Not installed or live-tested.
+
+## [Brand Identity — fatihaydost](https://github.com/fatihaydost/brand-identity-skill)
+
+**Status:** New saved optional skill candidate, verified 2026-11-10; not installed/scanned.
+
+**Distinct job:** From one brief, create three/four cohesive logo + typography + color identity systems, compare them, and generate chosen logo exports, a PDF brand guide and design tokens. The scripts attempt measurable quality checks: WCAG contrast, color-blindness simulations, glyph coverage, font licensing and small-scale rendering. Useful for a **new brand identity**, not routine page styling.
+
+**Overlap and caution:** The current saved Taste-family **BrandKit** already covers identity boards; compare actual export and measurement requirements before selecting either. Brand Identity has more detailed documented measurement/output workflow, but is heavier: Python >=3.10, browser and optional `uv`/Python dependencies downloaded from package repositories; fonts loaded from Google Fonts. The author reports about 40 agent turns for a board, so ordinary model usage can be significant. Logo copyright or trademark clearance is **not** established by this skill; brand assets require legal/visual review before production. MIT and third-party notices.
+
+**Evidence:** [skill instructions](https://github.com/fatihaydost/brand-identity-skill/blob/3ba008e57b9363cf2a9117303237f951a7c1ef00/skills/brand-identity/SKILL.md) · [README, requirements and author-reported tests](https://github.com/fatihaydost/brand-identity-skill/blob/3ba008e57b9363cf2a9117303237f951a7c1ef00/README.md). Checked revision `3ba008e57b9363cf2a9117303237f951a7c1ef00`. Author examples are not independent benchmark proof; no local trial or scan.
