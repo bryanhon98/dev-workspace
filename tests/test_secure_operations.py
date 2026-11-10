@@ -52,8 +52,8 @@ class SecureOperationsTests(unittest.TestCase):
             {'severity': 'LOW', 'recommendation': 'SAFE'},
             [{'id': 'LP3', 'severity': 'MEDIUM',
               'finding': 'No permission scope'}])
-        with mock.patch.object(self.mod.sys.stdin, 'isatty', return_value=True), \
-             mock.patch.object(self.mod.sys.stdout, 'isatty', return_value=True), \
+        with mock.patch.object(self.mod.sys, 'stdin', mock.Mock(isatty=mock.Mock(return_value=True))), \
+             mock.patch.object(self.mod.sys, 'stdout', mock.Mock(isatty=mock.Mock(return_value=True))), \
              mock.patch('builtins.input', return_value='') as choice, \
              mock.patch('builtins.print') as display:
             with self.assertRaisesRegex(ValueError, 'rejected'):
@@ -68,7 +68,7 @@ class SecureOperationsTests(unittest.TestCase):
         review = self.mod.MediumApprovalRequired('tool-advisor',
             {'severity': 'LOW', 'recommendation': 'SAFE'},
             [{'id': 'LP3', 'severity': 'MEDIUM'}])
-        with mock.patch.object(self.mod.sys.stdin, 'isatty', return_value=False), \
+        with mock.patch.object(self.mod.sys, 'stdin', mock.Mock(isatty=mock.Mock(return_value=False))), \
              mock.patch('builtins.input') as prompt:
             with self.assertRaisesRegex(ValueError, 'interactive terminal'):
                 self.mod.approve_medium(review)
