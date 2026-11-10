@@ -10,7 +10,7 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Design and motion skills](skills/design.md) | Vercel Agent Skills; UI/UX Pro Max; Taste — BrandKit and Image-to-Code only; Emil Kowalski — motion subset; Extract Design System; Ian Xiaohei Illustrations |
 | [Marketing and writing skills](skills/marketing-and-writing.md) | Corey Haines Marketing Skills; Humanizer; Claude SEO; Instagram Agent Skills |
 | [Knowledge and image investigation skills](skills/knowledge-and-investigation.md) | Geo-Sleuth; Obsidian Skills |
-| [Design references](references/design.md) | Awesome Design MD |
+| [Design references](references/design.md) | Awesome Design MD; Meta Astryx (React design system) |
 | [Development plugins](plugins/development.md) | Claudex Loop |
 | [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
@@ -19,6 +19,8 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
 
 ## Later user-saved library additions
+
+[Meta Astryx](references/design.md) was saved on 10 November 2026 as an optional React 19+ design-system/component-library reference. It is not an agent skill, has not been installed or security-scanned, and remains outside the setup inventory and baseline.
 
 [Agent Reach, Vercel Agent Desktop, Karpathy Guidelines and Teardown](skills/user-saved-capabilities.md) are saved for task-specific discovery only. Three are new catalog records; Karpathy reuses its existing record. None is installed or added to the default baseline by this selection. The October counts above describe the original collection.
 
