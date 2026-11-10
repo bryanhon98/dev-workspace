@@ -84,12 +84,16 @@ def _single_line(value, limit=190):
     return re.sub(r'[\x00-\x1f\x7f]+', ' ', str(value)).strip()[:limit]
 
 
-def approve_medium(review):
-    """Ask for each attempt; no approval cache, flags, or automated yes path."""
+def approve_medium(review, trusted_core=False):
+    """Ask for each attempt; no approval cache or automatic yes option.
+
+    A TTY is not proof of a human: the user must never delegate the decision
+    to an agent, and an agent with OS privileges can still emulate input.
+    """
     if not sys.stdin.isatty() or not sys.stdout.isatty():
         raise ValueError('MEDIUM review requires your interactive terminal. '
-                         'Re-run the installer yourself in PowerShell or Terminal; '
-                         'a Codex/Claude tool call cannot provide approval.')
+                         'Run the installer in PowerShell or Terminal yourself '
+                         'and do not delegate the decision to an agent.')
 
     title = review.skill.replace('-', ' ').title()
     print('\n=== ' + title + ' — Security Review [MEDIUM] ===', flush=True)
@@ -108,9 +112,16 @@ def approve_medium(review):
         print('Reason: SkillSpector recommends additional review for this skill.',
               flush=True)
     print('After approval, ' + title + ' can:', flush=True)
-    for feature in _MEDIUM_FEATURES.get(review.skill, (
-            'Run its documented features, including reported capabilities '
-            'when permitted by existing host permissions.',)):
+    features = _MEDIUM_FEATURES.get(review.skill) if trusted_core else None
+    if features is None:
+        reported = ' '.join(_single_line(issue.get('finding') or issue.get('pattern') or '')
+                            for issue in review.issues)
+        if 'file_write' in reported:
+            features = ('Create or update local files when invoked, subject to host permissions.',)
+        else:
+            features = ('Run its documented features, including the behavior reported above, '
+                        'subject to existing host permissions.',)
+    for feature in features:
         print('  - ' + feature, flush=True)
     print('Approval does not grant new host permissions or enable background tasks.',
           flush=True)
