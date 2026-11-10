@@ -66,12 +66,14 @@ class AdvisorInstallTests(unittest.TestCase):
     def check(self):
         return self.mod.check_bundle(self.repo, self.skills, self.home)
 
-    def test_real_baseline_has_three_core_and_fourteen_optional_sources(self):
+    def test_real_baseline_has_only_three_core_skills(self):
         result = self.mod.baseline_plan(ROOT)
         self.assertTrue(result['payloads_prepared'], result['audit_error'])
         self.assertEqual(result['required_skills'], list(self.mod.CORE_NAMES))
-        self.assertEqual(len(result['optional_skills']), 14)
-        self.assertFalse(set(result['required_skills']) & set(result['optional_skills']))
+        self.assertNotIn('optional_skills', result)
+        baseline = json.loads((ROOT / 'advisor-baseline.json').read_text())
+        self.assertNotIn('optional_skills', baseline)
+        self.assertNotIn('sources', baseline)
 
     def test_clean_install_check_and_no_scan_history(self):
         result = self.install()
@@ -131,7 +133,7 @@ class AdvisorInstallTests(unittest.TestCase):
         shutil.rmtree(self.repo / 'skills/council')
         plan = self.mod.baseline_plan(self.repo)
         self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
-        self.assertEqual(plan['optional_skills'], ['council'])
+        self.assertNotIn('optional_skills', plan)
 
     def test_retirement_allows_outdated_core_before_fresh_reinstall(self):
         for name in ('grilling', 'find-skills', 'council'):
@@ -276,6 +278,66 @@ class AdvisorInstallTests(unittest.TestCase):
                     else:
                         warnings = self.real_scan(directory, {'path': '/trusted/scanner'}, ['SKILL.md'])
                         self.assertEqual(len(warnings), len(report['issues']))
+
+    def test_medium_review_shows_after_complete_batch_and_approval_is_ephemeral(self):
+        self.add_component('grilling')
+        sequence = []
+        def scan(stage, scanner, expected):
+            sequence.append('scan:' + stage.name)
+            if stage.name == 'tool-advisor':
+                raise self.mod.MediumApprovalRequired(
+                    'tool-advisor', {'severity': 'LOW', 'recommendation': 'SAFE'},
+                    [{'id': 'LP3', 'severity': 'MEDIUM'}])
+            return []
+        self.mod._scan.side_effect = scan
+        def approve(review):
+            self.assertFalse((self.skills / 'tool-advisor').exists())
+            self.assertFalse((self.skills / 'grilling').exists())
+            sequence.append('approval:' + review.skill)
+            return review.warnings
+        with mock.patch.object(self.mod, 'approve_medium', side_effect=approve):
+            out = self.install()
+            self.assertTrue(out['ready'])
+            self.assertEqual(sequence, ['scan:tool-advisor', 'scan:grilling',
+                                        'approval:tool-advisor'])
+            self.assertEqual(out['warnings'][0]['finding'], 'LP3')
+            sequence.clear()
+            self.install()
+            self.assertEqual(sequence, ['scan:tool-advisor', 'scan:grilling',
+                                        'approval:tool-advisor'])
+        self.assertFalse((self.home / 'dev-workspace-advisor/approvals.json').exists())
+
+    def test_medium_rejection_preserves_every_installed_skill(self):
+        self.add_component('grilling')
+        def scan(stage, scanner, expected):
+            if stage.name == 'tool-advisor':
+                raise self.mod.MediumApprovalRequired(
+                    'tool-advisor', {'severity': 'LOW', 'recommendation': 'SAFE'},
+                    [{'id': 'LP3', 'severity': 'MEDIUM'}])
+            return []
+        self.mod._scan.side_effect = scan
+        with mock.patch.object(self.mod, 'approve_medium',
+                               side_effect=ValueError('MEDIUM approval rejected')) as approve:
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                self.install()
+        approve.assert_called_once()
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+        self.assertFalse((self.skills / 'grilling').exists())
+
+    def test_high_block_in_batch_does_not_request_medium_approval(self):
+        self.add_component('grilling')
+        def scan(stage, scanner, expected):
+            if stage.name == 'tool-advisor':
+                raise self.mod.MediumApprovalRequired(
+                    'tool-advisor', {'severity': 'LOW', 'recommendation': 'SAFE'},
+                    [{'id': 'LP3', 'severity': 'MEDIUM'}])
+            raise ValueError('HIGH scanner finding')
+        self.mod._scan.side_effect = scan
+        with mock.patch.object(self.mod, 'approve_medium') as approve:
+            with self.assertRaisesRegex(ValueError, 'HIGH'):
+                self.install()
+            approve.assert_not_called()
+        self.assertFalse((self.skills / 'tool-advisor').exists())
 
     def test_new_revision_requires_fresh_scan(self):
         self.install()
