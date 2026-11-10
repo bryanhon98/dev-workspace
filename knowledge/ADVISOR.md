@@ -8,7 +8,7 @@ This repository is a persistent research and decision base for an agent. Its job
 
 Infer the intended outcome, input/output formats, current project stack, client, device, budget, privacy requirements and existing subscriptions from the conversation and project. Ask only for missing details that change the choice. Use [routing examples](ROUTING.md) to start, not as a fixed ranking. A task may need no additional skill.
 
-Current explicit choices: keep Ponytail and Caveman out unless the user revisits the choice. **Superpowers methods and Council of High Intelligence are optional candidates**, not default installations or automatic winners of discovery. Tool Advisor must compare relevant alternatives for each new task; Council retains its stricter real-worker participation rules when explicitly selected. Follow [BUILD-FLOW.md](BUILD-FLOW.md#approved-council-and-review-behavior) for participation, review independence and failure handling. See the [reviewer comparison](decisions/2026-11-02-reviewer-skills-from-reels.json) for discovery evidence. These choices are not blanket activation of every candidate or authorization for additional providers.
+Current explicit choices: keep Ponytail and Caveman out unless the user revisits the choice. **All 14 formerly mandatory auxiliary skills are optional candidates**, not default installations or automatic winners of discovery. Tool Advisor must compare relevant alternatives for each new task; a selected multi-agent council requires real independent workers and its documented participation rules. Follow [BUILD-FLOW.md](BUILD-FLOW.md#approved-council-and-review-behavior) for participation, review independence and failure handling. See the [reviewer comparison](decisions/2026-11-02-reviewer-skills-from-reels.json) for discovery evidence. These choices are not blanket activation of every candidate or authorization for additional providers.
 
 Search across the reel research, existing inventory and historical source reviews:
 
@@ -80,7 +80,7 @@ For each serious candidate and installed alternative:
 
 Prioritize acceptance/task fit and real evidence over popularity; then compare instruction quality, compatibility, permissions/privacy, dependencies, overlap, maintenance, setup effort and cost. Serious safety or compatibility blockers cannot be outweighed by a high score. Compare high-impact close finalists using identical realistic tasks when feasible/authorized; label unrun trials clearly.
 
-Stop when all material jobs have qualified owners or known gaps, credible alternatives are considered, conflicts are resolved or escalated, and further search is unlikely to change the recommendation. State "best supported among candidates examined," not a globally proven best. Tool Advisor is the sole manager; Superpowers, ECC and Council may provide distinct optional task-specific methods when selected, but none is a second coordinator.
+Stop when all material jobs have qualified owners or known gaps, credible alternatives are considered, conflicts are resolved or escalated, and further search is unlikely to change the recommendation. State "best supported among candidates examined," not a globally proven best. Tool Advisor is the sole manager; any selected execution, review, research or deliberation method is a bounded contributor, never another project coordinator.
 
 ## Browser and persistent-memory selection
 

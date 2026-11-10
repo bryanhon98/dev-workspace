@@ -93,6 +93,22 @@ class GlobalSetupTests(unittest.TestCase):
         self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
         self.assertEqual(list(self.home.iterdir()), [])
 
+    def test_active_workflow_does_not_prefer_a_third_party_execution_framework(self):
+        root = SCRIPT.parent.parent
+        baseline = json.loads((root / 'advisor-baseline.json').read_text(encoding='utf-8'))
+        self.assertEqual(baseline['required_skills'],
+                         ['tool-advisor', 'grilling', 'find-skills'])
+        self.assertIn('using-superpowers', baseline['optional_skills'])
+        for relative in ('AGENTS.md', 'global/AGENTS.md', 'global/CLAUDE.md',
+                         'knowledge/BUILD-FLOW.md', 'knowledge/ADVISOR.md',
+                         'knowledge/ROUTING.md'):
+            with self.subTest(file=relative):
+                content = (root / relative).read_text(encoding='utf-8').lower()
+                self.assertNotIn('superpowers', content)
+        flow = (root / 'knowledge/BUILD-FLOW.md').read_text(encoding='utf-8')
+        self.assertIn('task fit and evidence', flow)
+        self.assertIn('Vercel Find Skills/skills.sh', flow)
+
     def test_default_lists_choices_without_installing(self):
         result = self.run_cli()
         self.assertEqual(result.returncode, 0, result.stderr)
