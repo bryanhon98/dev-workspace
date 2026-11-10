@@ -6,7 +6,7 @@ It supports software, design, research, media, business and automation. Its work
 
 ## Current status
 
-The mandatory baseline is now **3 core skills**: Tool Advisor, Grilling and Vercel Find Skills. The other **14 Superpowers/Council skills remain saved as optional candidates** in this repository, not part of default installation. Any selected skill requires a fresh local SkillSpector scan before activation.
+The mandatory baseline contains **only 3 core skills**: Tool Advisor, Grilling and Vercel Find Skills. The previously listed fourteen Superpowers/Council skills are normal library candidates, not a second baseline tier; their historical source records remain available for discovery and legacy migration. Any selected skill requires a fresh local SkillSpector scan before activation.
 
 | Part | Status |
 |---|---|
@@ -14,7 +14,7 @@ The mandatory baseline is now **3 core skills**: Tool Advisor, Grilling and Verc
 | Three required core skills | Packaged; verified and scanned together at setup |
 | Fourteen optional skill sources | Retained in the repository for per-task discovery and selection |
 | Default setup command | Installs only the three core skills after its checks pass |
-| Security policy | Warn and proceed for established low risk; block dangerous or unclassified findings |
+| Security policy | LOW/SAFE automatically; MEDIUM asks you in a terminal with features explained; HIGH/CRITICAL or incomplete scans block |
 | Your device | Run setup and verify discovery in a fresh session |
 
 The bundle uses original upstream skills. Council requires actual independent workers; without them, do not claim an independent panel. No separate model-provider account is required for its native-worker route.
