@@ -283,8 +283,6 @@ def setup_workspace(host, home, skills_root, scanner=None,
     that the host honored a denial. Do not infer host approval from config bytes.
     """
     from secure_operations import ensure_scanner, verify_scanner_sample
-    from install_advisor import install_bundle, require_baseline
-    core = require_baseline(ROOT)['required_skills']
     if finish and not live_hook_test_acknowledged:
         raise ValueError('Finish requires --acknowledge-live-hook-test after real host blocking verification')
     scanner_info = ensure_scanner(scanner)
@@ -300,6 +298,8 @@ def setup_workspace(host, home, skills_root, scanner=None,
                 'next': 'Approve the hook in the target host UI, restart the host, '
                         'verify a real allow and deny, then run --finish-workspace '
                         '--acknowledge-live-hook-test. No host approval was automated.'}
+    from install_advisor import install_bundle, require_baseline
+    core = require_baseline(ROOT)['required_skills']
     result = install_bundle(ROOT, skills_root, home,
                             scanner=Path(scanner_info['path']),
                             selected_names=core, host=host)
