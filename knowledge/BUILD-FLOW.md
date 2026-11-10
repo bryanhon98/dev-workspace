@@ -24,7 +24,7 @@ For focused/full work, confirm a materially new scope or skill/tool combination 
 
 ## Coordinator and specialist authority
 
-The main assistant using Tool Advisor remains the **sole accountable coordinator** for product strategy, capability mapping, skill decisions, task ownership, integration and final acceptance. The underlying model performs the reasoning. Matt Pocock's `grilling` supplies the interview method; loading a skill is not launching an independent model or worker. Superpowers is the preferred software execution method, not a second manager. ECC orchestration, Wayfinder, Karpathy-inspired guidance and other frameworks may supply bounded specialist methods only where they add value.
+The main assistant using Tool Advisor remains the **sole accountable coordinator** for product strategy, capability mapping, skill decisions, task ownership, integration and final acceptance. The underlying model performs the reasoning. Matt Pocock's `grilling` supplies the interview method; loading a skill is not launching an independent model or worker. Superpowers is a saved optional software execution candidate, not a second manager or an automatic default. ECC orchestration, Wayfinder, Karpathy-inspired guidance and other frameworks may supply bounded specialist methods only where they add value.
 
 Distinguish **product/strategic planning** (who, what, why, outcomes and trade-offs) from **implementation planning** (architecture, interfaces, tasks and tests). Identify necessary jobs and acceptance criteria before selecting a stack or specialists. Use the original Grilling instructions for unresolved material requirements on substantial projects; do not repeat settled interviews or force complex process on simple tasks.
 
@@ -94,7 +94,7 @@ Keep the checkout available as the research library. Installation records its lo
 
 ## The seven steps for full work
 
-The user approved this workflow and its coordination/learning model; see the [approval record](decisions/2026-11-02-workflow-approval-and-startup.json). The main assistant remains the coordinator. Superpowers remains a preferred **optional** software execution method when selected for the task, not a second coordinator. Skills are instructions; they do not automatically become subagents. Use existing skills, with the already-created custom tool-advisor connecting the stages; propose another custom skill only for a demonstrated gap.
+The user approved this workflow and its coordination/learning model; see the [approval record](decisions/2026-11-02-workflow-approval-and-startup.json). The main assistant remains the coordinator. Superpowers can provide an **optional** software execution method when selected after task-specific comparison, not a second coordinator. Skills are instructions; they do not automatically become subagents. Use existing skills, with the already-created custom tool-advisor connecting the stages; propose another custom skill only for a demonstrated gap.
 
 Candidates are selected by requirements, not all activated at every step. External discovery can include relevant emerging GitHub projects; popularity is a lead rather than evidence of best fit. Define acceptance criteria before implementation and select verification methods from those criteria. Periodic stocktakes and workflow evaluations are separate from routine task execution. Saved outcomes inform later recommendations; they do not imply background monitoring, model retraining, automatic installation or proven improvement without comparable evaluations.
 
