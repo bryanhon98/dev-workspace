@@ -6,13 +6,14 @@ It supports software, design, research, media, business and automation. Its work
 
 ## Current status
 
-The complete **17-skill baseline is packaged**: Tool Advisor, Grilling, Find Skills, 13 Superpowers workflow skills and Council of High Intelligence. Installation stages the selected skills and runs a fresh local SkillSpector scan before activation, with no mandatory historical scan or approval ledger.
+The mandatory baseline is now **3 core skills**: Tool Advisor, Grilling and Vercel Find Skills. The other **14 Superpowers/Council skills remain saved as optional candidates** in this repository, not part of default installation. Any selected skill requires a fresh local SkillSpector scan before activation.
 
 | Part | Status |
 |---|---|
 | Workflow, research library and saved decisions | Available in this repo |
-| All 17 baseline skill payloads | Packaged; every activation still requires a fresh scan |
-| Full setup command | Installs the baseline together after its checks pass |
+| Three required core skills | Packaged; verified and scanned together at setup |
+| Fourteen optional skill sources | Retained in the repository for per-task discovery and selection |
+| Default setup command | Installs only the three core skills after its checks pass |
 | Security policy | Warn and proceed for established low risk; block dangerous or unclassified findings |
 | Your device | Run setup and verify discovery in a fresh session |
 
@@ -32,7 +33,7 @@ For substantial new projects, the full path is below. Task depth and shortcuts f
 6. **Verify the result.** Check the agreed success criteria using appropriate tests, reviewers, browser interactions or measurements. Report anything unverified.
 7. **Save useful outcomes.** Record what worked, failed or changed, then consult that evidence on future tasks.
 
-**Tool Advisor V2 workflow policy (2026-11-07):** The underlying model remains the sole coordinator; Grilling guides substantial unresolved interviews. Strategic capability mapping precedes evidence-based discovery through installed knowledge, reels, Find Skills and targeted external sources. Real available workers receive bounded tasks; their outputs are integrated and independently reviewed when warranted. Council resolves important unresolved trade-offs. The verified 17-skill bundle and local installations are unchanged.
+**Tool Advisor V2 workflow policy (2026-11-07):** The underlying model remains the sole coordinator; Grilling guides substantial unresolved interviews. Strategic capability mapping precedes evidence-based discovery through installed knowledge, reels, Find Skills and targeted external sources. Real available workers receive bounded tasks; their outputs are integrated and independently reviewed when warranted. Council resolves important unresolved trade-offs. The standard baseline changed on 2026-11-10 to three required skills; optional sources remain available, and previously installed device skills are not silently removed.
 
 Small edits and explanation-only questions use a shorter path. The assistant selects the smallest useful combination; it does not run every installed skill for every task.
 
@@ -52,7 +53,7 @@ The [initial six-case routing evaluation](audits/advisor-routing-20261103/README
 | [Tool Advisor](skills/custom/tool-advisor/SKILL.md) | Custom instructions connecting interview, discovery, selection, tracking and verification |
 | [Grilling — Matt Pocock](https://github.com/mattpocock/skills) | Clarifies requirements through questions |
 | [Find Skills — Vercel](https://github.com/vercel-labs/skills) | Helps discover relevant skills |
-| [Superpowers](https://github.com/obra/superpowers) | Preferred software execution, review and verification methods |
+| [Superpowers](https://github.com/obra/superpowers) | Optional software execution, review and verification candidates; compare before selecting |
 | [Council of High Intelligence](https://github.com/0xNyk/council-of-high-intelligence) | Optional structured deliberation for important decisions after scope is clear |
 | Project specialists | Provide the particular design, technical or domain guidance the task needs |
 
@@ -79,7 +80,7 @@ Open this folder in Codex **on the device you intend to configure**, then say:
 
 > Setup tool-advisor using this repo. Install the approved baseline up front, reuse my recorded choices, and report any blockers.
 
-That request selects Tool Advisor, Grilling, Find Skills, the Superpowers workflow skills and Council of High Intelligence, plus their required dependencies. It does not select every candidate in the research library. Project-specific specialists remain conditional.
+That request selects **only Tool Advisor, Grilling and Find Skills**. Superpowers skills and Council are optional research candidates, not automatic installations. Tool Advisor decides when additional capabilities are worth considering and uses Find Skills to compare the saved libraries against external sources before proposing a small task-specific combination.
 
 Inspect the selected baseline without installing anything:
 
@@ -87,14 +88,26 @@ Inspect the selected baseline without installing anything:
 python3 scripts/setup.py --plan-advisor
 ```
 
-Install the full baseline and check its files:
+Install the three-skill core baseline and check its files:
 
 ```sh
 python3 scripts/setup.py --host codex --setup-workspace
 python3 scripts/setup.py --check-advisor
 ```
 
-The installer stages and scans all 17 skills before activation. If a required component is blocked, it leaves the active bundle unchanged. `--install-advisor-core` is available only for an explicitly requested three-skill partial setup; `--check-advisor` reports that as incomplete workflow setup.
+The installer stages and scans the **three mandatory core skills** together before activation. If a required component is blocked, it leaves the active core bundle unchanged. `--install-advisor-core` is now a legacy alias of `--install-advisor`; `--check-advisor` checks core readiness, not whether every optional skill is installed. **Previously managed 17-skill devices require explicit safe migration** (below), not silent deletion.
+
+### Existing devices with 17 installed skills
+
+Changing the GitHub baseline **does not uninstall anything from your Windows or Mac**. An existing managed 17-skill receipt must be migrated explicitly; missing or locally modified managed files block retirement instead of being overwritten. From an updated checkout on the actual device:
+
+```powershell
+python scripts/setup.py --host codex --retire-optional-advisor-skills
+python scripts/setup.py --host codex --setup-workspace
+python scripts/setup.py --host codex --check-advisor
+```
+
+Use `--host claude` for the Claude Code profile, separately. Retirement archives the previously managed optional skills and their snapshots under the local Advisor state directory, preserving recovery copies. It does **not** remove unmanaged/independently installed skills, plugins or extra data. To activate a newly selected optional skill later, use the usual controlled staged installation with fresh SkillSpector scanning and your task-specific approval.
 
 Installation uses the target host's global skills directory and a **small local receipt plus file snapshots**, not shared scan/audit records. The preferred security-first setup installs/verifies NVIDIA SkillSpector automatically; the installer checks its CLI, stages and scans all selected skills, preserves unrelated instructions and refuses to overwrite locally modified files. An existing scanner can be specified with `--scanner /path/to/skillspector`. No scanner executable was installed on your device by this repository change.
 
@@ -131,7 +144,7 @@ python scripts/setup.py --host codex --setup-workspace
 python scripts/setup.py --host claude --setup-workspace
 ```
 
-Run the command for each host you actually use. It installs/verifies official SkillSpector (requires `uv` if missing), runs a real scanner smoke test, registers and locally tests the global security hook without removing existing hooks, **then** scans and installs Tool Advisor's complete 17-skill baseline and applies managed global rules. The scanner's existing executable name/version check is not independently authenticated supply-chain provenance. Restart each host and verify live hook events; source changes alone do not install anything on your PC.
+Run the command for each host you actually use. It installs/verifies official SkillSpector (requires `uv` if missing), runs a real scanner smoke test, registers and locally tests the global security hook without removing existing hooks, **then** scans and installs Tool Advisor's three core skills and applies managed global rules. The scanner's existing executable name/version check is not independently authenticated supply-chain provenance. Restart each host and verify live hook events; source changes alone do not install anything on your PC.
 
 One security implementation lives in [`scripts/secure_operations.py`](scripts/secure_operations.py). It stages, calls SkillSpector, evaluates a complete static scan, verifies unchanged bytes and installs safely. `install_advisor.py` uses that implementation for the baseline. The hook handles recognized agent tool calls, redirects simple HTTPS GitHub clones to staged inspection, and blocks direct skill/plugin manager installations that cannot be safely staged. **The hook is not a filesystem sandbox, nor a universal installer.** It does not scan unsupported plugin packaging automatically.
 

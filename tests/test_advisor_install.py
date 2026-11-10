@@ -66,10 +66,12 @@ class AdvisorInstallTests(unittest.TestCase):
     def check(self):
         return self.mod.check_bundle(self.repo, self.skills, self.home)
 
-    def test_real_baseline_has_seventeen_scannable_sources(self):
+    def test_real_baseline_has_three_core_and_fourteen_optional_sources(self):
         result = self.mod.baseline_plan(ROOT)
         self.assertTrue(result['payloads_prepared'], result['audit_error'])
-        self.assertEqual(len(result['required_skills']), 17)
+        self.assertEqual(result['required_skills'], list(self.mod.CORE_NAMES))
+        self.assertEqual(len(result['optional_skills']), 14)
+        self.assertFalse(set(result['required_skills']) & set(result['optional_skills']))
 
     def test_clean_install_check_and_no_scan_history(self):
         result = self.install()
@@ -102,6 +104,67 @@ class AdvisorInstallTests(unittest.TestCase):
         out = self.install(selected=list(self.mod.CORE_NAMES))
         self.assertFalse(out['full_bundle_ready'])
         self.assertFalse((self.skills / 'council').exists())
+
+    def test_retire_optional_skills_archives_only_managed_unmodified_entries(self):
+        for name in ('grilling', 'find-skills', 'council'):
+            self.add_component(name)
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': list(self.mod.CORE_NAMES),
+            'optional_skills': ['council']})
+        self.install()
+        result = self.mod.retire_optional_skills(self.repo, self.skills, self.home)
+        self.assertEqual(result['archived_skills'], ['council'])
+        self.assertFalse((self.skills / 'council').exists())
+        self.assertTrue((pathlib.Path(result['archive']) / 'skills/council/SKILL.md').is_file())
+        self.assertTrue((pathlib.Path(result['archive']) / 'snapshots/council/SKILL.md').is_file())
+        self.assertTrue(self.check()['ready'])
+        self.assertTrue(self.check()['baseline_ready'])
+        self.assertEqual(set(self.check()['components']), set(self.mod.CORE_NAMES))
+        self.assertEqual(self.mod.retire_optional_skills(self.repo, self.skills, self.home)['archived_skills'], [])
+        self.assertTrue(self.install(selected=list(self.mod.CORE_NAMES))['baseline_ready'])
+
+    def test_core_plan_ignores_missing_optional_source(self):
+        self.add_component('council')
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': ['tool-advisor'],
+            'optional_skills': ['council']})
+        shutil.rmtree(self.repo / 'skills/council')
+        plan = self.mod.baseline_plan(self.repo)
+        self.assertTrue(plan['payloads_prepared'], plan['audit_error'])
+        self.assertEqual(plan['optional_skills'], ['council'])
+
+    def test_retirement_allows_outdated_core_before_fresh_reinstall(self):
+        for name in ('grilling', 'find-skills', 'council'):
+            self.add_component(name)
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': list(self.mod.CORE_NAMES),
+            'optional_skills': ['council']})
+        self.install()
+        source = self.repo / 'skills/tool-advisor/SKILL.md'
+        source.write_text(source.read_text() + 'new core instructions\n')
+        self.manifest['components'][0]['version'] = '1.0.1'
+        self.write('advisor-bundle.json', self.manifest)
+        migrated = self.mod.retire_optional_skills(self.repo, self.skills, self.home)
+        self.assertTrue(migrated['ready'])
+        self.assertTrue((pathlib.Path(migrated['archive']) / 'skills/council/SKILL.md').is_file())
+        refreshed = self.install(selected=list(self.mod.CORE_NAMES))
+        self.assertTrue(refreshed['baseline_ready'])
+        self.assertTrue(self.check()['ready'])
+
+    def test_retire_optional_refuses_modified_files_and_preserves_receipt(self):
+        for name in ('grilling', 'find-skills', 'council'):
+            self.add_component(name)
+        self.write('advisor-baseline.json', {
+            'schema_version': 1, 'required_skills': list(self.mod.CORE_NAMES),
+            'optional_skills': ['council']})
+        self.install()
+        receipt = self.home / 'dev-workspace-advisor/receipt.json'
+        before = receipt.read_bytes()
+        (self.skills / 'council/SKILL.md').write_text('My modified instructions')
+        with self.assertRaisesRegex(ValueError, 'modified'):
+            self.mod.retire_optional_skills(self.repo, self.skills, self.home)
+        self.assertEqual(receipt.read_bytes(), before)
+        self.assertEqual((self.skills / 'council/SKILL.md').read_text(), 'My modified instructions')
 
     def test_managed_file_edit_is_protected(self):
         self.install()

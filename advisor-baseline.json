@@ -3,23 +3,9 @@
   "required_skills": [
     "tool-advisor",
     "grilling",
-    "find-skills",
-    "brainstorming",
-    "dispatching-parallel-agents",
-    "executing-plans",
-    "finishing-a-development-branch",
-    "receiving-code-review",
-    "requesting-code-review",
-    "subagent-driven-development",
-    "systematic-debugging",
-    "test-driven-development",
-    "using-git-worktrees",
-    "using-superpowers",
-    "verification-before-completion",
-    "writing-plans",
-    "council"
+    "find-skills"
   ],
-  "selection": "User approved up-front setup of the whole advisor baseline on 2026-11-03. Domain specialists remain task-specific.",
+  "selection": "User updated decision 2026-11-10: only Tool Advisor, Grilling, and Find Skills are required at setup; the remaining fourteen are optional, discoverable task-specific candidates, never automatically installed.",
   "sources": {
     "superpowers": {
       "url": "https://github.com/obra/superpowers",
@@ -48,5 +34,21 @@
       "revision": "14d398f44771be1fc49488ab1b8a348ed76ca172",
       "previous_saved_revision": "bb42b4b58fd86b9058f2b3385d692937280d901c"
     }
-  }
+  },
+  "optional_skills": [
+    "brainstorming",
+    "dispatching-parallel-agents",
+    "executing-plans",
+    "finishing-a-development-branch",
+    "receiving-code-review",
+    "requesting-code-review",
+    "subagent-driven-development",
+    "systematic-debugging",
+    "test-driven-development",
+    "using-git-worktrees",
+    "using-superpowers",
+    "verification-before-completion",
+    "writing-plans",
+    "council"
+  ]
 }

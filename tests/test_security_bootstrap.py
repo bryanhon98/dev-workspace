@@ -24,7 +24,7 @@ class WorkspaceBootstrapTests(unittest.TestCase):
                 events.append('scanner') or {'path': '/scanner', 'version': 'test'})
             scanner.verify_scanner_sample.side_effect = lambda info: events.append('sample')
             advisor = mock.Mock()
-            advisor.require_baseline.side_effect = lambda root: events.append('baseline')
+            advisor.require_baseline.side_effect = lambda root: (events.append('baseline') or {'required_skills': ['tool-advisor', 'grilling', 'find-skills']})
             advisor.install_bundle.side_effect = lambda *args, **kwargs: (
                 events.append('advisor') or {'ready': True})
             with mock.patch.dict('sys.modules',
@@ -39,12 +39,15 @@ class WorkspaceBootstrapTests(unittest.TestCase):
             self.assertEqual(events, ['baseline', 'scanner', 'sample',
                                       'hook', 'hook-test', 'advisor', 'rules'])
             self.assertFalse(result['live_host_verified'])
+            self.assertEqual(advisor.install_bundle.call_args.kwargs['selected_names'],
+                             ['tool-advisor', 'grilling', 'find-skills'])
 
     def test_failed_scanner_never_installs_baseline(self):
         setup = load_setup()
         scanner = mock.Mock()
         scanner.ensure_scanner.side_effect = ValueError('scanner unavailable')
         advisor = mock.Mock()
+        advisor.require_baseline.return_value = {'required_skills': ['tool-advisor', 'grilling', 'find-skills']}
         with tempfile.TemporaryDirectory() as root, \
              mock.patch.dict('sys.modules',
                              {'secure_operations': scanner, 'install_advisor': advisor}), \

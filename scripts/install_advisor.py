@@ -113,23 +113,31 @@ def baseline_plan(repo_root):
     root = _path(repo_root)
     base = _json(root / 'advisor-baseline.json')
     required = base.get('required_skills')
-    if base.get('schema_version') != 1 or not isinstance(required, list) or not required or (
-            len(required) != len(set(required)) or any(not isinstance(n, str) for n in required)):
-        raise ValueError('Invalid advisor baseline')
+    optional = base.get('optional_skills', [])
+    if (base.get('schema_version') != 1
+            or not isinstance(required, list) or not required
+            or any(not isinstance(n, str) for n in required)
+            or len(required) != len(set(required))
+            or not isinstance(optional, list)
+            or any(not isinstance(n, str) for n in optional)
+            or len(optional) != len(set(optional))
+            or set(required) & set(optional)):
+        raise ValueError('Invalid advisor baseline: required and optional skill lists must be disjoint')
     prepared = False
     error = None
     missing = []
     try:
-        manifest, components, _ = _bundle(root)
+        manifest, components, _ = _bundle(root, required)
         actual = {c['name'] for c in components}
         missing = [x for x in required if x not in actual]
         prepared = not missing
     except (OSError, ValueError, KeyError, TypeError) as exc:
         error = str(exc)
-    return {'required_skills': required, 'missing_payloads': missing,
-            'payloads_prepared': prepared, 'pending_clean_approval': [],
-            'audit_error': error, 'device_verified': False,
-            'note': 'Source payload check only. Every installation still requires a fresh complete local scanner pass.'}
+    return {'required_skills': required, 'optional_skills': optional,
+            'missing_payloads': missing, 'payloads_prepared': prepared,
+            'pending_clean_approval': [], 'audit_error': error,
+            'device_verified': False,
+            'note': 'Only the three core skill payloads are required. Task-specific skills must be selected and freshly scanned before activation.'}
 
 
 def require_core_only(repo_root):
@@ -140,7 +148,7 @@ def require_core_only(repo_root):
 def require_baseline(repo_root):
     result = baseline_plan(repo_root)
     if not result['payloads_prepared']:
-        raise ValueError('Full advisor baseline is not ready: ' +
+        raise ValueError('Core advisor baseline is not ready: ' +
                          (', '.join(result['missing_payloads']) or str(result['audit_error'])))
     return result
 
@@ -165,7 +173,7 @@ def _read_receipt(path, root, skills, allow_relocation=False):
 def _preflight_targets(skills, components, receipt, state):
     old = {x['name']: x for x in receipt['components']} if receipt else {}
     if set(old) - {c['name'] for c in components}:
-        raise ValueError('Removing managed skills requires separate migration')
+        raise ValueError('Existing managed optional skills must be archived first using --retire-optional-advisor-skills; no skills were removed')
     snapshots = {}
     for c in components:
         name = c['name']
@@ -328,9 +336,83 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
             'ready': True, 'receipt': str(receipt_file), 'components': [c['name'] for c in components],
             'scanner': scanner_meta, 'warnings': warnings, 'updates_available': updates,
             'full_bundle_ready': len(components) == len(manifest['components']),
+            'baseline_ready': set(require_baseline(root)['required_skills']).issubset(
+                {c['name'] for c in components}),
             'legacy_receipt_migrated': old is not None and old.get('schema_version') != 3,
             'live_invocation_verified': False
         }
+    finally:
+        lock.unlink(missing_ok=True)
+
+
+
+def retire_optional_skills(repo_root, skills_root, home, host='codex'):
+    """Explicitly archive previously managed optional skills; never delete user data."""
+    root, skills, home = map(_path, (repo_root, skills_root, home))
+    plan = require_baseline(root)
+    required = set(plan['required_skills'])
+    optional = set(plan['optional_skills'])
+    state = _path(home / host_profiles.state_subdir(host))
+    receipt_file = state / 'receipt.json'
+    receipt = _read_receipt(receipt_file, root, skills)
+    if receipt is None or receipt.get('schema_version') != 3:
+        raise ValueError('A current managed receipt is required to retire optional skills')
+    old = {item['name']: item for item in receipt['components']}
+    if not required.issubset(old):
+        raise ValueError('Cannot retire skills from an incomplete core installation')
+    extras = sorted(set(old) - required)
+    if not extras:
+        return {'ready': True, 'archived_skills': [], 'changed': False}
+    if not set(extras).issubset(optional):
+        raise ValueError('Receipt includes non-baseline managed skills; manual reconciliation required')
+    lock = state / 'install.lock'
+    try:
+        fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    except FileExistsError as exc:
+        raise ValueError('An advisor installation is already in progress') from exc
+    os.close(fd)
+    archive = None
+    moved_skills, moved_snapshots = [], []
+    original = receipt_file.read_bytes()
+    try:
+        for name in old:
+            active = _path(skills / name)
+            snapshot = _path(state / 'snapshots' / name)
+            if not active.is_dir() or not snapshot.is_dir() or _files(active) != _files(snapshot):
+                raise ValueError('Managed skill is missing or modified; refusing retirement: ' + name)
+        archive_root = state / 'retired-optional'
+        archive_root.mkdir(parents=True, exist_ok=True)
+        archive = Path(tempfile.mkdtemp(prefix='retired-', dir=archive_root))
+        (archive / 'skills').mkdir()
+        (archive / 'snapshots').mkdir()
+        (archive / 'receipt-before.json').write_bytes(original)
+        for name in extras:
+            os.replace(skills / name, archive / 'skills' / name)
+            moved_skills.append(name)
+            os.replace(state / 'snapshots' / name, archive / 'snapshots' / name)
+            moved_snapshots.append(name)
+        updated = dict(receipt)
+        updated['components'] = [item for item in receipt['components'] if item['name'] in required]
+        updated['selected_names'] = [name for name in plan['required_skills']]
+        updated['optional_retired_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        _save_json(receipt_file, updated)
+        verified_receipt = _read_receipt(receipt_file, root, skills)
+        if (verified_receipt.get('selected_names') != plan['required_skills']
+                or {item['name'] for item in verified_receipt['components']} != required):
+            raise ValueError('Core receipt migration verification failed')
+        for name in required:
+            if _files(skills / name) != _files(state / 'snapshots' / name):
+                raise ValueError('Managed core skill was modified during migration: ' + name)
+        return {'ready': True, 'archived_skills': extras, 'changed': True,
+                'archive': str(archive), 'note': 'Archived optional skills only. Run --setup-workspace to freshly scan and update the three core skills; current core readiness is not implied.'}
+    except Exception:
+        receipt_file.write_bytes(original)
+        if archive is not None:
+            for name in reversed(moved_snapshots):
+                os.replace(archive / 'snapshots' / name, state / 'snapshots' / name)
+            for name in reversed(moved_skills):
+                os.replace(archive / 'skills' / name, skills / name)
+        raise
     finally:
         lock.unlink(missing_ok=True)
 
@@ -356,8 +438,11 @@ def check_bundle(repo_root, skills_root, home, host='codex'):
             if (_files(skills / c['name']) != c['installed_files'] or
                     _files(state / 'snapshots' / c['name']) != c['installed_files']):
                 raise ValueError('Installed skill differs from saved source: ' + c['name'])
+        required = set(require_baseline(root)['required_skills'])
         return {'ready': True, 'errors': [], 'components': list(indexed),
                 'full_bundle_ready': len(components) == len(manifest['components']),
+                'baseline_ready': required.issubset(indexed),
+                'extra_managed_skills': sorted(set(indexed) - required),
                 'live_invocation_verified': False}
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {'ready': False, 'errors': [str(exc)], 'live_invocation_verified': False}
