@@ -16,6 +16,32 @@ HIGH/CRITICAL, incomplete, suppressed, or failed scans cannot be approved.
 No approval history is stored. Review IDs are temporary integrity
 fingerprints, not approval records.
 
+## Agent-assisted setup
+
+A request to setup or update the workspace from this repository authorizes the
+assistant to register this local MCP and merge the settings below. The user does
+not need to copy commands or edit TOML. This exception covers only
+`skill_security`; other services retain their existing manual-setup rules.
+
+Inspect first and reuse an already-correct connection. Use the actual checkout
+path and an available Python executable. Keep a local backup before edits,
+preserve unrelated settings/comments and other servers, and avoid duplicate TOML
+headers. Preserve stricter existing per-tool prompts and respect enforced host
+policy. Explain the global impact of switching Codex to `on-request`.
+Validate the resulting configuration and registration without running the server
+script directly from an agent shell. Report configuration separately from live
+connection and approval enforcement. Never export raw device configuration.
+
+The assistant still cannot approve the hook or an installation for the user.
+After restart/reconnection, verify tool availability and have the user reject a
+permission request to confirm that no installation occurs. If the host cannot
+enforce human approval, stop the affected installation and use the documented
+human-operated terminal fallback.
+
+This is an agent-assisted setup instruction, not a new behavior of
+`setup.py --setup-workspace` or the read-only no-argument command. The commands
+below remain available for manual setup and are the agent's registration guide.
+
 ## Register on each device
 
 First update your repository, ensure SkillSpector and the existing host hook
