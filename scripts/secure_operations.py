@@ -216,7 +216,8 @@ def scan_skill(stage, scanner, expected_files):
                '--fail-on-incomplete', '--min-coverage', '100']
     environment = {**os.environ, 'LANGSMITH_TRACING': 'false', 'LANGCHAIN_TRACING_V2': 'false'}
     try:
-        result = subprocess.run(command, capture_output=True, text=True, timeout=300, env=environment)
+        # Full static scans may exceed five minutes; validate the completed report below.
+        result = subprocess.run(command, capture_output=True, text=True, env=environment)
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise ValueError('SkillSpector scan failed: ' + str(exc)) from exc
     if result.returncode not in (0, 1):
@@ -400,7 +401,7 @@ def _report_generic_repository(stage, scanner):
            '--fail-on-incomplete', '--min-coverage', '100']
     env = {**os.environ, 'LANGSMITH_TRACING': 'false', 'LANGCHAIN_TRACING_V2': 'false'}
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300, env=env)
+        result = subprocess.run(cmd, capture_output=True, text=True, env=env)
         report = json.loads(result.stdout)
     except (ValueError, OSError, subprocess.TimeoutExpired):
         return {'coverage': 'not-applicable', 'note': 'SkillSpector could not assess this non-skill repository'}
