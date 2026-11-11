@@ -25,7 +25,7 @@
     }
   ],
   "decision": {
-    "status": "source-updated-installed-update-blocked",
+    "status": "installed-verified",
     "changes": [
       "Frontload BUILD-FLOW routing and research-breadth versus selection-size distinction",
       "Require source coverage, per-job alternatives and honest reading depth before settled proposals",
@@ -35,8 +35,7 @@
     "not_changed": [
       "Security hook",
       "Ledger executable",
-      "Default baseline",
-      "Unrelated global instructions"
+      "Default baseline"
     ]
   },
   "evidence": [
@@ -84,6 +83,10 @@
     {
       "finding": "Native reviewed install returned: Update requires a previously controlled installation: tool-advisor. Existing installed bytes unchanged; no alternative overwrite attempted.",
       "classification": "activation blocker"
+    },
+    {
+      "finding": "Correct managed core bundle route completed after fresh review. Single-skill receipt mismatch was resolved by using the existing owning installer, not an unmanaged overwrite. Source and installed entrypoint hashes match; check-advisor ready=true, errors empty. Live invocation in a new chat remains unverified.",
+      "classification": "verified installation"
     }
   ],
   "feedback": [

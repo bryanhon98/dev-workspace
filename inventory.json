@@ -886,7 +886,7 @@
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "version": "1.0.0",
       "scope": "user",
-      "audit_status": "source-reviewed-medium-activation-blocked",
+      "audit_status": "reviewed-installed-windows",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/custom/tool-advisor",
@@ -899,7 +899,7 @@
         "accessible research checkout and web/GitHub discovery",
         "host worker tools for optional parallel execution"
       ],
-      "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
+      "setup_requirements": "Use the managed core bundle and fresh SkillSpector scan. LOW/SAFE without higher findings can activate; MEDIUM requires a real human native or terminal decision. HIGH/CRITICAL, failed, incomplete or changed payloads block activation. Restart session after updates.",
       "sha256": {
         "SKILL.md": "7927d443faf46559f589c9a7f782a26d3b26a4bdc7e510fbeb1b0945bd366f8e",
         "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
@@ -916,7 +916,7 @@
           "live_workflow_execution_verified": false
         }
       },
-      "note": "2026-11-12 discovery checkpoint source update; four isolated behavioral scenarios evaluated. Fresh scan MEDIUM. Single-skill updater refused existing installation without its controlled receipt. Installed payload unchanged; no completed update claimed."
+      "note": "2026-11-12: revised discovery checkpoint installed through the managed core bundle after fresh review. Source and installed entrypoint hashes match; check-advisor ready=true. Four fresh-context scenarios evaluated; new-session live invocation not yet observed."
     },
     {
       "name": "brainstorming",
