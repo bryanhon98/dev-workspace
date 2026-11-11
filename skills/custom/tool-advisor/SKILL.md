@@ -11,6 +11,8 @@ Coordinate a scoped task using verified capabilities and a durable record. The c
 
 ## Start or resume
 
+Read `knowledge/BUILD-FLOW.md` in the configured research checkout **before choosing a route or recommending tools**. Its host overrides govern this skill. For Full discovery or an explicit deep comparison, breadth applies to research; minimality applies only to the final selection. An installed match is not a stopping condition. Use the proposal checkpoint in [discovery.md](references/discovery.md) before presenting a settled recommendation.
+
 Locate the research checkout from the managed global instructions. Run the advisor installation check documented in that checkout's README; missing files or inaccessible research stay explicit gaps. Read the project ledger before planning resumed work. The bundled `scripts/ledger.py` is the local state tool; read [the command contract](references/ledger.md) before using it. The coordinator alone writes state. An existing project tracker remains the task source; link its IDs in task evidence.
 
 ## Interview
@@ -25,7 +27,7 @@ Use the supplied context to settle known branches. Ask about remaining decisions
 
 **Required skill: find-skills (Vercel).** Load it when entering discovery, then follow [the discovery contract](references/discovery.md). Search each necessary job across the repo, accessible installed capabilities and external sources. Read the full shortlisted instructions and supporting files at checked revisions. Source popularity and creator summaries are leads, not suitability verdicts. Repo review/install rules govern adoption.
 
-Present the task-to-role mapping, sources/revisions, readiness, overlap, costs and gaps. Save the brief, roles and dependency-aware task plan. Show the proposal digest and wait for the user's actual answer. Record that answer with `confirm`; a self-authored approval is invalid. Changes to scope or selected capabilities require a new proposal and confirmation.
+Present the task-to-role mapping, sources/revisions, readiness, overlap, costs and gaps, including the intended agent assignments and independent review. A role is not proof that an agent ran. Save the brief, roles and dependency-aware task plan. Show the proposal digest and wait for the user's actual answer. Record that answer with `confirm`; a self-authored approval is invalid. Changes to scope or selected capabilities require a new proposal and confirmation.
 
 ## Coordinate and verify
 

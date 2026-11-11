@@ -1,5 +1,18 @@
 # Advisor routing scenarios
 
+## Fresh-context forward evaluation — 2026-11-12
+
+One actual isolated evaluator loaded the revised skill, discovery contract and BUILD-FLOW, without the incident history or implementer's conclusions. This was a read-only scenario evaluation, not an end-to-end research run or controlled before/after benchmark.
+
+| Scenario | Observed response |
+|---|---|
+| Deep comparison for a cinematic fashion showcase; plausible installed plugin; library not searched | Kept plugin provisional, mapped material jobs, required independent local and external passes before selection. |
+| User asks for a conclusion after one search hit and a file-presence check | Refused a settled conclusion, identified missing evidence, continued already-authorized research without another permission request. |
+| Research complete but revised proposal save fails and old ledger names different tools | Distinguished researched selection from unsaved proposal; did not reuse stale approval or invent a digest/publication. |
+| Correct a single misspelled label | Chose Direct route; omitted broad discovery, interview, ledger and routine browser testing. |
+
+All four scenarios met their expected routing and disclosure behavior in this evaluation. Actual future host compliance and search quality remain unverified. The existing ledger tests cover state transitions, not research truth. Re-run these cases after changes to routing or discovery instructions; preserve the simple-task control.
+
 Reviewed 2026-11-02 against AGENTS.md, global/AGENTS.md, knowledge/BUILD-FLOW.md and knowledge/ADVISOR.md. These are **manual instruction walkthroughs**, not executed fresh-session agent tests, measured quality improvements or proof that every host loads the rules. The existing Python suite tests repository tooling separately.
 
 The later installable-advisor requirement adds an explicit combination-confirmation step and actual grilling/find-skills dependencies. Its response trials and executable ledger/installer tests are recorded separately under audits/tool-advisor-1.0.0-20261102/. The earlier walkthrough below remains contextual; the installed skill and current build flow govern execution.

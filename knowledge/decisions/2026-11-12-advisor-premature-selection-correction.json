@@ -1,0 +1,102 @@
+{
+  "id": "2026-11-12-advisor-premature-selection-correction",
+  "recorded_at": "2026-11-11T20:21:06.466224+00:00",
+  "task": "Diagnose and reduce premature skill selection across future sessions",
+  "constraints": [
+    "Preserve proportional Direct and Focused routing",
+    "No security bypass or silent skill activation",
+    "Keep existing working workflow"
+  ],
+  "device_alias": "windows-local",
+  "candidates": [
+    {
+      "identity": "existing custom Tool Advisor",
+      "official_source_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
+      "skill_path": "skills/custom/tool-advisor/SKILL.md",
+      "observed_revision": "c7199622be3af1853d0ea2d2ce1c5f6535f24673",
+      "upstream_revision": "c7199622be3af1853d0ea2d2ce1c5f6535f24673",
+      "checked_at": "2026-11-11T20:21:06.466224+00:00",
+      "review_depth": "Current entrypoint, discovery contract, routing policy, ledger implementation and installed entrypoint hash comparison",
+      "fit": "Keep and make proposal checkpoint prominent",
+      "overlap": "No replacement coordinator",
+      "prerequisites": "Fresh scan and human approval for MEDIUM before installed update",
+      "costs": "Normal host usage; one isolated evaluator",
+      "uncertainties": "Cannot guarantee all future sessions obey instructions"
+    }
+  ],
+  "decision": {
+    "status": "source-updated-installed-update-blocked",
+    "changes": [
+      "Frontload BUILD-FLOW routing and research-breadth versus selection-size distinction",
+      "Require source coverage, per-job alternatives and honest reading depth before settled proposals",
+      "Expose task-to-skill-to-agent assignments and independent verification",
+      "Disclose failed persistence and stale ledger without fabricated readiness"
+    ],
+    "not_changed": [
+      "Security hook",
+      "Ledger executable",
+      "Default baseline",
+      "Unrelated global instructions"
+    ]
+  },
+  "evidence": [
+    {
+      "finding": "Existing ADVISOR and discovery instructions already required both research passes and credible alternatives. The original recommendation did not satisfy that requirement.",
+      "classification": "observed process failure"
+    },
+    {
+      "finding": "Installed and repository Tool Advisor entrypoints matched before edits. Stale skill entrypoint is not the cause.",
+      "classification": "verified hash comparison"
+    },
+    {
+      "finding": "Global managed-rule check reports drift, but missing source paragraphs concern communication and MCP setup; discovery routing was present.",
+      "classification": "verified difference; not established as causal"
+    },
+    {
+      "finding": "Ledger validates roles/tasks/confirmation but does not validate evidence of discovery. It cannot authenticate research claims.",
+      "classification": "verified source behavior"
+    },
+    {
+      "finding": "Agent prioritized a minimal installed combination before completing breadth. This describes the observable decision error, not inaccessible internal model reasoning.",
+      "classification": "causal interpretation grounded in conversation"
+    },
+    {
+      "finding": "Security hook matches active-path text and mutation-like text across an entire command; this explains observed research-write/read false positives. It was not the cause of the earlier shallow selection and was not weakened.",
+      "classification": "source-backed secondary obstacle"
+    },
+    {
+      "finding": "One fresh evaluator handled four routing/disclosure scenarios correctly; no actual discovery or runtime task was performed by evaluator.",
+      "classification": "bounded forward evaluation",
+      "source": "tests/tool-advisor-scenarios.md"
+    },
+    {
+      "finding": "SkillSpector returned MEDIUM findings for undeclared file-write scope and autonomous-decision wording; no activation without actual human approval.",
+      "classification": "fresh scan result"
+    },
+    {
+      "finding": "Built-in quick_validate could not run under default Python because PyYAML is missing; no dependency installed silently.",
+      "classification": "validation limitation"
+    },
+    {
+      "finding": "Advisor unit suite: 29 tests, 26 passed, 1 skipped, 2 Windows symlink privilege errors before assertions. No ledger code was changed.",
+      "classification": "executed test results"
+    },
+    {
+      "finding": "Native reviewed install returned: Update requires a previously controlled installation: tool-advisor. Existing installed bytes unchanged; no alternative overwrite attempted.",
+      "classification": "activation blocker"
+    }
+  ],
+  "feedback": [
+    {
+      "type": "explicit-user",
+      "finding": "Requests underlying cause and persistent correction rather than another promise to follow instructions"
+    }
+  ],
+  "revisit_when": [
+    "A fresh session repeats premature selection",
+    "Proposal evidence is missing",
+    "Routing changes",
+    "Simple tasks acquire unnecessary discovery"
+  ],
+  "supersedes": []
+}

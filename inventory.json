@@ -886,7 +886,7 @@
       "github_url": "https://github.com/bryanhon98/dev-workspace/tree/main/skills/custom/tool-advisor",
       "version": "1.0.0",
       "scope": "user",
-      "audit_status": "packaged-requires-fresh-scan",
+      "audit_status": "source-reviewed-medium-activation-blocked",
       "restorable": true,
       "restore_method": "explicit-advisor-bundle",
       "bundle": "skills/custom/tool-advisor",
@@ -901,10 +901,10 @@
       ],
       "setup_requirements": "Use --setup-workspace: configure SkillSpector and hooks before scanning/installing the complete Advisor baseline; only SAFE/LOW complete scans activate skills. CAUTION/MEDIUM and higher findings block; file hashes are verified. Fresh host discovery required on each device. New upstream bytes or changed findings require staging and triage before activation.",
       "sha256": {
-        "SKILL.md": "fdd829b7cdf3fceacf7c7c46b23d9e17a40b2ae03b905e58ccb5b9bd779aec62",
+        "SKILL.md": "7927d443faf46559f589c9a7f782a26d3b26a4bdc7e510fbeb1b0945bd366f8e",
         "agents/openai.yaml": "06b3c88c0468e8fd2b8d422beac942b271eb164bb62ae123407eb7209788b38c",
-        "references/discovery.md": "980d39e15536aeeef315b2cf9395c729a6b8dba1d352cb019bdc1499749d8971",
-        "references/execution.md": "cfdee32d00c4cc4f250737e5a8195c526c1479ecc3a97b33f22375fb9b4443ba",
+        "references/discovery.md": "77cccf5c6ef27fbfacf768d06c7daa3b543062fc876bff1b91aa18a45c7bc687",
+        "references/execution.md": "ed3c55fa83d0ec97d95ed7bb96d26cf097ed2962765c64b360baf7002e6904be",
         "references/ledger.md": "eb37ca5efa9125e2801a60205f687d25031101afea21c0d596ce86c8efab8f7d",
         "scripts/ledger.py": "a0f017f4d0be64d949cc175e956725f0c891735144cff0d8b2fb8fbbd8cc62e9"
       },
@@ -915,7 +915,8 @@
           "version": "1.0.0",
           "live_workflow_execution_verified": false
         }
-      }
+      },
+      "note": "2026-11-12 discovery checkpoint source update; four isolated behavioral scenarios evaluated. Fresh scan MEDIUM. Single-skill updater refused existing installation without its controlled receipt. Installed payload unchanged; no completed update claimed."
     },
     {
       "name": "brainstorming",

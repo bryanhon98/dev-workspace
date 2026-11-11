@@ -1,5 +1,16 @@
 # Discovery and combination contract
 
+## Proposal checkpoint
+
+For Full discovery or an explicit deep comparison, do not present a settled shortlist until the actual research supports these four items:
+
+1. Each material job has alternatives examined, a proposed owner or explicit gap, and reasons for deferring credible alternatives. Research breadth is independent of the number selected.
+2. Both local and external passes have source-level evidence as defined below. Distinguish search hits, instructions actually read, and runtime trials. Missing or truncated reads cannot support a claim of full review.
+3. The response makes the work reviewable: task, selected skill/tool, why it won, readiness, intended agent assignment, dependencies and independent verification. Include the strongest relevant alternatives; a long name list is not a comparison.
+4. The saved proposal matches the displayed recommendation. If persistence fails, report the unsaved state and affected confirmation step. Do not call an old ledger current, manufacture a digest, or claim backup publication.
+
+If evidence is incomplete, continue authorized discovery or label the recommendation provisional with its specific gaps. Do not ask the user to repeat requirements or authorize research they already requested. The ledger validates structure and state, not research truth; passing it is not proof of this checkpoint. Direct tasks and Focused tasks without a discovery gap do not acquire this process.
+
 First load the complete installed `find-skills` skill. Use its discovery vocabulary and registry route. Its install/star-count preferences do not override task fit, evidence or the user's existing selections. Use public registry pages and available search/GitHub connectors, or an already reviewed pinned CLI. Its unpinned command examples are not authorization to execute a newly downloaded package. Each new skill still passes the repo's review and scanner requirements.
 
 Read the research checkout's advisor and routing documents. Search with `python3 scripts/knowledge.py search "term synonyms" --limit 30`, using several queries per job. This indexes the **Reels library, inventory, decisions, historical GitHub reviews and linked headings in all saved `github-repos/` category/research Markdown files**, including newer entries absent from `reviews.json`. Open each relevant result's `details` file; `knowledge.py show` supports individual Reel entities, not all GitHub records. Read relevant catalog reviews, then inspect relevant accessible installed skills and supporting files. Account-visible plugins, saved source, installed files and demonstrated runtime behavior are separate observations. Cloud access does not establish laptop state.
