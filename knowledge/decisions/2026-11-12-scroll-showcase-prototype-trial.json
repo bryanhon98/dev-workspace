@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-12",
+  "status": "bounded-prototype-verified",
+  "job": "Exact-asset scroll showcase prototype; one formation-to-product sequence before full cinematic production",
+  "user_decisions": [
+    "Approved two implementation agents followed by browser/performance testing and independent visual and code reviews",
+    "Approved replacing blocked frontend-design with installed Designly composition-director alongside brand-intelligence",
+    "Product and brand assets govern artwork; storyboard is atmosphere and narrative reference only"
+  ],
+  "components": [
+    {
+      "name": "Designly composition-director + brand-intelligence + visual-qa",
+      "version": "installed 4.4.0",
+      "source": "https://github.com/imMamdouhaboammar/designly",
+      "verification": "Full stage instructions loaded; existing plugin, no new plugin install"
+    },
+    {
+      "name": "gsap-core + gsap-timeline + gsap-scrolltrigger",
+      "source": "https://github.com/greensock/gsap-skills",
+      "revision": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "verification": "Controlled LOW/SAFE installation; complete installed bytes matched staged sources; implementation worker loaded all three"
+    },
+    {
+      "name": "animation-performance",
+      "source": "https://github.com/emilkowalski/skills",
+      "revision": "715c1807e08c497cfd1dc4feb450a2a3300ef2a9",
+      "verification": "Controlled LOW/SAFE installation; full instructions loaded by browser tester"
+    },
+    {
+      "name": "requesting-code-review",
+      "source": "https://github.com/obra/superpowers",
+      "version": "installed 7.0.1",
+      "verification": "Complete original review method loaded by a separate fresh-context reviewer; actual implementation commit and browser behavior inspected"
+    },
+    {
+      "name": "GSAP runtime and ScrollTrigger",
+      "version": "3.15.1",
+      "source": "https://registry.npmjs.org/gsap/-/gsap-3.15.1.tgz",
+      "verification": "Npm archive SHA512 integrity checked; browser files vendored with license banners; no install scripts"
+    }
+  ],
+  "blocked_candidate": {
+    "name": "frontend-design",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+    "reason": "Individual HIGH anti-refusal finding on UI-writing phrase Errors do not apologize (source contraction: Errors don't apologize). Overall low score did not override individual finding. Likely context false positive, but no bypass or activation."
+  },
+  "observations": [
+    "Native scroll and a single GSAP scrub timeline exercised without a smooth-scroll dependency",
+    "Actual source product and brand images preserved; procedural SVG element/thread effects are placeholders, not cinematic footage",
+    "Chromium wheel reversal, keyboard skip, settled direct hashes, reload, resize, live reduced motion and JavaScript/dependency failure fallbacks checked",
+    "1440x900,390x844,320x568,844x390 had no observed horizontal overflow or runtime exceptions",
+    "Isolated requestAnimationFrame samples during wheel scrolling had p95 about16.7ms at baseline and4x CPU throttle; this is not compositor or physical-phone proof",
+    "Independent fresh-context visual review found no critical/major blockers for bounded prototype; dim crossfade copy and tiny header tagline retained as minor polish notes",
+    "Independent fresh-context engineering review found a real 844x320 opening-copy overlap missed by earlier viewport coverage"
+  ],
+  "corrections": [
+    "Initial smooth-scroll hash test sampled before settling; settled navigation tests resolved the apparent fault",
+    "Initial frame sampler could overlap loops; token-isolated samples superseded those values",
+    "Exact image wordmark replaced typed substitute",
+    "Added short wide landscape copy treatment; coordinator assertions/screenshots and independent reviewer recheck passed opening/endpoints at844x320 and844x390"
+  ],
+  "limits": [
+    "No real phone, Safari, weak-GPU or120Hz validation",
+    "No paid video generated or measured; cannot compare video with code on this evidence",
+    "No production deployment",
+    "Final cinematic quality and full collection expansion remain separate"
+  ],
+  "future_reuse": "Use these results as scoped evidence, not proof this combination is universally best. Reassess media production if procedural effects do not meet visual expectations.",
+  "outcome": "Five real specialist workers ran sequentially: design, motion, browser/performance, independent visual and independent code. One responsive fault found by code review was corrected and independently rechecked. Ready for local user prototype review; full cinematic site remains future scope."
+}
