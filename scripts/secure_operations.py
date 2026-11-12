@@ -143,6 +143,14 @@ def _review_groups(issues):
     return list(groups.values())
 
 
+def _finding_location(issue):
+    location = issue.get('location')
+    if not isinstance(location, dict):
+        return '?'
+    return (_single_line(location.get('file', '?')) + ':' +
+            _single_line(location.get('start_line', '?'), 20))
+
+
 def approve_medium(review, trusted_core=False):
     """Ask for each attempt; no approval cache or automatic yes option.
 
@@ -233,7 +241,8 @@ def scan_skill(stage, scanner, expected_files):
     if (not isinstance(complete, dict) or complete.get('is_complete') is not True
             or complete.get('coverage_percent') != 100
             or not isinstance(metadata, dict) or metadata.get('llm_requested') is not False):
-        raise ValueError('Incomplete or non-static SkillSpector scan')
+        raise ValueError('Incomplete or non-static SkillSpector scan; completeness: ' +
+                         _single_line(json.dumps(complete), 1500))
     if (report.get('suppressed_count', 0) or report.get('suppressed', [])
             or report.get('execution_successful') is False):
         raise ValueError('Suppressed findings or unsuccessful scan are not allowed')
@@ -258,8 +267,14 @@ def scan_skill(stage, scanner, expected_files):
                   recommendation == 'DO_NOT_INSTALL' or
                   any(x['severity'] in ('HIGH', 'CRITICAL') for x in issues))
     if hard_block:
+        ordered = sorted(issues, key=lambda x: ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW').index(x['severity']))
+        omitted = max(0, len(ordered) - 20)
         raise ValueError('SkillSpector blocked high-risk skill: ' + stage.name +
-                         ' (' + severity + ', ' + recommendation + ')')
+                         ' (' + severity + ', ' + recommendation + '); ' +
+                         '; '.join(_single_line(x.get('id', '?')) + ' at ' +
+                                   _finding_location(x) + ': ' +
+                                   _issue_reason(x) for x in ordered[:20]) +
+                         ('; ' + str(omitted) + ' finding(s) omitted from summary' if omitted else ''))
     needs_review = (severity == 'MEDIUM' or recommendation == 'CAUTION' or
                     any(x['severity'] == 'MEDIUM' for x in issues))
     if needs_review:
@@ -395,6 +410,146 @@ def install_skill(source, skills_root, name, scanner=None, update=False,
 
 _GITHUB_URL = re.compile(r'^https://github[.]com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:[.]git)?/?$')
 
+
+def research_scan(url, scanner=None, retry=False, private_diagnostics=False):
+    """Preview public GitHub source; never create installation authorization.
+
+    The upstream URL resolver fetches a temporary checkout of the default
+    branch. It does not prove the exact revision or file manifest to us.
+    Retry once only when explicitly requested for an execution/transport error.
+    Parsed reports, including findings and incomplete coverage, are never retried away.
+    """
+    if not isinstance(url, str) or not _GITHUB_URL.fullmatch(url):
+        raise ValueError('Research requires an HTTPS GitHub repository URL without credentials or query')
+    scanner_info = scanner_executable(scanner)
+    command = [scanner_info['path'], 'scan', url, '--no-llm', '--format', 'json',
+               '--fail-on-incomplete', '--min-coverage', '100']
+    environment = {**os.environ, 'LANGSMITH_TRACING': 'false', 'LANGCHAIN_TRACING_V2': 'false'}
+    attempts = []
+    for _ in range(2 if retry else 1):
+        try:
+            result = subprocess.run(command, capture_output=True, text=True,
+                                    env=environment, timeout=600)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            diagnostic = {'status': 'execution-error', 'error_type': type(exc).__name__}
+            if private_diagnostics:
+                diagnostic.update({'private_error_excerpt': _single_line(exc, 1000),
+                                   'handling': 'private, unsanitized; inspect and redact before sharing'})
+            attempts.append(diagnostic)
+            continue
+        # Raw stderr can contain credentials or private paths. Categorize it
+        # without echoing it. Report findings below still require local review
+        # and sanitization before sharing because they can contain source text.
+        diagnostic = {'exit_code': result.returncode,
+                      'stderr_bytes': len(result.stderr.encode('utf-8')),
+                      'stderr_sha256': hashlib.sha256(result.stderr.encode('utf-8')).hexdigest()}
+        diagnostic['error_category'] = next(
+            (label for label, pattern in (
+                ('parser', r'parser|parse error|syntaxerror'),
+                ('timeout', r'timeout|timed out'),
+                ('network', r'connection|network|dns|resolve host'),
+                ('dependency', r'modulenotfound|importerror|not installed'),
+                ('permission', r'permission|access denied'))
+             if re.search(pattern, result.stderr, re.I)), 'unclassified')
+        if private_diagnostics:
+            diagnostic.update({'private_stderr_excerpt': _single_line(result.stderr, 1000),
+                               'handling': 'private, unsanitized; inspect and redact before sharing'})
+        try:
+            report = json.loads(result.stdout)
+        except (ValueError, TypeError):
+            if private_diagnostics:
+                diagnostic['private_stdout_excerpt'] = _single_line(result.stdout, 1000)
+            status = 'execution-error' if result.returncode not in (0, 1) else 'invalid-json'
+            attempts.append({'status': status, **diagnostic})
+            if status == 'execution-error':
+                continue
+            break
+        if not isinstance(report, dict):
+            attempts.append({'status': 'malformed-report', **diagnostic})
+            break
+        complete = report.get('analysis_completeness')
+        metadata = report.get('metadata')
+        issues = report.get('issues')
+        risk = report.get('risk_assessment')
+        diagnostic.update({'analysis_completeness': complete, 'risk_assessment': risk,
+                           'issues': issues, 'suppressed_count': report.get('suppressed_count'),
+                           'execution_successful': report.get('execution_successful')})
+        valid = (isinstance(issues, list) and isinstance(risk, dict) and
+                 risk.get('severity') in ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') and
+                 risk.get('recommendation') in ('SAFE', 'CAUTION', 'DO_NOT_INSTALL') and
+                 all(isinstance(x, dict) and x.get('severity') in
+                     ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for x in issues))
+        if not valid:
+            status = 'malformed-report'
+        elif (risk['severity'] in ('HIGH', 'CRITICAL') or risk['recommendation'] == 'DO_NOT_INSTALL'
+              or any(x['severity'] in ('HIGH', 'CRITICAL') for x in issues)):
+            status = 'blocked'
+        elif (not isinstance(complete, dict) or complete.get('is_complete') is not True
+              or complete.get('coverage_percent') != 100 or not isinstance(metadata, dict)
+              or metadata.get('llm_requested') is not False or report.get('suppressed_count', 0)
+              or report.get('suppressed', []) or report.get('execution_successful') is False):
+            status = 'incomplete'
+        elif result.returncode not in (0, 1):
+            status = 'execution-error'
+        elif (risk['severity'] == 'MEDIUM' or risk['recommendation'] == 'CAUTION'
+              or any(x['severity'] == 'MEDIUM' for x in issues)):
+            status = 'review-required'
+        elif result.returncode:
+            status = 'execution-error'
+        else:
+            status = 'preview-complete'
+        attempts.append({'status': status, **diagnostic})
+        # Any parsed report is evidence: keep it rather than retrying findings.
+        break
+    return {'purpose': 'research-only', 'url': url, 'scanner': scanner_info,
+            'verified_revision': None, 'install_eligible': False,
+            'status': attempts[-1]['status'], 'attempts': attempts,
+            'diagnostics': attempts[-1],
+            'next_step': 'Inspect source read-only. Installation still requires a complete local scan and exact-byte verification.'}
+
+
+def inspect_source(source):
+    """Bounded read-only inventory for triage, without importing target code.
+
+    Hashes identify the inspected files, not scanner coverage or safety. No
+    source contents are emitted; open specific files separately for review.
+    """
+    root = safe_path(source)
+    if not root.is_dir():
+        raise ValueError('Missing source directory')
+    files = []
+    total = 0
+    entries = 0
+    pending = [root]
+    while pending:
+        directory = pending.pop()
+        with os.scandir(directory) as children:
+            for child in children:
+                entries += 1
+                if entries > 10000:
+                    raise ValueError('Read-only inspection exceeds 10000 entries')
+                path = safe_path(child.path)
+                if path.is_dir():
+                    if path.name != '.git':
+                        pending.append(path)
+                    continue
+                if not path.is_file():
+                    raise ValueError('Unsupported source file')
+                digest = hashlib.sha256()
+                size = 0
+                with path.open('rb') as stream:
+                    for chunk in iter(lambda: stream.read(65536), b''):
+                        size += len(chunk)
+                        total += len(chunk)
+                        if total > 100 * 1024 * 1024:
+                            raise ValueError('Read-only inspection exceeds 100 MiB')
+                        digest.update(chunk)
+                files.append({'path': path.relative_to(root).as_posix(),
+                              'bytes': size, 'sha256': digest.hexdigest()})
+    return {'purpose': 'read-only-inventory', 'install_eligible': False,
+            'files': sorted(files, key=lambda x: x['path']),
+            'coverage': 'Inventory only; source behavior and scanner coverage remain unverified.'}
+
 def _report_generic_repository(stage, scanner):
     """Best-effort scan of a non-skill repo: never describe limited coverage as safe."""
     cmd = [scanner['path'], 'scan', str(stage), '--no-llm', '--format', 'json',
@@ -499,15 +654,29 @@ def main(argv=None):
     clone.add_argument('--url', required=True)
     clone.add_argument('--destination')
     clone.add_argument('--cwd', type=Path)
+    research = commands.add_parser('research', help='Research-only URL preview; never authorizes installation')
+    research.add_argument('--url', required=True)
+    research.add_argument('--retry', action='store_true', help='Retry one execution failure only')
+    research.add_argument('--private-diagnostics', action='store_true',
+                          help='Include bounded unsanitized error excerpts; keep output private')
+    inspect = commands.add_parser('inspect', help='Bounded read-only local source inventory')
+    inspect.add_argument('--source', type=Path, required=True)
     args = p.parse_args(argv)
     try:
         if args.action == 'install':
             outcome = install_skill(args.source, args.skills_root or
                                     host_profiles.default_skills_root(args.host),
                                     args.name, update=args.update)
-        else:
+        elif args.action == 'clone':
             outcome = clone_repository(args.url, args.destination, args.cwd)
+        elif args.action == 'research':
+            outcome = research_scan(args.url, retry=args.retry,
+                                    private_diagnostics=args.private_diagnostics)
+        else:
+            outcome = inspect_source(args.source)
         print(json.dumps(outcome, indent=2))
+        if args.action == 'research' and outcome['status'] != 'preview-complete':
+            return 1
         return 0
     except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
         print(str(exc), file=sys.stderr)

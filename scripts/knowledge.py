@@ -177,9 +177,15 @@ def decision_records(directory):
     records = []
     for path in sorted(directory.glob('*.json')):
         e = read_json(path)
-        records.append({'id': 'decision:' + e['id'], 'name': e['task'], 'collection': 'decisions',
-                        'evidence_status': 'task-specific-decision; recheck-applicability',
-                        'purpose': e['task'], 'recorded_at': e['recorded_at'],
+        # Older outcome notes use job/date. Preserve those bytes and expose
+        # their schema gap instead of losing all search results to one note.
+        task = e.get('task') or e.get('job') or path.stem
+        status = 'task-specific-decision; recheck-applicability'
+        if not all(e.get(key) for key in ('id', 'task', 'recorded_at')):
+            status += '; legacy-schema'
+        records.append({'id': 'decision:' + (e.get('id') or path.stem), 'name': task, 'collection': 'decisions',
+                        'evidence_status': status,
+                        'purpose': task, 'recorded_at': e.get('recorded_at'),
                         'details': 'knowledge/decisions/' + path.name,
                         '_text': json.dumps(e, ensure_ascii=False)})
     return records

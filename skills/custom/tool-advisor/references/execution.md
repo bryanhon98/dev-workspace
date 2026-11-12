@@ -2,9 +2,9 @@
 
 ## Readiness and task ownership
 
-Read the confirmed brief, proposal and ledger before doing work. Resolve missing selected skills and tools using the repo's installation rules and current device inspection. A scanner exception applies only to the specific approved content/findings. Record availability evidence after checking actual files, supported invocation and required tools; state unperformed runtime checks explicitly. An instruction file alone cannot make a renderer, browser, account connector or model available.
+Read the confirmed brief, proposal and existing task record before doing work. Resolve missing selected skills and tools using the repo's installation rules and current device inspection. MEDIUM approval applies only to the exact reviewed payload; HIGH/CRITICAL and incomplete scans remain blocked. Record availability evidence after checking actual files, supported invocation and required tools; state unperformed runtime checks explicitly. An instruction file alone cannot make a renderer, browser, account connector or model available.
 
-Before dispatching a worker, start its task in the ledger with the actual actor identity. When a worker ID is only known after creation, record a unique intended assignment, then update the report with the returned worker ID before relying on its result. The coordinator controls the shared plan; workers return reports and work only within their assigned scope. Use independent workers only for independent tasks with non-overlapping write ownership. Serialize shared-file changes and dependent work. Use the host's limits and permission boundaries.
+Record each worker assignment in the existing task record (the ledger only when selected under BUILD-FLOW). When a worker ID is only known after creation, record a unique intended assignment, then update the report with the returned worker ID before relying on its result. The coordinator controls the shared plan; workers return reports and work only within their assigned scope. Use independent workers only for independent tasks with non-overlapping write ownership. Serialize shared-file changes and dependent work. Use the host's limits and permission boundaries.
 
 Every worker brief contains:
 

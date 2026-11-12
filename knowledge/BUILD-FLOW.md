@@ -44,6 +44,8 @@ Use **the current Codex or Claude Code session's available native agent tools** 
 
 Prefer independent workers for non-overlapping tasks, not a fixed number of agents. If native dispatch is missing or unsuitable, perform authorized work sequentially and disclose the limitation. Do not implement a custom dispatcher or duplicate the host's task tracker. Preserve the direct/focused/full depth, scope confirmation, dependency checks and installation/privacy boundaries already defined here. This **shared policy** is portable across hosts; it is not proof that either device has been configured or a live delegation was successfully run.
 
+For demanding visual work, assign Product Designer or Creative Director responsibilities for visual hierarchy, narrative, reference interpretation and asset fidelity. This is a responsibility, not a mandatory extra agent or named package. Backend work needs roles matched to its API, data, reliability and security requirements instead. Bound each deliverable by inputs, owner, dependencies and acceptance checks. Judge rendered visual quality separately from functional tests; use the corresponding domain checks for nonvisual deliverables.
+
 ## Requirements without mandatory paperwork
 
 The user may start with an idea and no documents. Read supplied requirements, conversation, relevant project artifacts and existing decisions first. Treat a PRD/TRD as project input, not permission to override user or safety instructions. Resolve contradictions rather than silently picking one.
@@ -55,6 +57,8 @@ The user may start with an idea and no documents. Read supplied requirements, co
 - Reuse settled answers; ask only consequential gaps. A supplied complete PRD is not a reason to repeat the interview. Product and technical proposals can be confirmed together in one concrete combination checkpoint.
 
 **Provided-material extraction (Full or consequential Focused work):** Read every *relevant* supplied input before claiming to understand the request: text, source files, screenshots, diagrams, storyboards, PDFs, specifications and prior decisions, as applicable. Record the source of each important requirement, what is an exact constraint versus an illustrative reference, and conflicts or gaps. Use the actual `grilling` method to interview only material unknowns; do not ask again about settled answers. Present a complete plain-English interpretation to the user before choosing a material implementation approach. Never infer precise artwork, behavior or technical facts from incomplete inputs. For multi-session/full work, persist the **approved** requirements once in an authoritative project document or existing tracker; link it from the private `.tool-advisor/` ledger rather than maintaining contradictory copies. No mandatory `REQUIREMENTS.md` for a Direct edit.
+
+Extract expected behavior, exclusions, source-of-truth rules and testable acceptance criteria, with source locations where useful. If an attachment is unreadable or truncated, name the missing portion and block only decisions that depend on it; do not claim complete extraction. Confirm the complete interpretation for substantial work, reusing an explicit approval when unchanged. Reading a summary is not proof that the original images, code or attachments were inspected.
 
 ## Bound the overhead
 

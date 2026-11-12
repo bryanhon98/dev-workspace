@@ -19,6 +19,23 @@ Use these as **test scenarios**, not as a claim that they have already passed. F
 
 For each run record: case ID, tested revision/host, inputs, observed result, pass/fail, artifacts or commands, limitations, and comparison with the baseline. A written expectation is not an executed test.
 
+### PR #14 fresh-context scenario run, 2026-11-12
+
+Actual native worker `/root/workflow_evaluation` was started without conversation history. It manually loaded the complete Tool Advisor entrypoint and discovery/execution references, plus relevant BUILD-FLOW/ADVISOR rules. It compared `origin/main` at `a1d19d5` with the PR working tree over `3623073`. This was a same-worker, unblinded comparison of **model-generated decisions**, not application execution or a controlled outcome benchmark. No Grilling, Find Skills, rendering or implementation run is claimed.
+
+| Case | Concrete input and observed decision | Result and baseline comparison |
+|---|---|---|
+| W1 | Gothic book showcase, formation-to-shirt reveal, authoritative product artwork, unaligned shirt views, smooth chapters, Unassigned label, Instagram ending; half the attachment unreadable. Extracted known requirements, asked only for missing scenes, blocked only dependent decisions. | Scenario pass. Baseline also defers unknowns; candidate states missing-input and source-authority limits more explicitly. No original images were provided to this evaluator. |
+| W2 | Approved Spring Boot 3 / Java 21 GET `/products/{id}`, UUID/name/decimal price, PostgreSQL, explicit 404 JSON, existing JUnit/Testcontainers, no UI/auth changes. Chose Focused, reused approval, planned existing Spring/JPA flow and present/missing-product tests. | Scenario pass; zero questions. Same result under baseline; no Spring application built. |
+| W3 | Change only HTML button text Savee to Save. Chose Direct, targeted edit/diff check, no interview, discovery, ledger or team. | Scenario pass; zero questions. Same baseline result; no HTML fixture edited. |
+| W4 | UX/motion/asset/QA comparison; one installed-plugin inventory hit; skills.sh unavailable; other sources unsearched. Kept candidate provisional, required per-job alternatives, local and accessible external coverage, exact source reads and explicit outage. | Scenario pass. Same baseline result; no live external discovery or verified outage. |
+| W5 | Independent research A/B; design -> animation -> QA; design unapproved; skills readable but workers not launched. Allowed bounded research in parallel; kept implementation dependent on confirmation and agreed design. Required real actor and skill-loading evidence. | Scenario pass. Candidate permits early research workers; baseline keeps research with coordinator until confirmation. No scenario workers launched and no measured speed gain. |
+| W6 | Functional tests pass; garment reported flat/jerky versus approved physical inspection. Refused visual completion; required rendered comparison and motion observation, noting a still cannot prove jerkiness. | Scenario pass. Same baseline result; no frames or browser inspected. |
+| W9 | One missed Nullement storyboard leads to mandatory storyboards for backend projects. Rejected global requirement; scoped visual checks and required evidence plus fresh review for shared changes. | Scenario pass. Baseline also rejects overgeneralization; candidate adds explicit adoption gate. |
+| W10 | Proposed global rule on hypothetical host lacking independent workers. Marked review blocked, proposal unmerged/inactive; did not simulate independent approval. | Scenario pass. Candidate explicitly blocks global adoption; actual evaluation host did support workers. |
+
+These results support routing clarity, not a demonstrated reduction in project failures. The motivating discovery rules already existed; they had not been followed. W7/W8 require executable security tests and diagnostic evidence, recorded with final PR validation. Future hosts, real mixed-format extraction, full discovery quality and creative acceptance remain unverified by this run.
+
 ## Acceptance for a reusable change
 
 The change must correct its motivating failure, pass relevant unrelated cases, preserve existing security/user approvals, and have an actual independent fresh-context review. If evidence is inconclusive, keep the narrower project-level fix or leave the proposal unmerged.

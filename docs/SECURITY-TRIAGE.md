@@ -4,13 +4,25 @@ This is a **diagnosis and review procedure**, not an alternate installer. `scrip
 
 ## Two different scan purposes
 
-**Research preview:** SkillSpector accepts a public Git repository URL directly, for example:
+**Research preview:** Use the research-only wrapper for a public GitHub repository:
 
 ```sh
-skillspector scan https://github.com/OWNER/REPOSITORY --no-llm --format json
+python scripts/secure_operations.py research --url https://github.com/OWNER/REPOSITORY
 ```
 
-SkillSpector retrieves a temporary copy of the remote source to analyze it. "No manual clone" does **not** mean it can analyze code without obtaining its bytes. Confirm the checked commit or immutable tag; a scan of a moving default branch is not an installation authorization.
+The wrapper uses SkillSpector's URL input with static analysis, full-coverage options and a ten-minute process timeout. It does not install or release a checkout. Every result has `install_eligible: false` and `verified_revision: null`: this URL preview cannot establish the exact checked commit or local file manifest. A successful preview exits zero; blocked, incomplete, malformed and failed previews exit one. A MEDIUM/CAUTION preview reports `review-required` without requesting or granting installation approval.
+
+SkillSpector retrieves temporary source bytes internally. "No manual clone" does **not** mean no download. The wrapper accepts only plain HTTPS GitHub repository URLs, without credentials, queries or tree paths. The installed NVIDIA version is v2.12.0 from `ea5aeef6b05c593959ad2125c09a528ffa5c55c9`. Its `InputHandler._github_tree_target` resolves advertised branches/tags, not arbitrary commit-SHA tree URLs; do not describe a branch/tag URL as an exact install pin. The current upstream input handler was also inspected at `3c2c5d7a1ee148d228398070b91d3beaf0d73b11` on 2026-11-12. No scanner update was performed.
+
+Use `--retry` only after identifying a plausible transient execution failure. It permits one additional attempt, with the same options; parsed reports, findings and incomplete coverage are never retried away. The summary preserves each attempt, exit code, error category, stderr byte count and digest. For diagnosis that needs the original error, `--private-diagnostics` includes control-character-stripped error/stdout excerpts capped at 1,000 characters each. These excerpts are explicitly private and unsanitized; inspect and redact them before sharing. Report findings and completeness details can also contain source text or paths, even without this flag.
+
+For an already available local payload, create a read-only inventory:
+
+```sh
+python scripts/secure_operations.py inspect --source PATH_TO_STAGED_PAYLOAD
+```
+
+This command hashes files without importing or executing source code. It skips Git metadata and stops above 10,000 entries or 100 MiB of file data. It does not clone, install, modify the payload, prove scanner coverage or certify behavior. Read the relevant source files separately to investigate imports, process/network access and parser errors. Keep private paths and source findings out of published reports.
 
 **Installation review:** Stage the exact selected skill files outside active skill directories. Run the complete local scan, compare the scanner's component paths against the expected file manifest, and verify the same bytes during installation. Do not substitute a prior URL preview for this verification.
 
@@ -40,3 +52,11 @@ If the scanner cannot verify the exact install payload, stop installation. Users
 `--no-llm` skips optional content submission to an AI analysis provider. NVIDIA's documentation states that the SC4 supply-chain check still sends dependency names and versions to OSV.dev when reachable. SkillSpector never executes the scanned skill. It is static analysis, **not** a runtime sandbox, malware-free guarantee or general repository audit.
 
 Source: [NVIDIA SkillSpector README](https://github.com/NVIDIA/SkillSpector#basic-usage), including its input, completeness and trust-model descriptions.
+
+Verified source: [pinned input handler](https://github.com/NVIDIA/skillspector/blob/ea5aeef6b05c593959ad2125c09a528ffa5c55c9/src/skillspector/input_handler.py) and [current checked input handler](https://github.com/NVIDIA/skillspector/blob/3c2c5d7a1ee148d228398070b91d3beaf0d73b11/src/skillspector/input_handler.py). HIGH/CRITICAL installation diagnostics show triggering findings first, with source file and line from the scanner's `location` object; summaries show at most 20 findings and explicitly count omissions. They do not downgrade or suppress any finding.
+
+## Confirmed hook false positives and current limit
+
+The existing hook searches complete patch content for active-directory paths and shell text for the security-server module name. A documentation-only test patch to a file under `tests/` was rejected twice, including in an isolated worktree, with `Direct patching of active skill/plugin directories is blocked`. The path appeared only in a regression fixture. Source inspection also establishes that a literal read of the server source is classified as invocation. These are hook-classification problems, not SkillSpector findings.
+
+The affected hook/test edits remain blocked and unapplied. No encoding workaround, hook disablement or host-configuration change was used. The minimal proposed correction is to classify patch destination headers independently from added prose, and to recognize only narrowly parsed literal read-only shell commands while retaining blocks for compound commands, command substitution, direct execution and installation. That correction still needs an authorized editing path, regression tests and independent review before activation.

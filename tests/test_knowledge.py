@@ -111,6 +111,23 @@ class KnowledgeTests(unittest.TestCase):
             self.assertEqual(records[0]['id'], 'decision:demo')
             self.assertEqual(records[0]['evidence_status'], 'task-specific-decision; recheck-applicability')
 
+    def test_legacy_decision_is_searchable_without_invented_timestamp(self):
+        spec = importlib.util.spec_from_file_location('knowledge', SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            (base / 'legacy.json').write_text(json.dumps({
+                'job': 'Exact artwork prototype', 'date': '2026-11-12',
+                'observations': ['Independent review found a responsive defect']}))
+            entry = module.decision_records(base)[0]
+            self.assertEqual(entry['id'], 'decision:legacy')
+            self.assertEqual(entry['name'], 'Exact artwork prototype')
+            self.assertIsNone(entry['recorded_at'])
+            self.assertIn('legacy-schema', entry['evidence_status'])
+            self.assertIn('responsive defect', entry['_text'])
+            self.assertEqual(entry['details'], 'knowledge/decisions/legacy.json')
+
     def test_show_preserves_full_original_entity_and_source_gaps(self):
         result = self.run_cli('show', 'claude-code')
         raw = json.loads((ROOT / 'knowledge/reel-library/imports/2026-11-01-meta/entities.json').read_text())
