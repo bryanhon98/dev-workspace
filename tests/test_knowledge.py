@@ -113,6 +113,25 @@ class KnowledgeTests(unittest.TestCase):
             self.assertEqual(records[0]['id'], 'decision:demo')
             self.assertEqual(records[0]['evidence_status'], 'task-specific-decision; recheck-applicability')
 
+    def test_project_note_without_formal_decision_fields_is_searchable(self):
+        spec = importlib.util.spec_from_file_location('knowledge', SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / '2026-11-12-scroll-showcase-prototype-trial.json').write_text(
+                json.dumps({'date': '2026-11-12',
+                            'job': 'Scroll showcase prototype',
+                            'status': 'bounded-prototype-verified'}),
+                encoding='utf-8')
+            entries = module.decision_records(folder)
+            self.assertEqual(len(entries), 1)
+            self.assertEqual(entries[0]['id'],
+                             'decision:2026-11-12-scroll-showcase-prototype-trial')
+            self.assertEqual(entries[0]['name'], 'Scroll showcase prototype')
+            self.assertEqual(entries[0]['recorded_at'], '2026-11-12')
+            self.assertIn('saved-project-note', entries[0]['evidence_status'])
+
     def test_show_preserves_full_original_entity_and_source_gaps(self):
         result = self.run_cli('show', 'claude-code')
         raw = json.loads((ROOT / 'knowledge/reel-library/imports/2026-11-01-meta/entities.json').read_text())
