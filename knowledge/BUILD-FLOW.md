@@ -2,7 +2,7 @@
 
 This flow applies to software, research, design, media, business and automation. The current assistant coordinates it through the installable [tool-advisor skill](../skills/custom/tool-advisor/SKILL.md). Its core dependencies are Matt Pocock's `grilling` interview and Vercel's `find-skills` discovery skill. A source review or mention of a skill is not execution: load its complete instructions or use the host's supported invocation and state which happened.
 
-The interview has an explicit host adaptation: the coordinator performs factual lookups before confirmation. Matt's original instruction to delegate that research does not automatically launch workers here. Execution workers start after the combination is confirmed; a host without worker tools uses sequential coordination.
+The interview has an explicit host adaptation: the coordinator performs factual lookups needed to resolve user requirements. Matt's original instruction to delegate that research does not automatically launch workers here. For a Full task, the coordinator **may** dispatch bounded, read-only discovery workers before combination confirmation when the real host supports them and the research scope is known; they may search and inspect sources but not install, activate, modify project code, access unrelated private data or incur unapproved costs. Record which workers actually ran and integrate their source evidence. Implementation workers still start only after the concrete combination is confirmed; a host without worker tools uses sequential research and execution.
 
 ## Authority and proportional routing
 
