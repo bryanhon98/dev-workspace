@@ -13,6 +13,7 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Design references](references/design.md) | Awesome Design MD; Meta Astryx (React design system) |
 | [Development plugins](plugins/development.md) | Claudex Loop |
 | [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
+| [Local generative-media applications](tools/local-media-generation.md) | WanGP / Wan2GP — optional local AI video, image, audio and 3D runtime (not a skill) |
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
 | [Design-inspiration MCP tools](mcp/design-inspiration.md) | Awwwards MCP — site reference, motion and optional browser evidence (not a skill) |
 | [Model routing software](tools/model-routing.md) | Claude Code Router |
@@ -20,6 +21,10 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
 
 ## Later user-saved library additions
+
+**13 November 2026 — WanGP:** [WanGP / formerly Wan2GP](tools/local-media-generation.md#wangp-formerly-wan2gp--deepbeepmeep) saved as an optional **local generative-media application**, not a skill or default installation. It supports model-dependent video/image/audio/3D generation with an optional MCP/API interface. Record includes its **custom community license**, GPU/VRAM and setup constraints, source revision and security considerations. The user did not request an installation or host integration; none was performed. The three mandatory Tool Advisor skills, `inventory.json` and device setup remain unchanged.
+
+
 
 **10 November 2026 — Instagram product-design Reel:** [five newly verified skill candidates](skills/design.md#stageshow--benji-taylor) (Stageshow, Impeccable, Dimensional Drawing, Oil UI and Brand Identity) and [one MCP research candidate](mcp/design-inspiration.md#awwwards-mcp--insane0777) added to the existing library. **Emil Kowalski's motion subset and the Taste family were already saved**, so no duplicate catalog items or automatic changes to the user's prior Taste child-skill selection were made. Impeccable's documented sandbox/permission-bypass fallback is a **material security blocker for a default install**; the MCP is a separate executable integration and also requires its own approval. No skills or MCP servers were installed, executed, security scanned, enabled or added to the three-skill Tool Advisor baseline.
 

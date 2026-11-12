@@ -177,9 +177,17 @@ def decision_records(directory):
     records = []
     for path in sorted(directory.glob('*.json')):
         e = read_json(path)
-        records.append({'id': 'decision:' + e['id'], 'name': e['task'], 'collection': 'decisions',
-                        'evidence_status': 'task-specific-decision; recheck-applicability',
-                        'purpose': e['task'], 'recorded_at': e['recorded_at'],
+        if not isinstance(e, dict):
+            raise ValueError('Decision note must be a JSON object: ' + path.name)
+        # Historical project notes can use 'job'/'date' without a formal decision ID.
+        record_id = e.get('id') or path.stem
+        task = e.get('task') or e.get('job') or path.stem.replace('-', ' ')
+        recorded_at = e.get('recorded_at') or e.get('date')
+        records.append({'id': 'decision:' + record_id, 'name': task, 'collection': 'decisions',
+                        'evidence_status': 'task-specific-decision; recheck-applicability'
+                        if e.get('id') and e.get('task') and e.get('recorded_at')
+                        else 'saved-project-note; recheck-applicability',
+                        'purpose': task, 'recorded_at': recorded_at,
                         'details': 'knowledge/decisions/' + path.name,
                         '_text': json.dumps(e, ensure_ascii=False)})
     return records
