@@ -56,7 +56,9 @@ class KnowledgeTests(unittest.TestCase):
                             ('dimensional', 'enesozturk/dimensional-drawing'),
                             ('oil-ui', 'oil-oil/oil-ui'),
                             ('brand identity', 'fatihaydost/brand-identity-skill'),
-                            ('awwwards-mcp', 'insane0777/awwwards-mcp')]:
+                            ('awwwards-mcp', 'insane0777/awwwards-mcp'),
+                            ('wangp', 'deepbeepmeep/wangp'),
+                            ('wan2gp', 'deepbeepmeep/wangp')]:
             with self.subTest(query=query):
                 result = self.run_cli('search', query, '--limit', '100')
                 matches = [entry for entry in result['results']
