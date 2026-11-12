@@ -191,6 +191,8 @@ python scripts/secure_operations.py clone --url https://github.com/owner/repo.gi
 
 The worker clones to a temporary directory, identifies agent skills, invokes SkillSpector for each staged skill, and releases the checkout only when applicable checks pass. If no `SKILL.md` is found, the worker *attempts* a general-repo SkillSpector scan and reports limited/not-applicable coverage. This **does not certify arbitrary source code as harmless**. Complex Git commands, non-GitHub URLs and compound shell syntax are blocked with guidance rather than silently executed. User-run external terminal clones are not intercepted.
 
+For scanner errors, ambiguous HIGH findings, incomplete coverage and read-only source review, follow the [fail-closed triage procedure](SECURITY-TRIAGE.md). It improves diagnostic evidence; it does **not** authorize an installation bypass or replace the exact-file scan.
+
 ## Required live tests and limitations
 
 1. Start a **new** Codex/Claude session and inspect hook registration.
