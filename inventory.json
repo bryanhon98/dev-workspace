@@ -1368,6 +1368,20 @@
           "live_workflow_execution_verified": false
         }
       }
+    },
+    {
+      "name": "myoffice",
+      "kind": "skill",
+      "source": "https://github.com/bryanhon98/whatsmyagentdoing",
+      "version": "cc4b553f75263bd2ecf6ce346f8a32361a93c8f6",
+      "scope": "user",
+      "audit_status": "manual-triage-installed",
+      "restorable": true,
+      "restore_method": "git-clone",
+      "note": "Installed via manual triage after SkillSpector scan remained incomplete (62.3%). Scanner bugfix applied (glTF magic in artifacts.py). Self-update not yet scan-verified.",
+      "purpose": "Live dashboard of what every agent on this machine is doing",
+      "setup_requirements": "Node 18+; runs via node \"<base>/bin/cli.js\" in background",
+      "github_url": "https://github.com/bryanhon98/whatsmyagentdoing"
     }
   ]
 }
