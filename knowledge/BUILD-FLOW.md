@@ -30,6 +30,14 @@ Distinguish **product/strategic planning** (who, what, why, outcomes and trade-o
 
 ## Host-neutral skill-to-agent execution
 
+### Reviewable combination proposal
+
+Whenever a combination is proposed, present it in a detailed table the user can review. Use these columns: **Agent / responsible role**, **Concrete task**, **Exact skills**, **Tools / libraries / services**, and **Deliverable**. Include the coordinator and independent reviewers when applicable. A sequential task can name the coordinator as its owner; do not invent agents or add skills to fill cells. Use `none needed` or `unverified` where accurate.
+
+Follow the main table with a short execution-order/dependency outline and the checks that determine whether each deliverable is acceptable. Show readiness, missing installations, authentication, costs, and unresolved gaps in a companion table or concise notes so the main table stays readable. Explain why the chosen combination fits and why the strongest alternatives were deferred. Link exact sources/revisions where discovery requires them. State whether agents are planned or actually running, and verify skill loading during execution.
+
+Use plain, ASD-STE100-inspired language without cutting important details or changing specialist methods. This is the presentation contract for an actual combination proposal, not a reason to turn a Direct edit or explanation into a multi-agent project.
+
 Once a task's required skill combination is selected and confirmed under the route above, map each needed job to an accountable specialist and its **base instructions plus task-specific skills**. The coordinator remains the only project manager: it selects workers, assigns bounded responsibilities and integrates their outputs. A skill is instructions; a role is a responsibility; neither guarantees a running agent.
 
 Use **the current Codex or Claude Code session's available native agent tools** to dispatch workers. Check what that host actually supports and whether agents, permissions and selected skill sources are accessible there. Explicitly instruct each worker to invoke its assigned skill or load its full installed instructions; verify actual invocation/loading rather than assuming that a role name or a configuration field injected a skill. The [execution contract](../skills/custom/tool-advisor/references/execution.md#native-host-delegation-and-skill-binding) defines the worker brief and evidence requirements.
