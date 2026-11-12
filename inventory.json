@@ -445,18 +445,23 @@
     {
       "name": "animation-performance",
       "kind": "skill",
-      "source": "https://github.com/emilkowalski/skills",
-      "github_url": "https://github.com/emilkowalski/skills",
-      "version": "2d228630ba1446365f614a108cb8252f1feda202",
+      "source": "https://github.com/emilkowalski/skills/tree/715c1807e08c497cfd1dc4feb450a2a3300ef2a9/skills/animation-performance",
+      "github_url": "https://github.com/emilkowalski/skills/tree/715c1807e08c497cfd1dc4feb450a2a3300ef2a9/skills/animation-performance",
+      "version": "715c1807e08c497cfd1dc4feb450a2a3300ef2a9",
       "scope": "user",
       "purpose": "animation performance",
-      "audit_status": "observed-installed-pending-security-review",
-      "restorable": false,
-      "restore_method": "agent-reviewed-source",
+      "audit_status": "reviewed-installed-windows",
+      "restorable": true,
+      "restore_method": "fresh-scan-before-install",
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
+      "setup_requirements": "Fresh complete static SkillSpector scan before restoration. GSAP runtime is a separate dependency. No paid account required.",
+      "bundle": "skills/external/pinned/animation-performance/715c1807e08c497cfd1dc4feb450a2a3300ef2a9",
+      "sha256": {
+        "LICENSE": "4ff5bdb7887ec1435c9cab0e8d1a7caee704d894d65c2a008ccc68b1cc2f260b",
+        "SKILL.md": "6c60f45ab416ff3f7d7765a5427beead77fab0d82487fe610d2a298397558d0a"
+      }
     },
     {
       "name": "apple-design",
@@ -509,18 +514,23 @@
     {
       "name": "gsap-core",
       "kind": "skill",
-      "source": "https://github.com/greensock/gsap-skills",
-      "github_url": "https://github.com/greensock/gsap-skills",
+      "source": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-core",
+      "github_url": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-core",
       "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
       "scope": "user",
       "purpose": "gsap core",
-      "audit_status": "observed-installed-pending-security-review",
-      "restorable": false,
-      "restore_method": "agent-reviewed-source",
+      "audit_status": "reviewed-installed-windows",
+      "restorable": true,
+      "restore_method": "fresh-scan-before-install",
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
+      "setup_requirements": "Fresh complete static SkillSpector scan before restoration. GSAP runtime is a separate dependency. No paid account required.",
+      "bundle": "skills/external/pinned/gsap-core/aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sha256": {
+        "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+        "SKILL.md": "3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3"
+      }
     },
     {
       "name": "gsap-frameworks",
@@ -589,34 +599,44 @@
     {
       "name": "gsap-scrolltrigger",
       "kind": "skill",
-      "source": "https://github.com/greensock/gsap-skills",
-      "github_url": "https://github.com/greensock/gsap-skills",
+      "source": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-scrolltrigger",
+      "github_url": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-scrolltrigger",
       "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
       "scope": "user",
       "purpose": "gsap scrolltrigger",
-      "audit_status": "observed-installed-pending-security-review",
-      "restorable": false,
-      "restore_method": "agent-reviewed-source",
+      "audit_status": "reviewed-installed-windows",
+      "restorable": true,
+      "restore_method": "fresh-scan-before-install",
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
+      "setup_requirements": "Fresh complete static SkillSpector scan before restoration. GSAP runtime is a separate dependency. No paid account required.",
+      "bundle": "skills/external/pinned/gsap-scrolltrigger/aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sha256": {
+        "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+        "SKILL.md": "9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
+      }
     },
     {
       "name": "gsap-timeline",
       "kind": "skill",
-      "source": "https://github.com/greensock/gsap-skills",
-      "github_url": "https://github.com/greensock/gsap-skills",
+      "source": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-timeline",
+      "github_url": "https://github.com/greensock/gsap-skills/tree/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-timeline",
       "version": "aed9cfd3277740755f6bfc1155c7aa645403b760",
       "scope": "user",
       "purpose": "gsap timeline",
-      "audit_status": "observed-installed-pending-security-review",
-      "restorable": false,
-      "restore_method": "agent-reviewed-source",
+      "audit_status": "reviewed-installed-windows",
+      "restorable": true,
+      "restore_method": "fresh-scan-before-install",
       "required_tools": [
         "skillspector"
       ],
-      "setup_requirements": "Stage exact source, review dependencies and scan before restoration. Current observed install does not certify security."
+      "setup_requirements": "Fresh complete static SkillSpector scan before restoration. GSAP runtime is a separate dependency. No paid account required.",
+      "bundle": "skills/external/pinned/gsap-timeline/aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sha256": {
+        "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+        "SKILL.md": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
+      }
     },
     {
       "name": "gsap-utils",
