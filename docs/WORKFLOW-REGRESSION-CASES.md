@@ -36,6 +36,14 @@ Actual native worker `/root/workflow_evaluation` was started without conversatio
 
 These results support routing clarity, not a demonstrated reduction in project failures. The motivating discovery rules already existed; they had not been followed. W7/W8 require executable security tests and diagnostic evidence, recorded with final PR validation. Future hosts, real mixed-format extraction, full discovery quality and creative acceptance remain unverified by this run.
 
+### PR #14 executable security and retrieval checks, 2026-11-13
+
+At `4c7df0f`, `python -m unittest discover -s tests -v` ran 144 tests: **138 passed, 3 errors, 3 skips**, with zero assertion failures. The errors are pre-existing Windows `WinError 1314` when creating symlinks in `test_symlink_state_directory_is_refused`, `test_symlink_state_file_and_input_are_refused` and `test_refuses_symlink_target`; their assertions did not execute. An earlier dirty-source run failed two installer checks as intended. Both passed after commit without relaxing verification.
+
+W7/W8 are covered by 13 new `test_security_research.py` cases: research previews never grant installation; static/full-coverage flags, invalid URLs, bounded execution retry, invalid JSON, incomplete/parser evidence, LOW/MEDIUM/HIGH/CRITICAL and suppressed/nonstatic/failed reports, actual finding locations, HIGH after many LOWs, bounded private errors and read-only file hashing/size limit. These use controlled subprocess reports and real wrapper logic, not live malicious payloads. Existing security and MCP tests retain approval and changed-file rejection coverage. The separate reviewer ran all 13 new tests successfully. The new legacy-decision retrieval case failed before the fix; all 12 knowledge tests passed afterward.
+
+Actual runtime checks by `/root/security_implementation`: installed SkillSpector v2.12.0 passed a benign local sample; a URL preview of `https://github.com/octocat/Hello-World` returned complete 100% LOW/SAFE with `install_eligible: false` and `verified_revision: null`. This public sample is not an installation test or general malware-safety guarantee. The current hook's 12 existing tests passed, but its reproduced false-positive correction could not be applied through the live guard. No human approval/denial interaction or global activation was performed. See [the decision and independent review](../knowledge/decisions/2026-11-13-workflow-evidence-review.json).
+
 ## Acceptance for a reusable change
 
 The change must correct its motivating failure, pass relevant unrelated cases, preserve existing security/user approvals, and have an actual independent fresh-context review. If evidence is inconclusive, keep the narrower project-level fix or leave the proposal unmerged.

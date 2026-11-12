@@ -24,7 +24,7 @@
     "uncertainties": "Future host compliance and real project outcome improvement are not measured"
   }],
   "decision": {
-    "status": "review-in-progress-unmerged-unactivated",
+    "status": "independently-reviewed-draft-incomplete-unmerged-unactivated",
     "scope": "Shared instruction consistency and security/retrieval implementation; visual source requirements remain domain scoped",
     "alternatives": [
       "Leave duplicate conflicting instructions: rejected because reference-level worker and ledger rules contradicted the owning routing policy",
@@ -65,16 +65,26 @@
   "review": {
     "worker": "/root/independent_review",
     "context": "Fresh worker without coordinator conversation history; original request, source evidence, actual diff and tests supplied",
-    "status": "in-progress",
+    "status": "safe-to-retain-as-draft-not-ready-to-merge",
     "findings": [
       "Conditional ledger wording differed between entrypoint and discovery reference; aligned",
-      "Research failure summaries discarded actionable stderr; sent for correction",
-      "First 20 findings could omit the triggering HIGH; sent for correction"
+      "Research failure summaries discarded actionable stderr; corrected with categorized errors and explicitly private bounded excerpts",
+      "First 20 findings could omit the triggering HIGH; corrected with severity ordering and omitted-count regression",
+      "Hook correction remains unimplemented after live editing rejection",
+      "Scenario decisions do not demonstrate improved real-project research outcomes; keep adoption pending stronger evidence"
     ]
   },
   "validation": {
     "baseline": "130 tests: 11 failures, 3 errors, 3 skips. Search failures share missing decision id. Errors are Windows symlink creation privilege failures before assertions.",
-    "final": "Pending final combined test run",
+    "final": "At 4c7df0f: python -m unittest discover -s tests -v ran 144 tests in 49.925s: 138 passed, zero assertion failures, 3 WinError1314 errors before symlink assertions, 3 skips. The earlier two dirty-source failures passed after commit; clean-source guard unchanged.",
+    "environment_errors": ["test_symlink_state_directory_is_refused", "test_symlink_state_file_and_input_are_refused", "test_refuses_symlink_target"],
+    "additional_checks": [
+      "Independent reviewer ran 12 knowledge tests and 13 research-security tests successfully",
+      "Existing security operations: 20 tests, 19 passed and 1 skipped; hook: 12 passed, unchanged",
+      "Actual installed SkillSpector v2.12.0 benign verify_scanner_sample completed successfully",
+      "Actual public octocat/Hello-World URL preview completed with 100% coverage and LOW/SAFE; install_eligible remained false and verified_revision null",
+      "Built-in skill validator passed using existing scanner environment; git diff --check passed"
+    ],
     "limits": ["Live human approval/denial interaction not performed", "No complete cross-project outcome benchmark", "Hook false-positive fix blocked"]
   },
   "feedback": [{"type": "explicit-user", "finding": "Continue existing approved implementation with real independent review; do not merge before review or change host permissions without approval"}],
