@@ -58,7 +58,11 @@ class KnowledgeTests(unittest.TestCase):
                             ('brand identity', 'fatihaydost/brand-identity-skill'),
                             ('awwwards-mcp', 'insane0777/awwwards-mcp'),
                             ('wangp', 'deepbeepmeep/wangp'),
-                            ('wan2gp', 'deepbeepmeep/wangp')]:
+                            ('wan2gp', 'deepbeepmeep/wangp'),
+                            ('improve', 'shadcn/improve'),
+                            ('rea-video', 'juneyaooo/rea-video'),
+                            ('teardown', 'elvarofficial/teardown'),
+                            ('elephant-goldfish', 'google/elephant-goldfish-model')]:
             with self.subTest(query=query):
                 result = self.run_cli('search', query, '--limit', '100')
                 matches = [entry for entry in result['results']
