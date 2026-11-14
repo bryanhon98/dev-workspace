@@ -6,13 +6,13 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 
 | Category | Saved options |
 |---|---|
-| [Engineering and security skills](skills/engineering.md) | Matt Pocock — architecture subset; Addy Osmani — performance subset; Anthropic — MCP Builder only; Cloudflare Security Audit |
+| [Engineering and security skills](skills/engineering.md) | Matt Pocock — architecture subset; Addy Osmani — performance subset; Anthropic — MCP Builder only; Cloudflare Security Audit; shadcn/improve (optional audit/planning) |
 | [Design and motion skills](skills/design.md) | Vercel Agent Skills; UI/UX Pro Max; Taste — BrandKit and Image-to-Code only; Emil Kowalski — motion subset; Extract Design System; Ian Xiaohei Illustrations; Stageshow; Impeccable (restricted); Dimensional Drawing; Oil UI; Brand Identity |
 | [Marketing and writing skills](skills/marketing-and-writing.md) | Corey Haines Marketing Skills; Humanizer; Claude SEO; Instagram Agent Skills |
 | [Knowledge and image investigation skills](skills/knowledge-and-investigation.md) | Geo-Sleuth; Obsidian Skills |
 | [Design references](references/design.md) | Awesome Design MD; Meta Astryx (React design system) |
 | [Development plugins](plugins/development.md) | Claudex Loop |
-| [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video) |
+| [Document and video tools](tools/documents-and-video.md) | AnyDoc; Watch (claude-video); rea-video (video breakdown/remake planning) |
 | [Local generative-media applications](tools/local-media-generation.md) | WanGP / Wan2GP — optional local AI video, image, audio and 3D runtime (not a skill) |
 | [Context and image MCP tools](mcp/context-and-images.md) | Context Mode; PhotoCraft |
 | [Design-inspiration MCP tools](mcp/design-inspiration.md) | Awwwards MCP — site reference, motion and optional browser evidence (not a skill) |
@@ -21,6 +21,10 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
 
 ## Later user-saved library additions
+
+**15 November 2026 — Improve, rea-video, Teardown and EGM:** [shadcn/improve](skills/engineering.md#shadcnimprove--codebase-audit-and-executable-plans) and [JuneYaooo/rea-video](tools/documents-and-video.md#rea-video--juneyaooo) were newly saved as *optional research candidates*. [elvarofficial/teardown](skills/user-saved-capabilities.md#elvarofficialteardown) and [Google Elephant-Goldfish Model (EGM)](plugins/development.md#elephant-goldfish-model-egm--googleelephant-goldfish-model) were **already saved**, so no duplicate entries were created. The new sources were checked at pinned revisions; installation dependencies, overlap, and security/permission considerations are in their respective entries. **No skills/tools installed, scanned, activated or added to the three mandatory core skills.**
+
+
 
 **13 November 2026 — WanGP:** [WanGP / formerly Wan2GP](tools/local-media-generation.md#wangp-formerly-wan2gp--deepbeepmeep) saved as an optional **local generative-media application**, not a skill or default installation. It supports model-dependent video/image/audio/3D generation with an optional MCP/API interface. Record includes its **custom community license**, GPU/VRAM and setup constraints, source revision and security considerations. The user did not request an installation or host integration; none was performed. The three mandatory Tool Advisor skills, `inventory.json` and device setup remain unchanged.
 
