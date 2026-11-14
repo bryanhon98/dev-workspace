@@ -16,7 +16,7 @@ Full loop needs authenticated Claude and Codex CLIs plus Python; both consume qu
 
 ## [Elephant-Goldfish Model (EGM) — google/elephant-goldfish-model](https://github.com/google/elephant-goldfish-model)
 
-**Status:** Optional research/trial candidate, **not installed, scanned, approved for activation, or part of the 17-skill baseline** by this record. Checked 2026-11-09 at [revision `5382b17619be`](https://github.com/google/elephant-goldfish-model/tree/5382b17619be07811a14b2146c7672620b34a791) (main). Apache-2.0; repository says it is **not an officially supported Google product**.
+**Status:** Optional research/trial candidate, **not installed, scanned, approved for activation, or part of the current three-skill core baseline** by this record. Checked 2026-11-09 at [revision `5382b17619be`](https://github.com/google/elephant-goldfish-model/tree/5382b17619be07811a14b2146c7672620b34a791) (main). Apache-2.0; repository says it is **not an officially supported Google product**.
 
 **Role:** Fresh-context independent review of a written software design before implementation. The context-holding Elephant/author creates the specification; Goldfish subagents independently critique it without parent conversation history. Main Tool Advisor remains the overall coordinator and PD/Architect remain design owners.
 
