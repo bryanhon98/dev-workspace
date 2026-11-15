@@ -19,3 +19,9 @@
 - NVIDIA SkillSpector 2.12.0 static-only scans: text skill inspected all 10 bundled files but reported unresolved variable-based references; main skill reported 85.7% coverage with command-parser and reference-resolution limitations. A supplementary scan of all 10 verbatim shell examples completed at 100%, retaining MEDIUM HTTP/Docker warnings.
 - The separate service scan returned CRITICAL / DO_NOT_INSTALL and 88.5% coverage (46 of 52 components fully inspected). Findings included file-to-network flows, subprocess execution and optional pinned dependency risks; limitations included parsing, obfuscated-text classification, and dependency inspection time/output bounds.
 - Some findings appear consistent with documented functionality, but all high/critical findings and coverage gaps were not resolved. These results do not establish malware, nor establish absence of malware. User allowed harmless blockers to be skipped; unresolved security findings were not treated as harmless. Installation remains blocked and unverified.
+
+### 2026-11-16 isolated scanner compatibility test
+
+- Tested official NVIDIA SkillSpector source revision `c81615007d40e86051a302a3cf897f8a05264928` in a separate workspace tool directory; the active scanner was not replaced.
+- Rescanned the unchanged `remove-ai-marks` skill through the shared static-only scan implementation. Coverage remained 85.7%, with the same command-boundary parser limit and missing-reference gaps. Findings remained LOW aggregate / CAUTION with MEDIUM individual warnings.
+- An upstream upgrade alone did not fix the blocker. Missing references mix illustrative filenames, response-field names, runtime HTTP resources and actual service files outside the skill bundle; blanket suppression is not a valid fix. No scanner patch, clean-scan claim, approval ID or application installation resulted from this experiment.
