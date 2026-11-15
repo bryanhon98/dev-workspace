@@ -913,7 +913,7 @@
       "purpose": "Interview through grilling, discover and compare capabilities, confirm the combination, coordinate work and track evidence",
       "required_tools": [
         "skillspector",
-        "Python 3.12–3.14 for scanner bootstrap",
+        "Python 3.12\u20133.14 for scanner bootstrap",
         "grilling",
         "find-skills",
         "accessible research checkout and web/GitHub discovery",
@@ -1382,6 +1382,42 @@
       "purpose": "Live dashboard of what every agent on this machine is doing",
       "setup_requirements": "Node 18+; runs via node \"<base>/bin/cli.js\" in background",
       "github_url": "https://github.com/bryanhon98/whatsmyagentdoing"
+    },
+    {
+      "name": "remove-ai-marks",
+      "kind": "skill",
+      "source": "https://github.com/guillaumemeyer/watermarks-remover",
+      "github_url": "https://github.com/guillaumemeyer/watermarks-remover/tree/5a62be6338d2812372b1da440e55c82922f97d53/skills/remove-ai-marks",
+      "version": "5a62be6338d2812372b1da440e55c82922f97d53",
+      "scope": "user",
+      "purpose": "Client for local watermark inspection and cleaning",
+      "status": "installed",
+      "required_tools": [
+        "Python 3.10+",
+        "local service on 127.0.0.1:8765"
+      ],
+      "setup_requirements": "Start service manually after reboot. Optional metadata tools and model backends are not installed.",
+      "audit_status": "reviewed-with-disclosed-incomplete-scan",
+      "restorable": false,
+      "note": "Installed on windows-local; skill byte equality and local Markdown cleaning verified. Future restoration needs fresh review."
+    },
+    {
+      "name": "watermarks-remover",
+      "kind": "tool",
+      "source": "https://github.com/guillaumemeyer/watermarks-remover",
+      "github_url": "https://github.com/guillaumemeyer/watermarks-remover",
+      "version": "5a62be6338d2812372b1da440e55c82922f97d53",
+      "scope": "user",
+      "purpose": "Basic local Python watermark service",
+      "status": "installed",
+      "required_tools": [
+        "Python 3.10+",
+        "local service on 127.0.0.1:8765"
+      ],
+      "setup_requirements": "Start service manually after reboot. Optional metadata tools and model backends are not installed.",
+      "audit_status": "reviewed-with-disclosed-incomplete-scan",
+      "restorable": false,
+      "note": "Installed on windows-local; skill byte equality and local Markdown cleaning verified. Future restoration needs fresh review."
     }
   ]
 }

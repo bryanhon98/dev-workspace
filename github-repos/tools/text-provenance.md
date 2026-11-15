@@ -25,3 +25,7 @@
 - Tested official NVIDIA SkillSpector source revision `c81615007d40e86051a302a3cf897f8a05264928` in a separate workspace tool directory; the active scanner was not replaced.
 - Rescanned the unchanged `remove-ai-marks` skill through the shared static-only scan implementation. Coverage remained 85.7%, with the same command-boundary parser limit and missing-reference gaps. Findings remained LOW aggregate / CAUTION with MEDIUM individual warnings.
 - An upstream upgrade alone did not fix the blocker. Missing references mix illustrative filenames, response-field names, runtime HTTP resources and actual service files outside the skill bundle; blanket suppression is not a valid fix. No scanner patch, clean-scan claim, approval ID or application installation resulted from this experiment.
+
+### 2026-11-16 installation outcome
+
+- Native reviewed installer returned success for remove-ai-marks with disclosed 85.7% coverage and warnings; installed bytes verified. Basic local Python service installed and running on loopback port 8765; synthetic Markdown invisible-character cleanup passed. CtrlRegen, automatic-cleaning hooks, AI rewrite models and additional metadata tools were not installed. No claim of complete scan or malware-free software.
