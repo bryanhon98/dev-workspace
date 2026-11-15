@@ -1,5 +1,22 @@
 # Native skill approval in Codex and Claude Code
 
+## Current review-first policy (2026-11-16)
+
+The current native workflow supersedes the historical severity gates below.
+`review_skill` returns a review identity for structured high/critical and incomplete
+reports, retaining findings and coverage gaps. Every native installation requires
+the real per-call human permission gate on `install_reviewed`, including LOW/SAFE.
+`install_safe` is a legacy entry point and now refuses activation. A review ID is
+not permission. Changed source or scan evidence invalidates the review. Unsafe
+paths, malformed/unusable output, non-static or suppressed results remain technical
+or integrity failures. Approval accepts disclosed uncertainty; it is not a safety
+certification. Never call the reviewed installer if the host auto-approves its tools.
+
+Source reads, patches and bounded unit-test commands are maintenance, not direct
+server execution. The hook permits those while retaining its direct-execution guard.
+Restart the security MCP connection after code changes; verify human approval and
+denial separately from tests or saved configuration.
+
 This repository provides a local MCP server at `scripts/native_approval_mcp.py`.
 Its host-native permission prompt replaces the Python terminal `[y/N]` prompt
 **when the host supports and enforces native MCP tool approvals**.

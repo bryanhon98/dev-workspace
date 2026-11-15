@@ -155,7 +155,14 @@ def approve_medium(review, trusted_core=False):
                          'and do not delegate the decision to an agent.')
 
     title = review.skill.replace('-', ' ').title()
-    print('\n=== ' + title + ' — Security Review [MEDIUM] ===', flush=True)
+    print('\n=== ' + title + ' — Security Review [' +
+          str(review.risk.get('severity', 'UNKNOWN')) + '] ===', flush=True)
+    if 'is_complete' in review.risk:
+        print('Scan complete: ' + str(review.risk['is_complete']) +
+              '; coverage: ' + str(review.risk.get('coverage_percent')) + '%', flush=True)
+        for gap in review.risk.get('coverage_gaps', []):
+            print('Unresolved: ' + str(gap.get('path', '?')) + ': ' +
+                  str(gap.get('reason_code', '?')), flush=True)
     groups = _review_groups(review.issues)
     if groups:
         print('Findings: ' + str(len(review.issues)) + ' occurrence(s) in ' +
@@ -211,15 +218,23 @@ def approve_medium(review, trusted_core=False):
     return review.warnings
 
 
-class ScanRejected(ValueError):
-    """Completed scanner invocation with findings retained for final review."""
+class ScanRejected(MediumApprovalRequired):
+    """Scanner concerns requiring human review, never automatic activation."""
     def __init__(self, reason, report):
         self.report = report
-        super().__init__(reason + '\nReview: ' + json.dumps({
-            'risk_assessment': report.get('risk_assessment'),
-            'issues': report.get('issues'),
-            'analysis_completeness': report.get('analysis_completeness'),
-        }, ensure_ascii=True))
+        risk = dict(report.get('risk_assessment') or {})
+        completeness = report.get('analysis_completeness') or {}
+        risk['review_reason'] = reason
+        risk['coverage_percent'] = completeness.get('coverage_percent')
+        risk['is_complete'] = completeness.get('is_complete')
+        risk['coverage_gaps'] = completeness.get('ledger_exceptions', [])
+        issues = list(report.get('issues') or [])
+        issues.append({'id': 'SCAN_REVIEW', 'severity': 'MEDIUM',
+                       'explanation': reason + '; coverage: ' +
+                       str(risk['coverage_percent']) + '%; gaps: ' +
+                       json.dumps(risk['coverage_gaps'], ensure_ascii=True)})
+        super().__init__((report.get('skill') or {}).get('name', 'staged-payload'), risk, issues)
+        self.args = (reason + '; human review required',)
 
 
 def scan_skill(stage, scanner, expected_files):
@@ -239,6 +254,14 @@ def scan_skill(stage, scanner, expected_files):
         raise ValueError('SkillSpector did not return valid JSON') from exc
     if not isinstance(report, dict):
         raise ValueError('Malformed SkillSpector report')
+    if (not isinstance(report.get('issues'), list) or
+            any(not isinstance(i, dict) or i.get('severity') not in
+                ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for i in report['issues']) or
+            not isinstance(report.get('risk_assessment'), dict)):
+        raise ValueError('Malformed scanner findings; no review can be bound')
+    if (report.get('suppressed_count', 0) or report.get('suppressed', []) or
+            report.get('metadata', {}).get('llm_requested') is not False):
+        raise ValueError('Suppressed or non-static results cannot be reviewed')
     complete = report.get('analysis_completeness')
     metadata = report.get('metadata', {})
     if (not isinstance(complete, dict) or complete.get('is_complete') is not True
@@ -247,24 +270,24 @@ def scan_skill(stage, scanner, expected_files):
         raise ScanRejected('Incomplete or non-static SkillSpector scan', report)
     if (report.get('suppressed_count', 0) or report.get('suppressed', [])
             or report.get('execution_successful') is False):
-        raise ScanRejected('Suppressed findings or unsuccessful scan are not allowed', report)
+        raise ValueError('Suppressed findings or unsuccessful scan are not allowed')
     present = report.get('components')
     if (not isinstance(present, list) or
             set(x.get('path') for x in present if isinstance(x, dict)) != set(expected_files)):
-        raise ScanRejected('SkillSpector component coverage mismatch', report)
+        raise ValueError('SkillSpector component coverage mismatch')
     issues = report.get('issues')
     risk = report.get('risk_assessment')
     if not isinstance(issues, list) or not isinstance(risk, dict):
-        raise ScanRejected('Missing SkillSpector risk assessment or findings', report)
+        raise ValueError('Missing SkillSpector risk assessment or findings')
     severity = risk.get('severity')
     recommendation = risk.get('recommendation')
     if severity not in ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') or (
         recommendation not in ('SAFE', 'CAUTION', 'DO_NOT_INSTALL')
     ):
-        raise ScanRejected('Unknown scanner severity or recommendation', report)
+        raise ValueError('Unknown scanner severity or recommendation')
     if any(not isinstance(x, dict) or x.get('severity') not in
            ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for x in issues):
-        raise ScanRejected('Malformed individual scan findings', report)
+        raise ValueError('Malformed individual scan findings')
     hard_block = (severity in ('HIGH', 'CRITICAL') or
                   recommendation == 'DO_NOT_INSTALL' or
                   any(x['severity'] in ('HIGH', 'CRITICAL') for x in issues))

@@ -71,7 +71,14 @@ def decide(payload):
         # The MCP server is an installation entrypoint, not a shell command.
         # Host-native permission checks happen only on an MCP tool call.
         # MCP registration itself remains allowed.
-        if ('native_approval_mcp' in normalized.lower() and
+        inspection = bool(re.fullmatch(
+            r'(?:Get-Content|cat|type)\s+[A-Za-z0-9_./-]+(?:\s+-TotalCount\s+\d+)?'
+            r'|git\s+show\s+[A-Za-z0-9_:./-]+'
+            r'|python\s+-m\s+unittest\s+discover\s+-s\s+tests'
+            r'(?:\s+-p\s+test_[A-Za-z0-9_]+\.py)?(?:\s+-[qv])?',
+            normalized.strip(), re.I))
+        if (tool in ('Bash', 'PowerShell') and not inspection and
+                'native_approval_mcp' in normalized.lower() and
                 not re.search(r'\b(?:codex|claude)\s+mcp\s+add\b', normalized, re.I)):
             return ('The security MCP server must be invoked as an MCP tool, '
                     'not directly from an agent shell command'), None

@@ -115,8 +115,15 @@ def _review_text(kind, host, components):
         name = component['name']
         evidence = component['evidence']
         issues = evidence['issues']
-        lines.append(name + ': ' + ('MEDIUM — approval required'
-                                     if component['medium'] else 'LOW/SAFE'))
+        risk = evidence['risk']
+        lines.append(name + ': ' + str(risk.get('severity', 'UNKNOWN')) +
+                     ' / ' + str(risk.get('recommendation', 'UNKNOWN')))
+        if 'is_complete' in risk:
+            lines.append('  Scan complete: ' + str(risk['is_complete']) +
+                         '; coverage: ' + str(risk.get('coverage_percent')) + '%')
+            for gap in risk.get('coverage_gaps', []):
+                lines.append('  Unresolved: ' + str(gap.get('path', '?')) + ': ' +
+                             str(gap.get('reason_code', '?')))
         if component['medium']:
             for group in component['groups']:
                 lines.append('  Reason: ' + group['reason'])
@@ -127,7 +134,8 @@ def _review_text(kind, host, components):
                 lines.append('    - ' + feature)
         elif issues:
             lines.append('  ' + str(len(issues)) + ' low-severity observations.')
-    lines.append('HIGH/CRITICAL, failed or incomplete scans block installation.')
+    lines.append('Review all findings and coverage gaps before approving or rejecting.')
+    lines.append('Approval accepts the disclosed risks; it does not certify safety.')
     lines.append('Approval does not grant additional host permissions.')
     return '\n'.join(lines)
 
@@ -169,7 +177,7 @@ def inspect(arguments):
                     [{'name': c['name'], 'evidence': c['evidence']} for c in components]}
     return {
         'review_id': _digest(identity), 'summary': _review_text(kind, host, components),
-        'requires_approval': any(c['medium'] for c in components),
+        'requires_approval': True,
         'components': components, 'snapshot': identity,
         'note': 'No stored approval. The installer will scan and verify again at activation.'
     }
@@ -203,7 +211,7 @@ def activate(arguments, approved_tool):
         raise ValueError('Security review changed. Re-run review_skill and approve the new findings.')
     if current['requires_approval'] != approved_tool:
         if current['requires_approval']:
-            raise ValueError('MEDIUM requires host-native install_reviewed permission prompt')
+            raise ValueError('Installation requires host-native install_reviewed permission prompt')
         raise ValueError('LOW/SAFE should use install_safe; no manual approval needed')
 
     def handle_medium(review):
@@ -259,12 +267,12 @@ def tool_list():
          'annotations': {'readOnlyHint': True}},
         {'name': 'install_safe',
          'title': 'Install reviewed LOW/SAFE skill',
-         'description': 'Install only if an identical fresh scan is LOW/SAFE. Reject all MEDIUM or higher findings.',
+         'description': 'Legacy entry point; installation now requires install_reviewed and human approval even for LOW/SAFE.',
          'inputSchema': {'type': 'object', 'properties': INSTALL_FIELDS,
                          'required': ['target', 'host', 'review_id', 'summary']},
          'annotations': {'readOnlyHint': False}},
         {'name': 'install_reviewed',
-         'title': 'Install MEDIUM skill after human approval',
+         'title': 'Install reviewed skill after human approval',
          'description': 'Always request a real host-native human approval. Read the exact summary before allowing. A matching fresh scan is mandatory.',
          'inputSchema': {'type': 'object', 'properties': INSTALL_FIELDS,
                          'required': ['target', 'host', 'review_id', 'summary']},

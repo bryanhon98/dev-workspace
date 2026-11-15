@@ -1,3 +1,14 @@
+# Current review-first policy (2026-11-16)
+
+The current policy supersedes the historical severity gates described below:
+scan every staged payload, show risk and coverage, then require human approval via
+install_reviewed even for LOW/SAFE. Structured high/critical and incomplete results
+are reviewable; unsafe paths, changed bytes and unusable scanner output remain
+integrity/technical stops. install_safe is retained only for compatibility and refuses
+activation. No human permission is inferred from a review ID or a chat message.
+The standalone CLI continues its existing LOW/SAFE automatic path; use the native
+review workflow when a human decision is required for every installation.
+
 # Security-first SkillSpector workspace
 
 ## Two-stage setup: approve the hook manually

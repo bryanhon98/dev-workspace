@@ -36,6 +36,15 @@ class SecurityHookTests(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 self.assertIsNone(self.guard.classify(self.event('Bash', command=cmd)))
 
+    def test_security_source_maintenance_is_not_server_execution(self):
+        self.assertIsNone(self.guard.classify(self.event('apply_patch',
+            command='*** Update File: scripts/native_approval_mcp.py')))
+        for command in ['Get-Content scripts/native_approval_mcp.py',
+                        'python -m unittest discover -s tests -p test_native_approval_mcp.py -q']:
+            self.assertIsNone(self.guard.classify(self.event('PowerShell', command=command)))
+        self.assertIsNotNone(self.guard.classify(self.event('PowerShell',
+            command='Get-Content scripts/native_approval_mcp.py; python scripts/native_approval_mcp.py')))
+
     def test_git_clone_rewritten_without_executing_clone(self):
         payload = self.event('Bash', command='git clone https://github.com/example/project.git project')
         blocked, rewritten = self.guard.decide(payload)

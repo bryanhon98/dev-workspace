@@ -74,14 +74,14 @@ class NativeApprovalMcpTests(unittest.TestCase):
             self.assertTrue((self.destination / 'example/SKILL.md').is_file())
             console.assert_not_called()
 
-    def test_low_is_automatic_and_medium_tool_not_needed(self):
+    def test_low_also_requires_human_approval(self):
         with mock.patch.object(self.mcp.security, 'scan_skill', return_value=[]):
             preview = self.mcp.inspect(self.args())
-            self.assertFalse(preview['requires_approval'])
+            self.assertTrue(preview['requires_approval'])
             call = self.args(review_id=preview['review_id'], summary=preview['summary'])
-            with self.assertRaisesRegex(ValueError, 'LOW/SAFE should use'):
-                self.mcp.activate(call, approved_tool=True)
-            done = self.mcp.activate(call, approved_tool=False)
+            with self.assertRaisesRegex(ValueError, 'host-native'):
+                self.mcp.activate(call, approved_tool=False)
+            done = self.mcp.activate(call, approved_tool=True)
             self.assertTrue(done['installed'])
             self.assertTrue((self.destination / 'example/SKILL.md').is_file())
 
@@ -117,6 +117,24 @@ class NativeApprovalMcpTests(unittest.TestCase):
                                side_effect=ValueError('HIGH risk or incomplete')):
             with self.assertRaisesRegex(ValueError, 'HIGH'):
                 self.mcp.inspect(self.args())
+
+    def test_critical_incomplete_report_requires_exact_human_review(self):
+        report = {'skill': {'name': 'example'},
+                  'risk_assessment': {'severity': 'CRITICAL', 'recommendation': 'DO_NOT_INSTALL'},
+                  'issues': [{'id': 'TT3', 'severity': 'CRITICAL', 'finding': 'network flow'}],
+                  'analysis_completeness': {'is_complete': False, 'coverage_percent': 85.7,
+                                            'ledger_exceptions': [{'reason_code': 'static_parse_limit'}]}}
+        concern = self.mcp.security.ScanRejected('Incomplete scan', report)
+        with mock.patch.object(self.mcp.security, 'scan_skill', side_effect=concern):
+            preview = self.mcp.inspect(self.args())
+            self.assertIn('CRITICAL', preview['summary'])
+            self.assertIn('85.7', preview['summary'])
+            self.assertIn('static_parse_limit', preview['summary'])
+            call = self.args(review_id=preview['review_id'], summary=preview['summary'])
+            with self.assertRaisesRegex(ValueError, 'host-native'):
+                self.mcp.activate(call, approved_tool=False)
+            self.assertFalse(self.destination.exists())
+            self.assertTrue(self.mcp.activate(call, approved_tool=True)['installed'])
 
     def test_review_cannot_be_faked_by_editing_summary(self):
         with mock.patch.object(self.mcp.security, 'scan_skill', return_value=[]):

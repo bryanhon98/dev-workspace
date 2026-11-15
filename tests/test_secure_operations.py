@@ -165,7 +165,7 @@ class SecureOperationsTests(unittest.TestCase):
                 self.mod.install_skill(self.source, self.skills, 'example')
         self.assertFalse((self.skills / 'example').exists())
 
-    def test_high_is_not_reviewable(self):
+    def test_high_requires_review_without_losing_findings(self):
         report = {
             'metadata': {'llm_requested': False},
             'analysis_completeness': {'is_complete': True, 'coverage_percent': 100},
@@ -176,7 +176,7 @@ class SecureOperationsTests(unittest.TestCase):
         completed = __import__('subprocess').CompletedProcess([], 0,
                     __import__('json').dumps(report), '')
         with mock.patch.object(self.mod.subprocess, 'run', return_value=completed):
-            with self.assertRaisesRegex(ValueError, 'high-risk'):
+            with self.assertRaisesRegex(self.mod.MediumApprovalRequired, 'high-risk'):
                 self.mod.scan_skill(self.source, {'path': 'scanner'},
                                     {'SKILL.md': (self.source / 'SKILL.md').read_bytes()})
 
