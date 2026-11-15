@@ -345,6 +345,20 @@ class AdvisorInstallTests(unittest.TestCase):
             approve.assert_not_called()
         self.assertFalse((self.skills / 'tool-advisor').exists())
 
+    def test_critical_first_still_scans_remaining_payloads(self):
+        self.add_component('grilling')
+        self.add_component('find-skills')
+        self.mod._scan.side_effect = [ValueError('CRITICAL'), ValueError('Incomplete'), []]
+        with mock.patch.object(self.mod, 'approve_medium') as approve:
+            with self.assertRaises(ValueError) as error:
+                self.install()
+            approve.assert_not_called()
+        self.assertEqual(self.mod._scan.call_count, 3)
+        self.assertIn('CRITICAL', str(error.exception))
+        self.assertIn('Incomplete', str(error.exception))
+        self.assertFalse((self.skills / 'tool-advisor').exists())
+        self.assertFalse((self.skills / 'find-skills').exists())
+
     def test_new_revision_requires_fresh_scan(self):
         self.install()
         source = self.repo / 'skills/tool-advisor/SKILL.md'

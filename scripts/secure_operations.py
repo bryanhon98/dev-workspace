@@ -211,6 +211,17 @@ def approve_medium(review, trusted_core=False):
     return review.warnings
 
 
+class ScanRejected(ValueError):
+    """Completed scanner invocation with findings retained for final review."""
+    def __init__(self, reason, report):
+        self.report = report
+        super().__init__(reason + '\nReview: ' + json.dumps({
+            'risk_assessment': report.get('risk_assessment'),
+            'issues': report.get('issues'),
+            'analysis_completeness': report.get('analysis_completeness'),
+        }, ensure_ascii=True))
+
+
 def scan_skill(stage, scanner, expected_files):
     command = [scanner['path'], 'scan', str(stage), '--no-llm', '--format', 'json',
                '--fail-on-incomplete', '--min-coverage', '100']
@@ -233,33 +244,33 @@ def scan_skill(stage, scanner, expected_files):
     if (not isinstance(complete, dict) or complete.get('is_complete') is not True
             or complete.get('coverage_percent') != 100
             or not isinstance(metadata, dict) or metadata.get('llm_requested') is not False):
-        raise ValueError('Incomplete or non-static SkillSpector scan')
+        raise ScanRejected('Incomplete or non-static SkillSpector scan', report)
     if (report.get('suppressed_count', 0) or report.get('suppressed', [])
             or report.get('execution_successful') is False):
-        raise ValueError('Suppressed findings or unsuccessful scan are not allowed')
+        raise ScanRejected('Suppressed findings or unsuccessful scan are not allowed', report)
     present = report.get('components')
     if (not isinstance(present, list) or
             set(x.get('path') for x in present if isinstance(x, dict)) != set(expected_files)):
-        raise ValueError('SkillSpector component coverage mismatch')
+        raise ScanRejected('SkillSpector component coverage mismatch', report)
     issues = report.get('issues')
     risk = report.get('risk_assessment')
     if not isinstance(issues, list) or not isinstance(risk, dict):
-        raise ValueError('Missing SkillSpector risk assessment or findings')
+        raise ScanRejected('Missing SkillSpector risk assessment or findings', report)
     severity = risk.get('severity')
     recommendation = risk.get('recommendation')
     if severity not in ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') or (
         recommendation not in ('SAFE', 'CAUTION', 'DO_NOT_INSTALL')
     ):
-        raise ValueError('Unknown scanner severity or recommendation')
+        raise ScanRejected('Unknown scanner severity or recommendation', report)
     if any(not isinstance(x, dict) or x.get('severity') not in
            ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') for x in issues):
-        raise ValueError('Malformed individual scan findings')
+        raise ScanRejected('Malformed individual scan findings', report)
     hard_block = (severity in ('HIGH', 'CRITICAL') or
                   recommendation == 'DO_NOT_INSTALL' or
                   any(x['severity'] in ('HIGH', 'CRITICAL') for x in issues))
     if hard_block:
-        raise ValueError('SkillSpector blocked high-risk skill: ' + stage.name +
-                         ' (' + severity + ', ' + recommendation + ')')
+        raise ScanRejected('SkillSpector blocked high-risk skill: ' + stage.name +
+                         ' (' + severity + ', ' + recommendation + ')', report)
     needs_review = (severity == 'MEDIUM' or recommendation == 'CAUTION' or
                     any(x['severity'] == 'MEDIUM' for x in issues))
     if needs_review:
@@ -463,6 +474,7 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
                              if '.git' not in p.relative_to(staged).parts},
                             key=str)
         summary = []
+        failures = []
         if skill_dirs:
             for i, folder in enumerate(skill_dirs):
                 source_files = file_snapshot(folder)
@@ -471,7 +483,14 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
                     shutil.copytree(folder, isolated)
                     if file_snapshot(isolated) != source_files:
                         raise ValueError('Cloned skill changed during staging')
-                    warnings = scan_skill(isolated, scanner_info, source_files)
+                    try:
+                        warnings = scan_skill(isolated, scanner_info, source_files)
+                    except (ValueError, OSError) as exc:
+                        # Findings and per-payload failures must not skip later payloads.
+                        failures.append({'skill': folder.relative_to(staged).as_posix(),
+                                         'error': str(exc),
+                                         'issues': getattr(exc, 'issues', [])})
+                        warnings = []
                     if file_snapshot(isolated) != source_files or file_snapshot(folder) != source_files:
                         raise ValueError('Cloned skill changed during scanning')
                     summary.append({'skill': folder.relative_to(staged).as_posix(), 'warnings': warnings})
@@ -479,6 +498,10 @@ def clone_repository(url, destination=None, cwd=None, scanner=None):
             summary.append(_report_generic_repository(staged, scanner_info))
         if _clone_digest(staged) != staged_hash:
             raise ValueError('Cloned repository changed during inspection')
+        if failures:
+            raise ValueError('Scan attempted for all discovered skills; installation/release blocked. '
+                             'Consolidated review: ' + json.dumps(
+                                 {'checks': summary, 'failures': failures}, ensure_ascii=True))
         if target.exists():
             raise ValueError('Destination created while clone was scanned')
         os.replace(staged, target)

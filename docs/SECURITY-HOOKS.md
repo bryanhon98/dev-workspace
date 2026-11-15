@@ -203,3 +203,18 @@ The worker clones to a temporary directory, identifies agent skills, invokes Ski
 Hooks cannot monitor arbitrary subprocesses, external terminals, manual installs, bypassed tools or disabled host hooks; an agent's operating-system permissions/sandbox are an independent protective boundary. SkillSpector is built for agent skills, not comprehensive malware analysis of generic Java/Node/Python repositories. The source repo being updated does **not** install hooks on your laptop until you run setup there.
 
 Official sources: [NVIDIA SkillSpector](https://github.com/NVIDIA/SkillSpector), [Claude Code hooks](https://code.claude.com/docs/en/hooks), [Codex hooks](https://learn.chatgpt.com/docs/hooks).
+
+
+## Finish staged scanning before the installation decision
+
+Scan every selected inactive payload before presenting the consolidated review. LOW,
+MEDIUM, HIGH, CRITICAL and incomplete per-payload results must not short-circuit
+remaining independent scans. Retain findings and coverage gaps together; an incomplete
+result is not a clean pass. Continue after recoverable per-payload scanner errors.
+Unsafe staging paths, changed bytes or failures that prevent safe inspection remain
+immediate integrity stops. Never execute staged source as part of inspection.
+
+Only after the scan batch finishes, apply the existing installation/approval rules.
+This does not permit activation of HIGH/CRITICAL or incomplete payloads, suppress
+findings, or bypass the human approval mechanism. A batch review covers the selected
+skill payloads, not arbitrary application code outside them. Report that scope honestly.

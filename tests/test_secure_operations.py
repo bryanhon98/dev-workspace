@@ -263,6 +263,25 @@ class SecureOperationsTests(unittest.TestCase):
                 self.mod.clone_repository(url, 'blocked', self.dir)
         self.assertFalse((self.dir / 'blocked').exists())
 
+    def test_clone_reviews_all_payloads_after_critical_or_incomplete(self):
+        def clone(command, **kwargs):
+            root = Path(command[-1])
+            for name in ('first', 'second', 'third'):
+                folder = root / name
+                folder.mkdir(parents=True)
+                (folder / 'SKILL.md').write_text('---\nname: sample\n---\n')
+            return __import__('subprocess').CompletedProcess(command, 0, '', '')
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=clone), \
+             mock.patch.object(self.mod, 'scan_skill', side_effect=[
+                 ValueError('CRITICAL'), ValueError('Incomplete'), []]) as scan:
+            with self.assertRaises(ValueError) as result:
+                self.mod.clone_repository('https://github.com/example/demo', 'blocked', self.dir)
+        self.assertEqual(scan.call_count, 3)
+        self.assertIn('CRITICAL', str(result.exception))
+        self.assertIn('Incomplete', str(result.exception))
+        self.assertIn('third', str(result.exception))
+        self.assertFalse((self.dir / 'blocked').exists())
+
     def test_generic_clone_reports_limited_coverage(self):
         url = 'https://github.com/example/java-demo.git'
         with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None, with_skill=False)), \

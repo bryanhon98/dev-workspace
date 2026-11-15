@@ -68,3 +68,18 @@ Keep inventory.json current: source, github_url, version, scope, purpose, instal
 For rule edits, update the appropriate global source file and apply the managed section on the target device when requested; do not silently restore rules the user intentionally cleared. Start a new session to load changed global instructions. Verify the remote commit before claiming sync; keep local changes and report unsynced status when blocked. Existing instruction text outside the managed section must be preserved.
 
 Never publish credentials, tokens, keys, cookies, personal chat/memory databases, employer code or internal configuration. Use environment-variable names for secrets and separate device logins. Manual installs and marketplace auto-updates are not intercepted: on a sync request, inspect/reconcile unknown versions before marking them reviewed or installed.
+
+
+## Finish staged scanning before the installation decision
+
+Scan every selected inactive payload before presenting the consolidated review. LOW,
+MEDIUM, HIGH, CRITICAL and incomplete per-payload results must not short-circuit
+remaining independent scans. Retain findings and coverage gaps together; an incomplete
+result is not a clean pass. Continue after recoverable per-payload scanner errors.
+Unsafe staging paths, changed bytes or failures that prevent safe inspection remain
+immediate integrity stops. Never execute staged source as part of inspection.
+
+Only after the scan batch finishes, apply the existing installation/approval rules.
+This does not permit activation of HIGH/CRITICAL or incomplete payloads, suppress
+findings, or bypass the human approval mechanism. A batch review covers the selected
+skill payloads, not arbitrary application code outside them. Report that scope honestly.

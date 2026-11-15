@@ -260,6 +260,7 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 directory.mkdir()
             warnings = []
             pending_reviews = []
+            scan_failures = []
             # Scan every selected payload before asking for approval or activation.
             for c in components:
                 name = c['name']
@@ -276,6 +277,11 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                 except MediumApprovalRequired as review:
                     pending_reviews.append(review)
                     warnings.extend(review.warnings)
+                except (ValueError, OSError) as exc:
+                    scan_failures.append({'skill': name, 'error': str(exc)})
+                    if _files(staged) != c['installed_files']:
+                        raise ValueError('Staged skill changed during scan: ' + name)
+                    continue
                 if scan_validator is not None:
                     matched_review = next((r for r in pending_reviews if r.skill == name), None)
                     scan_validator(name, c['installed_files'], matched_review,
@@ -283,6 +289,10 @@ def install_bundle(repo_root, skills_root, home, scanner=None, selected_names=No
                                    [w for w in warnings if w.get('skill') == name])
                 if _files(staged) != c['installed_files']:
                     raise ValueError('Staged skill changed during scan: ' + name)
+            if scan_failures:
+                raise ValueError('Scan attempted for all selected payloads; activation blocked. '
+                                 'Consolidated review: ' + json.dumps({
+                                     'failures': scan_failures, 'warnings': warnings}))
             if _bundle(root, selected_names)[1] != components:
                 raise ValueError('Source changed during scan')
             if _preflight_targets(skills, components, old, state) != preflight:
