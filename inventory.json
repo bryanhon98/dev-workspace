@@ -1418,6 +1418,24 @@
       "audit_status": "reviewed-with-disclosed-incomplete-scan",
       "restorable": false,
       "note": "Installed on windows-local; skill byte equality and local Markdown cleaning verified. Future restoration needs fresh review."
+    },
+    {
+      "name": "humanizer",
+      "kind": "skill",
+      "source": "https://github.com/blader/humanizer",
+      "github_url": "https://github.com/blader/humanizer/tree/b48c832f0f809c1b5658edbb838c2521b72f2413",
+      "version": "4.0.0",
+      "revision": "b48c832f0f809c1b5658edbb838c2521b72f2413",
+      "scope": "user",
+      "purpose": "Edit prose for clarity and the writer's voice while preserving facts.",
+      "status": "installed",
+      "audit_status": "reviewed-with-concerns",
+      "restorable": true,
+      "backup_path": "skills/external/humanizer",
+      "restore_method": "fresh-scan-reviewed-install",
+      "required_tools": [],
+      "setup_requirements": "No credentials required for prose editing. Optional package validator requires Python 3. Native host session restart required for discovery.",
+      "note": "Reviewed MCP installation returned success; all 15 installed files match staged source. Human prompt display is not independently attested. New-session invocation unverified."
     }
   ]
 }
