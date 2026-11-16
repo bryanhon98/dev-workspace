@@ -4,6 +4,8 @@
 
 Follow [the installation review contract](INSTALLATION-REVIEW.md). Finish independent scans, show version/source and coverage, a findings table, simple "Approving this means" sentences, a reasoned recommendation, and a plain question for results requiring acceptance. Preserve original payloads. LOW automatic approval requires a complete valid static report, 100% coverage, no gaps, SAFE/LOW overall and no higher individual finding.
 
+The user's desired interaction is a single explicit chat approval after the review, followed by installation. Reuse that decision for unchanged files, findings and scope; do not request the same review again or open a terminal to repeat it. Check the live tool contract first. The current native tool still requires host permission independently: no agent-written approval flag or documentation edit can replace that requirement. If it cannot be met, report it before promising installation. The terminal fallback below is opt-in only, not an automatic handoff.
+
 ## Three tools
 
 - **review_skill**: scans inactive payloads and returns exact-file review identity, findings and coverage. It does not install or record approval.
@@ -12,7 +14,7 @@ Follow [the installation review contract](INSTALLATION-REVIEW.md). Finish indepe
 
 Malformed/unusable reports, unsafe paths and changed bytes cannot be approved. Recoverable errors must not prevent independent scans from completing. Review IDs are integrity fingerprints, not permission records.
 
-**Observed limitation:** the watermark installation returned success without a human prompt. The server dispatches the reviewed tool as approved based on tool routing; it does not independently verify a human click. Saved configuration and unit tests do not prove effective enforcement. Never call this tool on a host known to auto-approve it. Ask the review question, and retain the human-operated terminal fallback when required host permission is unavailable. The current session's enforced approval policy is `never`; this repository update cannot change it. LOW standing authorization never overrides stricter host permissions.
+**Observed limitation:** the watermark installation returned success without a human prompt. The server dispatches the reviewed tool as approved based on tool routing; it does not independently verify a human click. Saved configuration and unit tests do not prove effective enforcement. Never call this tool on a host known to auto-approve it. Retain an existing chat decision, explain unavailable required permission without repeating the review question, and offer the terminal fallback only on explicit user choice. The current session's enforced approval policy is `never`; this repository update cannot change it. LOW standing authorization never overrides stricter host permissions.
 
 The live hook's manually corrected maintenance guard is preserved. Patch destinations are parsed separately from patch prose. Bounded standalone reads are allowed, but compound shell inspections mentioning the server may still be rejected. Restart/reconnect after changes and test real human denial separately.
 
@@ -32,11 +34,12 @@ Validate the resulting configuration and registration without running the server
 script directly from an agent shell. Report configuration separately from live
 connection and approval enforcement. Never export raw device configuration.
 
-The assistant still cannot approve the hook or an installation for the user.
+The assistant cannot answer a required host prompt for the user. An explicit chat approval is the user's installation decision, but does not attest to a separate host prompt.
 After restart/reconnection, verify tool availability and have the user reject a
 permission request to confirm that no installation occurs. If the host cannot
-enforce human approval, stop the affected installation and use the documented
-human-operated terminal fallback.
+enforce required human permission, leave the affected installation inactive and retain
+the user's chat decision. Use the documented human-operated terminal fallback only
+if the user explicitly chooses it.
 
 This is an agent-assisted setup instruction, not a new behavior of
 `setup.py --setup-workspace` or the read-only no-argument command. The commands

@@ -4,13 +4,14 @@ This is the current installation policy, agreed on 2026-11-16. Global instructio
 
 ## Flow
 
-1. Stage the selected exact revision outside active skill directories. Never run source-provided scripts to inspect it. Preserve original skill files unless the user explicitly requests edits.
-2. Scan every selected inactive payload with static-only NVIDIA SkillSpector. Severity findings and structured incomplete results must not stop remaining independent scans. Retain recoverable scanner errors in the consolidated review. Unsafe paths or changing files stop handling that payload; continue independent safe work.
-3. Present the review below. A scan cannot certify absence of malware, and a skill scan does not cover unrelated application source.
-4. Automatically approve only a selected payload with a valid, complete static report, 100% coverage, no unresolved gaps, SAFE recommendation, LOW overall severity, and no individual finding above LOW. An AI assessment of a false positive does not change the scanner evidence or qualify a higher-risk report for automatic installation.
-5. For every other assessable result, ask a plain question and wait for explicit human acceptance. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete results are reviewable concerns, not automatic vetoes. Missing scanner, malformed/unusable reports, unsafe paths and changed bytes are technical failures, not approvable reports. Explain them after finishing independent scans.
-6. Revalidate exact files and findings before activation. Changed evidence requires a new review. Rejection or no answer leaves files inactive.
-7. Verify the installation and save sanitized source, revision and outcome records. Do not label staged, scanned or approved files installed.
+1. Check the live installation tool's permission requirements first. The desired interaction is one explicit chat approval after the review, followed by installation. If the live tool requires an additional permission step that cannot be satisfied, explain that limitation before asking for installation approval. Do not promise that chat approval alone will complete installation on that host. Staging and scanning may still continue.
+2. Stage the selected exact revision outside active skill directories. Never run source-provided scripts to inspect it. Preserve original skill files unless the user explicitly requests edits.
+3. Scan every selected inactive payload with static-only NVIDIA SkillSpector. Severity findings and structured incomplete results must not stop remaining independent scans. Retain recoverable scanner errors in the consolidated review. Unsafe paths or changing files stop handling that payload; continue independent safe work.
+4. Present the review below. A scan cannot certify absence of malware, and a skill scan does not cover unrelated application source.
+5. Automatically approve only a selected payload with a valid, complete static report, 100% coverage, no unresolved gaps, SAFE recommendation, LOW overall severity, and no individual finding above LOW. An AI assessment of a false positive does not change the scanner evidence or qualify a higher-risk report for automatic installation.
+6. For every other assessable result, ask a plain question and wait for explicit human acceptance. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete results are reviewable concerns, not automatic vetoes. Missing scanner, malformed/unusable reports, unsafe paths and changed bytes are technical failures, not approvable reports. Explain them after finishing independent scans.
+7. Revalidate exact files and findings before activation. Changed evidence requires a new review. Rejection or no answer leaves files inactive.
+8. Verify the installation and save sanitized source, revision and outcome records. Do not label staged, scanned or approved files installed.
 
 ## Human review format
 
@@ -47,6 +48,10 @@ Use a real question, not decorative Approve/Reject text that looks like function
 
 ## Host enforcement boundary
 
-The question is the conversational decision. Existing host-native permission requirements still apply independently. A review ID, tool description, saved configuration or successful tool call is not evidence that a person approved. Never invoke a reviewed installer on a host known to auto-approve it. If native human permission is unavailable, explain the limitation and use the human-operated terminal fallback; do not spoof approval or weaken host policy. LOW automatic approval does not override stricter host permissions.
+An explicit user reply such as "approve", "yes", "y", or "install" after the review authorizes installation of that exact reviewed package. Interpret the reply in context: a quotation, hypothetical example, unrelated yes, or rejection is not approval. Reuse that decision while files, findings and installation scope remain identical. Do not ask the same review question again or require the user to repeat the answer in a terminal. Changed evidence requires a new review.
 
-The watermark installation demonstrated missing human-prompt enforcement. The current session also has an enforced `never` approval policy. Unit tests cannot prove host UI behavior. Humanizer remains staged; this workflow update does not authorize its installation.
+This conversational authorization does not override a permission requirement imposed by the live host or tool. A review ID, tool description, saved configuration or successful tool call is not evidence that a person approved a required host prompt. Never spoof that prompt, insert an agent-authored approval flag as its substitute, or invoke a reviewed installer on a host known to auto-approve a required human gate. LOW automatic approval also does not override stricter host permissions.
+
+Do not open PowerShell or another terminal as an unsolicited approval fallback. If required host permission is unavailable, retain the chat decision, leave the package inactive, and state the exact unmet requirement once. Offer a terminal fallback only if the user explicitly chooses it. A host-supported route that accepts the actual chat decision would satisfy the intended interaction; the current native installer has not established such a route.
+
+The watermark installation demonstrated missing human-prompt enforcement. The live MCP tools were still advertising the older native-approval contract after the repository update; saved code is not proof that the running server reloaded. Reconnect/restart is needed to load changed tools, but does not by itself prove chat-only approval support. Humanizer's earlier chat approval is retained for its unchanged reviewed package; installation remains unverified.
