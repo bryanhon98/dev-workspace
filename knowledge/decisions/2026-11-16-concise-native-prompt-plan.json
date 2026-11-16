@@ -1,0 +1,26 @@
+{
+  "id": "concise-native-installation-prompt-20261116",
+  "task": "Keep full security review in chat and simplify native installation prompt",
+  "recorded_at": "2026-11-16T17:43:11+08:00",
+  "status": "approved-plan-not-runtime-implementation",
+  "user_decision": "User accepted full chat review followed by native Allow once / Deny and requested GitHub reflect the concise prompt plan. No separate typed chat approval is required.",
+  "review_order": [
+    "Version/source/revision and scan information",
+    "What I found table",
+    "Approving this means in simple sentences",
+    "Evidence-based recommendation",
+    "Native permission prompt"
+  ],
+  "prompt_example": "Install Humanizer 4.0.0? Install the unchanged package described in the review above.",
+  "invariants": [
+    "Preserve complete findings and coverage gaps in chat.",
+    "Preserve exact review identity, file hashes and scan revalidation.",
+    "Changed evidence requires refreshed review and native decision.",
+    "Deny or unanswered permission must leave files inactive.",
+    "Retain existing strict LOW automatic eligibility.",
+    "Do not modify third-party skill content or weaken host permissions."
+  ],
+  "observed": "User-provided screenshots show full chat review and a native approval dialog. They do not establish installation or denial outcome.",
+  "implementation_gap": "Current tool requires exact full summary. Separate concise display from full integrity-bound evidence and test before shortening runtime arguments. Codex may still show technical tool arguments.",
+  "source": "docs/INSTALLATION-REVIEW.md#concise-native-prompt-plan"
+}

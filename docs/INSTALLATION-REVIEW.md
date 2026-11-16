@@ -4,12 +4,12 @@ This is the current installation policy, agreed on 2026-11-16. Global instructio
 
 ## Flow
 
-1. Check the live installation tool's permission requirements first. The desired interaction is one explicit chat approval after the review, followed by installation. If the live tool requires an additional permission step that cannot be satisfied, explain that limitation before asking for installation approval. Do not promise that chat approval alone will complete installation on that host. Staging and scanning may still continue.
+1. Check that the live host can request native permission for reviewed installation. The agreed interaction is a full review in chat followed by one concise Codex permission prompt. Do not also ask for a typed chat approval. If the required host permission is unavailable, disclose that before promising installation; independent staging and scanning may continue.
 2. Stage the selected exact revision outside active skill directories. Never run source-provided scripts to inspect it. Preserve original skill files unless the user explicitly requests edits.
 3. Scan every selected inactive payload with static-only NVIDIA SkillSpector. Severity findings and structured incomplete results must not stop remaining independent scans. Retain recoverable scanner errors in the consolidated review. Unsafe paths or changing files stop handling that payload; continue independent safe work.
 4. Present the review below. A scan cannot certify absence of malware, and a skill scan does not cover unrelated application source.
 5. Automatically approve only a selected payload with a valid, complete static report, 100% coverage, no unresolved gaps, SAFE recommendation, LOW overall severity, and no individual finding above LOW. An AI assessment of a false positive does not change the scanner evidence or qualify a higher-risk report for automatic installation.
-6. For every other assessable result, ask a plain question and wait for explicit human acceptance. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete results are reviewable concerns, not automatic vetoes. Missing scanner, malformed/unusable reports, unsafe paths and changed bytes are technical failures, not approvable reports. Explain them after finishing independent scans.
+6. For every other assessable result, present the complete chat review first, then request native permission and wait for the user to choose Allow once or Deny. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete results are reviewable concerns, not automatic vetoes. Missing scanner, malformed/unusable reports, unsafe paths and changed bytes are technical failures, not approvable reports. Explain them after finishing independent scans.
 7. Revalidate exact files and findings before activation. Changed evidence requires a new review. Rejection or no answer leaves files inactive.
 8. Verify the installation and save sanitized source, revision and outcome records. Do not label staged, scanned or approved files installed.
 
@@ -42,16 +42,36 @@ Use these sections in this order. The coordinator writes the contextual assessme
 
 Say approve, reject, or defer, with reasons based on inspected behavior, impact and uncertainty. Evaluate whether each finding matters in this installation. Do not mechanically repeat the scanner verdict, promise zero risk, or call a clean scan proof of safety. Keep the AI assessment separate from the scanner rating.
 
-**Do you want me to install this version, accepting the risks explained above?**
+**Review the findings above, then choose Allow once or Deny in the Codex prompt.**
 
-Use a real question, not decorative Approve/Reject text that looks like functioning buttons. For eligible LOW/SAFE results, replace the question with a statement that installation proceeds under the user's standing LOW-risk authorization.
+Do not ask for a separate typed chat approval when the native prompt is available. For eligible LOW/SAFE results, state that installation proceeds under the user's standing LOW-risk authorization; stricter host permissions still apply.
+
+## Concise native prompt plan
+
+The chat review carries the complete findings, coverage gaps, capability explanation and contextual recommendation. The native prompt should identify the action without repeating that report:
+
+> Install Humanizer 4.0.0?
+> Install the unchanged package described in the review above.
+
+Use the actual package name and version (or exact revision when no version is declared), and identify the scope/destination when needed to distinguish installs. The host supplies the real Allow once / Deny controls. Codex may also display technical tool arguments; do not promise a buttons-only dialog.
+
+A short prompt must remain bound to the exact review identity, files, scanner findings and coverage. Revalidate them before activation. Changed files, findings, scope or coverage require an updated full review and a new native decision. Do not replace the exact summary argument with arbitrary short prose in the existing tool: its current implementation requires the full summary to match. The implementation must first separate concise display text from the full integrity-bound review evidence, with regression checks for changed evidence, rejection and no-answer behavior.
+
+**Status:** full chat review and a real native approval dialog were observed in user-provided screenshots on 2026-11-16. The shorter native summary is an approved plan, not an implemented or verified runtime change. The screenshots do not prove the final installation or denial behavior.
+
+Before shipping the concise summary implementation, verify these cases:
+
+- Full findings and coverage gaps are shown in chat before requesting native permission.
+- The display names the actual package/version and matches the review identity; a caller cannot substitute a misleading name or scope.
+- Allow once activates only unchanged reviewed files; Deny or an unanswered prompt activates nothing.
+- Changed files, findings or coverage reject the old review, even if the short display text is unchanged.
+- LOW automation still requires the existing complete LOW/SAFE gate. Shorter text does not change eligibility.
+- No third-party skill content, host approval policy or original scanner finding is altered to simplify the prompt.
 
 ## Host enforcement boundary
 
-An explicit user reply such as "approve", "yes", "y", or "install" after the review authorizes installation of that exact reviewed package. Interpret the reply in context: a quotation, hypothetical example, unrelated yes, or rejection is not approval. Reuse that decision while files, findings and installation scope remain identical. Do not ask the same review question again or require the user to repeat the answer in a terminal. Changed evidence requires a new review.
+An earlier explicit chat approval remains relevant authorization for the same package; do not ask the chat question again. It never substitutes for a required native permission prompt. With native prompting available, the native decision is the single approval checkpoint after the chat review.
 
-This conversational authorization does not override a permission requirement imposed by the live host or tool. A review ID, tool description, saved configuration or successful tool call is not evidence that a person approved a required host prompt. Never spoof that prompt, insert an agent-authored approval flag as its substitute, or invoke a reviewed installer on a host known to auto-approve a required human gate. LOW automatic approval also does not override stricter host permissions.
+A review ID, saved configuration or successful tool call does not independently prove that the host asked a person. Never spoof a required prompt or use an agent-authored approval flag as a substitute. On hosts that cannot enforce the required human gate, leave the affected package inactive and explain the unmet requirement once. A terminal fallback is opt-in only; never open a shell merely to repeat an approval.
 
-Do not open PowerShell or another terminal as an unsolicited approval fallback. If required host permission is unavailable, retain the chat decision, leave the package inactive, and state the exact unmet requirement once. Offer a terminal fallback only if the user explicitly chooses it. A host-supported route that accepts the actual chat decision would satisfy the intended interaction; the current native installer has not established such a route.
-
-The watermark installation demonstrated missing human-prompt enforcement. The live MCP tools were still advertising the older native-approval contract after the repository update; saved code is not proof that the running server reloaded. Reconnect/restart is needed to load changed tools, but does not by itself prove chat-only approval support. Humanizer's earlier chat approval is retained for its unchanged reviewed package; installation remains unverified.
+Full access and Custom are host permission modes, not scanner results. The user observed a native prompt after changing modes. Reconnect/restart may be required to load server changes, but saved code is not proof of live behavior. Do not claim every host or future session is verified.

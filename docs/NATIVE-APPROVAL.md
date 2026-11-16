@@ -2,9 +2,11 @@
 
 ## Current scan-first policy (2026-11-16)
 
-Follow [the installation review contract](INSTALLATION-REVIEW.md). Finish independent scans, show version/source and coverage, a findings table, simple "Approving this means" sentences, a reasoned recommendation, and a plain question for results requiring acceptance. Preserve original payloads. LOW automatic approval requires a complete valid static report, 100% coverage, no gaps, SAFE/LOW overall and no higher individual finding.
+Follow [the installation review contract](INSTALLATION-REVIEW.md). Finish independent scans, show version/source and coverage, a findings table, simple "Approving this means" sentences, a reasoned recommendation, then one native permission prompt for results requiring acceptance. Preserve original payloads. LOW automatic approval requires a complete valid static report, 100% coverage, no gaps, SAFE/LOW overall and no higher individual finding.
 
-The user's desired interaction is a single explicit chat approval after the review, followed by installation. Reuse that decision for unchanged files, findings and scope; do not request the same review again or open a terminal to repeat it. Check the live tool contract first. The current native tool still requires host permission independently: no agent-written approval flag or documentation edit can replace that requirement. If it cannot be met, report it before promising installation. The terminal fallback below is opt-in only, not an automatic handoff.
+The agreed interaction is **full review in chat, then one concise native Allow once / Deny prompt**. Do not also ask the user to type approval in chat. The proposed short prompt names the skill and version and says it will install the unchanged package reviewed above. The complete findings remain visible in chat, and exact-file/scan revalidation remains mandatory.
+
+**Implementation status:** the current installer still requires the full exact summary in its tool arguments. The concise prompt is an approved plan described in [INSTALLATION-REVIEW.md](INSTALLATION-REVIEW.md#concise-native-prompt-plan). It requires separating display text from the integrity-bound evidence before callers shorten that argument. Host-controlled technical argument display may remain; no buttons-only UI is promised.
 
 ## Three tools
 
@@ -14,7 +16,7 @@ The user's desired interaction is a single explicit chat approval after the revi
 
 Malformed/unusable reports, unsafe paths and changed bytes cannot be approved. Recoverable errors must not prevent independent scans from completing. Review IDs are integrity fingerprints, not permission records.
 
-**Observed limitation:** the watermark installation returned success without a human prompt. The server dispatches the reviewed tool as approved based on tool routing; it does not independently verify a human click. Saved configuration and unit tests do not prove effective enforcement. Never call this tool on a host known to auto-approve it. Retain an existing chat decision, explain unavailable required permission without repeating the review question, and offer the terminal fallback only on explicit user choice. The current session's enforced approval policy is `never`; this repository update cannot change it. LOW standing authorization never overrides stricter host permissions.
+**Observed behavior:** an earlier watermark installation returned success without a visible human prompt. Later user screenshots on 2026-11-16 show a full Humanizer review in chat followed by the native install_reviewed permission dialog with Allow once / Deny. This verifies that the dialog was displayed in that context, not that installation or rejection completed. Keep saved configuration, live tool loading, prompt display and action outcome distinct. Do not generalize the earlier session's approval policy to the current session.
 
 The live hook's manually corrected maintenance guard is preserved. Patch destinations are parsed separately from patch prose. Bounded standalone reads are allowed, but compound shell inspections mentioning the server may still be rejected. Restart/reconnect after changes and test real human denial separately.
 
@@ -110,7 +112,8 @@ Tell Codex or Claude:
 
 > Scan the skill with the skill_security MCP `review_skill` tool.
 > Show me grouped findings and the features. If LOW/SAFE, use
-> `install_safe`. For other assessable results, obtain acceptance and call `install_reviewed` with the exact
+> `install_safe` only when the full LOW eligibility gate passes. For other assessable results,
+> present the full review, then call `install_reviewed` to request native permission with the exact
 > review_id and summary. I will approve or reject in the host's native
 > permission UI. Never answer permission prompts for me.
 
