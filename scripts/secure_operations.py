@@ -280,7 +280,8 @@ def scan_skill(stage, scanner, expected_files):
     risk = report['risk_assessment']
     if (risk.get('severity') not in ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') or
             risk.get('recommendation') not in ('SAFE', 'CAUTION', 'DO_NOT_INSTALL') or
-            risk.get('max_issue_severity') not in (None, 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL')):
+            risk.get('max_issue_severity') not in (None, 'NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL') or
+            (risk.get('max_issue_severity') == 'NONE' and report['issues'])):
         raise ValueError('Unknown scanner severity or recommendation')
     complete = report.get('analysis_completeness')
     metadata = report.get('metadata', {})

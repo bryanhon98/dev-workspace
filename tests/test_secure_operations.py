@@ -21,6 +21,13 @@ class SecureOperationsTests(unittest.TestCase):
             'issues': []}
         cases = [
             ({}, None),
+            ({'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE',
+                                 'max_issue_severity': 'NONE'}}, None),
+            ({'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE',
+                                 'max_issue_severity': 'NONE'},
+              'issues': [{'id': 'X', 'severity': 'LOW'}]}, ValueError),
+            ({'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE',
+                                 'max_issue_severity': 'UNKNOWN'}}, ValueError),
             ({'issues': [{'id': 'X', 'severity': 'HIGH'}]}, self.mod.MediumApprovalRequired),
             ({'analysis_completeness': {'is_complete': True, 'coverage_percent': 100,
                                        'ledger_exceptions': [{'reason_code': 'reference_missing'}]}},

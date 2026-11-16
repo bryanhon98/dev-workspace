@@ -26,7 +26,8 @@
     "precommit_suite": "159 tests: 2 expected dirty-source failures, 3 Windows WinError 1314 symlink privilege errors, 3 skips. Committed suite must be rerun.",
     "custom_advisor_static_scan": "All 6 files inspected, 100 percent coverage; LOW aggregate but MEDIUM LP3 file_write and EA2 text findings plus one reference_missing gap. Not eligible for automatic activation and not installed.",
     "independent_review": "Actual fresh-context /root/independent_review loaded original review instructions and inspected actual changes. All must-fix findings resolved: clone active paths/ancestors, incomplete validation ordering, research gaps. Verdict: ready for repository merge/publishing after committed checks; no skill installation or live prompt verification claimed. Follow-up review confirmed higher max_issue_severity prevents automatic LOW activation and LOW coverage is explicitly derived gate evidence. No remaining must-fix findings.",
-    "committed_suite": "At merge commit 3efce301335b5725720022dadab4940f9de77fcf: 163 tests, 157 passed, 3 skipped, 3 errors exclusively Windows WinError 1314 symlink privilege. Zero assertion failures. GitHub platform checks pending."
+    "committed_suite": "At merge commit 3efce301335b5725720022dadab4940f9de77fcf: 163 tests, 157 passed, 3 skipped, 3 errors exclusively Windows WinError 1314 symlink privilege. Zero assertion failures. GitHub platform checks pending.",
+    "ci_initial": "GitHub run 43837541895: Windows and Ubuntu unit suites passed. Real scanner contract caught NVIDIA max_issue_severity NONE compatibility mismatch. Fixed by accepting NONE only with an empty findings list; unknown and contradictory severities remain rejected. Independent reviewer inspected the narrow correction."
   },
   "limitations": [
     "Native approval UI enforcement is unverified and previously failed. Current host policy is never; repository changes do not alter it.",
