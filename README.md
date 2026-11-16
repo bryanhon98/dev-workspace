@@ -14,7 +14,7 @@ The mandatory baseline contains **only 3 core skills**: Tool Advisor, Grilling a
 | Three required core skills | Packaged; verified and scanned together at setup |
 | Fourteen optional skill sources | Retained in the repository for per-task discovery and selection |
 | Default setup command | Installs only the three core skills after its checks pass |
-| Security policy | LOW/SAFE automatically; MEDIUM asks you in a terminal with features explained; HIGH/CRITICAL or incomplete scans block |
+| Security policy | [Scan first, then review](docs/INSTALLATION-REVIEW.md); fully assessed LOW/SAFE automatically; other structured risks and gaps need human acceptance |
 | Your device | Run setup and verify discovery in a fresh session |
 
 The bundle uses original upstream skills. Council requires actual independent workers; without them, do not claim an independent panel. No separate model-provider account is required for its native-worker route.

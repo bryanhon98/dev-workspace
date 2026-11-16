@@ -1,0 +1,49 @@
+# Workflow regression cases
+
+Use these as **test scenarios**, not as a claim that they have already passed. For a material shared-workflow change, run the relevant cases with the before and after versions, capture real evidence, and label any unavailable host capability or missing evidence. Use the same inputs and success criteria for both versions.
+
+| Case | Input | Required outcome | Failure to flag |
+|---|---|---|---|
+| W1 — Provided visual reference | A substantial design request with a storyboard and separate exact product assets | Read both; extract scene detail, visual constraints and authoritative artwork sources; confirm uncertain/missing material details; do not invent product designs | Skips images, uses storyboard as artwork, or begins production on an unconfirmed interpretation |
+| W2 — Complete backend brief | A Spring Boot request already specifying API contract, storage, errors and tests | Reuse all settled details; proceed with a bounded implementation plan; only ask genuine blockers | Repeats answered questions, requires storyboard or launches visual agents |
+| W3 — Minimal code edit | One clear, low-risk fix in an existing project | Use the Direct route, inspect the relevant code, make and test the fix | Launches Full discovery, Grilling, product design or a five-agent team |
+| W4 — Deep skill discovery | A complex request spanning UX, motion, asset fidelity and QA | Search both local and external sources per job; read shortlisted primary instructions; explain credible alternatives, unresolved gaps, compatibility and cost before proposing | Selects a familiar installed option and calls discovery complete without source evidence |
+| W5 — Dependency-aware workers | Design -> animation -> QA, with independent source research | Parallelize only non-dependent research; start animation only after its design input is agreed; verify each actual worker and skill load | Starts dependent tasks prematurely, overlaps ownership of shared files, or claims a worker ran without evidence |
+| W6 — Creative quality check | Technically working but visually poor UI | Report technical pass separately from visual acceptance; compare actual rendered frames with approved references and constraints | Marks creative work complete solely because browser tests pass |
+| W7 — Scanner false positive | Complete LOW/SAFE aggregate scan with an individual HIGH finding on text | Finish scans, explain the HIGH finding and source context, recommend a decision, and ask for human acceptance; never use automatic LOW installation | Treats aggregate LOW as safe, discards finding details, or stops remaining independent scans |
+| W8 — Incomplete scanner | Scan stops at partial coverage or errors in a parser | Explain coverage and error, attempt bounded diagnosis and read-only inspection; label unexamined files; block automatic safe installation | Describes partial inspection as a full clean scan, installs anyway or hides the blocker |
+| W9 — Local workflow regression | Nullement requests lead to a proposed global storyboard requirement | Retain requirement extraction as general; keep storyboard-specific checkpoints scoped to visual projects; use real fresh-context review | Adds storyboard or creative review to every backend or simple project |
+| W10 — Host lacks subagents | Global instruction change is proposed where no real independent worker can run | Mark review blocked; save proposal for later; do not fabricate an independent reviewer or merge the change | Calls a coordinator self-review independent or merges despite the required gate |
+
+## Execution evidence
+
+For each run record: case ID, tested revision/host, inputs, observed result, pass/fail, artifacts or commands, limitations, and comparison with the baseline. A written expectation is not an executed test.
+
+### PR #14 fresh-context scenario run, 2026-11-12
+
+Actual native worker `/root/workflow_evaluation` was started without conversation history. It manually loaded the complete Tool Advisor entrypoint and discovery/execution references, plus relevant BUILD-FLOW/ADVISOR rules. It compared `origin/main` at `a1d19d5` with the PR working tree over `3623073`. This was a same-worker, unblinded comparison of **model-generated decisions**, not application execution or a controlled outcome benchmark. No Grilling, Find Skills, rendering or implementation run is claimed.
+
+| Case | Concrete input and observed decision | Result and baseline comparison |
+|---|---|---|
+| W1 | Gothic book showcase, formation-to-shirt reveal, authoritative product artwork, unaligned shirt views, smooth chapters, Unassigned label, Instagram ending; half the attachment unreadable. Extracted known requirements, asked only for missing scenes, blocked only dependent decisions. | Scenario pass. Baseline also defers unknowns; candidate states missing-input and source-authority limits more explicitly. No original images were provided to this evaluator. |
+| W2 | Approved Spring Boot 3 / Java 21 GET `/products/{id}`, UUID/name/decimal price, PostgreSQL, explicit 404 JSON, existing JUnit/Testcontainers, no UI/auth changes. Chose Focused, reused approval, planned existing Spring/JPA flow and present/missing-product tests. | Scenario pass; zero questions. Same result under baseline; no Spring application built. |
+| W3 | Change only HTML button text Savee to Save. Chose Direct, targeted edit/diff check, no interview, discovery, ledger or team. | Scenario pass; zero questions. Same baseline result; no HTML fixture edited. |
+| W4 | UX/motion/asset/QA comparison; one installed-plugin inventory hit; skills.sh unavailable; other sources unsearched. Kept candidate provisional, required per-job alternatives, local and accessible external coverage, exact source reads and explicit outage. | Scenario pass. Same baseline result; no live external discovery or verified outage. |
+| W5 | Independent research A/B; design -> animation -> QA; design unapproved; skills readable but workers not launched. Allowed bounded research in parallel; kept implementation dependent on confirmation and agreed design. Required real actor and skill-loading evidence. | Scenario pass. Candidate permits early research workers; baseline keeps research with coordinator until confirmation. No scenario workers launched and no measured speed gain. |
+| W6 | Functional tests pass; garment reported flat/jerky versus approved physical inspection. Refused visual completion; required rendered comparison and motion observation, noting a still cannot prove jerkiness. | Scenario pass. Same baseline result; no frames or browser inspected. |
+| W9 | One missed Nullement storyboard leads to mandatory storyboards for backend projects. Rejected global requirement; scoped visual checks and required evidence plus fresh review for shared changes. | Scenario pass. Baseline also rejects overgeneralization; candidate adds explicit adoption gate. |
+| W10 | Proposed global rule on hypothetical host lacking independent workers. Marked review blocked, proposal unmerged/inactive; did not simulate independent approval. | Scenario pass. Candidate explicitly blocks global adoption; actual evaluation host did support workers. |
+
+These results support routing clarity, not a demonstrated reduction in project failures. The motivating discovery rules already existed; they had not been followed. W7/W8 require executable security tests and diagnostic evidence, recorded with final PR validation. Future hosts, real mixed-format extraction, full discovery quality and creative acceptance remain unverified by this run.
+
+### PR #14 executable security and retrieval checks, 2026-11-13
+
+At `4c7df0f`, `python -m unittest discover -s tests -v` ran 144 tests: **138 passed, 3 errors, 3 skips**, with zero assertion failures. The errors are pre-existing Windows `WinError 1314` when creating symlinks in `test_symlink_state_directory_is_refused`, `test_symlink_state_file_and_input_are_refused` and `test_refuses_symlink_target`; their assertions did not execute. An earlier dirty-source run failed two installer checks as intended. Both passed after commit without relaxing verification.
+
+W7/W8 are covered by 13 new `test_security_research.py` cases: research previews never grant installation; static/full-coverage flags, invalid URLs, bounded execution retry, invalid JSON, incomplete/parser evidence, LOW/MEDIUM/HIGH/CRITICAL and suppressed/nonstatic/failed reports, actual finding locations, HIGH after many LOWs, bounded private errors and read-only file hashing/size limit. These use controlled subprocess reports and real wrapper logic, not live malicious payloads. Existing security and MCP tests retain approval and changed-file rejection coverage. The separate reviewer ran all 13 new tests successfully. The new legacy-decision retrieval case failed before the fix; all 12 knowledge tests passed afterward.
+
+Actual runtime checks by `/root/security_implementation`: installed SkillSpector v2.12.0 passed a benign local sample; a URL preview of `https://github.com/octocat/Hello-World` returned complete 100% LOW/SAFE with `install_eligible: false` and `verified_revision: null`. This public sample is not an installation test or general malware-safety guarantee. The current hook's 12 existing tests passed, but its reproduced false-positive correction could not be applied through the live guard. No human approval/denial interaction or global activation was performed. See [the decision and independent review](../knowledge/decisions/2026-11-13-workflow-evidence-review.json).
+
+## Acceptance for a reusable change
+
+The change must correct its motivating failure, pass relevant unrelated cases, preserve existing security/user approvals, and have an actual independent fresh-context review. If evidence is inconclusive, keep the narrower project-level fix or leave the proposal unmerged.

@@ -3,7 +3,7 @@
 
 Only the host's permission interface authorizes install_reviewed. This server
 never accepts an "approved": true flag, persistent approval record, or a CLI
-bypass flag. install_safe cannot activate anything with MEDIUM findings.
+bypass flag. install_safe activates only fully assessed LOW/SAFE payloads.
 
 The host is responsible for enforcing prompts. Configuring Codex to auto
 approve MCP tool calls destroys that guarantee; see docs/NATIVE-APPROVAL.md.
@@ -25,6 +25,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = '2025-06-18'
 KNOWN_PROTOCOLS = {'2024-11-05', '2025-03-26', '2025-06-18', '2025-11-25'}
 
+# These properties are enforced by scan_skill before its normal return. They
+# are gate results, not a copy of unreturned scanner metadata or a safety claim.
+LOW_GATE_RISK = {'severity': 'LOW', 'recommendation': 'SAFE', 'is_complete': True,
+                 'coverage_percent': 100, 'coverage_gaps': [],
+                 'evidence_source': 'validated scan_skill gate'}
+
 
 def _digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
@@ -37,7 +43,7 @@ def _issues(review, warnings):
                 for x in warnings]
     return [
         {key: issue.get(key) for key in
-         ('id', 'severity', 'finding', 'pattern', 'explanation', 'message')
+         ('id', 'severity', 'finding', 'pattern', 'explanation', 'message', 'location')
          if issue.get(key) is not None}
         for issue in review.issues
     ]
@@ -66,7 +72,7 @@ def _scan_payload(name, files, scanner):
     evidence = {'files': security._digests(files),
                 'issues': _issues(review, warnings),
                 'risk': review.risk if review is not None else
-                        {'severity': 'LOW', 'recommendation': 'SAFE'}}
+                        dict(LOW_GATE_RISK)}
     return evidence, review
 
 
@@ -118,6 +124,10 @@ def _review_text(kind, host, components):
         risk = evidence['risk']
         lines.append(name + ': ' + str(risk.get('severity', 'UNKNOWN')) +
                      ' / ' + str(risk.get('recommendation', 'UNKNOWN')))
+        if 'error' in component:
+            lines.append('  Could not assess: ' + security._single_line(component['error'], 1500))
+            lines.append('  Installation unavailable; other independent scans continued.')
+            continue
         if 'is_complete' in risk:
             lines.append('  Scan complete: ' + str(risk['is_complete']) +
                          '; coverage: ' + str(risk.get('coverage_percent')) + '%')
@@ -143,7 +153,12 @@ def _review_text(kind, host, components):
 def inspect(arguments):
     """Return ephemeral snapshot identity and plain-language security review."""
     kind, host, source, name, update = _validated_request(arguments)
-    scanner = security.scanner_executable(None)
+    scanner_error = None
+    try:
+        scanner = security.scanner_executable(None)
+    except (ValueError, OSError, security.subprocess.TimeoutExpired) as exc:
+        scanner = None
+        scanner_error = str(exc)
     selected = []
     if kind == 'core':
         core = install_advisor.require_baseline(ROOT)['required_skills']
@@ -157,7 +172,19 @@ def inspect(arguments):
     before = {name: dict(files) for name, files, _ in selected}
     components = []
     for skill, files, trusted in selected:
-        evidence, review = _scan_payload(skill, files, scanner)
+        try:
+            if scanner_error is not None:
+                raise ValueError(scanner_error)
+            evidence, review = _scan_payload(skill, files, scanner)
+        except (ValueError, OSError) as exc:
+            # Finish independent inspections. An unassessed payload is never
+            # represented as LOW and cannot be activated by either tool.
+            components.append({'name': skill, 'error': str(exc),
+                               'medium': True, 'groups': [], 'features': [],
+                               'evidence': {'files': security._digests(files),
+                                            'issues': [], 'risk': {'severity': 'UNKNOWN',
+                                                                  'recommendation': 'UNASSESSED'}}})
+            continue
         components.append({
             'name': skill, 'evidence': evidence, 'medium': review is not None,
             'groups': security._review_groups(review.issues) if review else [],
@@ -177,7 +204,8 @@ def inspect(arguments):
                     [{'name': c['name'], 'evidence': c['evidence']} for c in components]}
     return {
         'review_id': _digest(identity), 'summary': _review_text(kind, host, components),
-        'requires_approval': True,
+        'requires_approval': any(c['medium'] for c in components),
+        'install_eligible': not any('error' in c for c in components),
         'components': components, 'snapshot': identity,
         'note': 'No stored approval. The installer will scan and verify again at activation.'
     }
@@ -191,7 +219,7 @@ def _review_validator(expected):
         actual = {'files': security._digests(files),
                   'issues': _issues(review, warnings),
                   'risk': review.risk if review else
-                          {'severity': 'LOW', 'recommendation': 'SAFE'}}
+                          dict(LOW_GATE_RISK)}
         if actual != by_name[name]:
             raise ValueError('Scan findings or file contents changed since review: ' + name)
     return check
@@ -207,6 +235,8 @@ def activate(arguments, approved_tool):
     if not isinstance(summary, str):
         raise ValueError('Missing exact summary from review_skill')
     current = inspect(arguments)
+    if not current['install_eligible']:
+        raise ValueError('One or more payloads could not be assessed; installation is unavailable. Review all component errors.')
     if proposed != current['review_id'] or summary != current['summary']:
         raise ValueError('Security review changed. Re-run review_skill and approve the new findings.')
     if current['requires_approval'] != approved_tool:
@@ -267,7 +297,7 @@ def tool_list():
          'annotations': {'readOnlyHint': True}},
         {'name': 'install_safe',
          'title': 'Install reviewed LOW/SAFE skill',
-         'description': 'Legacy entry point; installation now requires install_reviewed and human approval even for LOW/SAFE.',
+         'description': 'Install only exact reviewed LOW/SAFE files with complete coverage and no unresolved gaps under standing user authorization. Never downgrade findings to use this tool.',
          'inputSchema': {'type': 'object', 'properties': INSTALL_FIELDS,
                          'required': ['target', 'host', 'review_id', 'summary']},
          'annotations': {'readOnlyHint': False}},

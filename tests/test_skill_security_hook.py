@@ -38,7 +38,7 @@ class SecurityHookTests(unittest.TestCase):
 
     def test_security_source_maintenance_is_not_server_execution(self):
         self.assertIsNone(self.guard.classify(self.event('apply_patch',
-            command='*** Update File: scripts/native_approval_mcp.py')))
+            command='*** Begin Patch\n*** Update File: scripts/native_approval_mcp.py\n@@\n-old\n+new\n*** End Patch')))
         for command in ['Get-Content scripts/native_approval_mcp.py',
                         'python -m unittest discover -s tests -p test_native_approval_mcp.py -q']:
             self.assertIsNone(self.guard.classify(self.event('PowerShell', command=command)))

@@ -1,0 +1,93 @@
+{
+  "id": "2026-11-13-workflow-evidence-review",
+  "recorded_at": "2026-11-12T16:20:59Z",
+  "task": "Continue approved A/C/D/E/F improvements on PR #14; exclude MyOffice, application changes and optional features",
+  "constraints": [
+    "Preserve existing branch, security gates and human approval",
+    "No global skill activation, host permission changes or merge",
+    "Real fresh-context review before shared adoption",
+    "Do not claim scenario reasoning proves live workflow effectiveness"
+  ],
+  "device_alias": "windows-local",
+  "candidates": [{
+    "identity": "Existing Tool Advisor and controlled security scripts",
+    "official_source_url": "https://github.com/bryanhon98/dev-workspace/pull/14",
+    "skill_path": "skills/custom/tool-advisor",
+    "observed_revision": "36230733cf327ec64e7551e44c8d4007d4972328",
+    "upstream_revision": "a1d19d5e15f71e00ee5a5e4f9059f44e07443a06",
+    "checked_at": "2026-11-13",
+    "review_depth": "Actual source, original user continuation requirements, motivating decisions, executable tests and independent scenario review",
+    "fit": "Repair current implementation and conflicting references; retain coordinator",
+    "overlap": "No new orchestration framework or scanner",
+    "prerequisites": "Existing Python and SkillSpector; existing gates still required for activation",
+    "costs": "Native model/tool use; no new service or dependency installed",
+    "uncertainties": "Future host compliance and real project outcome improvement are not measured"
+  }],
+  "decision": {
+    "status": "independently-reviewed-draft-incomplete-unmerged-unactivated",
+    "scope": "Shared instruction consistency and security/retrieval implementation; visual source requirements remain domain scoped",
+    "alternatives": [
+      "Leave duplicate conflicting instructions: rejected because reference-level worker and ledger rules contradicted the owning routing policy",
+      "Add mandatory storyboard, new council or research ledger: rejected as unrelated backend/simple-task overhead",
+      "Rewrite historical decision payload: deferred; retrieval accepts the observed legacy schema and exposes its gap",
+      "Add HIGH exception path: excluded; hard blocks remain"
+    ],
+    "rollback": "Revert PR #14 commits on its branch; primary checkout remains main. No installed payload or host settings need rollback."
+  },
+  "evidence": [
+    {
+      "source": "knowledge/decisions/2026-11-12-advisor-premature-selection-correction.json",
+      "finding": "Two-pass discovery already existed. Prior shallow selection was a failure to follow it, not proof of a missing discovery policy. Wording changes alone cannot prove that recurrence is fixed."
+    },
+    {
+      "source": "knowledge/decisions/2026-11-12-scroll-showcase-prototype-trial.json",
+      "finding": "Scoped prototype records exact artwork authority, blocked individual HIGH finding despite low aggregate, and responsive defect discovered by independent code review. These are recorded observations, not a new reproduction of the application."
+    },
+    {
+      "source": "tests/test_knowledge.py",
+      "finding": "Baseline search failed on a legacy job/date decision missing id/task/recorded_at. New fixture reproduced KeyError before fix; all 12 knowledge tests passed afterward. Raw history preserved; missing timestamp remains null."
+    },
+    {
+      "source": "docs/WORKFLOW-REGRESSION-CASES.md",
+      "finding": "Actual fresh-context worker /root/workflow_evaluation manually loaded Tool Advisor and compared baseline/current scenario decisions for W1-W6/W9-W10. Eight scenario passes; same-worker unblinded comparison, no live application, rendering or external discovery."
+    },
+    {
+      "source": "scripts/skill_security_hook.py",
+      "finding": "Normal explicit-path patches to an isolated test file were rejected because fixture text mentioned active skill paths. No hook patch applied and no bypass attempted. Hook false-positive fix remains blocked and incomplete."
+    },
+    {
+      "finding": "Primary checkout hooks load scripts directly. Pending edits were transferred intact to an isolated worktree on the same PR branch, and primary checkout restored clean main before further security edits. No host configuration changed."
+    },
+    {
+      "finding": "Default Python could not run quick_validate because PyYAML is absent. The existing SkillSpector environment ran the same validator successfully; no dependency was installed."
+    }
+  ],
+  "review": {
+    "worker": "/root/independent_review",
+    "context": "Fresh worker without coordinator conversation history; original request, source evidence, actual diff and tests supplied",
+    "status": "safe-to-retain-as-draft-not-ready-to-merge",
+    "findings": [
+      "Conditional ledger wording differed between entrypoint and discovery reference; aligned",
+      "Research failure summaries discarded actionable stderr; corrected with categorized errors and explicitly private bounded excerpts",
+      "First 20 findings could omit the triggering HIGH; corrected with severity ordering and omitted-count regression",
+      "Hook correction remains unimplemented after live editing rejection",
+      "Scenario decisions do not demonstrate improved real-project research outcomes; keep adoption pending stronger evidence"
+    ]
+  },
+  "validation": {
+    "baseline": "130 tests: 11 failures, 3 errors, 3 skips. Search failures share missing decision id. Errors are Windows symlink creation privilege failures before assertions.",
+    "final": "At 4c7df0f: python -m unittest discover -s tests -v ran 144 tests in 49.925s: 138 passed, zero assertion failures, 3 WinError1314 errors before symlink assertions, 3 skips. The earlier two dirty-source failures passed after commit; clean-source guard unchanged.",
+    "environment_errors": ["test_symlink_state_directory_is_refused", "test_symlink_state_file_and_input_are_refused", "test_refuses_symlink_target"],
+    "additional_checks": [
+      "Independent reviewer ran 12 knowledge tests and 13 research-security tests successfully",
+      "Existing security operations: 20 tests, 19 passed and 1 skipped; hook: 12 passed, unchanged",
+      "Actual installed SkillSpector v2.12.0 benign verify_scanner_sample completed successfully",
+      "Actual public octocat/Hello-World URL preview completed with 100% coverage and LOW/SAFE; install_eligible remained false and verified_revision null",
+      "Built-in skill validator passed using existing scanner environment; git diff --check passed"
+    ],
+    "limits": ["Live human approval/denial interaction not performed", "No complete cross-project outcome benchmark", "Hook false-positive fix blocked"]
+  },
+  "feedback": [{"type": "explicit-user", "finding": "Continue existing approved implementation with real independent review; do not merge before review or change host permissions without approval"}],
+  "revisit_when": ["Hook patch can be reviewed and applied through an authorized mechanism", "Real project repeats incomplete discovery", "Host/scanner changes", "A related regression fails"],
+  "supersedes": []
+}

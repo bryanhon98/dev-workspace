@@ -1,37 +1,20 @@
 # Native skill approval in Codex and Claude Code
 
-## Current review-first policy (2026-11-16)
+## Current scan-first policy (2026-11-16)
 
-The current native workflow supersedes the historical severity gates below.
-`review_skill` returns a review identity for structured high/critical and incomplete
-reports, retaining findings and coverage gaps. Every native installation requires
-the real per-call human permission gate on `install_reviewed`, including LOW/SAFE.
-`install_safe` is a legacy entry point and now refuses activation. A review ID is
-not permission. Changed source or scan evidence invalidates the review. Unsafe
-paths, malformed/unusable output, non-static or suppressed results remain technical
-or integrity failures. Approval accepts disclosed uncertainty; it is not a safety
-certification. Never call the reviewed installer if the host auto-approves its tools.
-
-Source reads, patches and bounded unit-test commands are maintenance, not direct
-server execution. The hook permits those while retaining its direct-execution guard.
-Restart the security MCP connection after code changes; verify human approval and
-denial separately from tests or saved configuration.
-
-This repository provides a local MCP server at `scripts/native_approval_mcp.py`.
-Its host-native permission prompt replaces the Python terminal `[y/N]` prompt
-**when the host supports and enforces native MCP tool approvals**.
+Follow [the installation review contract](INSTALLATION-REVIEW.md). Finish independent scans, show version/source and coverage, a findings table, simple "Approving this means" sentences, a reasoned recommendation, and a plain question for results requiring acceptance. Preserve original payloads. LOW automatic approval requires a complete valid static report, 100% coverage, no gaps, SAFE/LOW overall and no higher individual finding.
 
 ## Three tools
 
-- **review_skill**: read-only SkillSpector scan; groups security findings and
-  returns a temporary review ID plus readable summary.
-- **install_safe**: automatically installs LOW/SAFE only. Rejects MEDIUM+.
-- **install_reviewed**: requires a host-native permission prompt on every
-  installation call; re-scans and verifies the exact same files and findings.
+- **review_skill**: scans inactive payloads and returns exact-file review identity, findings and coverage. It does not install or record approval.
+- **install_safe**: automatically installs only eligible LOW/SAFE reports after revalidation.
+- **install_reviewed**: revalidates accepted structured concerns, including HIGH/CRITICAL and incomplete reports. It depends on the host to enforce real human permission.
 
-HIGH/CRITICAL, incomplete, suppressed, or failed scans cannot be approved.
-No approval history is stored. Review IDs are temporary integrity
-fingerprints, not approval records.
+Malformed/unusable reports, unsafe paths and changed bytes cannot be approved. Recoverable errors must not prevent independent scans from completing. Review IDs are integrity fingerprints, not permission records.
+
+**Observed limitation:** the watermark installation returned success without a human prompt. The server dispatches the reviewed tool as approved based on tool routing; it does not independently verify a human click. Saved configuration and unit tests do not prove effective enforcement. Never call this tool on a host known to auto-approve it. Ask the review question, and retain the human-operated terminal fallback when required host permission is unavailable. The current session's enforced approval policy is `never`; this repository update cannot change it. LOW standing authorization never overrides stricter host permissions.
+
+The live hook's manually corrected maintenance guard is preserved. Patch destinations are parsed separately from patch prose. Bounded standalone reads are allowed, but compound shell inspections mentioning the server may still be rejected. Restart/reconnect after changes and test real human denial separately.
 
 ## Agent-assisted setup
 
@@ -124,7 +107,7 @@ Tell Codex or Claude:
 
 > Scan the skill with the skill_security MCP `review_skill` tool.
 > Show me grouped findings and the features. If LOW/SAFE, use
-> `install_safe`. If MEDIUM, call `install_reviewed` with the exact
+> `install_safe`. For other assessable results, obtain acceptance and call `install_reviewed` with the exact
 > review_id and summary. I will approve or reject in the host's native
 > permission UI. Never answer permission prompts for me.
 

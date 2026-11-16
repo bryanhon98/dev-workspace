@@ -936,7 +936,7 @@
           "live_workflow_execution_verified": false
         }
       },
-      "note": "2026-11-12: revised discovery checkpoint installed through the managed core bundle after fresh review. Source and installed entrypoint hashes match; check-advisor ready=true. Four fresh-context scenarios evaluated; new-session live invocation not yet observed."
+      "note": "2026-11-12: revised discovery checkpoint installed through the managed core bundle after fresh review. Source and installed entrypoint hashes matched then; check-advisor reported ready=true. Four fresh-context scenarios evaluated; new-session live invocation not observed. 2026-11-16: PR #14 reconciled with scan-first review rules in source only; the combined payload is not a verified installation. Historical hashes/device observations do not attest to the new source. Fresh complete scanning and existing approval rules remain required before activation."
     },
     {
       "name": "brainstorming",

@@ -6,6 +6,7 @@ Host hooks are best-effort: they cannot enforce operating-system permissions.
 """
 import json
 import os
+import posixpath
 from pathlib import Path
 import re
 import shlex
@@ -41,6 +42,54 @@ def _clone_command(url, destination, cwd=None):
         parts.extend(['--cwd', str(cwd)])
     return subprocess.list2cmdline(parts) if os.name == 'nt' else shlex.join(parts)
 
+def _patch_decision(args):
+    """Inspect patch destinations only; patch prose is never a shell command.
+
+    Accept the documented patch envelope and file operations. Unknown or
+    ambiguous syntax is blocked rather than falling through to a text search.
+    Shell tools still use their existing independent command guards.
+    """
+    values = [args[key] for key in ('patch', 'command', 'input', 'shell_command', 'cmd')
+              if key in args and args[key] not in (None, '')]
+    if len(values) != 1 or not isinstance(values[0], str):
+        return 'Missing or ambiguous patch input', None
+    lines = values[0].strip().splitlines()
+    if (len(lines) < 3 or lines[0] != '*** Begin Patch' or
+            lines[-1] != '*** End Patch'):
+        return 'Malformed patch envelope', None
+    targets = []
+    action = None
+    can_move = False
+    for line in lines[1:-1]:
+        header = re.fullmatch(r'\*\*\* (Add File|Update File|Delete File|Move to): (.+)', line)
+        if header:
+            operation, path = header.groups()
+            if operation == 'Move to':
+                if not can_move:
+                    return 'Malformed patch move', None
+                can_move = False
+            else:
+                action = operation
+                can_move = operation == 'Update File'
+            if path != path.strip() or re.search(r'[\x00-\x1f\x7f]', path):
+                return 'Malformed patch destination', None
+            targets.append(posixpath.normpath(path.replace('\\', '/')))
+            continue
+        can_move = False
+        if action == 'Add File' and line.startswith('+'):
+            continue
+        if action == 'Update File' and (
+                line == '' or line.startswith((' ', '+', '-')) or
+                line == '@@' or line.startswith('@@ ') or line == '*** End of File'):
+            continue
+        return 'Malformed or unsupported patch content', None
+    if not targets:
+        return 'Missing patch destination', None
+    if any(ACTIVE.search(path) for path in targets):
+        return 'Direct patching of active skill/plugin directories is blocked', None
+    return None, None
+
+
 def decide(payload):
     """Return (block_reason, replacement_command); never return both."""
     if not isinstance(payload, dict):
@@ -55,6 +104,8 @@ def decide(payload):
         return 'Missing tool arguments', None
     if not isinstance(args, dict):
         return None, None
+    if tool == 'apply_patch':
+        return _patch_decision(args)
     if tool in ('Write', 'Edit', 'MultiEdit', 'NotebookEdit', 'apply_patch'):
         path = str(args.get('file_path') or args.get('path') or '')
         if ACTIVE.search(path.replace('\\', '/')):

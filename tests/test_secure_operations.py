@@ -9,6 +9,44 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class SecureOperationsTests(unittest.TestCase):
+    def test_only_complete_gap_free_low_report_can_auto_install(self):
+        import copy
+        import json
+        import subprocess
+        report = {
+            'metadata': {'llm_requested': False},
+            'analysis_completeness': {'is_complete': True, 'coverage_percent': 100},
+            'components': [{'path': 'SKILL.md'}],
+            'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE'},
+            'issues': []}
+        cases = [
+            ({}, None),
+            ({'issues': [{'id': 'X', 'severity': 'HIGH'}]}, self.mod.MediumApprovalRequired),
+            ({'analysis_completeness': {'is_complete': True, 'coverage_percent': 100,
+                                       'ledger_exceptions': [{'reason_code': 'reference_missing'}]}},
+             self.mod.MediumApprovalRequired),
+            ({'analysis_completeness': {'is_complete': False, 'coverage_percent': 60}},
+             self.mod.MediumApprovalRequired),
+            ({'analysis_completeness': None}, ValueError),
+            ({'metadata': []}, ValueError),
+            ({'risk_assessment': {'severity': 'UNKNOWN', 'recommendation': 'SAFE'}}, ValueError),
+            ({'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE',
+                                 'max_issue_severity': 'HIGH'}}, self.mod.MediumApprovalRequired),
+            ({'risk_assessment': {'severity': 'LOW', 'recommendation': 'SAFE',
+                                 'max_issue_severity': 'MEDIUM'}}, self.mod.MediumApprovalRequired),
+        ]
+        for overrides, error in cases:
+            with self.subTest(overrides=overrides):
+                current = {**copy.deepcopy(report), **overrides}
+                result = subprocess.CompletedProcess([], 0, json.dumps(current), '')
+                with mock.patch.object(self.mod.subprocess, 'run', return_value=result):
+                    if error:
+                        with self.assertRaises(error):
+                            self.mod.scan_skill(self.source, {'path': 'scanner'}, {'SKILL.md': b'x'})
+                    else:
+                        self.assertEqual(self.mod.scan_skill(
+                            self.source, {'path': 'scanner'}, {'SKILL.md': b'x'}), [])
+
     def setUp(self):
         spec = importlib.util.spec_from_file_location('secure_operations',
                                                       ROOT / 'scripts/secure_operations.py')
@@ -230,6 +268,28 @@ class SecureOperationsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.mod.clone_repository('https://github.com/example/demo.git', '../outside', self.dir)
 
+    def test_clone_refuses_active_destinations_even_inside_workspace(self):
+        for parent in ('.agents/skills', '.codex/skills', '.claude/plugins'):
+            root = self.dir / parent
+            root.mkdir(parents=True)
+            with self.subTest(parent=parent), mock.patch.object(self.mod.subprocess, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'active'):
+                    self.mod.clone_repository('https://github.com/example/demo', 'new', root)
+                run.assert_not_called()
+
+    def test_clone_refuses_config_containers_and_configured_root_ancestors(self):
+        for target in ('.agents', '.codex', '.claude'):
+            with self.subTest(target=target), mock.patch.object(self.mod.subprocess, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'active'):
+                    self.mod.clone_repository('https://github.com/example/demo', target, self.dir)
+                run.assert_not_called()
+        configured = self.dir / 'custom-container' / 'skills'
+        with mock.patch.object(self.mod.host_profiles, 'default_skills_root', return_value=configured), \
+             mock.patch.object(self.mod.subprocess, 'run') as run:
+            with self.assertRaisesRegex(ValueError, 'active'):
+                self.mod.clone_repository('https://github.com/example/demo', 'custom-container', self.dir)
+            run.assert_not_called()
+
 
     def _mock_clone(self, staged, with_skill=True, symlink=False):
         def git(command, **kwargs):
@@ -255,13 +315,15 @@ class SecureOperationsTests(unittest.TestCase):
         self.assertEqual(scan.call_count, 1)
         self.assertTrue((self.dir / 'checked/sample/SKILL.md').is_file())
 
-    def test_clone_scan_failure_does_not_release_source(self):
+    def test_clone_scan_failure_retains_inactive_source_and_error(self):
         url = 'https://github.com/example/skill-demo.git'
         with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
              mock.patch.object(self.mod, 'scan_skill', side_effect=ValueError('HIGH risk')):
-            with self.assertRaisesRegex(ValueError, 'HIGH risk'):
-                self.mod.clone_repository(url, 'blocked', self.dir)
-        self.assertFalse((self.dir / 'blocked').exists())
+            result = self.mod.clone_repository(url, 'unassessed', self.dir)
+        self.assertTrue(result['inactive'])
+        self.assertFalse(result['install_eligible'])
+        self.assertEqual(result['failures'][0]['error'], 'HIGH risk')
+        self.assertTrue((self.dir / 'unassessed/sample/SKILL.md').exists())
 
     def test_clone_reviews_all_payloads_after_critical_or_incomplete(self):
         def clone(command, **kwargs):
@@ -274,13 +336,45 @@ class SecureOperationsTests(unittest.TestCase):
         with mock.patch.object(self.mod.subprocess, 'run', side_effect=clone), \
              mock.patch.object(self.mod, 'scan_skill', side_effect=[
                  ValueError('CRITICAL'), ValueError('Incomplete'), []]) as scan:
-            with self.assertRaises(ValueError) as result:
-                self.mod.clone_repository('https://github.com/example/demo', 'blocked', self.dir)
+            result = self.mod.clone_repository('https://github.com/example/demo', 'review', self.dir)
         self.assertEqual(scan.call_count, 3)
-        self.assertIn('CRITICAL', str(result.exception))
-        self.assertIn('Incomplete', str(result.exception))
-        self.assertIn('third', str(result.exception))
-        self.assertFalse((self.dir / 'blocked').exists())
+        self.assertIn('CRITICAL', str(result))
+        self.assertIn('Incomplete', str(result))
+        self.assertIn('third', str(result))
+        self.assertTrue(result['inactive'])
+        self.assertFalse(result['install_eligible'])
+        self.assertTrue((self.dir / 'review').exists())
+
+    def test_clone_changed_during_scan_is_not_released(self):
+        def mutate(stage, scanner, expected):
+            (stage / 'SKILL.md').write_text('changed')
+            raise ValueError('scan failed')
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
+             mock.patch.object(self.mod, 'scan_skill', side_effect=mutate):
+            with self.assertRaisesRegex(ValueError, 'changed during scanning'):
+                self.mod.clone_repository('https://github.com/example/demo', 'unsafe', self.dir)
+        self.assertFalse((self.dir / 'unsafe').exists())
+
+    def test_clone_missing_scanner_retains_unassessed_inactive_files(self):
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
+             mock.patch.object(self.mod, 'scanner_executable', side_effect=ValueError('scanner missing')):
+            result = self.mod.clone_repository('https://github.com/example/demo', 'unscanned', self.dir)
+        self.assertEqual(result['failures'][0]['status'], 'unassessed')
+        self.assertEqual(result['failures'][0]['error'], 'scanner missing')
+        self.assertTrue(result['inactive'])
+        self.assertFalse(result['install_eligible'])
+
+    def test_clone_target_created_during_scan_is_not_overwritten(self):
+        target = self.dir / 'occupied'
+        def race(stage, scanner, expected):
+            target.mkdir()
+            (target / 'mine').write_text('keep')
+            return []
+        with mock.patch.object(self.mod.subprocess, 'run', side_effect=self._mock_clone(None)), \
+             mock.patch.object(self.mod, 'scan_skill', side_effect=race):
+            with self.assertRaisesRegex(ValueError, 'Destination created'):
+                self.mod.clone_repository('https://github.com/example/demo', 'occupied', self.dir)
+        self.assertEqual((target / 'mine').read_text(), 'keep')
 
     def test_generic_clone_reports_limited_coverage(self):
         url = 'https://github.com/example/java-demo.git'

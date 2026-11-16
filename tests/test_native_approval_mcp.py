@@ -74,14 +74,12 @@ class NativeApprovalMcpTests(unittest.TestCase):
             self.assertTrue((self.destination / 'example/SKILL.md').is_file())
             console.assert_not_called()
 
-    def test_low_also_requires_human_approval(self):
+    def test_low_uses_standing_authorization_after_exact_review(self):
         with mock.patch.object(self.mcp.security, 'scan_skill', return_value=[]):
             preview = self.mcp.inspect(self.args())
-            self.assertTrue(preview['requires_approval'])
+            self.assertFalse(preview['requires_approval'])
             call = self.args(review_id=preview['review_id'], summary=preview['summary'])
-            with self.assertRaisesRegex(ValueError, 'host-native'):
-                self.mcp.activate(call, approved_tool=False)
-            done = self.mcp.activate(call, approved_tool=True)
+            done = self.mcp.activate(call, approved_tool=False)
             self.assertTrue(done['installed'])
             self.assertTrue((self.destination / 'example/SKILL.md').is_file())
 
@@ -112,11 +110,16 @@ class NativeApprovalMcpTests(unittest.TestCase):
                     approved_tool=True)
         self.assertFalse((self.destination / 'example').exists())
 
-    def test_high_or_incomplete_never_creates_review(self):
+    def test_unusable_report_is_visible_but_cannot_install(self):
         with mock.patch.object(self.mcp.security, 'scan_skill',
                                side_effect=ValueError('HIGH risk or incomplete')):
-            with self.assertRaisesRegex(ValueError, 'HIGH'):
-                self.mcp.inspect(self.args())
+            preview = self.mcp.inspect(self.args())
+            self.assertFalse(preview['install_eligible'])
+            self.assertIn('HIGH', preview['summary'])
+            for approved in (False, True):
+                with self.assertRaisesRegex(ValueError, 'could not be assessed'):
+                    self.mcp.activate(self.args(review_id=preview['review_id'],
+                                                summary=preview['summary']), approved)
 
     def test_critical_incomplete_report_requires_exact_human_review(self):
         report = {'skill': {'name': 'example'},
@@ -194,6 +197,36 @@ class NativeApprovalMcpTests(unittest.TestCase):
                 'name': 'example', 'review_id': 'bad', 'summary': 'fake'}}})
         self.assertTrue(reply['isError'])
         self.assertFalse((self.destination / 'example').exists())
+
+    def test_core_finishes_after_unusable_report_and_critical_finding(self):
+        names = ['tool-advisor', 'grilling', 'find-skills']
+        bundle = [{'name': name, 'installed_files': {'SKILL.md': name.encode()}}
+                  for name in names]
+        concern = self.mcp.security.MediumApprovalRequired(
+            'grilling', {'severity': 'CRITICAL', 'recommendation': 'DO_NOT_INSTALL'},
+            [{'id': 'TT3', 'severity': 'CRITICAL', 'finding': 'network flow'}])
+        with mock.patch.object(self.mcp.install_advisor, 'require_baseline',
+                               return_value={'required_skills': names}), \
+             mock.patch.object(self.mcp.install_advisor, '_bundle',
+                               return_value=({}, bundle, None)), \
+             mock.patch.object(self.mcp.security, 'scan_skill',
+                               side_effect=[ValueError('invalid JSON'), concern, []]) as scan:
+            preview = self.mcp.inspect({'target': 'core', 'host': 'codex'})
+        self.assertEqual(scan.call_count, 3)
+        self.assertEqual(len(preview['components']), 3)
+        self.assertFalse(preview['install_eligible'])
+        self.assertTrue(preview['requires_approval'])
+        self.assertIn('invalid JSON', preview['summary'])
+        self.assertIn('CRITICAL', preview['summary'])
+        self.assertIn('find-skills: LOW', preview['summary'])
+
+    def test_missing_scanner_produces_unassessed_review(self):
+        with mock.patch.object(self.mcp.security, 'scanner_executable',
+                               side_effect=ValueError('Scanner missing')):
+            preview = self.mcp.inspect(self.args())
+        self.assertFalse(preview['install_eligible'])
+        self.assertTrue(preview['requires_approval'])
+        self.assertIn('Scanner missing', preview['summary'])
 
     def test_mcp_protocol_exposes_tools_and_human_required_flag(self):
         process = subprocess.run(

@@ -1,0 +1,37 @@
+{
+  "id": "combined-scan-review-workflow-20261116",
+  "task": "Reconcile PR14 with scan-first installation decisions and plain-language review",
+  "recorded_at": "2026-11-16T16:13:01+08:00",
+  "source_revisions": {
+    "main_before": "5ce5ab4e844ab30d2daf83c491757c544dd9b64b",
+    "pr14_head": "ee155544b8ea0bf1800e391e03eaa9d608e662f3"
+  },
+  "authorization": "User requested combining PR14 with the latest agreed proposal, publishing the manually changed scripts, and retiring PR14. This does not authorize Humanizer installation.",
+  "policy": [
+    "Finish independent inactive scans before the installation decision. Preserve findings and recoverable scan errors.",
+    "Automatically install only valid complete static LOW/SAFE reports with 100 percent coverage, no gaps and no higher individual finding.",
+    "Other structured risks and incomplete coverage require explicit acceptance. Technical failures cannot be approved as valid reports.",
+    "Review order: version/source/revision and status, findings table, simple Approving this means sentences, contextual AI recommendation, plain question.",
+    "Preserve original selected skill files unless changes are requested. Do not silently downgrade scanner findings based on AI judgment.",
+    "Host permissions remain separate. Never infer human approval from an installer tool success."
+  ],
+  "reconciliation": [
+    "Retain PR14 research-only scans, diagnostics, proportional routing and independent review requirements.",
+    "Keep newer main knowledge-search compatibility handling rather than restoring the older branch variant.",
+    "Preserve main's manual shell-maintenance hook correction and integrate local PR14 destination-aware patch parsing and tests.",
+    "Keep unsafe or changed staged files out of activation; inactive clones retain consolidated concerns without a severity-only veto.",
+    "Saved custom advisor source is updated; installed copies and third-party skill source are unchanged."
+  ],
+  "verification": {
+    "precommit_suite": "159 tests: 2 expected dirty-source failures, 3 Windows WinError 1314 symlink privilege errors, 3 skips. Committed suite must be rerun.",
+    "custom_advisor_static_scan": "All 6 files inspected, 100 percent coverage; LOW aggregate but MEDIUM LP3 file_write and EA2 text findings plus one reference_missing gap. Not eligible for automatic activation and not installed.",
+    "independent_review": "Actual fresh-context /root/independent_review loaded original review instructions and inspected actual changes. All must-fix findings resolved: clone active paths/ancestors, incomplete validation ordering, research gaps. Verdict: ready for repository merge/publishing after committed checks; no skill installation or live prompt verification claimed."
+  },
+  "limitations": [
+    "Native approval UI enforcement is unverified and previously failed. Current host policy is never; repository changes do not alter it.",
+    "Compound shell inspection mentioning the MCP server can still be rejected by the hook.",
+    "Local Windows symlink tests require privileges unavailable in this session; CI provides separate platform coverage.",
+    "Workflow scenario evidence is hypothetical routing evaluation, not proof of improved real project outcomes."
+  ],
+  "rollback": "Revert the reconciliation merge using its first parent after inspecting subsequent changes; do not reset or overwrite other devices' work."
+}

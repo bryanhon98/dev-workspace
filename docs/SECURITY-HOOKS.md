@@ -1,13 +1,6 @@
-# Current review-first policy (2026-11-16)
+# Current scan-first policy (2026-11-16)
 
-The current policy supersedes the historical severity gates described below:
-scan every staged payload, show risk and coverage, then require human approval via
-install_reviewed even for LOW/SAFE. Structured high/critical and incomplete results
-are reviewable; unsafe paths, changed bytes and unusable scanner output remain
-integrity/technical stops. install_safe is retained only for compatibility and refuses
-activation. No human permission is inferred from a review ID or a chat message.
-The standalone CLI continues its existing LOW/SAFE automatic path; use the native
-review workflow when a human decision is required for every installation.
+Use [the installation review contract](INSTALLATION-REVIEW.md). Finish all independent scans before deciding. Eligible LOW/SAFE results install automatically; other structured findings and gaps require explicit human review. Preserve original files. Technical/integrity failures stop the affected payload, not independent safe scans. Native human permission is a separate host control and has not been proven by configuration alone.
 
 # Security-first SkillSpector workspace
 
@@ -49,9 +42,9 @@ Replace `codex` with `claude` for Claude Code. The acknowledgment is **user-atte
 not an automated claim that the host enforced the hook. Finishing re-checks the scanner
 and installed hook configuration without rewriting the approved hook; an outdated/missing
 hook blocks completion. SkillSpector still scans all core payloads independently.
-If the scanner reports a MEDIUM finding, installation pauses for an explicit one-time local terminal decision explaining the reason and features enabled. HIGH/CRITICAL, DO_NOT_INSTALL and incomplete scans still block.
+If the scanner reports a MEDIUM finding, installation pauses for an explicit one-time local terminal decision explaining the reason and features enabled. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete scans require review too; severity alone does not veto installation.
 
-For interactive **Codex / Claude agent sessions**, the optional [native MCP approval workflow](NATIVE-APPROVAL.md) can request host-managed human permission for the MEDIUM install operation after a read-only scan. Do not substitute a chat reply or auto-approved tool call for the host's decision. The terminal flow below remains available for direct PowerShell use.
+For interactive **Codex / Claude agent sessions**, the optional [native MCP approval workflow](NATIVE-APPROVAL.md) can request host-managed human permission for an installation requiring human acceptance after a read-only scan. Do not substitute a chat reply or auto-approved tool call for the host's decision. The terminal flow below remains available for direct PowerShell use.
 
 ### MEDIUM findings: one-time feature approval
 
@@ -184,7 +177,7 @@ python scripts/secure_operations.py install --host codex --name example --source
 
 The update flag only works for a previously managed, unmodified installation. The worker keeps file hashes (not old scan reports) and rolls back an interrupted update. Direct `npx skills add`, `claude plugin install` or equivalent commands remain **blocked**: a hook cannot automatically inspect arbitrary third-party installer payloads before those installers execute. The agent should use controlled staging for supported skills. Unsupported plugin packaging is not automatically approved.
 
-For skills, the scanner uses `--no-llm --format json --fail-on-incomplete --min-coverage 100`. Require expected file coverage, no suppression, complete results and trustworthy risk data. LOW/SAFE without higher individual findings proceeds automatically. MEDIUM findings (or CAUTION recommendations) require an interactive approval on every install/update, without saving that approval. HIGH/CRITICAL, DO_NOT_INSTALL, failed, suppressed, incomplete, or changed-file scans block activation. Scan and compare all selected core skills before any approval prompt or activation. No persistent vulnerability/approval ledger is created.
+For skills, the scanner uses `--no-llm --format json --fail-on-incomplete --min-coverage 100`. Require expected file coverage, no suppression, complete results and trustworthy risk data. LOW/SAFE without higher individual findings proceeds automatically. MEDIUM findings (or CAUTION recommendations) require an interactive approval on every install/update, without saving that approval. HIGH/CRITICAL, DO_NOT_INSTALL and structured incomplete reports require human review. Unusable, suppressed, non-static or changed-file results remain technical failures. LOW automation additionally requires no coverage gaps. Scan and compare all selected core skills before any approval prompt or activation. No persistent vulnerability/approval ledger is created.
 
 ## GitHub cloning
 
@@ -202,13 +195,15 @@ python scripts/secure_operations.py clone --url https://github.com/owner/repo.gi
 
 The worker clones to a temporary directory, identifies agent skills, invokes SkillSpector for each staged skill, and releases the checkout only when applicable checks pass. If no `SKILL.md` is found, the worker *attempts* a general-repo SkillSpector scan and reports limited/not-applicable coverage. This **does not certify arbitrary source code as harmless**. Complex Git commands, non-GitHub URLs and compound shell syntax are blocked with guidance rather than silently executed. User-run external terminal clones are not intercepted.
 
+For scanner errors, ambiguous HIGH findings, incomplete coverage and read-only source review, follow the [fail-closed triage procedure](SECURITY-TRIAGE.md). It improves diagnostic evidence; it does **not** authorize an installation bypass or replace the exact-file scan.
+
 ## Required live tests and limitations
 
 1. Start a **new** Codex/Claude session and inspect hook registration.
 2. Confirm `npx skills add fake-example` is blocked before execution.
 3. Confirm a harmless simple HTTPS GitHub clone is redirected to staging.
 4. Confirm a benign staged skill installs after a real SkillSpector scan.
-5. Confirm CAUTION/MEDIUM requires local terminal consent and rejects by default; HIGH, scanner crash, incomplete scan and changed files block skill installation.
+5. Confirm CAUTION/MEDIUM requires local terminal consent and rejects by default; HIGH and structured incomplete results reach human review; scanner crashes or changed files prevent affected activation.
 6. Confirm an existing modified skill remains untouched after attempted update.
 
 Hooks cannot monitor arbitrary subprocesses, external terminals, manual installs, bypassed tools or disabled host hooks; an agent's operating-system permissions/sandbox are an independent protective boundary. SkillSpector is built for agent skills, not comprehensive malware analysis of generic Java/Node/Python repositories. The source repo being updated does **not** install hooks on your laptop until you run setup there.
@@ -223,9 +218,9 @@ MEDIUM, HIGH, CRITICAL and incomplete per-payload results must not short-circuit
 remaining independent scans. Retain findings and coverage gaps together; an incomplete
 result is not a clean pass. Continue after recoverable per-payload scanner errors.
 Unsafe staging paths, changed bytes or failures that prevent safe inspection remain
-immediate integrity stops. Never execute staged source as part of inspection.
+integrity stops for the affected payload; continue independent safe scans. Never execute staged source as part of inspection.
 
 Only after the scan batch finishes, apply the existing installation/approval rules.
-This does not permit activation of HIGH/CRITICAL or incomplete payloads, suppress
+Research alone never authorizes activation. Structured HIGH/CRITICAL or incomplete payloads need human review under the current policy. Never suppress
 findings, or bypass the human approval mechanism. A batch review covers the selected
 skill payloads, not arbitrary application code outside them. Report that scope honestly.
