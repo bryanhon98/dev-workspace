@@ -1436,6 +1436,24 @@
       "required_tools": [],
       "setup_requirements": "No credentials required for prose editing. Optional package validator requires Python 3. Native host session restart required for discovery.",
       "note": "Reviewed MCP installation returned success; all 15 installed files match staged source. Human prompt display is not independently attested. New-session invocation unverified."
+    },
+    {
+      "name": "skill_security",
+      "kind": "mcp",
+      "source": "https://github.com/bryanhon98/dev-workspace",
+      "github_url": "https://github.com/bryanhon98/dev-workspace/blob/45064dc2f7f473dc62eac9e5e33b452a54fd5093/docs/NATIVE-APPROVAL.md",
+      "version": "45064dc2f7f473dc62eac9e5e33b452a54fd5093",
+      "scope": "user",
+      "purpose": "Scan staged skills and enforce exact-file installation review through host tools.",
+      "status": "configured-scan-observed",
+      "restorable": false,
+      "required_tools": [
+        "Python",
+        "NVIDIA SkillSpector",
+        "host-native permission support for reviewed installation"
+      ],
+      "setup_requirements": "Use docs/NATIVE-APPROVAL.md. Reuse registered server, preserve stricter prompts, and personally verify approval/denial. No external credentials required.",
+      "note": "2026-11-19: existing registration and three-core scan observed. Added missing 300-second timeout with local backup; parsed comparison confirms no other configuration changes. Saved approval settings already correct. Current chat cannot enforce required reviewed-installation permission; no skills activated and live timeout reload not verified."
     }
   ]
 }
