@@ -1454,6 +1454,27 @@
       ],
       "setup_requirements": "Use docs/NATIVE-APPROVAL.md. Reuse registered server, preserve stricter prompts, and personally verify approval/denial. No external credentials required.",
       "note": "2026-11-19: existing registration and three-core scan observed. Added missing 300-second timeout with local backup; parsed comparison confirms no other configuration changes. Saved approval settings already correct. Current chat cannot enforce required reviewed-installation permission; no skills activated and live timeout reload not verified."
+    },
+    {
+      "name": "phonebox",
+      "kind": "tool",
+      "source": "https://github.com/ersinkoc/phonebox",
+      "github_url": "https://github.com/ersinkoc/phonebox",
+      "version": "0.9.30",
+      "revision": "b47eb1e71e7b9e123e49ccb37319f990c7ddcb4f",
+      "scope": "user",
+      "purpose": "Desktop monitoring and control companion for an Android phone.",
+      "status": "installed",
+      "restorable": false,
+      "required_tools": [],
+      "setup_requirements": "Self-contained Windows x64 release includes .NET. Android APK plus paired Wi-Fi or USB with ADB needed for phone use. Optional integrations may need credentials.",
+      "device_observations": {
+        "windows-local": {
+          "status": "desktop-installed-and-running",
+          "verification": "Windows x64 per-user installer completed. Executable version 0.9.30 matches release revision. /api/info reports 0.9.30 and settings page returns HTTP 200. Listeners are loopback-only; autostart disabled. Installer and APK match published SHA-256 sums. Installer unsigned; GitHub attestation unavailable because gh is not authenticated. Phone pairing and Android installation untested."
+        }
+      },
+      "note": "Application, not an agent skill. No SkillSpector certification or full executable audit. Existing research record: research/phonebox-20261126 branch, github-repos/tools/desktop-monitoring.md."
     }
   ]
 }
