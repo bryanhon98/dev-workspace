@@ -19,8 +19,11 @@ Choose by the job you actually do: AnyDoc for documents, Watch for videos, Emil 
 | [Model routing software](tools/model-routing.md) | Claude Code Router |
 | [Agent orchestration software](tools/agent-orchestration.md) | Paperclip (library only) |
 | [Separate assistant runtimes](agents/persistent-assistant.md) | Hermes Agent |
+| [Desktop monitoring and control](tools/desktop-monitoring.md) | PhoneBox — Android desk dashboard, optional |
 
 ## Later user-saved library additions
+
+**26 November 2026 — PhoneBox:** [PhoneBox](tools/desktop-monitoring.md) saved for a potential spare Android phone dashboard. Research only; no installation or permissions enabled.
 
 **15 November 2026 — Improve, rea-video, Teardown and EGM:** [shadcn/improve](skills/engineering.md#shadcnimprove--codebase-audit-and-executable-plans) and [JuneYaooo/rea-video](tools/documents-and-video.md#rea-video--juneyaooo) were newly saved as *optional research candidates*. [elvarofficial/teardown](skills/user-saved-capabilities.md#elvarofficialteardown) and [Google Elephant-Goldfish Model (EGM)](plugins/development.md#elephant-goldfish-model-egm--googleelephant-goldfish-model) were **already saved**, so no duplicate entries were created. The new sources were checked at pinned revisions; installation dependencies, overlap, and security/permission considerations are in their respective entries. **No skills/tools installed, scanned, activated or added to the three mandatory core skills.**
 
