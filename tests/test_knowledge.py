@@ -62,7 +62,8 @@ class KnowledgeTests(unittest.TestCase):
                             ('improve', 'shadcn/improve'),
                             ('rea-video', 'juneyaooo/rea-video'),
                             ('teardown', 'elvarofficial/teardown'),
-                            ('elephant-goldfish', 'google/elephant-goldfish-model')]:
+                            ('elephant-goldfish', 'google/elephant-goldfish-model'),
+                            ('phonebox', 'ersinkoc/phonebox')]:
             with self.subTest(query=query):
                 result = self.run_cli('search', query, '--limit', '100')
                 matches = [entry for entry in result['results']
